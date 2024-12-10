@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.9.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,18 +75,20 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.8.9" id="effectsize-089xxx">effectsize 0.8.9.xxx<a class="anchor" aria-label="anchor" href="#effectsize-089xxx"></a></h2><p class="text-muted">CRAN release: 2024-07-03</p>
+<h2 class="pkg-version" data-toc-text="1.0.0" id="effectsize-100">effectsize 1.0.0<a class="anchor" aria-label="anchor" href="#effectsize-100"></a></h2>
+<p><strong><em>First stable release of <a href="https://easystats.github.io/effectsize/">effectsize</a>!</em></strong></p>
 <div class="section level3">
-<h3 id="new-features-0-8-9">New features<a class="anchor" aria-label="anchor" href="#new-features-0-8-9"></a></h3>
+<h3 id="new-features-1-0-0">New features<a class="anchor" aria-label="anchor" href="#new-features-1-0-0"></a></h3>
 <ul><li>
 <code><a href="../reference/d_to_r.html">oddsratio_to_d()</a></code> and related functions gain a <code>p0</code> argument for exact conversion between odds ratios and Cohen’s <em>d</em> (thanks <a href="https://github.com/KohlRaphael" class="external-link">@KohlRaphael</a> for the suggestion).</li>
 <li>
 <code>interpret*()</code> now accept (and return) matrices and arrays.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="breaking-changes-0-8-9">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-8-9"></a></h3>
+<h3 id="breaking-changes-1-0-0">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-1-0-0"></a></h3>
 <ul><li>
 <code><a href="../reference/interpret_oddsratio.html">interpret_oddsratio()</a></code> drops the default <code>"chen2010"</code> as it was used incorrectly (thanks to <a href="https://github.com/KohlRaphael" class="external-link">@KohlRaphael</a>).</li>
+<li>Functions that have been deprecated since <em>September 2022</em> have been removed.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -244,7 +246,7 @@
 <code><a href="../reference/phi.html">fei()</a></code>, <code><a href="../reference/phi.html">cohens_w()</a></code> and <code><a href="../reference/phi.html">pearsons_c()</a></code> always rescale the <code>p</code> input to sum-to-1.</li>
 <li>The order of some function arguments have been rearranged to be more consistent across functions: (<code><a href="../reference/phi.html">phi()</a></code>, <code><a href="../reference/phi.html">cramers_v()</a></code>, <code><a href="../reference/p_superiority.html">p_superiority()</a></code>, <code><a href="../reference/p_superiority.html">cohens_u3()</a></code>, <code><a href="../reference/p_superiority.html">p_overlap()</a></code>, <code><a href="../reference/rank_biserial.html">rank_biserial()</a></code>, <code>cohens_f/_squared()</code>, <code><a href="../reference/convert_chisq.html">chisq_to_phi()</a></code>, <code><a href="../reference/convert_chisq.html">chisq_to_cramers_v()</a></code>, <code>F/t_to_f/2()</code>, <code>.es_aov_*()</code>).</li>
 <li>
-<code><a href="../reference/effectsize_deprecated.html">normalized_chi()</a></code> has been renamed <code><a href="../reference/phi.html">fei()</a></code>.</li>
+<code>normalized_chi()</code> has been renamed <code><a href="../reference/phi.html">fei()</a></code>.</li>
 <li>
 <code>cles</code>, <code>d_to_cles</code> and <code>rb_to_cles</code> are deprecated in favor of their respective effect size functions.</li>
 </ul></div>
@@ -317,7 +319,7 @@
 <div class="section level3">
 <h3 id="new-features-0-7-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-7-0"></a></h3>
 <ul><li>
-<code><a href="../reference/effectsize_deprecated.html">normalized_chi()</a></code> gives an adjusted Cohen’s <em>w</em> for goodness of fit.</li>
+<code>normalized_chi()</code> gives an adjusted Cohen’s <em>w</em> for goodness of fit.</li>
 <li>
 <code><a href="../reference/phi.html">cohens_w()</a></code> is now a fully-fledged function for x-tables and goodness-of-fit effect size (not just an alias for <code><a href="../reference/phi.html">phi()</a></code>).</li>
 <li>Support for <code>insight</code>’s <code>display</code>, <code>print_md</code> and <code>print_html</code> for all <a href="https://easystats.github.io/effectsize/">effectsize</a> outputs.</li>
@@ -390,9 +392,9 @@
 <ul><li>
 <code><a href="../reference/phi.html">cramers_v()</a></code> correctly does not work with 1-dimensional tables (for goodness-of-fit tests).</li>
 <li>
-<code><a href="../reference/effectsize_deprecated.html">interpret_d()</a></code>, <code><a href="../reference/effectsize_deprecated.html">interpret_g()</a></code>, and <code><a href="../reference/effectsize_deprecated.html">interpret_delta()</a></code> are now <code><a href="../reference/interpret_cohens_d.html">interpret_cohens_d()</a></code>, <code><a href="../reference/interpret_cohens_d.html">interpret_hedges_g()</a></code>, and <code><a href="../reference/interpret_cohens_d.html">interpret_glass_delta()</a></code>.</li>
+<code>interpret_d()</code>, <code>interpret_g()</code>, and <code>interpret_delta()</code> are now <code><a href="../reference/interpret_cohens_d.html">interpret_cohens_d()</a></code>, <code><a href="../reference/interpret_cohens_d.html">interpret_hedges_g()</a></code>, and <code><a href="../reference/interpret_cohens_d.html">interpret_glass_delta()</a></code>.</li>
 <li>
-<code><a href="../reference/effectsize_deprecated.html">interpret_parameters()</a></code> was removed. Use <code><a href="../reference/interpret_r.html">interpret_r()</a></code> instead (with caution!).</li>
+<code>interpret_parameters()</code> was removed. Use <code><a href="../reference/interpret_r.html">interpret_r()</a></code> instead (with caution!).</li>
 <li>Phi, Cohen’s <em>w</em>, Cramer’s <em>V</em>, ANOVA effect sizes, rank Epsilon squared, Kendall’s <em>W</em> - CIs default to 95% one-sided CIs (<code>alternative = "greater"</code>). (To restore previous behavior, set <code>ci = .9, alternative = "two.sided"</code>.)</li>
 <li>
 <code>adjust()</code>, <code>change_scale()</code>, <code>normalize()</code>, <code>ranktransform()</code>, <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> (data), and <code>unstandardize()</code> have moved to the new <a href="https://easystats.github.io/datawizard/" class="external-link"><code>{datawizard}</code></a> package!</li>
@@ -605,7 +607,7 @@
 <div class="section level3">
 <h3 id="new-features-0-3-3">New features<a class="anchor" aria-label="anchor" href="#new-features-0-3-3"></a></h3>
 <ul><li><p><code>standardize_parameters(method = "pseudo")</code> returns pseudo-standardized coefficients for (G)LMM models.</p></li>
-<li><p><code><a href="../reference/effectsize_deprecated.html">d_to_common_language()</a></code> for common language measures of standardized differences (a-la Cohen’s d).</p></li>
+<li><p><code>d_to_common_language()</code> for common language measures of standardized differences (a-la Cohen’s d).</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="changes-0-3-3">Changes<a class="anchor" aria-label="anchor" href="#changes-0-3-3"></a></h3>
