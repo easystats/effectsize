@@ -138,10 +138,11 @@ Let's give it a try:
 thresh <- 22500
 
 # 2. dichotomize the outcome
-hardlyworking$salary_high <- hardlyworking$salary < thresh
+hardlyworking$salary_low <- factor(hardlyworking$salary < thresh, 
+                                   labels = c("high", "low"))
 
 # 3. Fit a logistic regression:
-fit <- glm(salary_high ~ is_senior,
+fit <- glm(salary_low ~ is_senior,
   data = hardlyworking,
   family = binomial()
 )
@@ -151,5 +152,32 @@ parameters::model_parameters(fit)
 # Convert log(OR) (the coefficient) to d
 oddsratio_to_d(-1.22, log = TRUE)
 ```
+
+That's very close to Cohen's _d_ we got above ($d=-0.72$).
+
+We can get an even closer estimate 
+by accounting for the rate of low salaries in the reference group.
+
+```{r}
+proportions(
+  table(is_senior = hardlyworking$is_senior, 
+        salary_low = hardlyworking$salary_low), 
+  margin = 1
+)
+
+# Or
+odds_to_probs(1.55, log = TRUE)
+```
+
+As we can see, 82.5% of non-senior workers have a low salary. 
+We can plug that in to `oddsratio_to_d()`:
+
+```{r}
+oddsratio_to_d(-1.22, p0 = 0.825, log = TRUE)
+```
+
+We have successfully recovered the standardized mean difference 
+between seniors and non-senior' salaries 
+by only observing a dichotomize salary ("low/high salary").
 
 # References
