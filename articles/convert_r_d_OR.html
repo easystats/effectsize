@@ -112,7 +112,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Converting Between r, d, and Odds Ratios</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/v1.0.0/vignettes/convert_r_d_OR.Rmd" class="external-link"><code>vignettes/convert_r_d_OR.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/main/vignettes/convert_r_d_OR.Rmd" class="external-link"><code>vignettes/convert_r_d_OR.Rmd</code></a></small>
       <div class="d-none name"><code>convert_r_d_OR.Rmd</code></div>
     </div>
 
@@ -253,10 +253,11 @@ function.</p>
 <span><span class="va">thresh</span> <span class="op">&lt;-</span> <span class="fl">22500</span></span>
 <span></span>
 <span><span class="co"># 2. dichotomize the outcome</span></span>
-<span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">salary_high</span> <span class="op">&lt;-</span> <span class="va">hardlyworking</span><span class="op">$</span><span class="va">salary</span> <span class="op">&lt;</span> <span class="va">thresh</span></span>
+<span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">salary_low</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">hardlyworking</span><span class="op">$</span><span class="va">salary</span> <span class="op">&lt;</span> <span class="va">thresh</span>, </span>
+<span>                                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"high"</span>, <span class="st">"low"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># 3. Fit a logistic regression:</span></span>
-<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">salary_high</span> <span class="op">~</span> <span class="va">is_senior</span>,</span>
+<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">salary_low</span> <span class="op">~</span> <span class="va">is_senior</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">hardlyworking</span>,</span>
 <span>  family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">binomial</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -276,6 +277,31 @@ function.</p>
 <code class="sourceCode R"><span><span class="co"># Convert log(OR) (the coefficient) to d</span></span>
 <span><span class="fu"><a href="../reference/d_to_r.html">oddsratio_to_d</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.22</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; [1] -0.673</code></pre>
+<p>That’s very close to Cohen’s <em>d</em> we got above (<span class="math inline">d=-0.72</span>).</p>
+<p>We can get an even closer estimate by accounting for the rate of low
+salaries in the reference group.</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html" class="external-link">proportions</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span>is_senior <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">$</span><span class="va">is_senior</span>, </span>
+<span>        salary_low <span class="op">=</span> <span class="va">hardlyworking</span><span class="op">$</span><span class="va">salary_low</span><span class="op">)</span>, </span>
+<span>  margin <span class="op">=</span> <span class="fl">1</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt;          salary_low
+&gt; is_senior  high   low
+&gt;     FALSE 0.175 0.825
+&gt;     TRUE  0.418 0.582</code></pre>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Or</span></span>
+<span><span class="fu"><a href="../reference/odds_to_probs.html">odds_to_probs</a></span><span class="op">(</span><span class="fl">1.55</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; [1] 0.825</code></pre>
+<p>As we can see, 82.5% of non-senior workers have a low salary. We can
+plug that in to <code><a href="../reference/d_to_r.html">oddsratio_to_d()</a></code>:</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/d_to_r.html">oddsratio_to_d</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.22</span>, p0 <span class="op">=</span> <span class="fl">0.825</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code>&gt; [1] -0.728</code></pre>
+<p>We have successfully recovered the standardized mean difference
+between seniors and non-senior’ salaries by only observing a dichotomize
+salary (“low/high salary”).</p>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
