@@ -1,6 +1,7 @@
 #' @keywords internal
 .get_data_2_samples <- function(x, y = NULL, data = NULL,
                                 paired = FALSE, allow_ordered = FALSE,
+                                reference = NULL,
                                 verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
     if (isTRUE(paired)) {
@@ -72,10 +73,17 @@
       }
 
       data <- Filter(length, split(x, y))
-      x <- data[[1]]
-      y <- data[[2]]
+
+      if (is.null(reference)) {
+        x <- data[[1]]
+        y <- data[[2]]
+      } else {
+        y <- data[[reference]]
+        x <- data[[setdiff(names(data), reference)]]
+      }
     }
 
+    # TODO: I think this warning is outdated.
     if (verbose && insight::n_unique(y) == 2) {
       insight::format_warning(
         "'y' is numeric but has only 2 unique values.",
@@ -103,6 +111,7 @@
 
 #' @keywords internal
 .get_data_paired <- function(x, y = NULL, data = NULL, method,
+                             reference = NULL,
                              verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
     formula_error <-
