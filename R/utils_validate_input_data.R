@@ -119,6 +119,7 @@
 
 #' @keywords internal
 .get_data_paired <- function(x, y = NULL, data = NULL, method,
+                             reference = NULL,
                              verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
     formula_error <-
@@ -137,6 +138,9 @@
 
       if (method %in% c("d", "r")) {
         mf[[2]] <- as.factor(mf[[2]])
+        if (!is.null(reference)) {
+          mf[[2]] <- relevel(mf[[2]], ref = reference)
+        }
         mf[[3]] <- as.factor(mf[[3]])
         colnames(mf) <- c("y", "condition", "id")
         return(mf)
@@ -160,6 +164,8 @@
         insight::format_error(formula_error)
       }
       x <- mf[[1]]
+      s <- colnames(mf)[1]
+      colnames(x) <- regmatches(s, regexec("Pair\\((.*), (.*)\\)", s))[[1]][-1]
     } else {
       insight::format_error(formula_error)
     }
@@ -170,8 +176,13 @@
   }
 
   if (inherits(x, "Pair")) {
-    y <- x[, 2]
-    x <- x[, 1]
+    if (is.null(reference)) {
+      y <- x[, 2]
+      x <- x[, 1]
+    } else {
+      y <- x[, reference]
+      x <- x[, setdiff(colnames(x), reference)]
+    }
   }
 
   # x should be a numeric vector or a Pair:
