@@ -136,12 +136,14 @@
       mf <- .resolve_formula(x, data, ...)
       mf <- stats::na.omit(mf)
 
+      mf[[2]] <- as.factor(mf[[2]])
+      mf[[3]] <- as.factor(mf[[3]])
+
+      if (!is.null(reference)) {
+        mf[[2]] <- relevel(mf[[2]], ref = reference)
+      }
+
       if (method %in% c("d", "r")) {
-        mf[[2]] <- as.factor(mf[[2]])
-        if (!is.null(reference)) {
-          mf[[2]] <- relevel(mf[[2]], ref = reference)
-        }
-        mf[[3]] <- as.factor(mf[[3]])
         colnames(mf) <- c("y", "condition", "id")
         return(mf)
       }
