@@ -120,6 +120,7 @@
 #' @export
 rank_biserial <- function(x, y = NULL, data = NULL,
                           mu = 0, paired = FALSE,
+                          reference = NULL,
                           ci = 0.95, alternative = "two.sided",
                           verbose = TRUE, ...) {
   alternative <- .match.alt(alternative)
@@ -131,6 +132,7 @@ rank_biserial <- function(x, y = NULL, data = NULL,
   ## Prep data
   out <- .get_data_2_samples(x, y, data,
     paired = paired,
+    reference = reference,
     allow_ordered = TRUE,
     verbose = verbose, ...
   )
@@ -208,12 +210,14 @@ rank_biserial <- function(x, y = NULL, data = NULL,
 #' @rdname rank_biserial
 cliffs_delta <- function(x, y = NULL, data = NULL,
                          mu = 0,
+                         reference = NULL,
                          ci = 0.95, alternative = "two.sided",
                          verbose = TRUE, ...) {
   cl <- match.call()
   data <- .get_data_2_samples(x, y, data,
     verbose = verbose,
     allow_ordered = TRUE,
+    reference = reference,
     ...
   )
   x <- data$x

@@ -41,7 +41,7 @@
 #'
 #' Where \eqn{U_1}, \eqn{U_2}, and *Overlap* are agnostic to the direction of
 #' the difference between the groups, \eqn{U_3} and probability of superiority
-#' are not.
+#' are not (this can be controlled with the `reference` argument).
 #'
 #' The parametric version of these effects assumes normality of both populations
 #' and homoscedasticity. If those are not met, the non parametric versions
@@ -111,6 +111,7 @@
 #' @aliases cles
 p_superiority <- function(x, y = NULL, data = NULL,
                           mu = 0, paired = FALSE, parametric = TRUE,
+                          reference = NULL,
                           ci = 0.95, alternative = "two.sided",
                           verbose = TRUE, ...) {
   if (.is_htest_of_type(x, "(t-test|Wilcoxon)", "t-test or a Wilcoxon-test")) {
@@ -120,7 +121,7 @@ p_superiority <- function(x, y = NULL, data = NULL,
   }
 
   data <- .get_data_2_samples(x, y, data,
-    paired = paired,
+    paired = paired, reference = reference,
     allow_ordered = !parametric,
     verbose = verbose, ...
   )
@@ -244,6 +245,7 @@ cohens_u2 <- function(x, y = NULL, data = NULL,
 #' @rdname p_superiority
 cohens_u3 <- function(x, y = NULL, data = NULL,
                       mu = 0, parametric = TRUE,
+                      reference = NULL,
                       ci = 0.95, alternative = "two.sided", iterations = 200,
                       verbose = TRUE, ...) {
   if (.is_htest_of_type(x, "(t-test|Wilcoxon)", "t-test or a Wilcoxon-test")) {
@@ -254,7 +256,7 @@ cohens_u3 <- function(x, y = NULL, data = NULL,
 
 
   data <- .get_data_2_samples(x, y, data,
-    allow_ordered = !parametric,
+    allow_ordered = !parametric, reference = reference,
     verbose = verbose, ...
   )
   x <- data[["x"]]

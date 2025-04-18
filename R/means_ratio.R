@@ -14,8 +14,8 @@
 #'
 #' @details
 #' The Means Ratio ranges from 0 to \eqn{\infty}, with values smaller than 1
-#' indicating that the second mean is larger than the first, values larger than
-#' 1 indicating that the second mean is smaller than the first, and values of 1
+#' indicating that the mean of the reference group is larger, values larger than
+#' 1 indicating that the mean of the reference group is smaller, and values of 1
 #' indicating that the means are equal.
 #'
 #' # Confidence (Compatibility) Intervals (CIs)
@@ -63,6 +63,7 @@
 #' @export
 means_ratio <- function(x, y = NULL, data = NULL,
                         paired = FALSE, adjust = TRUE, log = FALSE,
+                        reference = NULL,
                         ci = 0.95, alternative = "two.sided",
                         verbose = TRUE, ...) {
   alternative <- .match.alt(alternative)
@@ -70,8 +71,8 @@ means_ratio <- function(x, y = NULL, data = NULL,
   ## Prep data
   out <- .get_data_2_samples(
     x = x, y = y, data = data,
+    paired = paired, reference = reference,
     verbose = verbose,
-    paired = paired,
     ...
   )
   x <- out[["x"]]

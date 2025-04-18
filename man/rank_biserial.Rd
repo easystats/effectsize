@@ -11,6 +11,7 @@ rank_biserial(
   data = NULL,
   mu = 0,
   paired = FALSE,
+  reference = NULL,
   ci = 0.95,
   alternative = "two.sided",
   verbose = TRUE,
@@ -22,6 +23,7 @@ cliffs_delta(
   y = NULL,
   data = NULL,
   mu = 0,
+  reference = NULL,
   ci = 0.95,
   alternative = "two.sided",
   verbose = TRUE,
@@ -43,6 +45,9 @@ estimated. See \link[stats:wilcox.test]{stats::wilcox.test}.}
 \item{paired}{If \code{TRUE}, the values of \code{x} and \code{y} are considered as paired.
 This produces an effect size that is equivalent to the one-sample effect
 size on \code{x - y}.}
+
+\item{reference}{(Optional) character value of the "group" used as the
+reference. By default, the \emph{second} group is the reference group.}
 
 \item{ci}{Confidence Interval (CI) level}
 
