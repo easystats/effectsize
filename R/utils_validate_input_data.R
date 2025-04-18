@@ -1,7 +1,7 @@
 #' @keywords internal
 .get_data_2_samples <- function(x, y = NULL, data = NULL,
-                                paired = FALSE, allow_ordered = FALSE,
-                                reference = NULL,
+                                paired = FALSE, reference = NULL,
+                                allow_ordered = FALSE,
                                 verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
     if (isTRUE(paired)) {
@@ -32,6 +32,10 @@
       y <- mf[[2]]
       if (!is.factor(y)) y <- factor(y)
     }
+    if (inherits(x, "Pair")) {
+      s <- colnames(mf)[1]
+      colnames(x) <- regmatches(s, regexec("Pair\\((.*), (.*)\\)", s))[[1]][-1]
+    }
   } else {
     # Test if they are they are column names
     x <- .resolve_char(x, data)
@@ -55,8 +59,13 @@
   if (!is.numeric(x)) {
     insight::format_error("Cannot compute effect size for a non-numeric vector.")
   } else if (inherits(x, "Pair")) {
-    y <- x[, 2]
-    x <- x[, 1]
+    if (is.null(reference)) {
+      y <- x[, 2]
+      x <- x[, 1]
+    } else {
+      y <- x[, reference]
+      x <- x[, setdiff(names(data), reference)]
+    }
     paired <- TRUE
   }
 
@@ -105,13 +114,11 @@
     y <- stats::na.omit(y)
   }
 
-
   list(x = x, y = y, paired = paired)
 }
 
 #' @keywords internal
 .get_data_paired <- function(x, y = NULL, data = NULL, method,
-                             reference = NULL,
                              verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
     formula_error <-
