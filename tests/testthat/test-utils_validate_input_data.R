@@ -163,7 +163,7 @@ test_that(".get_data_2_samples | reference", {
   # inverse
   expect_equal(
     means_ratio(outcome ~ group_chr, data = my_tib)[[1]],
-    1/means_ratio(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]]
+    1 / means_ratio(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]]
   )
 
   # sum to 1
@@ -189,8 +189,8 @@ test_that(".get_data_2_samples | reference", {
 
   data("sleep")
   sleep2 <- reshape(sleep,
-                    direction = "wide",
-                    idvar = "ID", timevar = "group"
+    direction = "wide",
+    idvar = "ID", timevar = "group"
   )
 
   # formula w/ Pair()
@@ -326,8 +326,8 @@ test_that(".get_data_multivariate | na.action", {
 test_that(".get_data_paired | reference", {
   data("sleep")
   sleep2 <- reshape(sleep,
-                    direction = "wide",
-                    idvar = "ID", timevar = "group"
+    direction = "wide",
+    idvar = "ID", timevar = "group"
   )
 
   # formual w/ Pair()

@@ -166,9 +166,11 @@ repeated_measures_d <- function(x, y,
   }
 
   alternative <- .match.alt(alternative)
-  data <- .get_data_paired(x, y, data = data, method = method,
-                           reference = reference,
-                           verbose = verbose, ...)
+  data <- .get_data_paired(x, y,
+    data = data, method = method,
+    reference = reference,
+    verbose = verbose, ...
+  )
 
   if (method %in% c("d", "r")) {
     values <- .replication_d(data, mu = mu, method = method)
