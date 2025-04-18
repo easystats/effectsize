@@ -110,6 +110,103 @@ test_that(".get_data_2_samples | subset", {
   expect_equal(d1, d4)
 })
 
+test_that(".get_data_2_samples | reference", {
+  # create data
+  my_tib <- data.frame(
+    group = gl(2, 12, labels = c("No treatment", "Treatment")),
+    outcome = c(3, 1, 5, 4, 6, 4, 6, 2, 0, 5, 4, 5, 4, 3, 6, 6, 8, 5, 5, 4, 2, 5, 7, 5)
+  )
+  my_tib$group_chr <- as.character(my_tib$group)
+
+  # fomula input w/ factor
+  expect_identical(
+    cohens_d(outcome ~ group, data = my_tib)[[1]],
+    -cohens_d(outcome ~ group, data = my_tib, reference = "No treatment")[[1]]
+  )
+
+  # fomula input w/ character
+  expect_identical(
+    cohens_d(outcome ~ group_chr, data = my_tib)[[1]],
+    -cohens_d(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]]
+  )
+
+  # vector input w/ factor
+  expect_identical(
+    cohens_d(my_tib$outcome, my_tib$group)[[1]],
+    -cohens_d(my_tib$outcome, my_tib$group, reference = "No treatment")[[1]]
+  )
+
+  # vector input w/ character
+  expect_identical(
+    cohens_d(my_tib$outcome, my_tib$group_chr)[[1]],
+    -cohens_d(my_tib$outcome, my_tib$group_chr, reference = "No treatment")[[1]]
+  )
+
+  # name input w/ factor
+  expect_identical(
+    cohens_d("outcome", "group", data = my_tib)[[1]],
+    -cohens_d("outcome", "group", data = my_tib, reference = "No treatment")[[1]]
+  )
+
+  # name input w/ character
+  expect_identical(
+    cohens_d("outcome", "group_chr", data = my_tib)[[1]],
+    -cohens_d("outcome", "group_chr", data = my_tib, reference = "No treatment")[[1]]
+  )
+
+  # sign is opposite, same value
+  expect_identical(
+    rank_biserial(outcome ~ group_chr, data = my_tib)[[1]],
+    -rank_biserial(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]]
+  )
+
+  # inverse
+  expect_equal(
+    means_ratio(outcome ~ group_chr, data = my_tib)[[1]],
+    1/means_ratio(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]]
+  )
+
+  # sum to 1
+  expect_equal(
+    cohens_u3(outcome ~ group_chr, data = my_tib)[[1]],
+    1 - cohens_u3(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]]
+  )
+
+  # sum to 1
+  expect_equal(
+    p_superiority(outcome ~ group_chr, data = my_tib)[[1]],
+    1 - p_superiority(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]]
+  )
+
+  # sign is opposite but so is value
+  delta1 <- glass_delta(outcome ~ group_chr, data = my_tib)[[1]]
+  delta2 <- glass_delta(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]]
+  expect_true(sign(delta1) == -sign(delta2))
+  expect_true(abs(delta1) != abs(delta2))
+
+
+
+
+  data("sleep")
+  sleep2 <- reshape(sleep,
+                    direction = "wide",
+                    idvar = "ID", timevar = "group"
+  )
+
+  # formula w/ Pair()
+  expect_identical(
+    hedges_g(Pair(extra.1, extra.2) ~ 1, data = sleep2, verbose = FALSE)[[1]],
+    -hedges_g(Pair(extra.1, extra.2) ~ 1, data = sleep2, , verbose = FALSE, reference = "extra.1")[[1]]
+  )
+
+
+  # formula w/ arbitrary Pair()
+  expect_identical(
+    cohens_d(Pair(extra[group == 1] + pi, extra[group == 2]) ~ 1, data = sleep, verbose = FALSE)[[1]],
+    -cohens_d(Pair(extra[group == 1] + pi, extra[group == 2]) ~ 1, data = sleep, verbose = FALSE, reference = "extra[group == 1] + pi")[[1]]
+  )
+})
+
 test_that(".get_data_multi_group", {
   df <- data.frame(
     a = 1:15,
@@ -223,4 +320,35 @@ test_that(".get_data_multivariate | na.action", {
   expect_warning(mahalanobis_d(mpg + hp ~ 1, data = mtcars, na.action = na.omit), regexp = NA)
   expect_warning(D1 <- mahalanobis_d(mpg + hp ~ 1, data = mtcars), regexp = "dropped")
   expect_equal(D1, mahalanobis_d(mpg + hp ~ 1, data = mtcars[-1, ]))
+})
+
+
+test_that(".get_data_paired | reference", {
+  data("sleep")
+  sleep2 <- reshape(sleep,
+                    direction = "wide",
+                    idvar = "ID", timevar = "group"
+  )
+
+  # formual w/ Pair()
+  expect_identical(
+    repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2)[[1]],
+    -repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, reference = "extra.1")[[1]]
+  )
+
+
+  # 3 part formula (+aggragate)
+  data("rouder2016")
+  rouder2016$cond_num <- as.numeric(rouder2016$cond)
+
+  # with factor
+  expect_identical(
+    repeated_measures_d(rt ~ cond | id, data = rouder2016, verbose = FALSE)[[1]],
+    -repeated_measures_d(rt ~ cond | id, data = rouder2016, verbose = FALSE, reference = "2")[[1]]
+  )
+
+  expect_identical(
+    repeated_measures_d(rt ~ cond_num | id, data = rouder2016, verbose = FALSE)[[1]],
+    -repeated_measures_d(rt ~ cond_num | id, data = rouder2016, verbose = FALSE, reference = "2")[[1]]
+  )
 })
