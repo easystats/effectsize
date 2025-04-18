@@ -88,7 +88,7 @@
         y <- data[[2]]
       } else {
         y <- data[[reference]]
-        x <- data[[setdiff(colnames(data), reference)]]
+        x <- data[[setdiff(names(data), reference)]]
       }
     }
 
