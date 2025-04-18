@@ -183,7 +183,7 @@ epsilon_squared(model)
 And more…
 
 <!-- ### Regression Models (Standardized Parameters) -->
-<!-- Importantly, `effectsize` also provides [advanced methods](https://easystats.github.io/effectsize/articles/standardize_parameters.html) to compute standardized parameters for regression models. -->
+<!-- Importantly, `effectsize` also provides [advanced methods](https://easystats.github.io/parameters/articles/standardize_parameters_effsize.html) to compute standardized parameters for regression models. -->
 <!-- ```{r beta, warning=FALSE, message=FALSE} -->
 <!-- m <- lm(rating ~ complaints + privileges + advance, data = attitude) -->
 <!-- standardize_parameters(m) -->

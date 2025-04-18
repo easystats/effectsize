@@ -105,14 +105,14 @@ means_ratio <- function(x, y = NULL, data = NULL,
 
     # Calc log RR
     log_val <- .logrom_calc(
-      paired = TRUE,
       m1 = m1,
       sd1 = sd1,
       m2 = m2,
       sd2 = sd2,
       n1 = n,
       r = r,
-      adjust = adjust
+      adjust = adjust,
+      paired = TRUE
     )
   } else {
     ## ------------------------ 2-sample case -------------------------
@@ -122,14 +122,14 @@ means_ratio <- function(x, y = NULL, data = NULL,
 
     # Calc log RR
     log_val <- .logrom_calc(
-      paired = FALSE,
       m1 = m1,
       sd1 = sd1,
       n1 = n1,
       m2 = m2,
       sd2 = sd2,
       n2 = n2,
-      adjust = adjust
+      adjust = adjust,
+      paired = FALSE
     )
   }
 
@@ -176,44 +176,44 @@ means_ratio <- function(x, y = NULL, data = NULL,
     mu = 0,
     approximate = TRUE
   )
-  return(out)
+  out
 }
 
 
 #' @keywords internal
-.logrom_calc <- function(paired = FALSE,
-                         m1,
+.logrom_calc <- function(m1,
                          sd1,
                          n1,
                          m2,
                          sd2,
                          n2 = n1,
                          r = NULL,
-                         adjust = TRUE) {
+                         adjust = TRUE,
+                         paired = FALSE) {
   if (isTRUE(paired)) {
-    yi <- log(m1 / m2)
-    vi <-
+    y_i <- log(m1 / m2)
+    v_i <-
       sd1^2 / (n1 * m1^2) +
       sd2^2 / (n1 * m2^2) -
       2 * r * sd1 * sd2 / (m1 * m2 * n1)
   } else {
-    yi <- log(m1 / m2)
+    y_i <- log(m1 / m2)
     ### large sample approximation to the sampling variance (does not assume homoscedasticity)
-    vi <- sd1^2 / (n1 * m1^2) + sd2^2 / (n2 * m2^2)
+    v_i <- sd1^2 / (n1 * m1^2) + sd2^2 / (n2 * m2^2)
   }
 
 
   if (isTRUE(adjust)) {
     J <- 0.5 * (sd1^2 / (n1 * m1^2) - sd2^2 / (n2 * m2^2))
-    yi <- yi + J
+    y_i <- y_i + J
 
     Jvar <- 0.5 * (sd1^4 / (n1^2 * m1^4) - sd2^4 / (n2^2 * m2^4))
-    vi <- vi + Jvar
+    v_i <- v_i + Jvar
   }
 
 
   list(
-    log_rom = yi,
-    var_rom = vi
+    log_rom = y_i,
+    var_rom = v_i
   )
 }

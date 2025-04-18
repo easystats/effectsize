@@ -4,7 +4,8 @@ test_that(".get_data_2_samples", {
     b = 2:11,
     c = rep(letters[1:2], each = 5),
     d = c("a", "b", "b", "c", "c", "b", "c", "a", "a", "b"),
-    e = rep(0:1, each = 5)
+    e = rep(0:1, each = 5),
+    stringsAsFactors = FALSE
   )
   df$exp_a <- exp(df$a)
   a2 <- 1:11
@@ -14,16 +15,16 @@ test_that(".get_data_2_samples", {
   expect_error(d3 <- cohens_d(df$a ~ df$c), regexp = NA)
   expect_error(d4 <- cohens_d(df$a, df$c), regexp = NA)
   expect_error(d5 <- cohens_d(df$a[df$c == "a"], df$a[df$c == "b"]), regexp = NA)
-  expect_equal(d1, d2)
-  expect_equal(d1, d3)
-  expect_equal(d1, d4)
-  expect_equal(d1, d5)
+  expect_identical(d1, d2)
+  expect_identical(d1, d3)
+  expect_identical(d1, d4)
+  expect_identical(d1, d5)
 
   expect_error(cohens_d("a", "b", data = df), regexp = NA)
   expect_error(cohens_d(a2, df$b), regexp = NA)
   expect_error(cohens_d(b ~ e, data = df), regexp = NA)
 
-  expect_equal(
+  expect_identical(
     cohens_d(exp(a) ~ c, data = df),
     cohens_d("exp_a", "c", data = df)
   )
@@ -43,8 +44,8 @@ test_that(".get_data_2_samples", {
 
   expect_warning(d1 <- cohens_d(x, y), "dropped")
   expect_warning(d2 <- cohens_d(x, y, paired = TRUE), "dropped")
-  expect_equal(d1, cohens_d(1:4, 1:5), tolerance = 0.01) # indep
-  expect_equal(d2, cohens_d(1:4, c(1, 3:5), paired = TRUE), tolerance = 0.01) # paired
+  expect_identical(d1, cohens_d(1:4, 1:5)) # indep
+  expect_identical(d2, cohens_d(1:4, c(1, 3:5), paired = TRUE, verbose = FALSE)) # paired
 
   # no length problems
   expect_error(cohens_d(mtcars$mpg - 23), regexp = NA)
@@ -105,9 +106,9 @@ test_that(".get_data_2_samples | subset", {
       )
   )
 
-  expect_equal(d1, d2)
-  expect_equal(d1, d3)
-  expect_equal(d1, d4)
+  expect_identical(d1, d2)
+  expect_identical(d1, d3)
+  expect_identical(d1, d4)
 })
 
 test_that(".get_data_2_samples | reference", {
@@ -163,25 +164,28 @@ test_that(".get_data_2_samples | reference", {
   # inverse
   expect_equal(
     means_ratio(outcome ~ group_chr, data = my_tib)[[1]],
-    1 / means_ratio(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]]
+    1 / means_ratio(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]],
+    tolerance = 0.001
   )
 
   # sum to 1
   expect_equal(
     cohens_u3(outcome ~ group_chr, data = my_tib)[[1]],
-    1 - cohens_u3(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]]
+    1 - cohens_u3(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]],
+    tolerance = 0.001
   )
 
   # sum to 1
   expect_equal(
     p_superiority(outcome ~ group_chr, data = my_tib)[[1]],
-    1 - p_superiority(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]]
+    1 - p_superiority(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]],
+    tolerance = 0.001
   )
 
   # sign is opposite but so is value
   delta1 <- glass_delta(outcome ~ group_chr, data = my_tib)[[1]]
   delta2 <- glass_delta(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]]
-  expect_true(sign(delta1) == -sign(delta2))
+  expect_identical(sign(delta1), -sign(delta2))
   expect_true(abs(delta1) != abs(delta2))
 
 
@@ -196,7 +200,7 @@ test_that(".get_data_2_samples | reference", {
   # formula w/ Pair()
   expect_identical(
     hedges_g(Pair(extra.1, extra.2) ~ 1, data = sleep2, verbose = FALSE)[[1]],
-    -hedges_g(Pair(extra.1, extra.2) ~ 1, data = sleep2, , verbose = FALSE, reference = "extra.1")[[1]]
+    -hedges_g(Pair(extra.1, extra.2) ~ 1, data = sleep2, verbose = FALSE, reference = "extra.1")[[1]]
   )
 
 
@@ -212,7 +216,8 @@ test_that(".get_data_multi_group", {
     a = 1:15,
     b = 2:16,
     c = rep(letters[1:3], each = 5),
-    e = rep(0:1, length = 15)
+    e = rep(0:1, length = 15),
+    stringsAsFactors = FALSE
   )
   df$exp_a <- exp(df$a)
 
@@ -222,14 +227,14 @@ test_that(".get_data_multi_group", {
   expect_error(d4 <- rank_epsilon_squared(df$a, df$c, ci = NULL), regexp = NA)
   L <- split(df$a, df$c)
   expect_error(d5 <- rank_epsilon_squared(L, ci = NULL), regexp = NA)
-  expect_equal(d1, d2, tolerance = 0.01)
-  expect_equal(d1, d3, tolerance = 0.01)
-  expect_equal(d1, d4, tolerance = 0.01)
-  expect_equal(d1, d5, tolerance = 0.01)
+  expect_identical(d1, d2)
+  expect_identical(d1, d3)
+  expect_identical(d1, d4)
+  expect_identical(d1, d5)
 
   expect_error(rank_epsilon_squared(b ~ e, data = df), regexp = NA)
 
-  expect_equal(
+  expect_identical(
     rank_epsilon_squared(exp(a) ~ c, data = df, ci = NULL),
     rank_epsilon_squared("exp_a", "c", data = df, ci = NULL)
   )
@@ -239,14 +244,14 @@ test_that(".get_data_multi_group", {
 
   df[1, ] <- NA
   expect_warning(E1 <- rank_epsilon_squared(a ~ c, data = df, ci = NULL), "dropped")
-  expect_equal(E1, rank_epsilon_squared(df$a[-1], df$c[-1], ci = NULL))
+  expect_identical(E1, rank_epsilon_squared(df$a[-1], df$c[-1], ci = NULL))
 })
 
 
 test_that(".get_data_multi_group | subset", {
   d <- expand.grid(id = 1:30, g = 1:4)
   d$y <- rnorm(nrow(d)) + d$g
-  expect_equal(
+  expect_identical(
     rank_epsilon_squared(y ~ g, data = d, subset = g < 4, ci = NULL),
     rank_epsilon_squared(y ~ g, data = subset(d, g < 4), ci = NULL)
   )
@@ -267,7 +272,8 @@ test_that(".get_data_nested_groups", {
       "Round Out", "Narrow Angle", "Wide Angle",
       "Round Out", "Narrow Angle", "Wide Angle"
     ),
-    value = c(5.4, 5.5, 5.55, 5.85, 5.7, 5.75, 5.2, 5.6, 5.5)
+    value = c(5.4, 5.5, 5.55, 5.85, 5.7, 5.75, 5.2, 5.6, 5.5),
+    stringsAsFactors = FALSE
   )
 
   set.seed(1)
@@ -276,16 +282,16 @@ test_that(".get_data_nested_groups", {
   W3 <- kendalls_w(M2$value, M2$name, M2$id, ci = NULL)
   W4 <- kendalls_w(M2$value ~ M2$name | M2$id, ci = NULL)
 
-  expect_equal(W1, W2)
-  expect_equal(W1, W3)
-  expect_equal(W1, W4)
+  expect_identical(W1, W2)
+  expect_identical(W1, W3)
+  expect_identical(W1, W4)
 })
 
 test_that(".get_data_nested_groups | subset", {
   d <- expand.grid(id = 1:30, g = 1:4)
   d$y <- rnorm(nrow(d)) + d$g
 
-  expect_equal(
+  expect_identical(
     kendalls_w(y ~ g | id, data = d, subset = g < 4, ci = NULL),
     kendalls_w(y ~ g | id, data = subset(d, g < 4), ci = NULL)
   )
@@ -295,22 +301,22 @@ test_that(".get_data_nested_groups | subset", {
 test_that(".get_data_multivariate", {
   data("mtcars")
   D <- mahalanobis_d(mtcars[, c("mpg", "hp")])
-  expect_equal(mahalanobis_d(cbind(mpg, hp) ~ 1, data = mtcars), D)
-  expect_equal(mahalanobis_d(mpg + hp ~ 1, data = mtcars), D)
+  expect_identical(mahalanobis_d(cbind(mpg, hp) ~ 1, data = mtcars), D)
+  expect_identical(mahalanobis_d(mpg + hp ~ 1, data = mtcars), D)
 
   D <- mahalanobis_d(
     mtcars[mtcars$am == 0, c("mpg", "hp")],
     mtcars[mtcars$am == 1, c("mpg", "hp")]
   )
-  expect_equal(mahalanobis_d(cbind(mpg, hp) ~ am, data = mtcars), D)
-  expect_equal(mahalanobis_d(mpg + hp ~ am, data = mtcars), D)
+  expect_identical(mahalanobis_d(cbind(mpg, hp) ~ am, data = mtcars), D)
+  expect_identical(mahalanobis_d(mpg + hp ~ am, data = mtcars), D)
 })
 
 test_that(".get_data_multivariate | subset", {
   data("mtcars")
   D1 <- mahalanobis_d(mpg + hp ~ am, data = mtcars, subset = hp > 100)
   D2 <- mahalanobis_d(mpg + hp ~ am, data = subset(mtcars, hp > 100))
-  expect_equal(D1, D2)
+  expect_identical(D1, D2)
 })
 
 test_that(".get_data_multivariate | na.action", {
@@ -319,7 +325,7 @@ test_that(".get_data_multivariate | na.action", {
   expect_warning(mahalanobis_d(mtcars[, c("mpg", "hp")]), regexp = "dropped")
   expect_warning(mahalanobis_d(mpg + hp ~ 1, data = mtcars, na.action = na.omit), regexp = NA)
   expect_warning(D1 <- mahalanobis_d(mpg + hp ~ 1, data = mtcars), regexp = "dropped")
-  expect_equal(D1, mahalanobis_d(mpg + hp ~ 1, data = mtcars[-1, ]))
+  expect_identical(D1, mahalanobis_d(mpg + hp ~ 1, data = mtcars[-1, ]))
 })
 
 

@@ -222,7 +222,7 @@ repeated_measures_d <- function(x, y,
     mu, ci, ci_method, alternative,
     approximate = FALSE
   )
-  return(out)
+  out
 }
 
 #' @rdname repeated_measures_d

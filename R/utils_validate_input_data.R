@@ -118,7 +118,7 @@
 }
 
 #' @keywords internal
-.get_data_paired <- function(x, y = NULL, data = NULL, method,
+.get_data_paired <- function(x, y = NULL, data = NULL, method = NULL,
                              reference = NULL,
                              verbose = TRUE, ...) {
   if (inherits(x, "formula")) {
@@ -140,7 +140,7 @@
       mf[[3]] <- as.factor(mf[[3]])
 
       if (!is.null(reference)) {
-        mf[[2]] <- relevel(mf[[2]], ref = reference)
+        mf[[2]] <- stats::relevel(mf[[2]], ref = reference)
       }
 
       if (method %in% c("d", "r")) {

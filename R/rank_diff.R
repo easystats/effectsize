@@ -203,7 +203,7 @@ rank_biserial <- function(x, y = NULL, data = NULL,
   attr(out, "ci_method") <- ci_method
   attr(out, "approximate") <- FALSE
   attr(out, "alternative") <- alternative
-  return(out)
+  out
 }
 
 #' @export
@@ -259,5 +259,5 @@ cliffs_delta <- function(x, y = NULL, data = NULL,
 
   u_ <- U1 / S
   f_ <- U2 / S
-  return(u_ - f_)
+  u_ - f_
 }

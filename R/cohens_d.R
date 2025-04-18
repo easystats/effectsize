@@ -317,7 +317,7 @@ glass_delta <- function(x, y = NULL, data = NULL,
     paired, pooled_sd, mu, ci, ci_method, alternative, adjust,
     approximate = FALSE
   )
-  return(out)
+  out
 }
 
 #' @keywords internal

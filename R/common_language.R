@@ -457,13 +457,13 @@ wmw_odds <- function(x, y = NULL, data = NULL,
 
       out$CI <- ci
 
-      R <- boot::boot(
+      res <- boot::boot(
         data = d,
         statistic = est,
         R = iterations
       )
 
-      bCI <- boot::boot.ci(R, conf = ci, type = "perc")[["percent"]]
+      bCI <- boot::boot.ci(res, conf = ci, type = "perc")[["percent"]]
       bCI <- utils::tail(as.vector(bCI), 2)
       out$CI_low <- bCI[1]
       out$CI_high <- bCI[2]
@@ -480,5 +480,5 @@ wmw_odds <- function(x, y = NULL, data = NULL,
       approximate = TRUE,
       table_footer = "Non-parametric CLES"
     )
-    return(out)
+    out
   }
