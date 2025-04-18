@@ -29,6 +29,8 @@
 #' @param adjust Should the effect size be adjusted for small-sample bias using
 #'   Hedges' method? Note that `hedges_g()` is an alias for
 #'   `cohens_d(adjust = TRUE)`.
+#' @param reference (Optional) character value of the "group" used as the
+#'   reference. By default, the _second_ group is the reference group.
 #' @param ... Arguments passed to or from other methods. When `x` is a formula,
 #'   these can be `subset` and `na.action`.
 #' @inheritParams chisq_to_phi
@@ -210,7 +212,7 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
 
   alternative <- .match.alt(alternative)
-  out <- .get_data_2_samples(x, y, data, paired = paired, verbose = verbose, ...)
+  out <- .get_data_2_samples(x, y, data, paired = paired, reference = reference, verbose = verbose, ...)
   x <- out[["x"]]
   y <- out[["y"]]
   paired <- out[["paired"]]
