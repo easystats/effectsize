@@ -64,7 +64,7 @@
       x <- x[, 1]
     } else {
       y <- x[, reference]
-      x <- x[, setdiff(names(data), reference)]
+      x <- x[, setdiff(colnames(x), reference)]
     }
     paired <- TRUE
   }
@@ -88,7 +88,7 @@
         y <- data[[2]]
       } else {
         y <- data[[reference]]
-        x <- data[[setdiff(names(data), reference)]]
+        x <- data[[setdiff(colnames(data), reference)]]
       }
     }
 
