@@ -12,6 +12,7 @@ repeated_measures_d(
   mu = 0,
   method = c("rm", "av", "z", "b", "d", "r"),
   adjust = TRUE,
+  reference = NULL,
   ci = 0.95,
   alternative = "two.sided",
   verbose = TRUE,
@@ -25,6 +26,7 @@ rm_d(
   mu = 0,
   method = c("rm", "av", "z", "b", "d", "r"),
   adjust = TRUE,
+  reference = NULL,
   ci = 0.95,
   alternative = "two.sided",
   verbose = TRUE,
@@ -48,6 +50,9 @@ be a formula:
 details.}
 
 \item{adjust}{Apply Hedges' small-sample bias correction? See \code{\link[=hedges_g]{hedges_g()}}.}
+
+\item{reference}{(Optional) character value of the "group" used as the
+reference. By default, the \emph{second} group is the reference group.}
 
 \item{ci}{Confidence Interval (CI) level}
 

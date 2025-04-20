@@ -1,6 +1,6 @@
 #' Cohen's *d* and Other Standardized Differences
 #'
-#' Compute effect size indices for standardized differences: Cohen's *d*,
+#' Compute effect size indices for standardized mean differences: Cohen's *d*,
 #' Hedges' *g* and Glass’s *delta* (\eqn{\Delta}). (This function returns the
 #' **population** estimate.) Pair with any reported [`stats::t.test()`].
 #' \cr\cr
@@ -9,7 +9,7 @@
 #' correction for small-sample bias (using the exact method) to Cohen's *d*. For
 #' sample sizes > 20, the results for both statistics are roughly equivalent.
 #' Glass’s *delta* is appropriate when the standard deviations are significantly
-#' different between the populations, as it uses only the *second* group's
+#' different between the populations, as it uses only the reference group's
 #' standard deviation.
 #'
 #' @param x,y A numeric vector, or a character name of one in `data`.
@@ -29,6 +29,8 @@
 #' @param adjust Should the effect size be adjusted for small-sample bias using
 #'   Hedges' method? Note that `hedges_g()` is an alias for
 #'   `cohens_d(adjust = TRUE)`.
+#' @param reference (Optional) character value of the "group" used as the
+#'   reference. By default, the _second_ group is the reference group.
 #' @param ... Arguments passed to or from other methods. When `x` is a formula,
 #'   these can be `subset` and `na.action`.
 #' @inheritParams chisq_to_phi
@@ -136,6 +138,7 @@
 #' @export
 cohens_d <- function(x, y = NULL, data = NULL,
                      pooled_sd = TRUE, mu = 0, paired = FALSE,
+                     reference = NULL,
                      adjust = FALSE,
                      ci = 0.95, alternative = "two.sided",
                      verbose = TRUE, ...) {
@@ -147,6 +150,7 @@ cohens_d <- function(x, y = NULL, data = NULL,
     y = y, data = data,
     type = "d", adjust = adjust,
     pooled_sd = pooled_sd, mu = mu, paired = paired,
+    reference = reference,
     ci = ci, alternative = alternative,
     verbose = verbose,
     ...
@@ -157,6 +161,7 @@ cohens_d <- function(x, y = NULL, data = NULL,
 #' @export
 hedges_g <- function(x, y = NULL, data = NULL,
                      pooled_sd = TRUE, mu = 0, paired = FALSE,
+                     reference = NULL,
                      ci = 0.95, alternative = "two.sided",
                      verbose = TRUE, ...) {
   cl <- match.call()
@@ -169,6 +174,7 @@ hedges_g <- function(x, y = NULL, data = NULL,
 #' @export
 glass_delta <- function(x, y = NULL, data = NULL,
                         mu = 0, adjust = TRUE,
+                        reference = NULL,
                         ci = 0.95, alternative = "two.sided",
                         verbose = TRUE, ...) {
   .effect_size_difference(
@@ -176,6 +182,7 @@ glass_delta <- function(x, y = NULL, data = NULL,
     y = y, data = data,
     type = "delta",
     mu = mu, adjust = adjust,
+    reference = reference,
     ci = ci, alternative = alternative,
     verbose = verbose,
     pooled_sd = NULL, paired = FALSE,
@@ -189,10 +196,12 @@ glass_delta <- function(x, y = NULL, data = NULL,
 .effect_size_difference <- function(x, y = NULL, data = NULL,
                                     type = "d", adjust = FALSE,
                                     mu = 0, pooled_sd = TRUE, paired = FALSE,
+                                    reference = NULL,
                                     ci = 0.95, alternative = "two.sided",
                                     verbose = TRUE, ...) {
   if (type == "d" && adjust) type <- "g"
 
+  # TODO: Check if we can do anything with `reference` for these classes
   if (type != "delta") {
     if (.is_htest_of_type(x, "t-test")) {
       return(effectsize(x, type = type, verbose = verbose, data = data, ...))
@@ -203,7 +212,7 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
 
   alternative <- .match.alt(alternative)
-  out <- .get_data_2_samples(x, y, data, paired = paired, verbose = verbose, ...)
+  out <- .get_data_2_samples(x, y, data, paired = paired, reference = reference, verbose = verbose, ...)
   x <- out[["x"]]
   y <- out[["y"]]
   paired <- out[["paired"]]
@@ -308,7 +317,7 @@ glass_delta <- function(x, y = NULL, data = NULL,
     paired, pooled_sd, mu, ci, ci_method, alternative, adjust,
     approximate = FALSE
   )
-  return(out)
+  out
 }
 
 #' @keywords internal

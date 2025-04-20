@@ -138,8 +138,9 @@ Let's give it a try:
 thresh <- 22500
 
 # 2. dichotomize the outcome
-hardlyworking$salary_low <- factor(hardlyworking$salary < thresh, 
-                                   labels = c("high", "low"))
+hardlyworking$salary_low <- factor(hardlyworking$salary < thresh,
+  labels = c("high", "low")
+)
 
 # 3. Fit a logistic regression:
 fit <- glm(salary_low ~ is_senior,
@@ -160,8 +161,10 @@ by accounting for the rate of low salaries in the reference group.
 
 ```{r}
 proportions(
-  table(is_senior = hardlyworking$is_senior, 
-        salary_low = hardlyworking$salary_low), 
+  table(
+    is_senior = hardlyworking$is_senior,
+    salary_low = hardlyworking$salary_low
+  ),
   margin = 1
 )
 

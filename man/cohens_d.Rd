@@ -13,6 +13,7 @@ cohens_d(
   pooled_sd = TRUE,
   mu = 0,
   paired = FALSE,
+  reference = NULL,
   adjust = FALSE,
   ci = 0.95,
   alternative = "two.sided",
@@ -27,6 +28,7 @@ hedges_g(
   pooled_sd = TRUE,
   mu = 0,
   paired = FALSE,
+  reference = NULL,
   ci = 0.95,
   alternative = "two.sided",
   verbose = TRUE,
@@ -39,6 +41,7 @@ glass_delta(
   data = NULL,
   mu = 0,
   adjust = TRUE,
+  reference = NULL,
   ci = 0.95,
   alternative = "two.sided",
   verbose = TRUE,
@@ -63,6 +66,9 @@ variance). Else the mean SD from both groups is used instead.}
 This produces an effect size that is equivalent to the one-sample effect
 size on \code{x - y}. See also \code{\link[=repeated_measures_d]{repeated_measures_d()}} for more options.}
 
+\item{reference}{(Optional) character value of the "group" used as the
+reference. By default, the \emph{second} group is the reference group.}
+
 \item{adjust}{Should the effect size be adjusted for small-sample bias using
 Hedges' method? Note that \code{hedges_g()} is an alias for
 \code{cohens_d(adjust = TRUE)}.}
@@ -84,7 +90,7 @@ A data frame with the effect size ( \code{Cohens_d}, \code{Hedges_g},
 \code{Glass_delta}) and their CIs (\code{CI_low} and \code{CI_high}).
 }
 \description{
-Compute effect size indices for standardized differences: Cohen's \emph{d},
+Compute effect size indices for standardized mean differences: Cohen's \emph{d},
 Hedges' \emph{g} and Glass’s \emph{delta} (\eqn{\Delta}). (This function returns the
 \strong{population} estimate.) Pair with any reported \code{\link[stats:t.test]{stats::t.test()}}.
 \cr\cr
@@ -93,7 +99,7 @@ difference between the means of two populations. Hedges' \emph{g} provides a
 correction for small-sample bias (using the exact method) to Cohen's \emph{d}. For
 sample sizes > 20, the results for both statistics are roughly equivalent.
 Glass’s \emph{delta} is appropriate when the standard deviations are significantly
-different between the populations, as it uses only the \emph{second} group's
+different between the populations, as it uses only the reference group's
 standard deviation.
 }
 \details{

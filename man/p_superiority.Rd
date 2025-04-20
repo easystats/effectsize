@@ -18,6 +18,7 @@ p_superiority(
   mu = 0,
   paired = FALSE,
   parametric = TRUE,
+  reference = NULL,
   ci = 0.95,
   alternative = "two.sided",
   verbose = TRUE,
@@ -56,6 +57,7 @@ cohens_u3(
   data = NULL,
   mu = 0,
   parametric = TRUE,
+  reference = NULL,
   ci = 0.95,
   alternative = "two.sided",
   iterations = 200,
@@ -117,6 +119,9 @@ size on \code{x - y}.}
 \item{parametric}{Use parametric estimation (see \code{\link[=cohens_d]{cohens_d()}}) or
 non-parametric estimation (see \code{\link[=rank_biserial]{rank_biserial()}}). See details.}
 
+\item{reference}{(Optional) character value of the "group" used as the
+reference. By default, the \emph{second} group is the reference group.}
+
 \item{ci}{Confidence Interval (CI) level}
 
 \item{alternative}{a character string specifying the alternative hypothesis;
@@ -171,7 +176,7 @@ first group.
 
 Where \eqn{U_1}, \eqn{U_2}, and \emph{Overlap} are agnostic to the direction of
 the difference between the groups, \eqn{U_3} and probability of superiority
-are not.
+are not (this can be controlled with the \code{reference} argument).
 
 The parametric version of these effects assumes normality of both populations
 and homoscedasticity. If those are not met, the non parametric versions

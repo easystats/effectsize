@@ -1,3 +1,7 @@
+# effectsize 1.0.x
+
+- `cohens_d()`, `p_superiority()`, `rank_biserial()` and their relatives gain a `reference=` argument to control which level of the group variable should be treated as the reference (thanks @profandyfield for the suggestion).
+
 # effectsize 1.0.0
 
 ***First stable release of `{effectsize}`!***

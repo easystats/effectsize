@@ -11,6 +11,7 @@ means_ratio(
   paired = FALSE,
   adjust = TRUE,
   log = FALSE,
+  reference = NULL,
   ci = 0.95,
   alternative = "two.sided",
   verbose = TRUE,
@@ -33,6 +34,9 @@ Defaults to \code{TRUE}; Advisable for small samples.}
 
 \item{log}{Should the log-ratio be returned? Defaults to \code{FALSE}.
 Normally distributed and useful for meta-analysis.}
+
+\item{reference}{(Optional) character value of the "group" used as the
+reference. By default, the \emph{second} group is the reference group.}
 
 \item{ci}{Confidence Interval (CI) level}
 
@@ -57,8 +61,8 @@ Computes the ratio of two means (also known as the "response ratio"; RR) of
 }
 \details{
 The Means Ratio ranges from 0 to \eqn{\infty}, with values smaller than 1
-indicating that the second mean is larger than the first, values larger than
-1 indicating that the second mean is smaller than the first, and values of 1
+indicating that the mean of the reference group is larger, values larger than
+1 indicating that the mean of the reference group is smaller, and values of 1
 indicating that the means are equal.
 }
 \note{

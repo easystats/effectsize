@@ -157,6 +157,7 @@ repeated_measures_d <- function(x, y,
                                 data = NULL,
                                 mu = 0, method = c("rm", "av", "z", "b", "d", "r"),
                                 adjust = TRUE,
+                                reference = NULL,
                                 ci = 0.95, alternative = "two.sided",
                                 verbose = TRUE, ...) {
   method <- match.arg(method)
@@ -165,7 +166,11 @@ repeated_measures_d <- function(x, y,
   }
 
   alternative <- .match.alt(alternative)
-  data <- .get_data_paired(x, y, data = data, method = method, verbose = verbose, ...)
+  data <- .get_data_paired(x, y,
+    data = data, method = method,
+    reference = reference,
+    verbose = verbose, ...
+  )
 
   if (method %in% c("d", "r")) {
     values <- .replication_d(data, mu = mu, method = method)
@@ -217,7 +222,7 @@ repeated_measures_d <- function(x, y,
     mu, ci, ci_method, alternative,
     approximate = FALSE
   )
-  return(out)
+  out
 }
 
 #' @rdname repeated_measures_d
