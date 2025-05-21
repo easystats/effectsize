@@ -875,11 +875,17 @@ cohens_f_squared <- function(model,
   # TODO this should be in .anova_es.anvoa
   # TODO the aoc method should convert to an anova table, then pass to anova
   ## TODO: add back `effects = "fixed"` once the deprecation warning in parameters is removed
-  params <- parameters::model_parameters(model, verbose = verbose, es_type = NULL, include_intercept = include_intercept)
+  params <- parameters::model_parameters(
+    model,
+    verbose = verbose,
+    es_type = NULL,
+    include_intercept = include_intercept
+  )
   out <- .es_aov_simple(as.data.frame(params),
     type = type,
     partial = partial, generalized = generalized,
-    ci = ci, alternative = alternative, verbose = verbose, ...
+    ci = ci, alternative = alternative, verbose = verbose,
+    include_intercept = include_intercept, ...
   )
   if (is.null(attr(out, "anova_type"))) attr(out, "anova_type") <- attr(params, "anova_type")
   out
