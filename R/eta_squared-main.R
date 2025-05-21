@@ -887,7 +887,9 @@ cohens_f_squared <- function(model,
     ci = ci, alternative = alternative, verbose = verbose,
     include_intercept = include_intercept, ...
   )
-  if (is.null(attr(out, "anova_type"))) attr(out, "anova_type") <- attr(params, "anova_type")
+  if (is.null(attr(out, "anova_type"))) {
+    attr(out, "anova_type") <- attr(params, "anova_type")
+  }
   out
 }
 
