@@ -71,7 +71,7 @@ BugReports: https://github.com/easystats/effectsize/issues/
 Depends:
     R (>= 3.6)
 Imports:
-    bayestestR (>= 0.16.8),
+    bayestestR (>= 0.16.0),
     insight (>= 1.3.0),
     parameters (>= 0.26.0),
     performance (>= 0.13.0),
