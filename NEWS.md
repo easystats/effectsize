@@ -1,6 +1,12 @@
 # effectsize 1.0.x
 
+## New features
+
 - `cohens_d()`, `p_superiority()`, `rank_biserial()` and their relatives gain a `reference=` argument to control which level of the group variable should be treated as the reference (thanks @profandyfield for the suggestion).
+
+## Changes
+
+- Fixed failing tests related to the recent update of the *parameters* package.
 
 # effectsize 1.0.0
 
@@ -38,11 +44,11 @@
 
 ## New features
 
-- `cohens_d()` and `glass_delta()` gain an `adjust` argument for applying Hedges' small-sample bias correction (`hedges_g()` is now an alias for `cohens_d(adjust = TRUE)`).  
+- `cohens_d()` and `glass_delta()` gain an `adjust` argument for applying Hedges' small-sample bias correction (`hedges_g()` is now an alias for `cohens_d(adjust = TRUE)`).
 - `repeated_measures_d()` to compute standardized mean differences (SMD) for repeated measures data.
-  - Also supported in `effectsize(<t.test(paired = TRUE)>)`  
+  - Also supported in `effectsize(<t.test(paired = TRUE)>)`
 - New function: `interpret_fei()`
-  
+
 ## Bug fixes
 
 - Minor stability fix to ncp-based CI methods ( #628 )
@@ -50,7 +56,7 @@
 
 # effectsize 0.8.6
 
-This is a minor update to bring `effectsize` in-line with the formula methods 
+This is a minor update to bring `effectsize` in-line with the formula methods
 in `t.test()` and `wilcox.test()` in `R>=4.4.0`.
 
 ## Breaking Changes
@@ -86,7 +92,7 @@ in `t.test()` and `wilcox.test()` in `R>=4.4.0`.
 
 ## Bug fixes
 
-- `riskratio()` returns correct CIs (#584)  
+- `riskratio()` returns correct CIs (#584)
 - `d_to_r()` correctly treats specifying only `n1`/`n2` as equal group sizes (#571)
 
 # effectsize 0.8.3
@@ -104,7 +110,7 @@ in `t.test()` and `wilcox.test()` in `R>=4.4.0`.
 ## Bug fixes
 
 - ANOVA effect sizes for `afex::mixed()` now return effect sizes for the Intercept where applicable.
-- Fixed error in `cohens_w()` for 2-by-X tables.  
+- Fixed error in `cohens_w()` for 2-by-X tables.
 - Solved integer overflow errors in `rank_biserial()` ( #476 )
 - Fixed issue in `effectsize()` for t-tests when input vectors has unequal amount of missing values.
 
@@ -112,7 +118,7 @@ in `t.test()` and `wilcox.test()` in `R>=4.4.0`.
 
 ## Breaking Changes
 
-- `omega_squared()` and `epsilon_squared()` (and `F_to_omega2()` and `F_to_epsilon2()`) always return non-negative estimates (previously estimates were negative when the observed effect size is very small).  
+- `omega_squared()` and `epsilon_squared()` (and `F_to_omega2()` and `F_to_epsilon2()`) always return non-negative estimates (previously estimates were negative when the observed effect size is very small).
 - `rank_eta_squared()` always returns a non-negative estimate (previously estimates were negative when the observed effect size is very small).
 
 # effectsize 0.8.1
@@ -171,16 +177,16 @@ in `t.test()` and `wilcox.test()` in `R>=4.4.0`.
 ## Bug fixes
 
 - `cohens_d()` for paired / one sample now gives more accurate CIs (was off by a factor of `(N - 1) / N`; #457)
-- `kendalls_w()` now deals correctly with singular ties (#448).  
+- `kendalls_w()` now deals correctly with singular ties (#448).
 
 # effectsize 0.7.0
 
 ## Breaking Changes
 
-- **`standardize_parameters()`, `standardize_posteriors()`, & `standardize_info()` have been moved to the `parameters` package.**  
-- **`standardize()` (for models) has been moved to the `datawizard` package.**  
-- `phi()` only works for 2x2 tables.  
-- `cramers_v()` only works for 2D tables.  
+- **`standardize_parameters()`, `standardize_posteriors()`, & `standardize_info()` have been moved to the `parameters` package.**
+- **`standardize()` (for models) has been moved to the `datawizard` package.**
+- `phi()` only works for 2x2 tables.
+- `cramers_v()` only works for 2D tables.
 
 ## New features
 
@@ -190,8 +196,8 @@ in `t.test()` and `wilcox.test()` in `R>=4.4.0`.
 
 ## Bug fixes
 
-- `kendalls_w()` now deals with ties.  
-- `eta_squared()` works with `car::Manova()` that does not have an i-design. 
+- `kendalls_w()` now deals with ties.
+- `eta_squared()` works with `car::Manova()` that does not have an i-design.
 
 # effectsize 0.6.0.1
 
@@ -199,14 +205,14 @@ in `t.test()` and `wilcox.test()` in `R>=4.4.0`.
 
 ## Bug fixes
 
-- `interpret.performance_lavaan()` now works without attaching `effectsize` ( #410 ).  
+- `interpret.performance_lavaan()` now works without attaching `effectsize` ( #410 ).
 - `eta_squared()` now fully support multi-variate `car` ANOVAs (class `Anova.mlm`; #406 ).
 
 # effectsize 0.6.0
 
 ## Breaking Changes
 
-- `pearsons_c()` effect size column name changed to `Pearsons_c` for consistency. 
+- `pearsons_c()` effect size column name changed to `Pearsons_c` for consistency.
 
 ## New features
 
@@ -226,8 +232,8 @@ See [*Support functions for model extensions* vignette](https://easystats.github
 
 ## Bug fixes
 
-- `eta_squared()` for MLM return effect sizes in the correct order of the responses.  
-- `eta_squared()` family no longer fails when CIs fail due to non-finite *F*s / degrees of freedom.  
+- `eta_squared()` for MLM return effect sizes in the correct order of the responses.
+- `eta_squared()` family no longer fails when CIs fail due to non-finite *F*s / degrees of freedom.
 - `standardize()` for multivariate models standardizes the (multivariate) response.
 - `standardize()` for models with offsets standardizes offset variables according to `include_response` and `two_sd` ( #396 ).
 - `eta_squared()`: fixed a bug that caused `afex_aov` models with more than 2 within-subject factors to return incorrect effect sizes for the lower level factors ( #389 ).
@@ -246,7 +252,7 @@ See [*Support functions for model extensions* vignette](https://easystats.github
 
 - `pearsons_c()` (and `chisq_to_pearsons_c()`) for estimating Pearson's contingency coefficient.
 - `interpret_vif()` for interpretation of *variance inflation factors*.
-- `oddsratio_to_riskratio()` can now convert OR coefficients to RR coefficients from a logistic GLM(M). 
+- `oddsratio_to_riskratio()` can now convert OR coefficients to RR coefficients from a logistic GLM(M).
 - All effect-size functions gain an `alternative` argument which can be used to make one- or two-sided CIs.
 - `interpret()` now accepts as input the results from `cohens_d()`, `eta_squared()`, `rank_biserial()`, etc.
 - `interpret_pd()` for the interpretation of the [*Probability of Direction*](https://easystats.github.io/bayestestR/reference/p_direction.html).
@@ -267,15 +273,15 @@ See [*Support functions for model extensions* vignette](https://easystats.github
 ## New features
 
 - `eta_squared()` family now indicate the type of sum-of-squares used.
-- `rank_biserial()` estimates CIs using the normal approximation (previously used bootstrapping).  
-- `hedges_g()` now used exact bias correction (thanks to @mdelacre for the suggestion!)  
+- `rank_biserial()` estimates CIs using the normal approximation (previously used bootstrapping).
+- `hedges_g()` now used exact bias correction (thanks to @mdelacre for the suggestion!)
 - `glass_delta()` now estimates CIs using the NCP method based on Algina et al (2006).
 
 ## Bug fixes
 
 - `eta_squared()` family returns correctly returns the type 2/3 effect sizes for mixed ANOVAs fit with `afex`.
 - `cohens_d()` family now correctly deals with missing factor levels ( #318 )
-- `cohens_d()` / `hedges_g()` minor fix for CI with unequal variances.  
+- `cohens_d()` / `hedges_g()` minor fix for CI with unequal variances.
 
 
 ## Changes
@@ -628,4 +634,3 @@ See [*Support functions for model extensions* vignette](https://easystats.github
 ## Bug fixes
 
 - Fix CRAN check issues.
-

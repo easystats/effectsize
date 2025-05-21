@@ -1,8 +1,8 @@
 Type: Package
 Package: effectsize
 Title: Indices of Effect Size
-Version: 1.0.0.1
-Authors@R: 
+Version: 1.0.0.2
+Authors@R:
     c(person(given = "Mattan S.",
              family = "Ben-Shachar",
              role = c("aut", "cre"),
@@ -28,9 +28,9 @@ Authors@R:
              role = "aut",
              email = "brenton@wiernik.org",
              comment = c(ORCID = "0000-0001-9560-6336")),
-      person(given = "Rémi", 
+      person(given = "Rémi",
              family = "Thériault",
-             role = "aut", 
+             role = "aut",
              email = "remi.theriault@mail.mcgill.ca",
              comment = c(ORCID = "0000-0003-4315-6788")),
       person(given = "Ken",
@@ -60,9 +60,9 @@ Authors@R:
              email = "philip.waggoner@gmail.com",
              comment = c(ORCID = "0000-0002-7825-7573")))
 Maintainer: Mattan S. Ben-Shachar <mattansb@msbstats.info>
-Description: Provide utilities to work with indices of effect size for a wide 
-    variety of models and hypothesis tests (see list of supported models using 
-    the function 'insight::supported_models()'), allowing computation of and 
+Description: Provide utilities to work with indices of effect size for a wide
+    variety of models and hypothesis tests (see list of supported models using
+    the function 'insight::supported_models()'), allowing computation of and
     conversion between indices such as Cohen's d, r, odds, etc.
     References: Ben-Shachar et al. (2020) <doi:10.21105/joss.02815>.
 License: MIT + file LICENSE
@@ -71,9 +71,9 @@ BugReports: https://github.com/easystats/effectsize/issues/
 Depends:
     R (>= 3.6)
 Imports:
-    bayestestR (>= 0.15.2),
-    insight (>= 1.1.0),
-    parameters (>= 0.24.2),
+    bayestestR (>= 0.16.8),
+    insight (>= 1.3.0),
+    parameters (>= 0.26.0),
     performance (>= 0.13.0),
     datawizard (>= 1.0.2),
     stats,
@@ -100,7 +100,7 @@ Suggests:
     rstanarm,
     rstantools,
     testthat (>= 3.1.0)
-VignetteBuilder: 
+VignetteBuilder:
     knitr
 Encoding: UTF-8
 Language: en-US
@@ -112,3 +112,4 @@ Config/Needs/website:
     rstudio/bslib,
     r-lib/pkgdown,
     easystats/easystatstemplate
+Remotes: easystats/parameters#1106
