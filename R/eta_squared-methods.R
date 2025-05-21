@@ -168,7 +168,7 @@
 
 #' @keywords internal
 .anova_es.manova <- function(model, ...) {
-  pars <- parameters::model_parameters(model, include_intercept = include_intercept)
+  pars <- parameters::model_parameters(model, ...)
   pars$df <- pars$df_num
   pars <- pars[pars$Parameter != "Residuals", ]
   out <- .anova_es(pars, ...)
