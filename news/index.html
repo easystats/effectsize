@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,9 +76,16 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0" id="effectsize-10x">effectsize 1.0.x<a class="anchor" aria-label="anchor" href="#effectsize-10x"></a></h2>
+<div class="section level3">
+<h3 id="new-features-1-0">New features<a class="anchor" aria-label="anchor" href="#new-features-1-0"></a></h3>
 <ul><li>
 <code><a href="../reference/cohens_d.html">cohens_d()</a></code>, <code><a href="../reference/p_superiority.html">p_superiority()</a></code>, <code><a href="../reference/rank_biserial.html">rank_biserial()</a></code> and their relatives gain a <code>reference=</code> argument to control which level of the group variable should be treated as the reference (thanks <a href="https://github.com/profandyfield" class="external-link">@profandyfield</a> for the suggestion).</li>
 </ul></div>
+<div class="section level3">
+<h3 id="changes-1-0">Changes<a class="anchor" aria-label="anchor" href="#changes-1-0"></a></h3>
+<ul><li>Fixed failing tests related to the recent update of the <em>parameters</em> package.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.0" id="effectsize-100">effectsize 1.0.0<a class="anchor" aria-label="anchor" href="#effectsize-100"></a></h2><p class="text-muted">CRAN release: 2024-12-10</p>
 <p><strong><em>First stable release of <a href="https://easystats.github.io/effectsize/">effectsize</a>!</em></strong></p>
@@ -123,10 +130,11 @@
 </ul><div class="section level3">
 <h3 id="new-features-0-8-7">New features<a class="anchor" aria-label="anchor" href="#new-features-0-8-7"></a></h3>
 <ul><li>
-<code><a href="../reference/cohens_d.html">cohens_d()</a></code> and <code><a href="../reference/cohens_d.html">glass_delta()</a></code> gain an <code>adjust</code> argument for applying Hedges’ small-sample bias correction (<code><a href="../reference/cohens_d.html">hedges_g()</a></code> is now an alias for <code>cohens_d(adjust = TRUE)</code>).<br></li>
+<code><a href="../reference/cohens_d.html">cohens_d()</a></code> and <code><a href="../reference/cohens_d.html">glass_delta()</a></code> gain an <code>adjust</code> argument for applying Hedges’ small-sample bias correction (<code><a href="../reference/cohens_d.html">hedges_g()</a></code> is now an alias for <code>cohens_d(adjust = TRUE)</code>).</li>
 <li>
 <code><a href="../reference/repeated_measures_d.html">repeated_measures_d()</a></code> to compute standardized mean differences (SMD) for repeated measures data.
-<ul><li>Also supported in <code>effectsize(&lt;t.test(paired = TRUE)&gt;)</code><br></li>
+<ul><li>Also supported in <code>effectsize(&lt;t.test(paired = TRUE)&gt;)</code>
+</li>
 </ul></li>
 <li>New function: <code><a href="../reference/interpret_r.html">interpret_fei()</a></code>
 </li>
@@ -189,7 +197,7 @@
 <div class="section level3">
 <h3 id="bug-fixes-0-8-5">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-8-5"></a></h3>
 <ul><li>
-<code><a href="../reference/oddsratio.html">riskratio()</a></code> returns correct CIs (<a href="https://github.com/easystats/effectsize/issues/584" class="external-link">#584</a>)<br></li>
+<code><a href="../reference/oddsratio.html">riskratio()</a></code> returns correct CIs (<a href="https://github.com/easystats/effectsize/issues/584" class="external-link">#584</a>)</li>
 <li>
 <code><a href="../reference/d_to_r.html">d_to_r()</a></code> correctly treats specifying only <code>n1</code>/<code>n2</code> as equal group sizes (<a href="https://github.com/easystats/effectsize/issues/571" class="external-link">#571</a>)</li>
 </ul></div>
@@ -213,7 +221,7 @@
 <div class="section level3">
 <h3 id="bug-fixes-0-8-3">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-8-3"></a></h3>
 <ul><li>ANOVA effect sizes for <code><a href="https://rdrr.io/pkg/afex/man/mixed.html" class="external-link">afex::mixed()</a></code> now return effect sizes for the Intercept where applicable.</li>
-<li>Fixed error in <code><a href="../reference/phi.html">cohens_w()</a></code> for 2-by-X tables.<br></li>
+<li>Fixed error in <code><a href="../reference/phi.html">cohens_w()</a></code> for 2-by-X tables.</li>
 <li>Solved integer overflow errors in <code><a href="../reference/rank_biserial.html">rank_biserial()</a></code> ( <a href="https://github.com/easystats/effectsize/issues/476" class="external-link">#476</a> )</li>
 <li>Fixed issue in <code><a href="../reference/effectsize.html">effectsize()</a></code> for t-tests when input vectors has unequal amount of missing values.</li>
 </ul></div>
@@ -223,7 +231,7 @@
 <div class="section level3">
 <h3 id="breaking-changes-0-8-2">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-8-2"></a></h3>
 <ul><li>
-<code><a href="../reference/eta_squared.html">omega_squared()</a></code> and <code><a href="../reference/eta_squared.html">epsilon_squared()</a></code> (and <code><a href="../reference/F_to_eta2.html">F_to_omega2()</a></code> and <code><a href="../reference/F_to_eta2.html">F_to_epsilon2()</a></code>) always return non-negative estimates (previously estimates were negative when the observed effect size is very small).<br></li>
+<code><a href="../reference/eta_squared.html">omega_squared()</a></code> and <code><a href="../reference/eta_squared.html">epsilon_squared()</a></code> (and <code><a href="../reference/F_to_eta2.html">F_to_omega2()</a></code> and <code><a href="../reference/F_to_eta2.html">F_to_epsilon2()</a></code>) always return non-negative estimates (previously estimates were negative when the observed effect size is very small).</li>
 <li>
 <code><a href="../reference/rank_epsilon_squared.html">rank_eta_squared()</a></code> always returns a non-negative estimate (previously estimates were negative when the observed effect size is very small).</li>
 </ul></div>
@@ -312,12 +320,10 @@
 <h2 class="pkg-version" data-toc-text="0.7.0" id="effectsize-070">effectsize 0.7.0<a class="anchor" aria-label="anchor" href="#effectsize-070"></a></h2><p class="text-muted">CRAN release: 2022-05-26</p>
 <div class="section level3">
 <h3 id="breaking-changes-0-7-0">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-7-0"></a></h3>
-<ul><li>
-<strong><code><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html" class="external-link">standardize_parameters()</a></code>, <code><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html" class="external-link">standardize_posteriors()</a></code>, &amp; <code><a href="https://easystats.github.io/parameters/reference/standardize_info.html" class="external-link">standardize_info()</a></code> have been moved to the <code>parameters</code> package.</strong><br></li>
+<ul><li><strong><code><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html" class="external-link">standardize_parameters()</a></code>, <code><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html" class="external-link">standardize_posteriors()</a></code>, &amp; <code><a href="https://easystats.github.io/parameters/reference/standardize_info.html" class="external-link">standardize_info()</a></code> have been moved to the <code>parameters</code> package.</strong></li>
+<li><strong><code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> (for models) has been moved to the <code>datawizard</code> package.</strong></li>
 <li>
-<strong><code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> (for models) has been moved to the <code>datawizard</code> package.</strong><br></li>
-<li>
-<code><a href="../reference/phi.html">phi()</a></code> only works for 2x2 tables.<br></li>
+<code><a href="../reference/phi.html">phi()</a></code> only works for 2x2 tables.</li>
 <li>
 <code><a href="../reference/phi.html">cramers_v()</a></code> only works for 2D tables.</li>
 </ul></div>
@@ -332,7 +338,7 @@
 <div class="section level3">
 <h3 id="bug-fixes-0-7-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-7-0"></a></h3>
 <ul><li>
-<code><a href="../reference/rank_epsilon_squared.html">kendalls_w()</a></code> now deals with ties.<br></li>
+<code><a href="../reference/rank_epsilon_squared.html">kendalls_w()</a></code> now deals with ties.</li>
 <li>
 <code><a href="../reference/eta_squared.html">eta_squared()</a></code> works with <code><a href="https://rdrr.io/pkg/car/man/Anova.html" class="external-link">car::Manova()</a></code> that does not have an i-design.</li>
 </ul></div>
@@ -343,7 +349,7 @@
 <div class="section level3">
 <h3 id="bug-fixes-0-6-0-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-6-0-1"></a></h3>
 <ul><li>
-<code><a href="../reference/interpret_gfi.html">interpret.performance_lavaan()</a></code> now works without attaching <code>effectsize</code> ( <a href="https://github.com/easystats/effectsize/issues/410" class="external-link">#410</a> ).<br></li>
+<code><a href="../reference/interpret_gfi.html">interpret.performance_lavaan()</a></code> now works without attaching <code>effectsize</code> ( <a href="https://github.com/easystats/effectsize/issues/410" class="external-link">#410</a> ).</li>
 <li>
 <code><a href="../reference/eta_squared.html">eta_squared()</a></code> now fully support multi-variate <code>car</code> ANOVAs (class <code>Anova.mlm</code>; <a href="https://github.com/easystats/effectsize/issues/406" class="external-link">#406</a> ).</li>
 </ul></div>
@@ -379,9 +385,9 @@
 <div class="section level3">
 <h3 id="bug-fixes-0-6-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-6-0"></a></h3>
 <ul><li>
-<code><a href="../reference/eta_squared.html">eta_squared()</a></code> for MLM return effect sizes in the correct order of the responses.<br></li>
+<code><a href="../reference/eta_squared.html">eta_squared()</a></code> for MLM return effect sizes in the correct order of the responses.</li>
 <li>
-<code><a href="../reference/eta_squared.html">eta_squared()</a></code> family no longer fails when CIs fail due to non-finite <em>F</em>s / degrees of freedom.<br></li>
+<code><a href="../reference/eta_squared.html">eta_squared()</a></code> family no longer fails when CIs fail due to non-finite <em>F</em>s / degrees of freedom.</li>
 <li>
 <code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> for multivariate models standardizes the (multivariate) response.</li>
 <li>
@@ -440,9 +446,9 @@
 <ul><li>
 <code><a href="../reference/eta_squared.html">eta_squared()</a></code> family now indicate the type of sum-of-squares used.</li>
 <li>
-<code><a href="../reference/rank_biserial.html">rank_biserial()</a></code> estimates CIs using the normal approximation (previously used bootstrapping).<br></li>
+<code><a href="../reference/rank_biserial.html">rank_biserial()</a></code> estimates CIs using the normal approximation (previously used bootstrapping).</li>
 <li>
-<code><a href="../reference/cohens_d.html">hedges_g()</a></code> now used exact bias correction (thanks to <a href="https://github.com/mdelacre" class="external-link">@mdelacre</a> for the suggestion!)<br></li>
+<code><a href="../reference/cohens_d.html">hedges_g()</a></code> now used exact bias correction (thanks to <a href="https://github.com/mdelacre" class="external-link">@mdelacre</a> for the suggestion!)</li>
 <li>
 <code><a href="../reference/cohens_d.html">glass_delta()</a></code> now estimates CIs using the NCP method based on Algina et al (2006).</li>
 </ul></div>
@@ -727,7 +733,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.9000.</p>
 </div>
 
     </footer></div>
