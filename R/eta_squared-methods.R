@@ -87,7 +87,7 @@
       # TODO this should be the method for manova,
       # so this should be copied there, and here happsed to:
       # .anova_es.manova
-      aov_tab <- parameters::model_parameters(model)
+      aov_tab <- parameters::model_parameters(model, include_intercept = include_intercept)
       aov_tab$df <- aov_tab$df_num
       out <- .anova_es(aov_tab,
         type = type,
