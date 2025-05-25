@@ -69,7 +69,7 @@ License: MIT + file LICENSE
 URL: https://easystats.github.io/effectsize/
 BugReports: https://github.com/easystats/effectsize/issues/
 Depends:
-    R (>= 3.6)
+    R (>= 4.0)
 Imports:
     bayestestR (>= 0.16.0),
     insight (>= 1.3.0),
