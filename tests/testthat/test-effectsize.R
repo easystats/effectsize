@@ -1,4 +1,6 @@
+
 # htest -------------------------------------------------------------------
+
 test_that("t-test", {
   x <<- 1:10
   y <<- c(1, 1:9)
@@ -319,6 +321,7 @@ test_that("htest | Get args from htest", {
 
 
 # aov ---------------------------------------------------------------------
+
 test_that("aov", {
   data <- iris
   data$Cat1 <- rep(c("A", "B"), length.out = nrow(data))
@@ -329,6 +332,7 @@ test_that("aov", {
 
 
 # BayesFactor -------------------------------------------------------------
+
 test_that("BayesFactor", {
   skip_if_not_installed("BayesFactor")
   skip_on_cran()
@@ -352,6 +356,77 @@ test_that("BayesFactor", {
   bf4 <- BayesFactor::proportionBF(4, 12, 0.5)
   expect_equal(effectsize(bf4)[[1]], 0.3911, tolerance = 0.03)
 })
+
+
+# datawizard::data_tabulate() ---------------------------------------------
+
+test_that("effectsize | datawizard crosstabs", {
+  skip_if_not_installed("datawizard", minimum_version = "1.2.0")
+
+  data("mtcars")
+  xtabs1 <- datawizard::data_tabulate(mtcars, select = "cyl", by = "am")
+  xtab1 <- xtabs1[[1]]
+
+  expect_equal(
+    effectsize(xtabs1),
+    cramers_v(mtcars$cyl, mtcars$am)
+  )
+  expect_equal(
+    effectsize(xtabs1),
+    effectsize(xtab1)
+  )
+  expect_equal(
+    effectsize(xtabs1, type = "c"),
+    pearsons_c(mtcars$cyl, mtcars$am)
+  )
+  expect_equal(
+    effectsize(xtab1, type = "c"),
+    pearsons_c(mtcars$cyl, mtcars$am)
+  )
+
+
+  xtabs2 <- datawizard::data_tabulate(mtcars, select = c("cyl", "gear"), by = "am")
+  xtabs3 <- datawizard::data_tabulate(datawizard::data_group(mtcars, select = c("carb")),
+    select = c("cyl", "gear"), by = "am"
+  )
+  expect_error(effectsize(xtabs2), regexp = "Multilpe tables")
+  expect_error(effectsize(xtabs3), regexp = "Multilpe tables")
+})
+
+test_that("effectsize | datawizard tables", {
+  skip_if_not_installed("datawizard", minimum_version = "1.2.0")
+
+  data("mtcars")
+  tabs1 <- datawizard::data_tabulate(mtcars, select = "cyl")
+  tab1 <- tabs1[[1]]
+
+  expect_equal(
+    effectsize(tabs1),
+    fei(table(mtcars$cyl))
+  )
+  expect_equal(
+    effectsize(tabs1),
+    effectsize(tab1)
+  )
+  expect_equal(
+    effectsize(tabs1, type = "c"),
+    pearsons_c(table(mtcars$cyl))
+  )
+  expect_equal(
+    effectsize(tab1, type = "c"),
+    pearsons_c(table(mtcars$cyl))
+  )
+
+
+  xtabs2 <- datawizard::data_tabulate(mtcars, select = c("cyl", "gear"))
+  xtabs3 <- datawizard::data_tabulate(datawizard::data_group(mtcars, select = c("carb")),
+                                      select = c("cyl", "gear"))
+  expect_error(effectsize(xtabs2), regexp = "Multilpe tables")
+  expect_error(effectsize(xtabs3), regexp = "Multilpe tables")
+})
+
+
+# Other ----------------------------------------
 
 test_that("effectsize | easycorrelation", {
   skip_if_not_installed("correlation")
