@@ -49,7 +49,7 @@
 #' effectsize(Xsq)
 #' effectsize(Xsq, type = "cohens_w")
 #'
-#' Or:
+#' # Or:
 #' data("mtcars")
 #' xtab <- datawizard::data_tabulate(mtcars, select = "cyl", by = "am")
 #' effectsize(xtab)
