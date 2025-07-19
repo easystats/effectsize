@@ -9,7 +9,7 @@ input model. See details."><meta property="og:image" content="https://easystats.
 
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +73,7 @@ input model. See details."><meta property="og:image" content="https://easystats.
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Effect Sizes</h1>
-      <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/main/R/effectsize.BFBayesFactor.R" class="external-link"><code>R/effectsize.BFBayesFactor.R</code></a>, <a href="https://github.com/easystats/effectsize/blob/main/R/effectsize.R" class="external-link"><code>R/effectsize.R</code></a>, <a href="https://github.com/easystats/effectsize/blob/main/R/effectsize.htest.R" class="external-link"><code>R/effectsize.htest.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/easystats/effectsize/blob/main/R/effectsize.BFBayesFactor.R" class="external-link"><code>R/effectsize.BFBayesFactor.R</code></a>, <a href="https://github.com/easystats/effectsize/blob/main/R/effectsize.R" class="external-link"><code>R/effectsize.R</code></a>, <a href="https://github.com/easystats/effectsize/blob/main/R/effectsize.data_tabulate.R" class="external-link"><code>R/effectsize.data_tabulate.R</code></a>, and 1 more</small>
       <div class="d-none name"><code>effectsize.Rd</code></div>
     </div>
 
@@ -91,6 +91,18 @@ input model. See details.</p>
 <span></span>
 <span><span class="co"># S3 method for class 'aov'</span></span>
 <span><span class="fu">effectsize</span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'datawizard_crosstabs'</span></span>
+<span><span class="fu">effectsize</span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="cn">NULL</span>, drop <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'datawizard_crosstab'</span></span>
+<span><span class="fu">effectsize</span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="cn">NULL</span>, drop <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'datawizard_tables'</span></span>
+<span><span class="fu">effectsize</span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="cn">NULL</span>, drop <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'datawizard_table'</span></span>
+<span><span class="fu">effectsize</span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="cn">NULL</span>, drop <span class="op">=</span> <span class="cn">TRUE</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'htest'</span></span>
 <span><span class="fu">effectsize</span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="cn">NULL</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
@@ -130,6 +142,10 @@ and its results included in the summary output.</p></dd>
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments passed to or from other methods. See details.</p></dd>
 
+
+<dt id="arg-drop">drop<a class="anchor" aria-label="anchor" href="#arg-drop"></a></dt>
+<dd><p>Should empty rows/cols be dropped?</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -156,6 +172,7 @@ CIs (<code>CI_low</code> and <code>CI_high</code>).</p>
 <li><p>A <strong>proportion test</strong> returns <em>p</em>.</p></li>
 </ul></li>
 <li><p>Objects of class <code>anova</code>, <code>aov</code>, <code>aovlist</code> or <code>afex_aov</code>, depending on <code>type</code>: <code>"eta"</code> (default), <code>"omega"</code> or <code>"epsilon"</code> -squared, <code>"f"</code>, or <code>"f2"</code>.</p></li>
+<li><p>Objects of class <code>datawizard_crosstab(s)</code> / <code>datawizard_table(s)</code> built with <code><a href="https://easystats.github.io/datawizard/reference/data_tabulate.html" class="external-link">datawizard::data_tabulate()</a></code> - same as Chi-squared tests of independence / goodness-of-fit, respectively.</p></li>
 <li><p>Other objects are passed to <code><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html" class="external-link">parameters::standardize_parameters()</a></code>.</p></li>
 </ul><p><strong>For statistical models it is recommended to directly use the listed
 functions, for the full range of options they provide.</strong></p>
@@ -190,6 +207,16 @@ functions, for the full range of options they provide.</strong></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.34      | [0.27, 1.41]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.41~].</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Or:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"mtcars"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">xtab</span> <span class="op">&lt;-</span> <span class="fu">datawizard</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/datawizard/reference/data_tabulate.html" class="external-link">data_tabulate</a></span><span class="op">(</span><span class="va">mtcars</span>, select <span class="op">=</span> <span class="st">"cyl"</span>, by <span class="op">=</span> <span class="st">"am"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">effectsize</span><span class="op">(</span><span class="va">xtab</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cramer's V (adj.) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.46              | [0.00, 1.00]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [1.00].</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">Tt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span><span class="op">:</span><span class="fl">20</span><span class="op">)</span>, alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">effectsize</span><span class="op">(</span><span class="va">Tt</span><span class="op">)</span></span></span>
