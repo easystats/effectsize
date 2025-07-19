@@ -10,7 +10,7 @@
 \usage{
 oddsratio(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...)
 
-riskratio(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...)
+riskratio(x, y = NULL, ci = 0.95, alternative = "two.sided", ...)
 
 cohens_h(x, y = NULL, ci = 0.95, alternative = "two.sided", ...)
 
@@ -38,9 +38,9 @@ e.g. when the desired input or output are log odds ratios instead odds ratios.}
 \item{...}{Ignored}
 }
 \value{
-A data frame with the effect size (\code{Odds_ratio}, \code{Risk_ratio}
-(possibly with the prefix \code{log_}), \code{Cohens_h}, \code{ARR}, \code{NNT}) and its CIs
-(\code{CI_low} and \code{CI_high}).
+A data frame with the effect size (\code{Odds_ratio}, \code{log_Odds_ratio},
+\code{Risk_ratio} \code{Cohens_h}, \code{ARR}, \code{NNT}) and its CIs (\code{CI_low} and
+\code{CI_high}).
 }
 \description{
 Compute Odds Ratios, Risk Ratios, Cohen's \emph{h}, Absolute Risk Reduction or

@@ -30,9 +30,9 @@
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #' @inheritSection print.effectsize_table Plotting with `see`
 #'
-#' @return A data frame with the effect size (`Odds_ratio`, `Risk_ratio`
-#'   (possibly with the prefix `log_`), `Cohens_h`, `ARR`, `NNT`) and its CIs
-#'   (`CI_low` and `CI_high`).
+#' @return A data frame with the effect size (`Odds_ratio`, `log_Odds_ratio`,
+#'   `Risk_ratio` `Cohens_h`, `ARR`, `NNT`) and its CIs (`CI_low` and
+#'   `CI_high`).
 #'
 #' @family effect sizes for contingency table
 #'
@@ -119,14 +119,14 @@ oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
 
 #' @rdname oddsratio
 #' @export
-riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...) {
+riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   alternative <- .match.alt(alternative)
 
   if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") ||
       inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))) {
-    return(effectsize(x, type = "rr", log = log, ci = ci, alternative = alternative))
+    return(effectsize(x, type = "rr", ci = ci, alternative = alternative))
   } else if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
-    return(effectsize(x, type = "rr", log = log, ci = ci, ...))
+    return(effectsize(x, type = "rr", ci = ci, ...))
   }
 
   res <- .get_data_xtabs(x, y)
@@ -165,12 +165,6 @@ riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
     res <- .limit_ci(res, alternative, 0, Inf)
   } else {
     ci_method <- alternative <- NULL
-  }
-
-  if (log) {
-    res[colnames(res) %in% c("Risk_ratio", "CI_low", "CI_high")] <-
-      log(res[colnames(res) %in% c("Risk_ratio", "CI_low", "CI_high")])
-    colnames(res)[1] <- "log_Risk_ratio"
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))
