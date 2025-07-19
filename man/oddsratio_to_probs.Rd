@@ -10,7 +10,7 @@
 \usage{
 oddsratio_to_probs(OR, p0, log = FALSE, odds = FALSE, ...)
 
-logoddsratio_to_probs(OR, p0, log = TRUE, odds = FALSE, ...)
+logoddsratio_to_probs(logOR, p0, log = TRUE, odds = FALSE, ...)
 
 riskratio_to_probs(RR, p0, odds = FALSE, ...)
 
@@ -19,6 +19,11 @@ arr_to_probs(ARR, p0, odds = FALSE, ...)
 nnt_to_probs(NNT, p0, odds = FALSE, ...)
 }
 \arguments{
+\item{OR, logOR, RR, ARR, NNT}{Odds-ratio of \code{odds(p1)/odds(p0)}, log-Odds-ratio
+of \code{log(odds(p1)/odds(p0))}, Risk ratio of \code{p1/p0}, Absolute Risk Reduction
+of \code{p1 - p0}, or Number-needed-to-treat of \code{1/(p1 - p0)}. \code{OR} and \code{logOR}
+can also be a logistic regression model.}
+
 \item{p0}{Baseline risk}
 
 \item{log}{If:

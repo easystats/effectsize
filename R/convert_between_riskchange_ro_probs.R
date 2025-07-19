@@ -43,8 +43,8 @@ oddsratio_to_probs <- function(OR, p0, log = FALSE, odds = FALSE, ...) {
 
 #' @export
 #' @rdname oddsratio_to_probs
-logoddsratio_to_probs <- function(OR, p0, log = TRUE, odds = FALSE, ...) {
-  oddsratio_to_probs(PR, p0, log = log, odds = odds)
+logoddsratio_to_probs <- function(logOR, p0, log = TRUE, odds = FALSE, ...) {
+  oddsratio_to_probs(logOR, p0, log = log, odds = odds)
 }
 
 #' @export
