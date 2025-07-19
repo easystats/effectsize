@@ -22,11 +22,10 @@
 #' probs_to_odds(0.95, log = TRUE)
 #' @export
 odds_to_probs <- function(odds, log = FALSE, ...) {
-  UseMethod("odds_to_probs")
-}
+  if (is.data.frame(odds)) {
+    .deprecated_df_methods("odds_to_probs")
+  }
 
-#' @export
-odds_to_probs.numeric <- function(odds, log = FALSE, ...) {
   if (log) {
     stats::plogis(odds)
   } else {
@@ -34,22 +33,13 @@ odds_to_probs.numeric <- function(odds, log = FALSE, ...) {
   }
 }
 
-
-#' @rdname odds_to_probs
-#' @export
-odds_to_probs.data.frame <- function(odds, log = FALSE, select = NULL, exclude = NULL, ...) {
-  .odds_to_probs_df(odds = odds, log = log, select = select, exclude = exclude, ...)
-}
-
-
 #' @rdname odds_to_probs
 #' @export
 probs_to_odds <- function(probs, log = FALSE, ...) {
-  UseMethod("probs_to_odds")
-}
+  if (is.data.frame(odds)) {
+    .deprecated_df_methods("probs_to_odds")
+  }
 
-#' @export
-probs_to_odds.numeric <- function(probs, log = FALSE, ...) {
   if (log) {
     stats::qlogis(probs)
   } else {
@@ -57,11 +47,7 @@ probs_to_odds.numeric <- function(probs, log = FALSE, ...) {
   }
 }
 
-#' @rdname odds_to_probs
-#' @export
-probs_to_odds.data.frame <- function(probs, log = FALSE, select = NULL, exclude = NULL, ...) {
-  .odds_to_probs_df(probs = probs, log = log, select = select, exclude = exclude, ...)
-}
+
 
 
 
