@@ -104,7 +104,6 @@ Other convert between effect sizes:
 \code{\link{diff_to_cles}},
 \code{\link{eta2_to_f2}()},
 \code{\link{odds_to_probs}()},
-\code{\link{oddsratio_to_probs}()},
 \code{\link{oddsratio_to_riskratio}()}
 }
 \concept{convert between effect sizes}

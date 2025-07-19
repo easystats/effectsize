@@ -57,8 +57,14 @@ p1 <- 0.7
 
 riskratio_to_probs(RR, p0 = p0)
 oddsratio_to_probs(OR, p0 = p0)
-riskratio_to_probs(RR, p0 = p0)
-arr_to_probs(nnt_to_arr(NNT), p0 = p0)
+
+all.equal(nnt_to_probs(NNT, p0 = p0, odds = TRUE),
+          probs_to_odds(p1))
+
+arr_to_probs(-ARR, p0 = p1)
+nnt_to_probs(-NNT, p0 = p1)
+
+
 
 # RR |>
 #   riskratio_to_arr(p0) |>
@@ -68,14 +74,6 @@ arr_to_probs(nnt_to_arr(NNT), p0 = p0)
 
 }
 \seealso{
-\code{\link[=oddsratio]{oddsratio()}}, \code{\link[=riskratio]{riskratio()}}, \code{\link[=arr]{arr()}}, and \code{\link[=nnt]{nnt()}}.
-
-Other convert between effect sizes: 
-\code{\link{d_to_r}()},
-\code{\link{diff_to_cles}},
-\code{\link{eta2_to_f2}()},
-\code{\link{odds_to_probs}()},
-\code{\link{oddsratio_to_riskratio}()},
-\code{\link{w_to_fei}()}
+\code{\link[=oddsratio]{oddsratio()}}, \code{\link[=riskratio]{riskratio()}}, \code{\link[=arr]{arr()}}, and \code{\link[=nnt]{nnt()}},
+\code{\link[=odds_to_probs]{odds_to_probs()}}, and \code{\link[=oddsratio_to_arr]{oddsratio_to_arr()}} and others.
 }
-\concept{convert between effect sizes}

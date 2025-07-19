@@ -5,8 +5,8 @@
 #'
 #' @return Probabilities (or probability odds).
 #'
-#' @family convert between effect sizes
-#' @seealso [oddsratio()], [riskratio()], [arr()], and [nnt()].
+#' @seealso [oddsratio()], [riskratio()], [arr()], and [nnt()],
+#' [odds_to_probs()], and [oddsratio_to_arr()] and others.
 #'
 #' @examples
 #'
@@ -20,8 +20,14 @@
 #'
 #' riskratio_to_probs(RR, p0 = p0)
 #' oddsratio_to_probs(OR, p0 = p0)
-#' riskratio_to_probs(RR, p0 = p0)
-#' arr_to_probs(nnt_to_arr(NNT), p0 = p0)
+#'
+#' all.equal(nnt_to_probs(NNT, p0 = p0, odds = TRUE),
+#'           probs_to_odds(p1))
+#'
+#' arr_to_probs(-ARR, p0 = p1)
+#' nnt_to_probs(-NNT, p0 = p1)
+#'
+#'
 #'
 #' # RR |>
 #' #   riskratio_to_arr(p0) |>
