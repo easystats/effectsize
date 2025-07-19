@@ -116,7 +116,8 @@ phi <- function(x, y = NULL,
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "phi", adjust = adjust, ci = ci))
-  } else if (!.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
+  } else if (!.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") &&
+             !inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))) {
     x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
   }
@@ -134,7 +135,8 @@ cramers_v <- function(x, y = NULL,
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci))
-  } else if (!.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
+  } else if (!.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") &&
+             !inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))) {
     x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
   }
@@ -153,7 +155,8 @@ tschuprows_t <- function(x, y = NULL,
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "tschuprows_t", ci = ci))
-  } else if (!.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
+  } else if (!.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") &&
+             !inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))) {
     x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
   }
@@ -173,7 +176,9 @@ cohens_w <- function(x, y = NULL, p = rep(1, length(x)),
   } else if (!.is_htest_of_type(
     x, "(Pearson's Chi-squared|Chi-squared test for given probabilities)",
     "Chi-squared-test"
-  )) {
+  ) &&
+  !inherits(x, c("datawizard_crosstabs", "datawizard_crosstab")) &&
+  !inherits(x, c("datawizard_tables", "datawizard_table"))) {
     x <- suppressWarnings(stats::chisq.test(x, y, p = p, rescale.p = TRUE))
     x$data.name <- NULL
   }
@@ -191,7 +196,8 @@ fei <- function(x, p = rep(1, length(x)),
 
   if (inherits(x, "BFBayesFactor")) {
     insight::format_error("Fei is only applicable to goodness of fit tests.")
-  } else if (!.is_htest_of_type(x, "Chi-squared test for given probabilities", "Chi-squared-test")) {
+  } else if (!.is_htest_of_type(x, "Chi-squared test for given probabilities", "Chi-squared-test") &&
+             !inherits(x, c("datawizard_tables", "datawizard_table"))) {
     x <- suppressWarnings(stats::chisq.test(x, y = NULL, p = p, rescale.p = TRUE))
     x$data.name <- NULL
 
@@ -219,7 +225,9 @@ pearsons_c <- function(x, y = NULL, p = rep(1, length(x)),
   } else if (!.is_htest_of_type(
     x, "(Pearson's Chi-squared|Chi-squared test for given probabilities)",
     "Chi-squared-test"
-  )) {
+  ) &&
+  !inherits(x, c("datawizard_crosstabs", "datawizard_crosstab")) &&
+  !inherits(x, c("datawizard_tables", "datawizard_table"))) {
     x <- suppressWarnings(stats::chisq.test(x, y, p = p, rescale.p = TRUE))
     x$data.name <- NULL
   }

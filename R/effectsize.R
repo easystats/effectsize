@@ -29,6 +29,7 @@
 #'   - A **contingency table test**, depending on `type`: `"cramers_v"` (default), `"phi"`, `"tschuprows_t"`, `"cohens_w"`, `"pearsons_c"`, `"cohens_h"`, `"oddsratio"`, or `"riskratio"`, `"arr"`, or `"nnt"`.
 #'   - A **proportion test** returns *p*.
 #' - Objects of class `anova`, `aov`, `aovlist` or `afex_aov`, depending on `type`: `"eta"` (default), `"omega"` or `"epsilon"` -squared, `"f"`, or `"f2"`.
+#' - Objects of class `datawizard_crosstab(s)` / `datawizard_table(s)` built with [datawizard::data_tabulate()] - same as Chi-squared tests of independence / goodness-of-fit, respectively.
 #' - Other objects are passed to [parameters::standardize_parameters()].
 #'
 #' **For statistical models it is recommended to directly use the listed
@@ -47,6 +48,11 @@
 #' Xsq <- chisq.test(Music_preferences)
 #' effectsize(Xsq)
 #' effectsize(Xsq, type = "cohens_w")
+#'
+#' # Or:
+#' data("mtcars")
+#' xtab <- datawizard::data_tabulate(mtcars, select = "cyl", by = "am")
+#' effectsize(xtab)
 #'
 #' Tt <- t.test(1:10, y = c(7:20), alternative = "less")
 #' effectsize(Tt)

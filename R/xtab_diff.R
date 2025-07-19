@@ -59,7 +59,8 @@
 oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...) {
   alternative <- .match.alt(alternative)
 
-  if (.is_htest_of_type(x, "(Pearson's Chi-squared|Fisher's Exact)", "Chi-squared-test or Fisher's Exact test")) {
+  if (.is_htest_of_type(x, "(Pearson's Chi-squared|Fisher's Exact)", "Chi-squared-test or Fisher's Exact test") ||
+      inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))) {
     return(effectsize(x, type = "or", log = log, ci = ci, alternative = alternative))
   } else if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "or", log = log, ci = ci))
@@ -119,7 +120,8 @@ oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
 riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...) {
   alternative <- .match.alt(alternative)
 
-  if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
+  if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") ||
+      inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))) {
     return(effectsize(x, type = "rr", log = log, ci = ci, alternative = alternative))
   } else if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "rr", log = log, ci = ci, ...))
@@ -182,7 +184,8 @@ riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
 cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   alternative <- .match.alt(alternative)
 
-  if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
+  if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") ||
+      inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))) {
     return(effectsize(x, type = "cohens_h", ci = ci, alternative = alternative))
   } else if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "cohens_h", ci = ci, ...))
@@ -238,7 +241,8 @@ cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
 arr <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   alternative <- .match.alt(alternative)
 
-  if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
+  if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") ||
+      inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))) {
     return(effectsize(x, type = "arr", ci = ci, alternative = alternative))
   } else if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "arr", ci = ci, ...))
@@ -297,7 +301,8 @@ nnt <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   flip_alt <- c(less = "greater", greater = "less", two.sided = "two.sided")
   alternative2 <- unname(flip_alt[alternative])
 
-  if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test")) {
+  if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") ||
+      inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))) {
     return(effectsize(x, type = "nnt", ci = ci, alternative = alternative))
   } else if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "nnt", ci = ci, ...))

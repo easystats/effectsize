@@ -1,3 +1,9 @@
+# effectsize 1.0.x
+
+## New features
+
+- `effetsize()` and friends support `datawizard::data_tabulate()` objects as inputs.
+
 # effectsize 1.0.1
 
 ## New features
