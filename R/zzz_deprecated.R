@@ -7,6 +7,19 @@
 NULL
 
 
+# July 2025 ---------------------------------------------------------------
+
+.deprecated_df_methods <- function(funname) {
+  insight::format_error(
+    sprintf("%s(<data.frame>) is deprecated.", funname),
+    "You can use:",
+    sprintf("datawizard::data_modify(data, .at = ..., .modify = %s)", funname),
+    "Or",
+    sprintf("dplyr::mutate(data, dplyr::across(..., %s))", funname),
+    "Instead."
+  )
+}
+
 # March 2023 --------------------------------------------------------------
 
 #' @rdname effectsize_deprecated

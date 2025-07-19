@@ -10,7 +10,7 @@
 \usage{
 oddsratio(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...)
 
-riskratio(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...)
+riskratio(x, y = NULL, ci = 0.95, alternative = "two.sided", ...)
 
 cohens_h(x, y = NULL, ci = 0.95, alternative = "two.sided", ...)
 
@@ -38,9 +38,9 @@ e.g. when the desired input or output are log odds ratios instead odds ratios.}
 \item{...}{Ignored}
 }
 \value{
-A data frame with the effect size (\code{Odds_ratio}, \code{Risk_ratio}
-(possibly with the prefix \code{log_}), \code{Cohens_h}, \code{ARR}, \code{NNT}) and its CIs
-(\code{CI_low} and \code{CI_high}).
+A data frame with the effect size (\code{Odds_ratio}, \code{log_Odds_ratio},
+\code{Risk_ratio} \code{Cohens_h}, \code{ARR}, \code{NNT}) and its CIs (\code{CI_low} and
+\code{CI_high}).
 }
 \description{
 Compute Odds Ratios, Risk Ratios, Cohen's \emph{h}, Absolute Risk Reduction or
@@ -48,8 +48,11 @@ Number Needed to Treat. Report with any \code{\link[stats:chisq.test]{stats::chi
 \code{\link[stats:fisher.test]{stats::fisher.test()}}.
 \cr\cr
 Note that these are computed with each \strong{column} representing the different
-groups, and the \emph{first} column representing the treatment group and the
-\emph{second} column baseline (or control). Effects are given as \code{treatment / control}. If you wish you use rows as groups you must pass a transposed
+groups (the \emph{first} column representing the treatment group and the
+\emph{second} column the baseline or control group), and the \emph{first} row
+representing the "positive" level (the \code{k} in \code{p=k/n}).
+Effects are given as \emph{p}-treatment \emph{over} \emph{p}-control.
+If you wish you use rows as groups you must pass a transposed
 table, or switch the \code{x} and \code{y} arguments.
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{
