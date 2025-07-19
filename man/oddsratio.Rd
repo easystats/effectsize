@@ -48,8 +48,11 @@ Number Needed to Treat. Report with any \code{\link[stats:chisq.test]{stats::chi
 \code{\link[stats:fisher.test]{stats::fisher.test()}}.
 \cr\cr
 Note that these are computed with each \strong{column} representing the different
-groups, and the \emph{first} column representing the treatment group and the
-\emph{second} column baseline (or control). Effects are given as \code{treatment / control}. If you wish you use rows as groups you must pass a transposed
+groups (the \emph{first} column representing the treatment group and the
+\emph{second} column the baseline or control group), and the \emph{first} row
+representing the "positive" level (the \code{k} in \code{p=k/n}).
+Effects are given as \emph{p}-treatment \emph{over} \emph{p}-control.
+If you wish you use rows as groups you must pass a transposed
 table, or switch the \code{x} and \code{y} arguments.
 }
 \section{Confidence (Compatibility) Intervals (CIs)}{

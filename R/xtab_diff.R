@@ -5,9 +5,11 @@
 #' [`stats::fisher.test()`].
 #' \cr\cr
 #' Note that these are computed with each **column** representing the different
-#' groups, and the *first* column representing the treatment group and the
-#' *second* column baseline (or control). Effects are given as `treatment /
-#' control`. If you wish you use rows as groups you must pass a transposed
+#' groups (the *first* column representing the treatment group and the
+#' *second* column the baseline or control group), and the *first* row
+#' representing the "positive" level (the `k` in `p=k/n`).
+#' Effects are given as _p_-treatment _over_ _p_-control.
+#' If you wish you use rows as groups you must pass a transposed
 #' table, or switch the `x` and `y` arguments.
 #'
 #'
