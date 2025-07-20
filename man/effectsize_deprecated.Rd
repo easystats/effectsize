@@ -2,32 +2,9 @@
 % Please edit documentation in R/zzz_deprecated.R
 \name{effectsize_deprecated}
 \alias{effectsize_deprecated}
-\alias{convert_odds_to_probs}
-\alias{convert_probs_to_odds}
-\alias{convert_d_to_r}
-\alias{convert_r_to_d}
-\alias{convert_oddsratio_to_d}
-\alias{convert_d_to_oddsratio}
-\alias{convert_oddsratio_to_r}
-\alias{convert_r_to_oddsratio}
+\alias{probs_to_odds.data.frame}
+\alias{oods_to_probs.data.frame}
 \title{Deprecated / Defunct Functions}
-\usage{
-convert_odds_to_probs(...)
-
-convert_probs_to_odds(...)
-
-convert_d_to_r(...)
-
-convert_r_to_d(...)
-
-convert_oddsratio_to_d(...)
-
-convert_d_to_oddsratio(...)
-
-convert_oddsratio_to_r(...)
-
-convert_r_to_oddsratio(...)
-}
 \arguments{
 \item{...}{Arguments to the deprecated function.}
 }

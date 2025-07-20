@@ -120,6 +120,11 @@ oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
 #' @rdname oddsratio
 #' @export
 riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
+  if ("log" %in% ...names() && isTRUE(list(...)$log)) {
+    insight::format_warning("'log' argument has been deprecated.",
+                            "Returning RR instead of log(RR)")
+  }
+
   alternative <- .match.alt(alternative)
 
   if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") ||
