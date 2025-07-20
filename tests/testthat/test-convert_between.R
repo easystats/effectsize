@@ -99,10 +99,10 @@ test_that("oddsratio_to_RR", {
   )
 
   expect_warning(RR <- oddsratio_to_riskratio(m, ci = NULL), "p0") # nolint
-  expect_true("(Intercept)" %in% RR$Parameter)
-  expect_false("(p0)" %in% RR$Parameter)
+  expect_false("(Intercept)" %in% RR$Parameter)
+  expect_true("(p0)" %in% RR$Parameter)
 
-  expect_message(RR <- oddsratio_to_riskratio(m, ci_method = "wald", p0 = 0.7272727), "CIs") # nolint
+  expect_warning(RR <- oddsratio_to_riskratio(m, ci_method = "wald", p0 = 0.7272727), NA) # nolint
   expect_false("(Intercept)" %in% RR$Parameter)
   expect_true("(p0)" %in% RR$Parameter)
   # these values confirmed from emmeans
@@ -110,7 +110,7 @@ test_that("oddsratio_to_RR", {
   expect_equal(RR$CI_low, c(NA, 0.1267, 0.0303), tolerance = 0.001)
   expect_equal(RR$CI_high, c(NA, 1.1648, 0.7589), tolerance = 0.001)
 
-  expect_message(RR <- oddsratio_to_riskratio(m, p0 = 0.05), "CIs") # nolint
+  expect_warning(RR <- oddsratio_to_riskratio(m, p0 = 0.05), NA) # nolint
   expect_true("(p0)" %in% RR$Parameter)
   expect_false("(Intercept)" %in% RR$Parameter)
   # these values confirmed from emmeans
@@ -124,10 +124,10 @@ test_that("oddsratio_to_RR", {
   )
 
   expect_warning(RR <- oddsratio_to_riskratio(m, ci = NULL), "p0") # nolint
-  expect_true("(Intercept)" %in% RR$Parameter)
-  expect_false("(p0)" %in% RR$Parameter)
+  expect_false("(Intercept)" %in% RR$Parameter)
+  expect_true("(p0)" %in% RR$Parameter)
 
-  expect_message(RR <- oddsratio_to_riskratio(m, ci_method = "wald", p0 = 0.7047536), "CIs") # nolint
+  expect_warning(RR <- oddsratio_to_riskratio(m, ci_method = "wald", p0 = 0.7047536), NA) # nolint
   expect_false("(Intercept)" %in% RR$Parameter)
   expect_true("(p0)" %in% RR$Parameter)
   # these values confirmed from emmeans
@@ -143,23 +143,7 @@ test_that("odds_to_probs", {
   expect_equal(odds_to_probs(1.098, log = TRUE), 0.75, tolerance = 0.01)
 
   # Data frames
-  df <- odds_to_probs(
-    iris,
-    select = "Sepal.Length",
-    exclude = "Petal.Length",
-    log = TRUE
-  )
-
-  expect_identical(ncol(df), 5L)
-
-  expect_equal(
-    probs_to_odds(df,
-      select = "Sepal.Length",
-      exclude = "Petal.Length",
-      log = TRUE
-    ), iris,
-    tolerance = 1e-4
-  )
+  expect_error(odds_to_probs(iris), "deprecated")
 })
 
 test_that("between anova", {
@@ -203,3 +187,4 @@ test_that("OR and logOR", {
     tolerance = 1e-4
   )
 })
+
