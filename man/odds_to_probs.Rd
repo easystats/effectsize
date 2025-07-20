@@ -17,12 +17,6 @@ probs_to_odds(probs, log = FALSE, ...)
 \item{...}{Arguments passed to or from other methods.}
 
 \item{probs}{Probability values to convert.}
-
-\item{select}{When a data frame is passed, character or list of of column
-names to be transformed.}
-
-\item{exclude}{When a data frame is passed, character or list of column names
-to be excluded from transformation.}
 }
 \value{
 Converted index.

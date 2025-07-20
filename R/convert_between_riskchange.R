@@ -268,7 +268,7 @@ nnt_to_arr <- function(NNT, ...) {
   if (to_log) trans <- "oddsratio"
   ftrans <- match.fun(paste0(ifelse(link == "logit", "oddsratio", "riskratio"), "_to_", trans))
 
-  mi <- effectsize:::.get_model_info(model, ...)
+  mi <- .get_model_info(model, ...)
   if (!mi$is_binomial || mi$link_function != link) {
     insight::format_error(sprintf("Model must be a binomial model with a %s link function.", link))
   }
