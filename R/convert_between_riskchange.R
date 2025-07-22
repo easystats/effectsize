@@ -16,6 +16,12 @@
 #' @inheritParams oddsratio_to_d
 #' @inheritParams cohens_d
 #'
+#' @details
+#' Risk ratio conversions might produce impossible results when `RR * p0 > 1`
+#' (that is, the expected risk is larger than 1).
+#' In such cases `riskratio_to_*()` functions will return `NA`.
+#'
+#'
 #' @return Converted index, or if `OR`/`logOR` is a logistic regression model, a
 #'   parameter table with the converted indices.
 #'
@@ -140,7 +146,9 @@ riskratio_to_oddsratio <- function(RR, p0, log = FALSE, verbose = TRUE, ...) {
 
 #' @export
 riskratio_to_oddsratio.numeric <- function(RR, p0, log = FALSE, verbose = TRUE, ...) {
-  OR <- RR * (1 - p0) / (1 - RR * p0)
+  p1 <- RR * p0
+  OR <- RR * (1 - p0) / (1 - p1)
+  OR[p1 > 1] <- NA
 
   if (log) OR <- log(OR)
   return(OR)
@@ -160,7 +168,8 @@ riskratio_to_arr <- function(RR, p0, verbose = TRUE, ...) {
 
 #' @export
 riskratio_to_arr.numeric <- function(RR, p0, verbose = TRUE, ...) {
-  RR * p0 - p0
+  p1 <- RR * p0
+  ifelse(p1 > 1, NA, p1 - p0)
 }
 
 #' @export

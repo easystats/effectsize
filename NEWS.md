@@ -6,6 +6,10 @@
 - New functions to convert between measures of change in probabilities and probabilities. See `?oddsratio_to_probs` for all available functions.
 - `effetsize()` and friends support `datawizard::data_tabulate()` objects as inputs.
 
+## Changes
+
+`riskratio_to_*()` now returns `NA` if the expect risk is larger than 1.
+
 ## Breaking Changes
 
 - `probs_to_odds(<data.frame>)` and `odds_to_probs(<data.frame>)` methods has been deprecated.
