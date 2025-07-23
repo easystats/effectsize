@@ -17,9 +17,9 @@
 #' @inheritParams cohens_d
 #'
 #' @details
-#' Risk ratio conversions might produce impossible results when `RR * p0 > 1`
-#' (that is, the expected risk is larger than 1).
-#' In such cases `riskratio_to_*()` functions will return `NA`.
+#' If an impossible combination of risk ratio `RR` and baseline risk `p0` is provided, 
+#' such that `RR * p0 > 1`, then this conversion will produce invalid results where
+#' the expected risk is larger than 1. In such cases `riskratio_to_*()` functions will return `NA`.
 #'
 #'
 #' @return Converted index, or if `OR`/`logOR` is a logistic regression model, a
