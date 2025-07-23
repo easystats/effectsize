@@ -8,7 +8,7 @@
 
 ## Changes
 
-`riskratio_to_*()` now returns `NA` if the expect risk is larger than 1.
+`riskratio_to_*()` now returns `NA` if the expected risk is larger than 1. This results when impossible combinations of risk ratio `RR` and baseline risk `p0` are provided.
 
 ## Breaking Changes
 
