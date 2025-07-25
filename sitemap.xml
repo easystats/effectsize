@@ -26,9 +26,9 @@
 <url><loc>https://easystats.github.io/effectsize/reference/Music_preferences2.html</loc></url>
 <url><loc>https://easystats.github.io/effectsize/reference/RCT_table.html</loc></url>
 <url><loc>https://easystats.github.io/effectsize/reference/Smoking_FASD.html</loc></url>
+<url><loc>https://easystats.github.io/effectsize/reference/chisq_to_phi.html</loc></url>
 <url><loc>https://easystats.github.io/effectsize/reference/cohens_d.html</loc></url>
 <url><loc>https://easystats.github.io/effectsize/reference/cohens_g.html</loc></url>
-<url><loc>https://easystats.github.io/effectsize/reference/convert_chisq.html</loc></url>
 <url><loc>https://easystats.github.io/effectsize/reference/d_to_r.html</loc></url>
 <url><loc>https://easystats.github.io/effectsize/reference/diff_to_cles.html</loc></url>
 <url><loc>https://easystats.github.io/effectsize/reference/effectsize-package.html</loc></url>
@@ -66,6 +66,7 @@
 <url><loc>https://easystats.github.io/effectsize/reference/means_ratio.html</loc></url>
 <url><loc>https://easystats.github.io/effectsize/reference/odds_to_probs.html</loc></url>
 <url><loc>https://easystats.github.io/effectsize/reference/oddsratio.html</loc></url>
+<url><loc>https://easystats.github.io/effectsize/reference/oddsratio_to_probs.html</loc></url>
 <url><loc>https://easystats.github.io/effectsize/reference/oddsratio_to_riskratio.html</loc></url>
 <url><loc>https://easystats.github.io/effectsize/reference/p_superiority.html</loc></url>
 <url><loc>https://easystats.github.io/effectsize/reference/phi.html</loc></url>

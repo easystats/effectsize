@@ -4,15 +4,21 @@ Number Needed to Treat. Report with any stats::chisq.test() or
 stats::fisher.test().
 
 Note that these are computed with each column representing the different
-groups, and the first column representing the treatment group and the
-second column baseline (or control). Effects are given as treatment / control. If you wish you use rows as groups you must pass a transposed
+groups (the first column representing the treatment group and the
+second column the baseline or control group), and the first row
+representing the &quot;positive&quot; level (the k in p=k/n).
+Effects are given as p-treatment over p-control.
+If you wish you use rows as groups you must pass a transposed
 table, or switch the x and y arguments."><meta property="og:description" content="Compute Odds Ratios, Risk Ratios, Cohen's h, Absolute Risk Reduction or
 Number Needed to Treat. Report with any stats::chisq.test() or
 stats::fisher.test().
 
 Note that these are computed with each column representing the different
-groups, and the first column representing the treatment group and the
-second column baseline (or control). Effects are given as treatment / control. If you wish you use rows as groups you must pass a transposed
+groups (the first column representing the treatment group and the
+second column the baseline or control group), and the first row
+representing the &quot;positive&quot; level (the k in p=k/n).
+Effects are given as p-treatment over p-control.
+If you wish you use rows as groups you must pass a transposed
 table, or switch the x and y arguments."><meta property="og:image" content="https://easystats.github.io/effectsize/reference/figures/card.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:creator" content="@easystats4u"><meta name="twitter:site" content="@easystats4u"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
@@ -21,7 +27,7 @@ table, or switch the x and y arguments."><meta property="og:image" content="http
 
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,8 +101,11 @@ Number Needed to Treat. Report with any <code><a href="https://rdrr.io/r/stats/c
 <code><a href="https://rdrr.io/r/stats/fisher.test.html" class="external-link">stats::fisher.test()</a></code>.
 <br><br>
 Note that these are computed with each <strong>column</strong> representing the different
-groups, and the <em>first</em> column representing the treatment group and the
-<em>second</em> column baseline (or control). Effects are given as <code>treatment / control</code>. If you wish you use rows as groups you must pass a transposed
+groups (the <em>first</em> column representing the treatment group and the
+<em>second</em> column the baseline or control group), and the <em>first</em> row
+representing the "positive" level (the <code>k</code> in <code>p=k/n</code>).
+Effects are given as <em>p</em>-treatment <em>over</em> <em>p</em>-control.
+If you wish you use rows as groups you must pass a transposed
 table, or switch the <code>x</code> and <code>y</code> arguments.</p>
     </div>
 
@@ -104,7 +113,7 @@ table, or switch the <code>x</code> and <code>y</code> arguments.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">oddsratio</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, ci <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="st">"two.sided"</span>, log <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">riskratio</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, ci <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="st">"two.sided"</span>, log <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">riskratio</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, ci <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="st">"two.sided"</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">cohens_h</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="cn">NULL</span>, ci <span class="op">=</span> <span class="fl">0.95</span>, alternative <span class="op">=</span> <span class="st">"two.sided"</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -149,9 +158,9 @@ e.g. when the desired input or output are log odds ratios instead odds ratios.</
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A data frame with the effect size (<code>Odds_ratio</code>, <code>Risk_ratio</code>
-(possibly with the prefix <code>log_</code>), <code>Cohens_h</code>, <code>ARR</code>, <code>NNT</code>) and its CIs
-(<code>CI_low</code> and <code>CI_high</code>).</p>
+    <p>A data frame with the effect size (<code>Odds_ratio</code>, <code>log_Odds_ratio</code>,
+<code>Risk_ratio</code> <code>Cohens_h</code>, <code>ARR</code>, <code>NNT</code>) and its CIs (<code>CI_low</code> and
+<code>CI_high</code>).</p>
     </div>
     <div class="section level2">
     <h2 id="confidence-compatibility-intervals-cis-">Confidence (Compatibility) Intervals (CIs)<a class="anchor" aria-label="anchor" href="#confidence-compatibility-intervals-cis-"></a></h2>

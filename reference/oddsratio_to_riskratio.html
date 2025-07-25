@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -157,6 +157,12 @@ can also be a logistic regression model.</p></dd>
 parameter table with the converted indices.</p>
     </div>
     <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>If an impossible combination of risk ratio <code>RR</code> and baseline risk <code>p0</code> is provided,
+such that <code>RR * p0 &gt; 1</code>, then this conversion will produce invalid results where
+the expected risk is larger than 1. In such cases <code>riskratio_to_*()</code> functions will return <code>NA</code>.</p>
+    </div>
+    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Grant, R. L. (2014). Converting an odds ratio to a range of plausible
 relative risks for better communication of research findings. Bmj, 348,
@@ -201,11 +207,11 @@ f7450.</p>
 <span class="r-in"><span>  family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">binomial</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">oddsratio_to_riskratio</span><span class="op">(</span><span class="va">m</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># RR is relative to the intercept if p0 not provided</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter   | Risk Ratio |       95% CI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept) |       0.73 |             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cyl [6]     |       0.59 | [0.11, 1.16]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cyl [8]     |       0.20 | [0.02, 0.70]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameter | Risk ratio |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (p0)      |       0.73 |             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl [6]   |       0.59 | [0.11, 1.16]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cyl [8]   |       0.20 | [0.02, 0.70]</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">Uncertainty intervals (profile-likelihood) and p-values</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">  (two-tailed) computed using a Wald z-distribution approximation.</span></span>

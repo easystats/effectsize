@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,23 @@
 <div class="section level3">
 <h3 id="new-features-1-0">New features<a class="anchor" aria-label="anchor" href="#new-features-1-0"></a></h3>
 <ul><li>
+<code>oddsratio_to_*()</code> and <code>riskratio_to_*()</code> can now convert binomial models with logit- or log-links (respectively) to any of RR, OR, ARR, NNT.</li>
+<li>New functions to convert between measures of change in probabilities and probabilities. See <code><a href="../reference/oddsratio_to_probs.html">?oddsratio_to_probs</a></code> for all available functions.</li>
+<li>
 <code>effetsize()</code> and friends support <code><a href="https://easystats.github.io/datawizard/reference/data_tabulate.html" class="external-link">datawizard::data_tabulate()</a></code> objects as inputs.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changes-1-0">Changes<a class="anchor" aria-label="anchor" href="#changes-1-0"></a></h3>
+<p><code>riskratio_to_*()</code> now returns <code>NA</code> if the expected risk is larger than 1. This results when impossible combinations of risk ratio <code>RR</code> and baseline risk <code>p0</code> are provided.</p>
+</div>
+<div class="section level3">
+<h3 id="breaking-changes-1-0">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-1-0"></a></h3>
+<ul><li>
+<code>probs_to_odds(&lt;data.frame&gt;)</code> and <code>odds_to_probs(&lt;data.frame&gt;)</code> methods has been deprecated.</li>
+<li>
+<code>riskratio(log=)</code> argument has been deprecated.</li>
+<li>
+<code>convert_*()</code> aliases, deprecated since March 2023, have been removed.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -265,7 +281,7 @@
 </li>
 <li>
 <code><a href="../reference/phi.html">fei()</a></code>, <code><a href="../reference/phi.html">cohens_w()</a></code> and <code><a href="../reference/phi.html">pearsons_c()</a></code> always rescale the <code>p</code> input to sum-to-1.</li>
-<li>The order of some function arguments have been rearranged to be more consistent across functions: (<code><a href="../reference/phi.html">phi()</a></code>, <code><a href="../reference/phi.html">cramers_v()</a></code>, <code><a href="../reference/p_superiority.html">p_superiority()</a></code>, <code><a href="../reference/p_superiority.html">cohens_u3()</a></code>, <code><a href="../reference/p_superiority.html">p_overlap()</a></code>, <code><a href="../reference/rank_biserial.html">rank_biserial()</a></code>, <code>cohens_f/_squared()</code>, <code><a href="../reference/convert_chisq.html">chisq_to_phi()</a></code>, <code><a href="../reference/convert_chisq.html">chisq_to_cramers_v()</a></code>, <code>F/t_to_f/2()</code>, <code>.es_aov_*()</code>).</li>
+<li>The order of some function arguments have been rearranged to be more consistent across functions: (<code><a href="../reference/phi.html">phi()</a></code>, <code><a href="../reference/phi.html">cramers_v()</a></code>, <code><a href="../reference/p_superiority.html">p_superiority()</a></code>, <code><a href="../reference/p_superiority.html">cohens_u3()</a></code>, <code><a href="../reference/p_superiority.html">p_overlap()</a></code>, <code><a href="../reference/rank_biserial.html">rank_biserial()</a></code>, <code>cohens_f/_squared()</code>, <code><a href="../reference/chisq_to_phi.html">chisq_to_phi()</a></code>, <code><a href="../reference/chisq_to_phi.html">chisq_to_cramers_v()</a></code>, <code>F/t_to_f/2()</code>, <code>.es_aov_*()</code>).</li>
 <li>
 <code>normalized_chi()</code> has been renamed <code><a href="../reference/phi.html">fei()</a></code>.</li>
 <li>
@@ -283,7 +299,7 @@
 <code><a href="../reference/effectsize.html">effectsize()</a></code> supports <code><a href="https://rdrr.io/r/stats/fisher.test.html" class="external-link">fisher.test()</a></code>.</li>
 <li>New datasets used in examples and vignettes - see <code>data(package = "effectsize")</code>.</li>
 <li>
-<code><a href="../reference/phi.html">tschuprows_t()</a></code> and <code><a href="../reference/convert_chisq.html">chisq_to_tschuprows_t()</a></code> for computing Tschuprow’s <em>T</em> - a relative of Cramer’s <em>V</em>.</li>
+<code><a href="../reference/phi.html">tschuprows_t()</a></code> and <code><a href="../reference/chisq_to_phi.html">chisq_to_tschuprows_t()</a></code> for computing Tschuprow’s <em>T</em> - a relative of Cramer’s <em>V</em>.</li>
 <li>
 <code><a href="../reference/mahalanobis_d.html">mahalanobis_d()</a></code> for multivariate standardized differences.</li>
 <li>Rank based effect sizes now accept ordered (<code><a href="https://rdrr.io/r/base/factor.html" class="external-link">ordered()</a></code>) outcomes.</li>
@@ -306,7 +322,7 @@
 <li>
 <code><a href="../reference/sd_pooled.html">mad_pooled()</a></code> not returns correct value (previously was inflated by a factor of 1.4826).</li>
 <li>
-<code><a href="../reference/phi.html">pearsons_c()</a></code> and <code><a href="../reference/convert_chisq.html">chisq_to_pearsons_c()</a></code> lose the <code>adjust</code> argument which applied an irrelevant adjustment to the effect size.</li>
+<code><a href="../reference/phi.html">pearsons_c()</a></code> and <code><a href="../reference/chisq_to_phi.html">chisq_to_pearsons_c()</a></code> lose the <code>adjust</code> argument which applied an irrelevant adjustment to the effect size.</li>
 <li>Effect sizes for goodness-of-fit now work when passing a <code>p</code> that is a table.</li>
 </ul></div>
 </div>
@@ -421,7 +437,7 @@
 <div class="section level3">
 <h3 id="new-features-0-5-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-5-0"></a></h3>
 <ul><li>
-<code><a href="../reference/phi.html">pearsons_c()</a></code> (and <code><a href="../reference/convert_chisq.html">chisq_to_pearsons_c()</a></code>) for estimating Pearson’s contingency coefficient.</li>
+<code><a href="../reference/phi.html">pearsons_c()</a></code> (and <code><a href="../reference/chisq_to_phi.html">chisq_to_pearsons_c()</a></code>) for estimating Pearson’s contingency coefficient.</li>
 <li>
 <code><a href="../reference/interpret_vif.html">interpret_vif()</a></code> for interpretation of <em>variance inflation factors</em>.</li>
 <li>
@@ -683,7 +699,7 @@
 <li><p>Effectsize for differences have CI methods, and return a data frame.</p></li>
 <li><p>Effectsize for ANOVA all have CI methods, and none are based on bootstrapping.</p></li>
 <li><p>New effect sizes for contingency tables (<code><a href="../reference/phi.html">phi()</a></code> and <code><a href="../reference/phi.html">cramers_v()</a></code>).</p></li>
-<li><p><code><a href="../reference/convert_chisq.html">chisq_to_phi()</a></code> / <code><a href="../reference/phi.html">cramers_v()</a></code> functions now support CIs (via the ncp method), and return a data frame.</p></li>
+<li><p><code><a href="../reference/chisq_to_phi.html">chisq_to_phi()</a></code> / <code><a href="../reference/phi.html">cramers_v()</a></code> functions now support CIs (via the ncp method), and return a data frame.</p></li>
 <li><p><code><a href="../reference/F_to_eta2.html">F_to_eta2()</a></code> family of functions now support CIs (via the ncp method), and return a data frame.</p></li>
 <li><p><code><a href="../reference/t_to_r.html">t_to_d()</a></code> and <code><a href="../reference/t_to_r.html">t_to_r()</a></code> now support CIs (via the ncp method), and return a data frame.</p></li>
 <li><p><code><a href="https://easystats.github.io/datawizard/reference/standardize.html" class="external-link">standardize()</a></code> for model-objects has a default-method, which usually accepts all models. Exception for model-objects that do not work will be added if missing.</p></li>
