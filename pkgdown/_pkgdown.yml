@@ -53,7 +53,6 @@ reference:
       - correlation::cor_test
 
   - title: "Effect Size Conversion"
-
   - subtitle: "From Test Statistics"
     desc: >
       Extract approximate effect sizes from their commonly associated test statistics
@@ -61,17 +60,17 @@ reference:
       - t_to_r
       - F_to_eta2
       - chisq_to_phi
-
   - subtitle: "Between Effect Sizes"
     desc: >
       Approximate effect sizes by converting between other related effect sizes
     contents:
-      - d_to_r
-      - oddsratio_to_riskratio
       - d_to_u3
       - eta2_to_f2
-      - odds_to_probs
       - v_to_t
+      - d_to_r
+      - oddsratio_to_riskratio
+      - oddsratio_to_probs
+      - odds_to_probs
 
   - title: "Interpretation"
     contents:
@@ -86,7 +85,9 @@ reference:
       - is_effectsize_name
       - format_standardize
       - print.effectsize_table
-  - subtitle: "Datasets"
+      - effectsize_options
+
+  - title: "Datasets"
     contents:
       - hardlyworking
       - rouder2016
@@ -96,15 +97,12 @@ reference:
       - Music_preferences2
       - Smoking_FASD
       - food_class
-  - subtitle: "Extra Docs"
-    contents:
-      - effectsize_API
-      - effectsize_options
 
   - title: internal
     contents:
       - effectsize_deprecated
       - effectsize_CIs
+      - effectsize_API
 
 # Keep articles organized
 navbar:

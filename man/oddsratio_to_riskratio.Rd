@@ -90,6 +90,11 @@ parameter table with the converted indices.
 \description{
 Convert Between Odds Ratios, Risk Ratios and Other Metrics of Change in Probabilities
 }
+\details{
+If an impossible combination of risk ratio \code{RR} and baseline risk \code{p0} is provided,
+such that \code{RR * p0 > 1}, then this conversion will produce invalid results where
+the expected risk is larger than 1. In such cases \verb{riskratio_to_*()} functions will return \code{NA}.
+}
 \examples{
 p0 <- 0.4
 p1 <- 0.7

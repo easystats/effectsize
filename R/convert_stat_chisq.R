@@ -5,8 +5,6 @@
 #' \ifelse{latex}{\eqn{Fei}}{פ (Fei)} and Pearson's \eqn{C} for contingency
 #' tables or goodness of fit.
 #'
-#' @name chisq_to_phi
-#' @rdname convert_chisq
 #'
 #' @param chisq The \eqn{\chi^2} (chi-square) statistic.
 #' @param n Total sample size.
@@ -139,7 +137,7 @@ chisq_to_phi <- function(chisq, n, nrow = 2, ncol = 2,
 }
 
 
-#' @rdname convert_chisq
+#' @rdname chisq_to_phi
 #' @export
 chisq_to_cohens_w <- function(chisq, n, nrow, ncol, p,
                               ci = 0.95, alternative = "greater",
@@ -173,7 +171,7 @@ chisq_to_cohens_w <- function(chisq, n, nrow, ncol, p,
   return(res)
 }
 
-#' @rdname convert_chisq
+#' @rdname chisq_to_phi
 #' @export
 chisq_to_cramers_v <- function(chisq, n, nrow, ncol,
                                adjust = TRUE,
@@ -205,7 +203,7 @@ chisq_to_cramers_v <- function(chisq, n, nrow, ncol,
   return(res)
 }
 
-#' @rdname convert_chisq
+#' @rdname chisq_to_phi
 #' @export
 chisq_to_tschuprows_t <- function(chisq, n, nrow, ncol,
                                   adjust = TRUE,
@@ -238,7 +236,7 @@ chisq_to_tschuprows_t <- function(chisq, n, nrow, ncol,
 }
 
 
-#' @rdname convert_chisq
+#' @rdname chisq_to_phi
 #' @export
 #' @param p Vector of expected values. See [stats::chisq.test()].
 chisq_to_fei <- function(chisq, n, nrow, ncol, p,
@@ -281,7 +279,7 @@ chisq_to_fei <- function(chisq, n, nrow, ncol, p,
   return(res)
 }
 
-#' @rdname convert_chisq
+#' @rdname chisq_to_phi
 #' @export
 chisq_to_pearsons_c <- function(chisq, n, nrow, ncol,
                                 ci = 0.95, alternative = "greater",
@@ -305,7 +303,7 @@ chisq_to_pearsons_c <- function(chisq, n, nrow, ncol,
 
 # Reverse -----------------------------------------------------------------
 
-#' @rdname convert_chisq
+#' @rdname chisq_to_phi
 #' @param phi The \eqn{\phi} (phi) statistic.
 #' @export
 phi_to_chisq <- function(phi, n, ...) {

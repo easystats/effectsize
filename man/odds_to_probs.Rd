@@ -2,18 +2,12 @@
 % Please edit documentation in R/convert_between_odds_to_probs.R
 \name{odds_to_probs}
 \alias{odds_to_probs}
-\alias{odds_to_probs.data.frame}
 \alias{probs_to_odds}
-\alias{probs_to_odds.data.frame}
 \title{Convert Between Odds and Probabilities}
 \usage{
 odds_to_probs(odds, log = FALSE, ...)
 
-\method{odds_to_probs}{data.frame}(odds, log = FALSE, select = NULL, exclude = NULL, ...)
-
 probs_to_odds(probs, log = FALSE, ...)
-
-\method{probs_to_odds}{data.frame}(probs, log = FALSE, select = NULL, exclude = NULL, ...)
 }
 \arguments{
 \item{odds}{The \emph{Odds} (or \code{log(odds)} when \code{log = TRUE}) to convert.}
@@ -21,12 +15,6 @@ probs_to_odds(probs, log = FALSE, ...)
 \item{log}{Take in or output log odds (such as in logistic models).}
 
 \item{...}{Arguments passed to or from other methods.}
-
-\item{select}{When a data frame is passed, character or list of of column
-names to be transformed.}
-
-\item{exclude}{When a data frame is passed, character or list of column names
-to be excluded from transformation.}
 
 \item{probs}{Probability values to convert.}
 }

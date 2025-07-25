@@ -5,9 +5,11 @@
 #' [`stats::fisher.test()`].
 #' \cr\cr
 #' Note that these are computed with each **column** representing the different
-#' groups, and the *first* column representing the treatment group and the
-#' *second* column baseline (or control). Effects are given as `treatment /
-#' control`. If you wish you use rows as groups you must pass a transposed
+#' groups (the *first* column representing the treatment group and the
+#' *second* column the baseline or control group), and the *first* row
+#' representing the "positive" level (the `k` in `p=k/n`).
+#' Effects are given as _p_-treatment _over_ _p_-control.
+#' If you wish you use rows as groups you must pass a transposed
 #' table, or switch the `x` and `y` arguments.
 #'
 #'
@@ -28,9 +30,9 @@
 #' @inheritSection effectsize_CIs CIs and Significance Tests
 #' @inheritSection print.effectsize_table Plotting with `see`
 #'
-#' @return A data frame with the effect size (`Odds_ratio`, `Risk_ratio`
-#'   (possibly with the prefix `log_`), `Cohens_h`, `ARR`, `NNT`) and its CIs
-#'   (`CI_low` and `CI_high`).
+#' @return A data frame with the effect size (`Odds_ratio`, `log_Odds_ratio`,
+#'   `Risk_ratio` `Cohens_h`, `ARR`, `NNT`) and its CIs (`CI_low` and
+#'   `CI_high`).
 #'
 #' @family effect sizes for contingency table
 #'
@@ -117,14 +119,19 @@ oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
 
 #' @rdname oddsratio
 #' @export
-riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...) {
+riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
+  if ("log" %in% ...names() && isTRUE(list(...)$log)) {
+    insight::format_warning("'log' argument has been deprecated.",
+                            "Returning RR instead of log(RR)")
+  }
+
   alternative <- .match.alt(alternative)
 
   if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") ||
       inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))) {
-    return(effectsize(x, type = "rr", log = log, ci = ci, alternative = alternative))
+    return(effectsize(x, type = "rr", ci = ci, alternative = alternative))
   } else if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
-    return(effectsize(x, type = "rr", log = log, ci = ci, ...))
+    return(effectsize(x, type = "rr", ci = ci, ...))
   }
 
   res <- .get_data_xtabs(x, y)
@@ -163,12 +170,6 @@ riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
     res <- .limit_ci(res, alternative, 0, Inf)
   } else {
     ci_method <- alternative <- NULL
-  }
-
-  if (log) {
-    res[colnames(res) %in% c("Risk_ratio", "CI_low", "CI_high")] <-
-      log(res[colnames(res) %in% c("Risk_ratio", "CI_low", "CI_high")])
-    colnames(res)[1] <- "log_Risk_ratio"
   }
 
   class(res) <- c("effectsize_table", "see_effectsize_table", class(res))

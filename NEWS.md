@@ -2,7 +2,19 @@
 
 ## New features
 
+- `oddsratio_to_*()` and `riskratio_to_*()` can now convert binomial models with logit- or log-links (respectively) to any of RR, OR, ARR, NNT.
+- New functions to convert between measures of change in probabilities and probabilities. See `?oddsratio_to_probs` for all available functions.
 - `effetsize()` and friends support `datawizard::data_tabulate()` objects as inputs.
+
+## Changes
+
+`riskratio_to_*()` now returns `NA` if the expected risk is larger than 1. This results when impossible combinations of risk ratio `RR` and baseline risk `p0` are provided.
+
+## Breaking Changes
+
+- `probs_to_odds(<data.frame>)` and `odds_to_probs(<data.frame>)` methods has been deprecated.
+- `riskratio(log=)` argument has been deprecated.
+- `convert_*()` aliases, deprecated since March 2023, have been removed. 
 
 # effectsize 1.0.1
 
