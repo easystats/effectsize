@@ -72,8 +72,8 @@ Depends:
     R (>= 4.0)
 Imports:
     bayestestR (>= 0.17.0),
-    insight (>= 1.4.1),
-    parameters (>= 0.28.1),
+    insight (>= 1.4.2),
+    parameters (>= 0.28.2),
     performance (>= 0.15.1),
     datawizard (>= 1.2.0),
     stats,
