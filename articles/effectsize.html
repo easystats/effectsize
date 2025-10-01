@@ -150,8 +150,8 @@ et al. 2020)</span> and more.</p>
 <p><strong>effectsize</strong>’s functionality is in part comparable to
 packages like <strong>lm.beta</strong> <span class="citation">(Behrendt
 2014)</span>, <strong>MOTE</strong> <span class="citation">(Buchanan et
-al. 2019)</span>, and <strong>MBESS</strong> <span class="citation">(K.
-Kelley 2020)</span>. Yet, there are some notable differences, e.g.:</p>
+al. 2019)</span>, and <strong>MBESS</strong> <span class="citation">(Kelley 2020)</span>. Yet, there are some notable
+differences, e.g.:</p>
 <!-- - **lm.beta** provides standardized regression coefficients for linear models, based on post-hoc model matrix standardization. However, the functionality is available only for a limited number of models (models inheriting from the `lm` class), whereas **effectsize** provides support for many types of models, including (generalized) linear mixed models, Bayesian models, and more. Additionally, in additional to post-hoc model matrix standardization, **effectsize** offers other methods of standardization (see below).   -->
 <ul>
 <li>Both <strong>MOTE</strong> and <strong>MBESS</strong> provide
@@ -237,7 +237,8 @@ end, two functions are available: <code><a href="https://easystats.github.io/dat
 returns an updated model, re-fit with standardized data, and
 <code><a href="https://easystats.github.io/parameters/reference/standardize_parameters.html" class="external-link">standardize_parameters()</a></code>, which returns a table of
 standardized coefficients from a provided model [for a list of supported
-models, see the <em>insight</em> package; <span class="citation">Lüdecke, Waggoner, and Makowski (2019)</span>].</p>
+models, see the <em>insight</em> package; <span class="citation">Lüdecke
+et al. (2019)</span>].</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="va">cyl</span> <span class="op">*</span> <span class="va">am</span>,</span>
 <span>  data <span class="op">=</span> <span class="va">mtcars</span></span>
@@ -334,8 +335,8 @@ generalized <span class="math inline">\eta^2_G</span> <span class="citation">(Co
 <p><strong>effectsize</strong> also offers <span class="math inline">\epsilon^2_p</span> (<code><a href="../reference/eta_squared.html">epsilon_squared()</a></code>)
 and <span class="math inline">\omega^2_p</span>
 (<code><a href="../reference/eta_squared.html">omega_squared()</a></code>), which are less biased estimates of the
-variance explained in the population <span class="citation">(T. L.
-Kelley 1935; Olejnik and Algina 2003)</span>. For more details about the
+variance explained in the population <span class="citation">(Kelley
+1935; Olejnik and Algina 2003)</span>. For more details about the
 various effect size measures and their applications, see the <a href="https://easystats.github.io/effectsize/articles/anovaES.html"><em>Effect
 sizes for ANOVAs</em> vignette</a>.</p>
 </div>
@@ -462,14 +463,14 @@ easystats</a> as well as the users.</p>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-behrendt2014lmbeta" class="csl-entry">
 Behrendt, Stefan. 2014. <em><span class="nocase">l</span>m.beta: Add
 Standardized Regression Coefficients to Lm-Objects</em>. <a href="https://CRAN.R-project.org/package=lm.beta/" class="external-link">https://CRAN.R-project.org/package=lm.beta/</a>.
 </div>
 <div id="ref-bollen1989structural" class="csl-entry">
 Bollen, Kenneth A. 1989. <em>Structural Equations with Latent
-Variables</em>. New York: John Wiley &amp; Sons. <a href="https://doi.org/10.1002/9781118619179" class="external-link">https://doi.org/10.1002/9781118619179</a>.
+Variables</em>. John Wiley &amp; Sons. <a href="https://doi.org/10.1002/9781118619179" class="external-link">https://doi.org/10.1002/9781118619179</a>.
 </div>
 <div id="ref-borenstein2009converting" class="csl-entry">
 Borenstein, Michael, Larry V Hedges, JPT Higgins, and Hannah R
@@ -488,7 +489,7 @@ Sciences, 2nd Ed.</em> New York: Routledge.
 </div>
 <div id="ref-cramer1946mathematical" class="csl-entry">
 Cramér, Harald. 1946. <em>Mathematical Methods of Statistics</em>.
-Princeton: Princeton University Press.
+Princeton University Press.
 </div>
 <div id="ref-friedman1982simplified" class="csl-entry">
 Friedman, Herbert. 1982. <span>“Simplified Determinations of Statistical
@@ -502,7 +503,7 @@ Findings.”</span> <em>Bmj</em> 348: f7450.
 </div>
 <div id="ref-hedges1985statistical" class="csl-entry">
 Hedges, L, and I Olkin. 1985. <em>Statistical Methods for
-Meta-Analysis</em>. San Diego: Academic Press.
+Meta-Analysis</em>. Academic Press.
 </div>
 <div id="ref-hoffman2015longitudinal" class="csl-entry">
 Hoffman, Lesa. 2015. <em>Longitudinal Analysis: Modeling Within-Person
@@ -535,13 +536,12 @@ Research Designs.”</span> <em>Psychological Methods</em> 8 (4): 434.
 </div>
 <div id="ref-patil2020ggstatsplot" class="csl-entry">
 Patil, Indrajeet. 2018. <span>“<span class="nocase">ggstatsplot</span>:
-’Ggplot2’ Based Plots with Statistical Details.”</span> <em>CRAN</em>.
-<a href="https://doi.org/10.5281/zenodo.2074621" class="external-link">https://doi.org/10.5281/zenodo.2074621</a>.
+’Ggplot2’ Based Plots with Statistical Details.”</span> <em>CRAN</em>,
+ahead of print. <a href="https://doi.org/10.5281/zenodo.2074621" class="external-link">https://doi.org/10.5281/zenodo.2074621</a>.
 </div>
 <div id="ref-rcore" class="csl-entry">
 R Core Team. 2020. <em><span>R</span>: A Language and Environment for
-Statistical Computing</em>. Vienna, Austria: R Foundation for
-Statistical Computing. <a href="https://www.R-project.org/" class="external-link">https://www.R-project.org/</a>.
+Statistical Computing</em>. R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="external-link">https://www.R-project.org/</a>.
 </div>
 <div id="ref-sjoberg2020gtsummary" class="csl-entry">
 Sjoberg, Daniel D., Michael Curry, Margie Hannum, Karissa Whiting, and
