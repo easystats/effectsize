@@ -136,7 +136,7 @@ anova_table <- anova(fit)
 effectsize(anova_table)
 effectsize(anova_table, type = "epsilon")
 
-\dontshow{if (requireNamespace("BayesFactor", quietly = TRUE) && interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("BayesFactor", quietly = TRUE) && interactive()) withAutoprint(\{ # examplesIf}
 ## Bayesian Hypothesis Testing
 ## ---------------------------
 bf_prop <- BayesFactor::proportionBF(3, 7, p = 0.3)
