@@ -259,3 +259,20 @@ rouder2016[["cond"]] <- factor(rouder2016[["cond"]])
 save(rouder2016, file = "data/rouder2016.rdata")
 
 # styler: on
+
+
+# https://github.com/ianhussey/not-so-simple-preferences -----------------
+
+library(tidyverse)
+
+desirability <- readRDS("data-raw/data_processed.rds")
+glimpse(desirability)
+
+desirability <- desirability |>
+  filter(global_check == "passed") |>
+  select(participant_id,
+         poop = desirability_poop,
+         chocolate = desirability_chocolate) |>
+  as.data.frame()
+
+save(desirability, file = "data/desirability.rdata")

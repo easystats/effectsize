@@ -84,6 +84,33 @@ NULL
 NULL
 
 
+#' Desirability of Poop vs Chocolate
+#'
+#' A subset of Ian Hussey's replication of _Balcetis & Dunning (2010) Study 3b_.
+#' Data available at https://github.com/ianhussey/not-so-simple-preferences.
+#'
+#' @docType data
+#'
+#' @name desirability
+#'
+#' @keywords data
+#'
+#' @format A data frame with 489 rows and 3 variables:
+#' \describe{
+#'   \item{participant_id}{Unique identifier for each participant}
+#'   \item{desirability_poop}{Desirability rating of poop (1 = very undesirable, 7 = very desirable)}
+#'   \item{desirability_chocolate}{Desirability rating of chocolate (1 = very undesirable, 7 = very desirable)}
+#' }
+#'
+#' ```{r}
+#' data("desirability")
+#' head(desirability, n = 5)
+#' ```
+#' @family effect size datasets
+#'
+NULL
+
+
 # Tables ------------------------------------------------------------------
 
 #' Fictional Results from a Workers' Randomized Control Trial

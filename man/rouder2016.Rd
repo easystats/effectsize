@@ -35,6 +35,7 @@ Other effect size datasets:
 \code{\link{Music_preferences2}},
 \code{\link{RCT_table}},
 \code{\link{Smoking_FASD}},
+\code{\link{desirability}},
 \code{\link{food_class}},
 \code{\link{hardlyworking}},
 \code{\link{screening_test}}
