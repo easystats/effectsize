@@ -86,8 +86,6 @@ NULL
 
 # Tables ------------------------------------------------------------------
 
-
-
 #' Fictional Results from a Workers' Randomized Control Trial
 #'
 #' @docType data

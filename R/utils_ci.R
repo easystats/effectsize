@@ -86,16 +86,17 @@
 
 # Validators --------------------------------------
 
-
 #' @keywords internal
 .test_ci <- function(ci) {
   if (is.null(ci)) {
     return(FALSE)
   }
-  if (!is.numeric(ci) ||
-    length(ci) != 1L ||
-    ci < 0 ||
-    ci > 1) {
+  if (
+    !is.numeric(ci) ||
+      length(ci) != 1L ||
+      ci < 0 ||
+      ci > 1
+  ) {
     insight::format_error("ci must be a single numeric value between (0, 1)")
   }
   TRUE

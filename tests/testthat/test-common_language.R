@@ -70,21 +70,33 @@ test_that("CLES | par vs non-par", {
   x <<- rnorm(500)
   y <<- rnorm(500, mean = 0.2)
 
-  expect_equal(p_superiority(x, y), p_superiority(x, y, parametric = FALSE),
-    tolerance = 0.1, ignore_attr = TRUE
+  expect_equal(
+    p_superiority(x, y),
+    p_superiority(x, y, parametric = FALSE),
+    tolerance = 0.1,
+    ignore_attr = TRUE
   )
 
-  expect_equal(cohens_u2(x, y), cohens_u2(x, y, parametric = FALSE),
-    tolerance = 0.1, ignore_attr = TRUE
+  expect_equal(
+    cohens_u2(x, y),
+    cohens_u2(x, y, parametric = FALSE),
+    tolerance = 0.1,
+    ignore_attr = TRUE
   )
 
   skip_on_cran()
-  expect_equal(cohens_u3(x, y), cohens_u3(x, y, parametric = FALSE),
-    tolerance = 0.1, ignore_attr = TRUE
+  expect_equal(
+    cohens_u3(x, y),
+    cohens_u3(x, y, parametric = FALSE),
+    tolerance = 0.1,
+    ignore_attr = TRUE
   )
 
-  expect_equal(p_overlap(x, y), p_overlap(x, y, parametric = FALSE),
-    tolerance = 0.1, ignore_attr = TRUE
+  expect_equal(
+    p_overlap(x, y),
+    p_overlap(x, y, parametric = FALSE),
+    tolerance = 0.1,
+    ignore_attr = TRUE
   )
 })
 

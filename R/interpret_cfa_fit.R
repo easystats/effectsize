@@ -123,7 +123,12 @@ interpret_gfi <- function(x, rules = "byrne1994") {
   rules <- .match.rules(
     rules,
     list(
-      byrne1994 = rules(c(0.95), c("poor", "satisfactory"), name = "byrne1994", right = FALSE)
+      byrne1994 = rules(
+        c(0.95),
+        c("poor", "satisfactory"),
+        name = "byrne1994",
+        right = FALSE
+      )
     )
   )
 
@@ -137,7 +142,12 @@ interpret_agfi <- function(x, rules = "byrne1994") {
   rules <- .match.rules(
     rules,
     list(
-      byrne1994 = rules(c(0.90), c("poor", "satisfactory"), name = "byrne1994", right = FALSE)
+      byrne1994 = rules(
+        c(0.90),
+        c("poor", "satisfactory"),
+        name = "byrne1994",
+        right = FALSE
+      )
     )
   )
 
@@ -151,8 +161,18 @@ interpret_nfi <- function(x, rules = "byrne1994") {
   rules <- .match.rules(
     rules,
     list(
-      byrne1994 = rules(c(0.90), c("poor", "satisfactory"), name = "byrne1994", right = FALSE),
-      schumacker2004 = rules(c(0.95), c("poor", "satisfactory"), name = "schumacker2004", right = FALSE)
+      byrne1994 = rules(
+        c(0.90),
+        c("poor", "satisfactory"),
+        name = "byrne1994",
+        right = FALSE
+      ),
+      schumacker2004 = rules(
+        c(0.95),
+        c("poor", "satisfactory"),
+        name = "schumacker2004",
+        right = FALSE
+      )
     )
   )
 
@@ -170,8 +190,18 @@ interpret_cfi <- function(x, rules = "byrne1994") {
   rules <- .match.rules(
     rules,
     list(
-      "hu&bentler1999" = rules(c(0.96), c("poor", "satisfactory"), name = "hu&bentler1999", right = FALSE),
-      "byrne1994" = rules(c(0.90), c("poor", "satisfactory"), name = "byrne1994", right = FALSE)
+      "hu&bentler1999" = rules(
+        c(0.96),
+        c("poor", "satisfactory"),
+        name = "hu&bentler1999",
+        right = FALSE
+      ),
+      "byrne1994" = rules(
+        c(0.90),
+        c("poor", "satisfactory"),
+        name = "byrne1994",
+        right = FALSE
+      )
     )
   )
 
@@ -184,7 +214,12 @@ interpret_rfi <- function(x, rules = "default") {
   rules <- .match.rules(
     rules,
     list(
-      default = rules(c(0.90), c("poor", "satisfactory"), name = "default", right = FALSE)
+      default = rules(
+        c(0.90),
+        c("poor", "satisfactory"),
+        name = "default",
+        right = FALSE
+      )
     )
   )
 
@@ -197,7 +232,12 @@ interpret_ifi <- function(x, rules = "default") {
   rules <- .match.rules(
     rules,
     list(
-      default = rules(c(0.90), c("poor", "satisfactory"), name = "default", right = FALSE)
+      default = rules(
+        c(0.90),
+        c("poor", "satisfactory"),
+        name = "default",
+        right = FALSE
+      )
     )
   )
 
@@ -224,7 +264,11 @@ interpret_rmsea <- function(x, rules = "byrne1994") {
     rules,
     list(
       byrne1994 = rules(c(0.05), c("satisfactory", "poor"), name = "byrne1994"),
-      awang2012 = rules(c(0.05, 0.08), c("good", "satisfactory", "poor"), name = "awang2012")
+      awang2012 = rules(
+        c(0.05, 0.08),
+        c("good", "satisfactory", "poor"),
+        name = "awang2012"
+      )
     )
   )
 
@@ -257,14 +301,23 @@ interpret.lavaan <- function(x, ...) {
 #' @export
 interpret.performance_lavaan <- function(x, ...) {
   mfits <- c(
-    "GFI", "AGFI", "NFI", "NNFI",
-    "CFI", "RMSEA", "SRMR", "RFI",
-    "IFI", "PNFI"
+    "GFI",
+    "AGFI",
+    "NFI",
+    "NNFI",
+    "CFI",
+    "RMSEA",
+    "SRMR",
+    "RFI",
+    "IFI",
+    "PNFI"
   )
   mfits <- intersect(names(x), mfits)
 
   table <- lapply(mfits, function(ind_name) {
-    .interpret_ind <- eval(parse(text = paste0("interpret_", tolower(ind_name))))
+    .interpret_ind <- eval(parse(
+      text = paste0("interpret_", tolower(ind_name))
+    ))
     interp <- .interpret_ind(x[[ind_name]])
     rules <- attr(interp, "rules")
     data.frame(

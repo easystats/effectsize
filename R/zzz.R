@@ -8,7 +8,9 @@
   )
 
   toset <- !names(op.es) %in% names(op)
-  if (any(toset)) options(op.es[toset])
+  if (any(toset)) {
+    options(op.es[toset])
+  }
 
   invisible(NULL)
 }

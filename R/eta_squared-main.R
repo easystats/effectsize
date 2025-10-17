@@ -207,50 +207,101 @@
 #' Psychological Methods, 9, 164-182.
 #'
 #' @export
-eta_squared <- function(model,
-                        partial = TRUE, generalized = FALSE,
-                        ci = 0.95, alternative = "greater",
-                        verbose = TRUE, ...) {
+eta_squared <- function(
+  model,
+  partial = TRUE,
+  generalized = FALSE,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE,
+  ...
+) {
   alternative <- .match.alt(alternative, FALSE)
   out <- .anova_es(
     model,
     type = "eta",
     partial = partial,
     generalized = generalized,
-    ci = ci, alternative = alternative,
+    ci = ci,
+    alternative = alternative,
     verbose = verbose,
     ...
   )
-  class(out) <- unique(c("effectsize_anova", "effectsize_table", "see_effectsize_table", class(out)))
-  if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
+  class(out) <- unique(c(
+    "effectsize_anova",
+    "effectsize_table",
+    "see_effectsize_table",
+    class(out)
+  ))
+  if ("CI" %in% colnames(out)) {
+    attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
+  }
   attr(out, "approximate") <- isTRUE(attr(out, "approximate", exact = TRUE))
   return(out)
 }
 
 #' @rdname eta_squared
 #' @export
-omega_squared <- function(model,
-                          partial = TRUE,
-                          ci = 0.95, alternative = "greater",
-                          verbose = TRUE, ...) {
+omega_squared <- function(
+  model,
+  partial = TRUE,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE,
+  ...
+) {
   alternative <- .match.alt(alternative, FALSE)
-  out <- .anova_es(model, type = "omega", partial = partial, ci = ci, alternative = alternative, verbose = verbose, ...)
-  class(out) <- unique(c("effectsize_anova", "effectsize_table", "see_effectsize_table", class(out)))
-  if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
+  out <- .anova_es(
+    model,
+    type = "omega",
+    partial = partial,
+    ci = ci,
+    alternative = alternative,
+    verbose = verbose,
+    ...
+  )
+  class(out) <- unique(c(
+    "effectsize_anova",
+    "effectsize_table",
+    "see_effectsize_table",
+    class(out)
+  ))
+  if ("CI" %in% colnames(out)) {
+    attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
+  }
   attr(out, "approximate") <- isTRUE(attr(out, "approximate", exact = TRUE))
   return(out)
 }
 
 #' @rdname eta_squared
 #' @export
-epsilon_squared <- function(model,
-                            partial = TRUE,
-                            ci = 0.95, alternative = "greater",
-                            verbose = TRUE, ...) {
+epsilon_squared <- function(
+  model,
+  partial = TRUE,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE,
+  ...
+) {
   alternative <- .match.alt(alternative, FALSE)
-  out <- .anova_es(model, type = "epsilon", partial = partial, ci = ci, alternative = alternative, verbose = verbose, ...)
-  class(out) <- unique(c("effectsize_anova", "effectsize_table", "see_effectsize_table", class(out)))
-  if ("CI" %in% colnames(out)) attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
+  out <- .anova_es(
+    model,
+    type = "epsilon",
+    partial = partial,
+    ci = ci,
+    alternative = alternative,
+    verbose = verbose,
+    ...
+  )
+  class(out) <- unique(c(
+    "effectsize_anova",
+    "effectsize_table",
+    "see_effectsize_table",
+    class(out)
+  ))
+  if ("CI" %in% colnames(out)) {
+    attr(out, "ci_method") <- list(method = "ncp", distribution = "F")
+  }
   attr(out, "approximate") <- isTRUE(attr(out, "approximate", exact = TRUE))
   return(out)
 }
@@ -261,33 +312,44 @@ epsilon_squared <- function(model,
 #' @param model2 Optional second model for Cohen's f (/squared). If specified,
 #'   returns the effect size for R-squared-change between the two models.
 #' @export
-cohens_f <- function(model,
-                     partial = TRUE, generalized = FALSE,
-                     squared = FALSE,
-                     method = c("eta", "omega", "epsilon"),
-                     model2 = NULL,
-                     ci = 0.95, alternative = "greater",
-                     verbose = TRUE, ...) {
+cohens_f <- function(
+  model,
+  partial = TRUE,
+  generalized = FALSE,
+  squared = FALSE,
+  method = c("eta", "omega", "epsilon"),
+  model2 = NULL,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE,
+  ...
+) {
   alternative <- .match.alt(alternative, FALSE)
   if (!is.null(model2)) {
-    return(.cohens_f_delta(model, model2,
+    return(.cohens_f_delta(
+      model,
+      model2,
       squared = squared,
-      ci = ci, alternative = alternative,
+      ci = ci,
+      alternative = alternative,
       verbose = verbose
     ))
   }
 
   method <- match.arg(method)
-  f <- switch(method,
+  f <- switch(
+    method,
     eta = eta_squared,
     generalized = generalized,
     omega = omega_squared,
     epsilon = epsilon_squared
   )
 
-  res <- f(model,
+  res <- f(
+    model,
     partial = partial,
-    ci = ci, alternative = alternative,
+    ci = ci,
+    alternative = alternative,
     verbose = verbose,
     ...
   )
@@ -305,59 +367,91 @@ cohens_f <- function(model,
     res$CI_high <- res$CI_high / (1 - res$CI_high)
   }
 
-
   if (!squared) {
-    i <- colnames(res) %in% c("Cohens_f2", "Cohens_f2_partial", "CI_low", "CI_high")
+    i <- colnames(res) %in%
+      c("Cohens_f2", "Cohens_f2_partial", "CI_low", "CI_high")
     res[i] <- sqrt(res[i])
     colnames(res)[colnames(res) %in% c("Cohens_f2", "Cohens_f2_partial")] <-
       if ("Cohens_f2" %in% colnames(res)) "Cohens_f" else "Cohens_f_partial"
   }
 
-  if ("CI" %in% colnames(res)) attr(res, "ci_method") <- list(method = "ncp", distribution = "F")
-  class(res) <- unique(c("effectsize_anova", "effectsize_table", "see_effectsize_table", class(res)))
+  if ("CI" %in% colnames(res)) {
+    attr(res, "ci_method") <- list(method = "ncp", distribution = "F")
+  }
+  class(res) <- unique(c(
+    "effectsize_anova",
+    "effectsize_table",
+    "see_effectsize_table",
+    class(res)
+  ))
   attr(res, "approximate") <- isTRUE(attr(res, "approximate", exact = TRUE))
-  attr(res, "table_footer") <- if (method != "eta") sprintf("Based on %s squared.", paste0(toupper(substring(method, 1, 1)), substring(method, 2)))
+  attr(res, "table_footer") <- if (method != "eta") {
+    sprintf(
+      "Based on %s squared.",
+      paste0(toupper(substring(method, 1, 1)), substring(method, 2))
+    )
+  }
   res
 }
 
 #' @rdname eta_squared
 #' @export
-cohens_f_squared <- function(model,
-                             partial = TRUE, generalized = FALSE,
-                             squared = TRUE,
-                             method = c("eta", "omega", "epsilon"),
-                             model2 = NULL,
-                             ci = 0.95, alternative = "greater",
-                             verbose = TRUE, ...) {
+cohens_f_squared <- function(
+  model,
+  partial = TRUE,
+  generalized = FALSE,
+  squared = TRUE,
+  method = c("eta", "omega", "epsilon"),
+  model2 = NULL,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE,
+  ...
+) {
   cohens_f(
     model,
-    partial = partial, generalized = generalized,
+    partial = partial,
+    generalized = generalized,
     squared = squared,
     method = method,
     model2 = model2,
-    ci = ci, alternative = alternative,
-    verbose = verbose, ...
+    ci = ci,
+    alternative = alternative,
+    verbose = verbose,
+    ...
   )
 }
 
 
 #' @keywords internal
-.cohens_f_delta <- function(model, model2,
-                            squared = FALSE,
-                            ci = 0.95, alternative = "greater",
-                            verbose = TRUE) {
+.cohens_f_delta <- function(
+  model,
+  model2,
+  squared = FALSE,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE
+) {
   # check
-  if (!inherits(model, "lm") ||
-    !inherits(model2, "lm") ||
-    !insight::model_info(model)$is_linear ||
-    !insight::model_info(model2)$is_linear) {
-    insight::format_error("Cohen's f for R2-change only supported for fixed effect linear models.")
+  if (
+    !inherits(model, "lm") ||
+      !inherits(model2, "lm") ||
+      !insight::model_info(model)$is_linear ||
+      !insight::model_info(model2)$is_linear
+  ) {
+    insight::format_error(
+      "Cohen's f for R2-change only supported for fixed effect linear models."
+    )
   }
 
   # Anova
   ANOVA <- stats::anova(model, model2)
-  out <- F_to_f(ANOVA[2, "F"], abs(ANOVA[2, "Df"]), min(ANOVA["Res.Df"]),
-    ci = ci, alternative = alternative,
+  out <- F_to_f(
+    ANOVA[2, "F"],
+    abs(ANOVA[2, "Df"]),
+    min(ANOVA["Res.Df"]),
+    ci = ci,
+    alternative = alternative,
     squared = squared
   )
 
@@ -376,12 +470,16 @@ cohens_f_squared <- function(model,
 #'
 #' @rdname effectsize_API
 #' @export
-.es_aov_simple <- function(aov_table,
-                           type = c("eta", "omega", "epsilon"),
-                           partial = TRUE, generalized = FALSE,
-                           include_intercept = FALSE,
-                           ci = 0.95, alternative = "greater",
-                           verbose = TRUE) {
+.es_aov_simple <- function(
+  aov_table,
+  type = c("eta", "omega", "epsilon"),
+  partial = TRUE,
+  generalized = FALSE,
+  include_intercept = FALSE,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE
+) {
   type <- match.arg(type)
   aov_table <- as.data.frame(aov_table)
 
@@ -391,14 +489,17 @@ cohens_f_squared <- function(model,
   }
 
   if (!"Residuals" %in% aov_table$Parameter) {
-    insight::format_error("No residuals data found - cannot compute effect size.")
+    insight::format_error(
+      "No residuals data found - cannot compute effect size."
+    )
   }
-
 
   # Include intercept? ---
   if (include_intercept) {
     if (verbose && !"(Intercept)" %in% aov_table$Parameter) {
-      insight::format_warning("Could not find Sum-of-Squares for the (Intercept) in the ANOVA table.")
+      insight::format_warning(
+        "Could not find Sum-of-Squares for the (Intercept) in the ANOVA table."
+      )
     }
     values <- .values_aov(aov_table[aov_table$Parameter != "(Intercept)", ])
   } else {
@@ -410,17 +511,25 @@ cohens_f_squared <- function(model,
   df_error <- aov_table$df[aov_table$Parameter == "Residuals"]
   aov_table <- aov_table[aov_table$Parameter != "Residuals", , drop = FALSE]
 
-
   # Validate anova type (1,2,3) and partial ---
   anova_type <- NULL
-  if (nrow(aov_table) == 1L &&
-    (partial || isTRUE(generalized) || is.character(generalized))) {
+  if (
+    nrow(aov_table) == 1L &&
+      (partial || isTRUE(generalized) || is.character(generalized))
+  ) {
     if (verbose) {
-      txt_type <- ifelse(isTRUE(generalized) || is.character(generalized), "generalized", "partial")
+      txt_type <- ifelse(
+        isTRUE(generalized) || is.character(generalized),
+        "generalized",
+        "partial"
+      )
       insight::format_alert(
         sprintf(
           "For one-way between subjects designs, %s %s squared is equivalent to %s squared. Returning %s squared.",
-          txt_type, type, type, type
+          txt_type,
+          type,
+          type,
+          type
         )
       )
     }
@@ -428,9 +537,9 @@ cohens_f_squared <- function(model,
     anova_type <- NA
   }
 
-
   # Estimate effect size ---
-  if (type == "eta") { # nolint
+  if (type == "eta") {
+    # nolint
     if (isTRUE(generalized) || is.character(generalized)) {
       ## copied from afex
       obs <- logical(nrow(aov_table))
@@ -438,7 +547,12 @@ cohens_f_squared <- function(model,
         for (o in generalized) {
           oi <- grepl(paste0("\\b", o, "\\b"), aov_table$Parameter)
 
-          if (!any(oi)) insight::format_error(sprintf("Observed variable not in data: %s", o))
+          if (!any(oi)) {
+            insight::format_error(sprintf(
+              "Observed variable not in data: %s",
+              o
+            ))
+          }
 
           obs <- obs | oi
         }
@@ -447,11 +561,14 @@ cohens_f_squared <- function(model,
       obs_SSn2 <- aov_table$Sum_Squares * obs
 
       aov_table$Eta2_generalized <- aov_table$Sum_Squares /
-        (aov_table$Sum_Squares + values$Sum_Squares_residuals + obs_SSn1 - obs_SSn2)
+        (aov_table$Sum_Squares +
+          values$Sum_Squares_residuals +
+          obs_SSn1 -
+          obs_SSn2)
     } else if (isTRUE(partial)) {
       aov_table$Eta2_partial <-
         aov_table$Sum_Squares /
-          (aov_table$Sum_Squares + values$Sum_Squares_residuals)
+        (aov_table$Sum_Squares + values$Sum_Squares_residuals)
     } else {
       aov_table$Eta2 <- aov_table$Sum_Squares / values$Sum_Squares_total
     }
@@ -459,24 +576,25 @@ cohens_f_squared <- function(model,
     if (isTRUE(partial)) {
       aov_table$Omega2_partial <-
         (aov_table$Sum_Squares - aov_table$df * values$Mean_Square_residuals) /
-          (aov_table$Sum_Squares + (values$n - aov_table$df) * values$Mean_Square_residuals)
+        (aov_table$Sum_Squares +
+          (values$n - aov_table$df) * values$Mean_Square_residuals)
       aov_table$Omega2_partial <- pmax(0, aov_table$Omega2_partial)
     } else {
       aov_table$Omega2 <-
         (aov_table$Sum_Squares - aov_table$df * values$Mean_Square_residuals) /
-          (values$Sum_Squares_total + values$Mean_Square_residuals)
+        (values$Sum_Squares_total + values$Mean_Square_residuals)
       aov_table$Omega2 <- pmax(0, aov_table$Omega2)
     }
   } else if (type == "epsilon") {
     if (isTRUE(partial)) {
       aov_table$Epsilon2_partial <-
         (aov_table$Sum_Squares - aov_table$df * values$Mean_Square_residuals) /
-          (aov_table$Sum_Squares + values$Sum_Squares_residuals)
+        (aov_table$Sum_Squares + values$Sum_Squares_residuals)
       aov_table$Epsilon2_partial <- pmax(0, aov_table$Epsilon2_partial)
     } else {
       aov_table$Epsilon2 <-
         (aov_table$Sum_Squares - aov_table$df * values$Mean_Square_residuals) /
-          values$Sum_Squares_total
+        values$Sum_Squares_total
       aov_table$Epsilon2 <- pmax(0, aov_table$Epsilon2)
     }
   }
@@ -490,10 +608,12 @@ cohens_f_squared <- function(model,
     f <- (ES / out$df) / ((1 - ES) / df_error)
 
     CI_tab <- # This really is a generic F_to_R2
-      F_to_eta2(f,
+      F_to_eta2(
+        f,
         out$df,
         df_error,
-        ci = ci, alternative = alternative,
+        ci = ci,
+        alternative = alternative,
         verbose = verbose
       )[-1]
 
@@ -502,15 +622,22 @@ cohens_f_squared <- function(model,
     alternative <- NULL
   }
 
-
   # Clean up output ---
-  out <- out[, colnames(out) %in% c(
-    "Parameter",
-    "Eta2", "Eta2_partial", "Eta2_generalized",
-    "Omega2", "Omega2_partial",
-    "Epsilon2", "Epsilon2_partial",
-    if (!is.null(ci)) c("CI", "CI_low", "CI_high")
-  ), drop = FALSE]
+  out <- out[,
+    colnames(out) %in%
+      c(
+        "Parameter",
+        "Eta2",
+        "Eta2_partial",
+        "Eta2_generalized",
+        "Omega2",
+        "Omega2_partial",
+        "Epsilon2",
+        "Epsilon2_partial",
+        if (!is.null(ci)) c("CI", "CI_low", "CI_high")
+      ),
+    drop = FALSE
+  ]
   rownames(out) <- NULL
   out$Parameter <- as.character(out$Parameter)
 
@@ -528,12 +655,17 @@ cohens_f_squared <- function(model,
 #'
 #' @rdname effectsize_API
 #' @export
-.es_aov_strata <- function(aov_table, DV_names,
-                           type = c("eta", "omega", "epsilon"),
-                           partial = TRUE, generalized = FALSE,
-                           include_intercept = FALSE,
-                           ci = 0.95, alternative = "greater",
-                           verbose = TRUE) {
+.es_aov_strata <- function(
+  aov_table,
+  DV_names,
+  type = c("eta", "omega", "epsilon"),
+  partial = TRUE,
+  generalized = FALSE,
+  include_intercept = FALSE,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE
+) {
   type <- match.arg(type)
   aov_table <- as.data.frame(aov_table)
 
@@ -543,33 +675,46 @@ cohens_f_squared <- function(model,
   }
 
   if (!"Residuals" %in% aov_table$Parameter) {
-    insight::format_error("No residuals data found - cannot compute effect size.")
+    insight::format_error(
+      "No residuals data found - cannot compute effect size."
+    )
   }
-
 
   # Include intercept? ---
   if (include_intercept) {
     if (verbose && !"(Intercept)" %in% aov_table$Parameter) {
-      insight::format_warning("Could not find Sum-of-Squares for the (Intercept) in the ANOVA table.")
+      insight::format_warning(
+        "Could not find Sum-of-Squares for the (Intercept) in the ANOVA table."
+      )
     }
-    values <- .values_aov(aov_table[aov_table$Parameter != "(Intercept)", ], group = TRUE)
+    values <- .values_aov(
+      aov_table[aov_table$Parameter != "(Intercept)", ],
+      group = TRUE
+    )
   } else {
     aov_table <- aov_table[aov_table$Parameter != "(Intercept)", ]
     values <- .values_aov(aov_table, group = TRUE)
   }
 
-
   # Get all the correct SSs... ---
   aov_table <- aov_table[aov_table$Parameter != "Residuals", , drop = FALSE]
   Sum_Squares_total <- sum(sapply(values, "[[", "Sum_Squares_total"))
-  Sum_Squares_residuals <- sapply(values[aov_table$Group], "[[", "Sum_Squares_residuals")
-  Mean_Square_residuals <- sapply(values[aov_table$Group], "[[", "Mean_Square_residuals")
+  Sum_Squares_residuals <- sapply(
+    values[aov_table$Group],
+    "[[",
+    "Sum_Squares_residuals"
+  )
+  Mean_Square_residuals <- sapply(
+    values[aov_table$Group],
+    "[[",
+    "Mean_Square_residuals"
+  )
   df_residuals <- sapply(values[aov_table$Group], "[[", "df_residuals")
   ns <- sapply(values[aov_table$Group], "[[", "n")
 
-
   # Estimate effect size ---
-  if (type == "eta") { # nolint
+  if (type == "eta") {
+    # nolint
     if (isTRUE(generalized) || is.character(generalized)) {
       ## copied from afex
       obs <- logical(nrow(aov_table))
@@ -577,7 +722,12 @@ cohens_f_squared <- function(model,
         for (o in generalized) {
           oi <- grepl(paste0("\\b", o, "\\b"), aov_table$Parameter)
 
-          if (!any(oi)) insight::format_error(sprintf("Observed variable not in data: %s", o))
+          if (!any(oi)) {
+            insight::format_error(sprintf(
+              "Observed variable not in data: %s",
+              o
+            ))
+          }
 
           obs <- obs | oi
         }
@@ -586,12 +736,14 @@ cohens_f_squared <- function(model,
       obs_SSn2 <- aov_table$Sum_Squares * obs
 
       aov_table$Eta2_generalized <- aov_table$Sum_Squares /
-        (aov_table$Sum_Squares + sum(sapply(values, "[[", "Sum_Squares_residuals")) +
-          obs_SSn1 - obs_SSn2)
+        (aov_table$Sum_Squares +
+          sum(sapply(values, "[[", "Sum_Squares_residuals")) +
+          obs_SSn1 -
+          obs_SSn2)
     } else if (isTRUE(partial)) {
       aov_table$Eta2_partial <-
         aov_table$Sum_Squares /
-          (aov_table$Sum_Squares + Sum_Squares_residuals)
+        (aov_table$Sum_Squares + Sum_Squares_residuals)
     } else {
       aov_table$Eta2 <- aov_table$Sum_Squares / Sum_Squares_total
     }
@@ -605,31 +757,32 @@ cohens_f_squared <- function(model,
     if (isTRUE(partial)) {
       aov_table$Omega2_partial <-
         (aov_table$Sum_Squares - aov_table$df * Mean_Square_residuals) /
-          (aov_table$Sum_Squares + is_within * Sum_Squares_residuals +
-            Sum_Squares_Subjects + Mean_Squares_Subjects)
+        (aov_table$Sum_Squares +
+          is_within * Sum_Squares_residuals +
+          Sum_Squares_Subjects +
+          Mean_Squares_Subjects)
       aov_table$Omega2_partial <- pmax(0, aov_table$Omega2_partial)
     } else {
       aov_table$Omega2 <-
         (aov_table$Sum_Squares - aov_table$df * Mean_Square_residuals) /
-          (Sum_Squares_total + Mean_Squares_Subjects)
+        (Sum_Squares_total + Mean_Squares_Subjects)
       aov_table$Omega2 <- pmax(0, aov_table$Omega2)
     }
   } else if (type == "epsilon") {
     if (isTRUE(partial)) {
       aov_table$Epsilon2_partial <-
         (aov_table$Sum_Squares - aov_table$df * Mean_Square_residuals) /
-          (aov_table$Sum_Squares + Sum_Squares_residuals)
+        (aov_table$Sum_Squares + Sum_Squares_residuals)
       aov_table$Epsilon2_partial <- pmax(0, aov_table$Epsilon2_partial)
     } else {
       aov_table$Epsilon2 <-
         (aov_table$Sum_Squares - aov_table$df * Mean_Square_residuals) /
-          Sum_Squares_total
+        Sum_Squares_total
       aov_table$Epsilon2 <- pmax(0, aov_table$Epsilon2)
     }
   }
 
   out <- aov_table
-
 
   # Add CIs ---
   if (!is.null(ci)) {
@@ -638,10 +791,12 @@ cohens_f_squared <- function(model,
     f <- (ES / out$df) / ((1 - ES) / df_residuals)
 
     CI_tab <- # This really is a generic F_to_R2
-      F_to_eta2(f,
+      F_to_eta2(
+        f,
         out$df,
         df_residuals,
-        ci = ci, alternative = alternative,
+        ci = ci,
+        alternative = alternative,
         verbose = verbose
       )[-1]
 
@@ -650,16 +805,23 @@ cohens_f_squared <- function(model,
     alternative <- NULL
   }
 
-
   # Clean up output ---
-  out <- out[, colnames(out) %in% c(
-    "Group",
-    "Parameter",
-    "Eta2", "Eta2_generalized", "Eta2_partial",
-    "Omega2", "Omega2_partial",
-    "Epsilon2", "Epsilon2_partial",
-    if (!is.null(ci)) c("CI", "CI_low", "CI_high")
-  ), drop = FALSE]
+  out <- out[,
+    colnames(out) %in%
+      c(
+        "Group",
+        "Parameter",
+        "Eta2",
+        "Eta2_generalized",
+        "Eta2_partial",
+        "Omega2",
+        "Omega2_partial",
+        "Epsilon2",
+        "Epsilon2_partial",
+        if (!is.null(ci)) c("CI", "CI_low", "CI_high")
+      ),
+    drop = FALSE
+  ]
   rownames(out) <- NULL
   out$Parameter <- as.character(out$Parameter)
 
@@ -672,38 +834,47 @@ cohens_f_squared <- function(model,
 
 #' @rdname effectsize_API
 #' @export
-.es_aov_table <- function(aov_table,
-                          type = c("eta", "omega", "epsilon"),
-                          partial = TRUE, generalized = FALSE,
-                          include_intercept = FALSE,
-                          ci = 0.95, alternative = "greater",
-                          verbose = TRUE) {
+.es_aov_table <- function(
+  aov_table,
+  type = c("eta", "omega", "epsilon"),
+  partial = TRUE,
+  generalized = FALSE,
+  include_intercept = FALSE,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE
+) {
   aov_table <- as.data.frame(aov_table)
 
   # Get correct function ---
   type <- match.arg(type)
-  es_fun <- switch(type,
+  es_fun <- switch(
+    type,
     eta = F_to_eta2,
     omega = F_to_omega2,
     epsilon = F_to_epsilon2
   )
 
-
   # Non-Partial / Generalized -> BAD ---
   if (verbose) {
     if (!isTRUE(partial)) {
       insight::format_warning(
-        sprintf("Currently only supports partial %s squared for this class of objects.", type)
+        sprintf(
+          "Currently only supports partial %s squared for this class of objects.",
+          type
+        )
       )
     }
 
     if (isTRUE(generalized) || is.character(generalized)) {
       insight::format_warning(
-        sprintf("Generalized %s squared is not supported for this class of object.", type)
+        sprintf(
+          "Generalized %s squared is not supported for this class of object.",
+          type
+        )
       )
     }
   }
-
 
   # Turn ts to Fs (if needed) ---
   if (!"F" %in% colnames(aov_table)) {
@@ -711,25 +882,29 @@ cohens_f_squared <- function(model,
       aov_table[["F"]] <- aov_table[["t"]]^2
       aov_table[["df"]] <- 1
     } else {
-      insight::format_error("ANOVA table does not have F values - cannot compute effect size.")
+      insight::format_error(
+        "ANOVA table does not have F values - cannot compute effect size."
+      )
     }
   }
-
 
   # include_intercept? ---
   if (include_intercept) {
     if (verbose && !"(Intercept)" %in% aov_table$Parameter) {
-      insight::format_warning("Could not find F statistic for the (Intercept) in the ANOVA table.")
+      insight::format_warning(
+        "Could not find F statistic for the (Intercept) in the ANOVA table."
+      )
     }
   } else {
     aov_table <- aov_table[aov_table$Parameter != "(Intercept)", , drop = FALSE]
   }
 
-
-  ES_tab <- es_fun(aov_table[["F"]],
+  ES_tab <- es_fun(
+    aov_table[["F"]],
     aov_table[["df"]],
     aov_table[["df_error"]],
-    ci = ci, alternative = alternative,
+    ci = ci,
+    alternative = alternative,
     verbose = verbose
   )
 
@@ -751,13 +926,16 @@ cohens_f_squared <- function(model,
 
 #' @keywords internal
 .anova_es <-
-  function(model,
-           type = c("eta", "omega", "epsilon"),
-           partial = TRUE,
-           generalized = FALSE,
-           ci = 0.95, alternative = "greater",
-           verbose = TRUE,
-           ...) {
+  function(
+    model,
+    type = c("eta", "omega", "epsilon"),
+    partial = TRUE,
+    generalized = FALSE,
+    ci = 0.95,
+    alternative = "greater",
+    verbose = TRUE,
+    ...
+  ) {
     UseMethod(".anova_es")
   }
 
@@ -768,14 +946,17 @@ cohens_f_squared <- function(model,
 }
 
 #' @keywords internal
-.anova_es.anova <- function(model,
-                            type = c("eta", "omega", "epsilon"),
-                            partial = TRUE,
-                            generalized = FALSE,
-                            ci = 0.95, alternative = "greater",
-                            verbose = TRUE,
-                            include_intercept = FALSE,
-                            ...) {
+.anova_es.anova <- function(
+  model,
+  type = c("eta", "omega", "epsilon"),
+  partial = TRUE,
+  generalized = FALSE,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE,
+  include_intercept = FALSE,
+  ...
+) {
   F.nm <- c("F value", "approx F", "F-value", "F")
   df.nm <- c("NumDF", "num Df", "numDF", "npar", "Df")
   df_error.nm <- c("DenDF", "den Df", "denDF", "df_error", "Df.res")
@@ -783,11 +964,13 @@ cohens_f_squared <- function(model,
   # If there is no df_error *or* if there IS a residuals row...
   if (!any(df_error.nm %in% colnames(model))) {
     # Pass to AOV method
-    res <- .anova_es.aov(model,
+    res <- .anova_es.aov(
+      model,
       partial = partial,
       type = type,
       generalized = generalized,
-      ci = ci, alternative = alternative,
+      ci = ci,
+      alternative = alternative,
       verbose = verbose,
       include_intercept = include_intercept,
       ...
@@ -850,14 +1033,17 @@ cohens_f_squared <- function(model,
 }
 
 #' @keywords internal
-.anova_es.aov <- function(model,
-                          type = c("eta", "omega", "epsilon"),
-                          partial = TRUE,
-                          generalized = FALSE,
-                          ci = 0.95, alternative = "greater",
-                          verbose = TRUE,
-                          include_intercept = FALSE,
-                          ...) {
+.anova_es.aov <- function(
+  model,
+  type = c("eta", "omega", "epsilon"),
+  partial = TRUE,
+  generalized = FALSE,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE,
+  include_intercept = FALSE,
+  ...
+) {
   # if (!inherits(model, c("Gam", "anova"))) {
   #   # Pass to ANOVA table method
   #   res <- .anova_es.anova(
@@ -881,11 +1067,16 @@ cohens_f_squared <- function(model,
     es_type = NULL,
     include_intercept = include_intercept
   )
-  out <- .es_aov_simple(as.data.frame(params),
+  out <- .es_aov_simple(
+    as.data.frame(params),
     type = type,
-    partial = partial, generalized = generalized,
-    ci = ci, alternative = alternative, verbose = verbose,
-    include_intercept = include_intercept, ...
+    partial = partial,
+    generalized = generalized,
+    ci = ci,
+    alternative = alternative,
+    verbose = verbose,
+    include_intercept = include_intercept,
+    ...
   )
   if (is.null(attr(out, "anova_type"))) {
     attr(out, "anova_type") <- attr(params, "anova_type")
@@ -901,14 +1092,17 @@ cohens_f_squared <- function(model,
 .anova_es.glm <- .anova_es.lm
 
 #' @keywords internal
-.anova_es.aovlist <- function(model,
-                              type = c("eta", "omega", "epsilon"),
-                              partial = TRUE,
-                              generalized = FALSE,
-                              ci = 0.95, alternative = "greater",
-                              verbose = TRUE,
-                              include_intercept = FALSE,
-                              ...) {
+.anova_es.aovlist <- function(
+  model,
+  type = c("eta", "omega", "epsilon"),
+  partial = TRUE,
+  generalized = FALSE,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE,
+  include_intercept = FALSE,
+  ...
+) {
   ## TODO: add back `effects = "fixed"` once the deprecation warning in parameters is removed
   params <- parameters::model_parameters(
     model,
@@ -928,7 +1122,8 @@ cohens_f_squared <- function(model,
       type = type,
       partial = partial,
       generalized = generalized,
-      ci = ci, alternative = alternative,
+      ci = ci,
+      alternative = alternative,
       verbose = verbose,
       include_intercept = include_intercept
     )

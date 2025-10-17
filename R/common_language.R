@@ -109,21 +109,40 @@
 #'
 #' @export
 #' @aliases cles
-p_superiority <- function(x, y = NULL, data = NULL,
-                          mu = 0, paired = FALSE, parametric = TRUE,
-                          reference = NULL,
-                          ci = 0.95, alternative = "two.sided",
-                          verbose = TRUE, ...) {
+p_superiority <- function(
+  x,
+  y = NULL,
+  data = NULL,
+  mu = 0,
+  paired = FALSE,
+  parametric = TRUE,
+  reference = NULL,
+  ci = 0.95,
+  alternative = "two.sided",
+  verbose = TRUE,
+  ...
+) {
   if (.is_htest_of_type(x, "(t-test|Wilcoxon)", "t-test or a Wilcoxon-test")) {
     return(effectsize(x, type = "p_superiority", verbose = verbose, ...))
   } else if (.is_BF_of_type(x, c("BFindepSample", "BFoneSample"), "t-test")) {
-    return(effectsize(x, type = "p_superiority", ci = ci, verbose = verbose, ...))
+    return(effectsize(
+      x,
+      type = "p_superiority",
+      ci = ci,
+      verbose = verbose,
+      ...
+    ))
   }
 
-  data <- .get_data_2_samples(x, y, data,
-    paired = paired, reference = reference,
+  data <- .get_data_2_samples(
+    x,
+    y,
+    data,
+    paired = paired,
+    reference = reference,
     allow_ordered = !parametric,
-    verbose = verbose, ...
+    verbose = verbose,
+    ...
   )
   x <- data[["x"]]
   y <- data[["y"]]
@@ -133,7 +152,8 @@ p_superiority <- function(x, y = NULL, data = NULL,
     d <- cohens_d(
       x = x,
       y = y,
-      paired = paired, pooled_sd = TRUE,
+      paired = paired,
+      pooled_sd = TRUE,
       mu = mu,
       ci = ci,
       alternative = alternative,
@@ -157,34 +177,51 @@ p_superiority <- function(x, y = NULL, data = NULL,
 
 #' @export
 #' @rdname p_superiority
-cohens_u1 <- function(x, y = NULL, data = NULL,
-                      mu = 0, parametric = TRUE,
-                      ci = 0.95, alternative = "two.sided", iterations = 200,
-                      verbose = TRUE, ...) {
+cohens_u1 <- function(
+  x,
+  y = NULL,
+  data = NULL,
+  mu = 0,
+  parametric = TRUE,
+  ci = 0.95,
+  alternative = "two.sided",
+  iterations = 200,
+  verbose = TRUE,
+  ...
+) {
   if (.is_htest_of_type(x, "(t-test|Wilcoxon)", "t-test or a Wilcoxon-test")) {
     return(effectsize(x, type = "u1", verbose = verbose, ...))
   } else if (.is_BF_of_type(x, "BFindepSample", "t-test")) {
     return(effectsize(x, type = "u1", ci = ci, verbose = verbose, ...))
   }
 
-  data <- .get_data_2_samples(x, y, data,
+  data <- .get_data_2_samples(
+    x,
+    y,
+    data,
     allow_ordered = !parametric,
-    verbose = verbose, ...
+    verbose = verbose,
+    ...
   )
   x <- data[["x"]]
   y <- data[["y"]]
   if (is.null(y) || isTRUE(match.call()$paired) || isTRUE(data[["paired"]])) {
-    insight::format_error("This effect size is only applicable for two independent samples.")
+    insight::format_error(
+      "This effect size is only applicable for two independent samples."
+    )
   }
 
   if (!parametric) {
-    insight::format_error("Cohen's U1 only available for parametric estimation.")
+    insight::format_error(
+      "Cohen's U1 only available for parametric estimation."
+    )
   }
 
   d <- cohens_d(
     x = x,
     y = y,
-    paired = FALSE, pooled_sd = TRUE,
+    paired = FALSE,
+    pooled_sd = TRUE,
     mu = mu,
     ci = ci,
     alternative = alternative,
@@ -198,31 +235,46 @@ cohens_u1 <- function(x, y = NULL, data = NULL,
 
 #' @export
 #' @rdname p_superiority
-cohens_u2 <- function(x, y = NULL, data = NULL,
-                      mu = 0, parametric = TRUE,
-                      ci = 0.95, alternative = "two.sided", iterations = 200,
-                      verbose = TRUE, ...) {
+cohens_u2 <- function(
+  x,
+  y = NULL,
+  data = NULL,
+  mu = 0,
+  parametric = TRUE,
+  ci = 0.95,
+  alternative = "two.sided",
+  iterations = 200,
+  verbose = TRUE,
+  ...
+) {
   if (.is_htest_of_type(x, "(t-test|Wilcoxon)", "t-test or a Wilcoxon-test")) {
     return(effectsize(x, type = "u2", verbose = verbose, ...))
   } else if (.is_BF_of_type(x, "BFindepSample", "t-test")) {
     return(effectsize(x, type = "u2", ci = ci, verbose = verbose, ...))
   }
 
-  data <- .get_data_2_samples(x, y, data,
+  data <- .get_data_2_samples(
+    x,
+    y,
+    data,
     allow_ordered = !parametric,
-    verbose = verbose, ...
+    verbose = verbose,
+    ...
   )
   x <- data[["x"]]
   y <- data[["y"]]
   if (is.null(y) || isTRUE(match.call()$paired) || isTRUE(data[["paired"]])) {
-    insight::format_error("This effect size is only applicable for two independent samples.")
+    insight::format_error(
+      "This effect size is only applicable for two independent samples."
+    )
   }
 
   if (parametric) {
     d <- cohens_d(
       x = x,
       y = y,
-      paired = FALSE, pooled_sd = TRUE,
+      paired = FALSE,
+      pooled_sd = TRUE,
       mu = mu,
       ci = ci,
       alternative = alternative,
@@ -231,9 +283,11 @@ cohens_u2 <- function(x, y = NULL, data = NULL,
     out <- d_to_u2(d)
   } else {
     out <- .cohens_u2_non_parametric(
-      x, y,
+      x,
+      y,
       ci = ci,
-      mu = mu, alternative = alternative,
+      mu = mu,
+      alternative = alternative,
       iterations = iterations
     )
   }
@@ -243,33 +297,48 @@ cohens_u2 <- function(x, y = NULL, data = NULL,
 
 #' @export
 #' @rdname p_superiority
-cohens_u3 <- function(x, y = NULL, data = NULL,
-                      mu = 0, parametric = TRUE,
-                      reference = NULL,
-                      ci = 0.95, alternative = "two.sided", iterations = 200,
-                      verbose = TRUE, ...) {
+cohens_u3 <- function(
+  x,
+  y = NULL,
+  data = NULL,
+  mu = 0,
+  parametric = TRUE,
+  reference = NULL,
+  ci = 0.95,
+  alternative = "two.sided",
+  iterations = 200,
+  verbose = TRUE,
+  ...
+) {
   if (.is_htest_of_type(x, "(t-test|Wilcoxon)", "t-test or a Wilcoxon-test")) {
     return(effectsize(x, type = "u3", verbose = verbose, ...))
   } else if (.is_BF_of_type(x, "BFindepSample", "t-test")) {
     return(effectsize(x, type = "u3", ci = ci, verbose = verbose, ...))
   }
 
-
-  data <- .get_data_2_samples(x, y, data,
-    allow_ordered = !parametric, reference = reference,
-    verbose = verbose, ...
+  data <- .get_data_2_samples(
+    x,
+    y,
+    data,
+    allow_ordered = !parametric,
+    reference = reference,
+    verbose = verbose,
+    ...
   )
   x <- data[["x"]]
   y <- data[["y"]]
   if (is.null(y) || isTRUE(match.call()$paired) || isTRUE(data[["paired"]])) {
-    insight::format_error("This effect size is only applicable for two independent samples.")
+    insight::format_error(
+      "This effect size is only applicable for two independent samples."
+    )
   }
 
   if (parametric) {
     d <- cohens_d(
       x = x,
       y = y,
-      paired = FALSE, pooled_sd = TRUE,
+      paired = FALSE,
+      pooled_sd = TRUE,
       mu = mu,
       ci = ci,
       alternative = alternative,
@@ -278,9 +347,11 @@ cohens_u3 <- function(x, y = NULL, data = NULL,
     out <- d_to_u3(d)
   } else {
     out <- .cohens_u3_non_parametric(
-      x, y,
+      x,
+      y,
       ci = ci,
-      mu = mu, alternative = alternative,
+      mu = mu,
+      alternative = alternative,
       iterations = iterations
     )
   }
@@ -289,31 +360,46 @@ cohens_u3 <- function(x, y = NULL, data = NULL,
 
 #' @export
 #' @rdname p_superiority
-p_overlap <- function(x, y = NULL, data = NULL,
-                      mu = 0, parametric = TRUE,
-                      ci = 0.95, alternative = "two.sided", iterations = 200,
-                      verbose = TRUE, ...) {
+p_overlap <- function(
+  x,
+  y = NULL,
+  data = NULL,
+  mu = 0,
+  parametric = TRUE,
+  ci = 0.95,
+  alternative = "two.sided",
+  iterations = 200,
+  verbose = TRUE,
+  ...
+) {
   if (.is_htest_of_type(x, "(t-test|Wilcoxon)", "t-test or a Wilcoxon-test")) {
     return(effectsize(x, type = "overlap", verbose = verbose, ...))
   } else if (.is_BF_of_type(x, "BFindepSample", "t-test")) {
     return(effectsize(x, type = "overlap", ci = ci, verbose = verbose, ...))
   }
 
-  data <- .get_data_2_samples(x, y, data,
+  data <- .get_data_2_samples(
+    x,
+    y,
+    data,
     allow_ordered = !parametric,
-    verbose = verbose, ...
+    verbose = verbose,
+    ...
   )
   x <- data[["x"]]
   y <- data[["y"]]
   if (is.null(y) || isTRUE(match.call()$paired) || isTRUE(data[["paired"]])) {
-    insight::format_error("This effect size is only applicable for two independent samples.")
+    insight::format_error(
+      "This effect size is only applicable for two independent samples."
+    )
   }
 
   if (parametric) {
     d <- cohens_d(
       x = x,
       y = y,
-      paired = FALSE, pooled_sd = TRUE,
+      paired = FALSE,
+      pooled_sd = TRUE,
       mu = mu,
       ci = ci,
       alternative = alternative,
@@ -322,9 +408,11 @@ p_overlap <- function(x, y = NULL, data = NULL,
     out <- d_to_overlap(d)
   } else {
     out <- .overlap_non_parametric(
-      x, y,
+      x,
+      y,
       ci = ci,
-      mu = mu, alternative = alternative,
+      mu = mu,
+      alternative = alternative,
       iterations = iterations
     )
   }
@@ -333,10 +421,16 @@ p_overlap <- function(x, y = NULL, data = NULL,
 
 #' @export
 #' @rdname p_superiority
-vd_a <- function(x, y = NULL, data = NULL,
-                 mu = 0,
-                 ci = 0.95, alternative = "two.sided",
-                 verbose = TRUE, ...) {
+vd_a <- function(
+  x,
+  y = NULL,
+  data = NULL,
+  mu = 0,
+  ci = 0.95,
+  alternative = "two.sided",
+  verbose = TRUE,
+  ...
+) {
   cl <- match.call()
   cl[[1]] <- quote(effectsize::p_superiority)
   cl$parametric <- FALSE
@@ -346,19 +440,23 @@ vd_a <- function(x, y = NULL, data = NULL,
 
 #' @export
 #' @rdname p_superiority
-wmw_odds <- function(x, y = NULL, data = NULL,
-                     mu = 0, paired = FALSE,
-                     ci = 0.95, alternative = "two.sided",
-                     verbose = TRUE, ...) {
+wmw_odds <- function(
+  x,
+  y = NULL,
+  data = NULL,
+  mu = 0,
+  paired = FALSE,
+  ci = 0.95,
+  alternative = "two.sided",
+  verbose = TRUE,
+  ...
+) {
   cl <- match.call()
   cl[[1]] <- quote(effectsize::rank_biserial)
   out <- eval.parent(cl)
 
   rb_to_wmw_odds(out)
 }
-
-
-
 
 
 # Utils -------------------------------------------------------------------
@@ -371,14 +469,17 @@ wmw_odds <- function(x, y = NULL, data = NULL,
     y <- data[data$g == "y", "r"]
 
     .foo <- function(p) {
-      difference <- stats::quantile(x, probs = c(p, 1 - p)) - stats::quantile(y, probs = c(1 - p, p))
+      difference <- stats::quantile(x, probs = c(p, 1 - p)) -
+        stats::quantile(y, probs = c(1 - p, p))
       min(abs(difference))
     }
 
     stats::optim(
-      par = 0.5, fn = .foo,
+      par = 0.5,
+      fn = .foo,
       method = "L-BFGS-B",
-      lower = 0.5, upper = 1,
+      lower = 0.5,
+      upper = 1,
       control = list(pgtol = 1e-09)
     )$par
   }
@@ -436,13 +537,15 @@ wmw_odds <- function(x, y = NULL, data = NULL,
 
 #' @keywords internal
 .cles_non_parametric <-
-  function(x,
-           y,
-           est,
-           ci = 0.95,
-           mu = 0,
-           alternative = "two.sided",
-           iterations = 200) {
+  function(
+    x,
+    y,
+    est,
+    ci = 0.95,
+    mu = 0,
+    alternative = "two.sided",
+    iterations = 200
+  ) {
     d <- data.frame(
       r = c(x, y),
       g = rep(c("x", "y"), c(length(x), length(y))),
@@ -451,8 +554,10 @@ wmw_odds <- function(x, y = NULL, data = NULL,
 
     out <- data.frame(ES = est(d))
 
-    if (.test_ci(ci) &&
-      insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
+    if (
+      .test_ci(ci) &&
+        insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)
+    ) {
       ci.level <- .adjust_ci(ci, alternative)
 
       out$CI <- ci
@@ -467,7 +572,10 @@ wmw_odds <- function(x, y = NULL, data = NULL,
       bCI <- utils::tail(as.vector(bCI), 2)
       out$CI_low <- bCI[1]
       out$CI_high <- bCI[2]
-      ci_method <- list(method = "percentile bootstrap", iterations = iterations)
+      ci_method <- list(
+        method = "percentile bootstrap",
+        iterations = iterations
+      )
     } else {
       ci_method <- alternative <- ci <- NULL
     }
@@ -476,7 +584,10 @@ wmw_odds <- function(x, y = NULL, data = NULL,
     # TODO
     # class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
     .someattributes(out) <- .nlist(
-      mu, ci, ci_method, alternative,
+      mu,
+      ci,
+      ci_method,
+      alternative,
       approximate = TRUE,
       table_footer = "Non-parametric CLES"
     )

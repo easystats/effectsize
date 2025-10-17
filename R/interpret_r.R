@@ -83,25 +83,35 @@ interpret_r <- function(r, rules = "funder2019", ...) {
   rules <- .match.rules(
     rules,
     list(
-      funder2019 = rules(c(0.05, 0.1, 0.2, 0.3, 0.4),
+      funder2019 = rules(
+        c(0.05, 0.1, 0.2, 0.3, 0.4),
         c("tiny", "very small", "small", "medium", "large", "very large"),
-        name = "funder2019", right = FALSE
+        name = "funder2019",
+        right = FALSE
       ),
-      gignac2016 = rules(c(0.1, 0.2, 0.3),
+      gignac2016 = rules(
+        c(0.1, 0.2, 0.3),
         c("very small", "small", "moderate", "large"),
-        name = "gignac2016", right = FALSE
+        name = "gignac2016",
+        right = FALSE
       ),
-      cohen1988 = rules(c(0.1, 0.3, 0.5),
+      cohen1988 = rules(
+        c(0.1, 0.3, 0.5),
         c("very small", "small", "moderate", "large"),
-        name = "cohen1988", right = FALSE
+        name = "cohen1988",
+        right = FALSE
       ),
-      evans1996 = rules(c(0.2, 0.4, 0.6, 0.8),
+      evans1996 = rules(
+        c(0.2, 0.4, 0.6, 0.8),
         c("very weak", "weak", "moderate", "strong", "very strong"),
-        name = "evans1996", right = FALSE
+        name = "evans1996",
+        right = FALSE
       ),
-      lovakov2021 = rules(c(0.12, 0.24, 0.41),
+      lovakov2021 = rules(
+        c(0.12, 0.24, 0.41),
         c("very small", "small", "medium", "large"),
-        name = "lovakov2021", right = FALSE
+        name = "lovakov2021",
+        right = FALSE
       )
     )
   )

@@ -1,7 +1,14 @@
 #' @export
 #' @rdname effectsize
 #' @inheritParams bayestestR::describe_posterior
-effectsize.BFBayesFactor <- function(model, type = NULL, ci = 0.95, test = NULL, verbose = TRUE, ...) {
+effectsize.BFBayesFactor <- function(
+  model,
+  type = NULL,
+  ci = 0.95,
+  test = NULL,
+  verbose = TRUE,
+  ...
+) {
   insight::check_if_installed("BayesFactor")
 
   if (length(model) > 1) {
@@ -12,15 +19,24 @@ effectsize.BFBayesFactor <- function(model, type = NULL, ci = 0.95, test = NULL,
   }
 
   if (inherits(model@numerator[[1]], "BFcontingencyTable")) {
-    pars <- .effectsize_contingencyTableBF(model, type = type, verbose = verbose, ...)
-  } else if (inherits(model@numerator[[1]], c("BFoneSample", "BFindepSample"))) {
+    pars <- .effectsize_contingencyTableBF(
+      model,
+      type = type,
+      verbose = verbose,
+      ...
+    )
+  } else if (
+    inherits(model@numerator[[1]], c("BFoneSample", "BFindepSample"))
+  ) {
     pars <- .effectsize_ttestBF(model, type = type, verbose = verbose)
   } else if (inherits(model@numerator[[1]], "BFcorrelation")) {
     pars <- .effectsize_correlationBF(model, type = type, verbose = verbose)
   } else if (inherits(model@numerator[[1]], "BFproportion")) {
     pars <- .effectsize_proportionBF(model, type = type, verbose = verbose)
   } else {
-    insight::format_error("No effect size for this type of 'BayesFactor' object.")
+    insight::format_error(
+      "No effect size for this type of 'BayesFactor' object."
+    )
   }
 
   # Clean up
@@ -32,7 +48,12 @@ effectsize.BFBayesFactor <- function(model, type = NULL, ci = 0.95, test = NULL,
     out$Parameter <- NULL
   }
 
-  class(out) <- c(pars$xtra_class, "effectsize_table", "see_effectsize_table", class(out))
+  class(out) <- c(
+    pars$xtra_class,
+    "effectsize_table",
+    "see_effectsize_table",
+    class(out)
+  )
   .someattributes(out) <- pars$attr
   .someattributes(out) <- list(
     ci = out$CI,
@@ -43,10 +64,19 @@ effectsize.BFBayesFactor <- function(model, type = NULL, ci = 0.95, test = NULL,
 }
 
 #' @keywords internal
-.effectsize_contingencyTableBF <- function(model, type = NULL, verbose = TRUE, adjust = TRUE, ...) {
-  if (is.null(type)) type <- "cramers_v"
+.effectsize_contingencyTableBF <- function(
+  model,
+  type = NULL,
+  verbose = TRUE,
+  adjust = TRUE,
+  ...
+) {
+  if (is.null(type)) {
+    type <- "cramers_v"
+  }
 
-  f <- switch(tolower(type),
+  f <- switch(
+    tolower(type),
     v = ,
     cramers_v = cramers_v,
     t = ,
@@ -90,7 +120,11 @@ effectsize.BFBayesFactor <- function(model, type = NULL, ci = 0.95, test = NULL,
     type <- "d"
   }
 
-  samps <- as.data.frame(BayesFactor::posterior(model, iterations = 4000, progress = FALSE))
+  samps <- as.data.frame(BayesFactor::posterior(
+    model,
+    iterations = 4000,
+    progress = FALSE
+  ))
 
   paired <- inherits(model@numerator[[1]], "BFoneSample")
   if (!paired) {
@@ -105,11 +139,17 @@ effectsize.BFBayesFactor <- function(model, type = NULL, ci = 0.95, test = NULL,
 
   if (type == "d") {
     xtra_class <- "effectsize_difference"
-  } else if (tolower(type) %in% c("p_superiority", "u1", "u2", "u3", "overlap")) {
-    if (paired && type != "p_superiority") insight::format_error("CLES only applicable to two independent samples.")
+  } else if (
+    tolower(type) %in% c("p_superiority", "u1", "u2", "u3", "overlap")
+  ) {
+    if (paired && type != "p_superiority") {
+      insight::format_error("CLES only applicable to two independent samples.")
+    }
 
     converter <- match.fun(paste0("d_to_", tolower(type)))
-    if (grepl("^(u|U)", type)) type <- paste0("Cohens_", toupper(type))
+    if (grepl("^(u|U)", type)) {
+      type <- paste0("Cohens_", toupper(type))
+    }
 
     res <- data.frame(converter(res$Cohens_d), check.names = FALSE)
     colnames(res) <- type

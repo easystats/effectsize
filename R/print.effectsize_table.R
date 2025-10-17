@@ -15,22 +15,43 @@
 #' @seealso [insight::display()]
 #'
 #' @export
-print.effectsize_table <- function(x, digits = 2, use_symbols = getOption("es.use_symbols", FALSE), ...) {
-  x_fmt <- format(x, digits = digits, output = "text", use_symbols = use_symbols, ...)
+print.effectsize_table <- function(
+  x,
+  digits = 2,
+  use_symbols = getOption("es.use_symbols", FALSE),
+  ...
+) {
+  x_fmt <- format(
+    x,
+    digits = digits,
+    output = "text",
+    use_symbols = use_symbols,
+    ...
+  )
   cat(insight::export_table(x_fmt, format = NULL, ...))
   invisible(x)
 }
 
 #' @export
 #' @rdname print.effectsize_table
-print_md.effectsize_table <- function(x, digits = 2, use_symbols = getOption("es.use_symbols", FALSE), ...) {
+print_md.effectsize_table <- function(
+  x,
+  digits = 2,
+  use_symbols = getOption("es.use_symbols", FALSE),
+  ...
+) {
   x_fmt <- format(x, digits = digits, output = "markdown", ...)
   insight::export_table(x_fmt, format = "markdown", ...)
 }
 
 #' @export
 #' @rdname print.effectsize_table
-print_html.effectsize_table <- function(x, digits = 2, use_symbols = getOption("es.use_symbols", FALSE), ...) {
+print_html.effectsize_table <- function(
+  x,
+  digits = 2,
+  use_symbols = getOption("es.use_symbols", FALSE),
+  ...
+) {
   x_fmt <- format(x, digits = digits, output = "html", ...)
   insight::export_table(x_fmt, format = "html", ...)
 }
@@ -39,7 +60,13 @@ print_html.effectsize_table <- function(x, digits = 2, use_symbols = getOption("
 #' @param output Which output is the formatting intended for? Affects how title
 #'   and footers are formatted.
 #' @export
-format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown", "html"), use_symbols = getOption("es.use_symbols", FALSE), ...) {
+format.effectsize_table <- function(
+  x,
+  digits = 2,
+  output = c("text", "markdown", "html"),
+  use_symbols = getOption("es.use_symbols", FALSE),
+  ...
+) {
   output <- match.arg(output)
 
   ## Clean footer
@@ -49,8 +76,10 @@ format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown"
   if (!is.null(alt) && alt != "two.sided") {
     bound <- if (alt == "less") x$CI_low[1] else x$CI_high[1]
     bound_ <- insight::format_value(bound, digits = digits)
-    if (!is.character(digits) &&
-      !isTRUE(all.equal(bound, as.numeric(bound_)))) {
+    if (
+      !is.character(digits) &&
+        !isTRUE(all.equal(bound, as.numeric(bound_)))
+    ) {
       bound_ <- paste0(bound_, "~")
     }
 
@@ -58,7 +87,8 @@ format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown"
 
     ci_footer <- sprintf(
       "One-sided CIs: %s bound fixed at [%s].",
-      side, bound_
+      side,
+      bound_
     )
     footer <- c(footer, ci_footer)
   }
@@ -81,7 +111,6 @@ format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown"
   }
   attr(x, "table_footer") <- footer
 
-
   ## Clean caption
   caption <- attr(x, "table_caption")
   if (output == "text" && !is.null(caption)) {
@@ -89,14 +118,12 @@ format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown"
   }
   attr(x, "table_caption") <- caption
 
-
   ## Clean subtitle
   subtitle <- attr(x, "table_subtitle")
   if (output == "text" && !is.null(subtitle)) {
     subtitle <- c(paste0("\n", subtitle), .pcl["subtitle"])
   }
   attr(x, "table_subtitle") <- subtitle
-
 
   ## Clean column names
   i <- is_effectsize_name(colnames(x))
@@ -106,9 +133,12 @@ format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown"
   attr(x, "ci") <- NULL
   attr(x, "ci_method") <- NULL
 
-  insight::format_table(x,
-    digits = digits, ci_digits = digits,
-    preserve_attributes = TRUE, ...
+  insight::format_table(
+    x,
+    digits = digits,
+    ci_digits = digits,
+    preserve_attributes = TRUE,
+    ...
   )
 }
 
@@ -121,7 +151,12 @@ format.effectsize_table <- function(x, digits = 2, output = c("text", "markdown"
 #'   well? Only applicable to Cohen's *d*, Hedges' *g* for independent samples
 #'   of equal variance (pooled sd) or for the rank-biserial correlation for
 #'   independent samples (See [d_to_cles]).
-print.effectsize_difference <- function(x, digits = 2, append_CLES = NULL, ...) {
+print.effectsize_difference <- function(
+  x,
+  digits = 2,
+  append_CLES = NULL,
+  ...
+) {
   x_orig <- x
 
   print.effectsize_table(x, digits = digits, ...)
@@ -150,7 +185,10 @@ print.effectsize_difference <- function(x, digits = 2, append_CLES = NULL, ...) 
       insight::format_error("CLES not applicable for this effect size.")
     }
 
-    insight::print_color("\n\n## Common Language Effect Sizes:\n", .pcl["subtitle"])
+    insight::print_color(
+      "\n\n## Common Language Effect Sizes:\n",
+      .pcl["subtitle"]
+    )
     print(cles_tab, digits = digits, ...)
   }
 
@@ -233,12 +271,10 @@ format.equivalence_test_effectsize <- function(x, digits = 2, ...) {
   }
   caption <- sprintf("%sTest for Practical Equivalence", rule)
 
-
   ## Rope range
   .rope <- attr(x, "rope", exact = TRUE)
   .rope <- insight::format_value(.rope, digits = digits)
   subtitle <- sprintf("ROPE: [%s, %s]", .rope[1], .rope[2])
-
 
   ## ROPE_Equivalence
   if (attr(x, "rule", exact = TRUE) == "bayes") {
@@ -254,6 +290,11 @@ format.equivalence_test_effectsize <- function(x, digits = 2, ...) {
 
 # Colors ------------------------------------------------------------------
 
-.pcl <- c(title = "blue", subtitle = "blue", footer = "cyan", interpret = "italic")
+.pcl <- c(
+  title = "blue",
+  subtitle = "blue",
+  footer = "cyan",
+  interpret = "italic"
+)
 
 # "red", "yellow", "green", "blue", "violet","cyan", "grey", "bold", "italic"

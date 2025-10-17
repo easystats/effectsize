@@ -8,7 +8,6 @@ test_that("d/rbs_to_cles | numeric", {
   expect_equal(d_to_u3(0), 0.5)
   expect_equal(d_to_u2(0), 0.5)
 
-
   # +ive -----------------------
   expect_true(d_to_overlap(1) < 1)
   expect_true(d_to_u1(1) > 0)
@@ -17,7 +16,6 @@ test_that("d/rbs_to_cles | numeric", {
   expect_true(rb_to_p_superiority(1) > 0.5)
   expect_true(d_to_u3(1) > 0.5)
   expect_true(d_to_u2(1) > 0.5)
-
 
   # -ive -----------------------
   expect_true(d_to_overlap(-1) < 1)
@@ -64,8 +62,6 @@ test_that("d_to_cles | from Cohens d | one sided | negative d", {
   expect_output(print(p1), "lower")
   expect_output(print(p2), "upper")
 
-
-
   # U1 -----------
   u10 <- d_to_u1(d0)
   u11 <- d_to_u1(d1)
@@ -74,7 +70,6 @@ test_that("d_to_cles | from Cohens d | one sided | negative d", {
   expect_equal(u32$CI_low, u30$CI_low, tolerance = 0.001)
   expect_output(print(p1), "lower")
   expect_output(print(p2), "upper")
-
 
   # U2 -----------
   u20 <- d_to_u2(d0)

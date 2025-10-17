@@ -1,8 +1,13 @@
 #' @rdname t_to_r
 #' @export
-t_to_d <- function(t, df_error,
-                   paired = FALSE,
-                   ci = 0.95, alternative = "two.sided", ...) {
+t_to_d <- function(
+  t,
+  df_error,
+  paired = FALSE,
+  ci = 0.95,
+  alternative = "two.sided",
+  ...
+) {
   alternative <- .match.alt(alternative)
 
   # Will be 1 if TRUE, and 2 if FALSE
@@ -16,7 +21,9 @@ t_to_d <- function(t, df_error,
 
     ts <- t(mapply(
       .get_ncp_t,
-      t, df_error, ci.level
+      t,
+      df_error,
+      ci.level
     ))
 
     res$CI_low <- paired * ts[, 1] / sqrt(df_error)
@@ -36,18 +43,18 @@ t_to_d <- function(t, df_error,
 }
 
 
-
-
 # z -----------------------------------------------------------------------
-
-
 
 #' @rdname t_to_r
 #' @export
-z_to_d <- function(z, n,
-                   paired = FALSE,
-                   ci = 0.95, alternative = "two.sided",
-                   ...) {
+z_to_d <- function(
+  z,
+  n,
+  paired = FALSE,
+  ci = 0.95,
+  alternative = "two.sided",
+  ...
+) {
   alternative <- .match.alt(alternative)
 
   # Will be 1 if TRUE, and 2 if FALSE
@@ -84,21 +91,28 @@ z_to_d <- function(z, n,
 
 # F -----------------------------------------------------------------------
 
-
-
-
 #' @rdname t_to_r
 #' @export
-F_to_d <- function(f, df, df_error,
-                   paired = FALSE,
-                   ci = 0.95, alternative = "two.sided",
-                   ...) {
+F_to_d <- function(
+  f,
+  df,
+  df_error,
+  paired = FALSE,
+  ci = 0.95,
+  alternative = "two.sided",
+  ...
+) {
   if (df > 1) {
-    insight::format_error("Cannot convert F with more than 1 df to (partial) r.")
+    insight::format_error(
+      "Cannot convert F with more than 1 df to (partial) r."
+    )
   }
-  t_to_d(sqrt(f), df_error,
+  t_to_d(
+    sqrt(f),
+    df_error,
     paired = paired,
-    ci = ci, alternative = alternative,
+    ci = ci,
+    alternative = alternative,
     ...
   )
 }

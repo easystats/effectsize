@@ -24,7 +24,6 @@ parameters::standardize_posteriors
 parameters::standardize_info
 
 
-
 # Printing ----------------------------------------------------------------
 
 #' @export

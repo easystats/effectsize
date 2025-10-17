@@ -61,17 +61,28 @@
 #' \doi{10.1890/0012-9658(1999)080[1150:TMAORR]2.0.CO;2}
 #'
 #' @export
-means_ratio <- function(x, y = NULL, data = NULL,
-                        paired = FALSE, adjust = TRUE, log = FALSE,
-                        reference = NULL,
-                        ci = 0.95, alternative = "two.sided",
-                        verbose = TRUE, ...) {
+means_ratio <- function(
+  x,
+  y = NULL,
+  data = NULL,
+  paired = FALSE,
+  adjust = TRUE,
+  log = FALSE,
+  reference = NULL,
+  ci = 0.95,
+  alternative = "two.sided",
+  verbose = TRUE,
+  ...
+) {
   alternative <- .match.alt(alternative)
 
   ## Prep data
   out <- .get_data_2_samples(
-    x = x, y = y, data = data,
-    paired = paired, reference = reference,
+    x = x,
+    y = y,
+    data = data,
+    paired = paired,
+    reference = reference,
     verbose = verbose,
     ...
   )
@@ -80,7 +91,9 @@ means_ratio <- function(x, y = NULL, data = NULL,
   paired <- out[["paired"]]
 
   if (is.null(y)) {
-    insight::format_error("Only one sample provided. y or data must be provided.")
+    insight::format_error(
+      "Only one sample provided. y or data must be provided."
+    )
   }
 
   if (any(x < 0) || any(y < 0)) {
@@ -94,9 +107,10 @@ means_ratio <- function(x, y = NULL, data = NULL,
   sd2 <- stats::sd(y)
 
   if (isTRUE(all.equal(m1, 0)) || isTRUE(all.equal(m2, 0))) {
-    insight::format_error("Mean(s) equal to equal zero. Unable to calculate means ratio.")
+    insight::format_error(
+      "Mean(s) equal to equal zero. Unable to calculate means ratio."
+    )
   }
-
 
   if (paired) {
     ## ------------------ paired case -------------------
@@ -148,7 +162,8 @@ means_ratio <- function(x, y = NULL, data = NULL,
     SE <- sqrt(log_val[["var_rom"]])
 
     # Normal approx
-    interval <- log_val[["log_rom"]] + c(-1, 1) * stats::qnorm(alpha / 2, lower.tail = FALSE) * SE
+    interval <- log_val[["log_rom"]] +
+      c(-1, 1) * stats::qnorm(alpha / 2, lower.tail = FALSE) * SE
 
     ci_method <- list(method = "normal")
 
@@ -170,9 +185,17 @@ means_ratio <- function(x, y = NULL, data = NULL,
     colnames(out)[1] <- gsub("log_", "", colnames(out)[1], fixed = TRUE)
   }
 
-  class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
+  class(out) <- c(
+    "effectsize_difference",
+    "effectsize_table",
+    "see_effectsize_table",
+    class(out)
+  )
   .someattributes(out) <- .nlist(
-    paired, ci, ci_method, alternative,
+    paired,
+    ci,
+    ci_method,
+    alternative,
     mu = 0,
     approximate = TRUE
   )
@@ -181,19 +204,22 @@ means_ratio <- function(x, y = NULL, data = NULL,
 
 
 #' @keywords internal
-.logrom_calc <- function(m1,
-                         sd1,
-                         n1,
-                         m2,
-                         sd2,
-                         n2 = n1,
-                         r = NULL,
-                         adjust = TRUE,
-                         paired = FALSE) {
+.logrom_calc <- function(
+  m1,
+  sd1,
+  n1,
+  m2,
+  sd2,
+  n2 = n1,
+  r = NULL,
+  adjust = TRUE,
+  paired = FALSE
+) {
   if (isTRUE(paired)) {
     y_i <- log(m1 / m2)
     v_i <-
-      sd1^2 / (n1 * m1^2) +
+      sd1^2 /
+      (n1 * m1^2) +
       sd2^2 / (n1 * m2^2) -
       2 * r * sd1 * sd2 / (m1 * m2 * n1)
   } else {
@@ -202,7 +228,6 @@ means_ratio <- function(x, y = NULL, data = NULL,
     v_i <- sd1^2 / (n1 * m1^2) + sd2^2 / (n2 * m2^2)
   }
 
-
   if (isTRUE(adjust)) {
     J <- 0.5 * (sd1^2 / (n1 * m1^2) - sd2^2 / (n2 * m2^2))
     y_i <- y_i + J
@@ -210,7 +235,6 @@ means_ratio <- function(x, y = NULL, data = NULL,
     Jvar <- 0.5 * (sd1^4 / (n1^2 * m1^4) - sd2^4 / (n2^2 * m2^4))
     v_i <- v_i + Jvar
   }
-
 
   list(
     log_rom = y_i,

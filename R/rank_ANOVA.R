@@ -85,31 +85,56 @@
 #' sport sciences, 1(21), 19-25.
 #'
 #' @export
-rank_epsilon_squared <- function(x, groups, data = NULL,
-                                 ci = 0.95, alternative = "greater",
-                                 iterations = 200,
-                                 verbose = TRUE, ...) {
+rank_epsilon_squared <- function(
+  x,
+  groups,
+  data = NULL,
+  ci = 0.95,
+  alternative = "greater",
+  iterations = 200,
+  verbose = TRUE,
+  ...
+) {
   alternative <- .match.alt(alternative, FALSE)
 
   if (.is_htest_of_type(x, "Kruskal-Wallis", "Kruskal-Wallis-test")) {
-    return(effectsize(x, type = "epsilon", ci = ci, iterations = iterations, alternative = alternative))
+    return(effectsize(
+      x,
+      type = "epsilon",
+      ci = ci,
+      iterations = iterations,
+      alternative = alternative
+    ))
   }
 
   ## pep data
-  data <- .get_data_multi_group(x, groups, data,
+  data <- .get_data_multi_group(
+    x,
+    groups,
+    data,
     allow_ordered = TRUE,
-    verbose = verbose, ...
+    verbose = verbose,
+    ...
   )
 
   ## compute
   out <- data.frame(rank_epsilon_squared = .repsilon(data))
 
   ## CI
-  if (.test_ci(ci) && insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
-    out <- cbind(out, .boot_two_group_es(
-      data, .repsilon, iterations,
-      ci, alternative
-    ))
+  if (
+    .test_ci(ci) &&
+      insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)
+  ) {
+    out <- cbind(
+      out,
+      .boot_two_group_es(
+        data,
+        .repsilon,
+        iterations,
+        ci,
+        alternative
+      )
+    )
     ci_method <- list(method = "percentile bootstrap", iterations = iterations)
   } else {
     ci_method <- alternative <- ci <- NULL
@@ -125,30 +150,55 @@ rank_epsilon_squared <- function(x, groups, data = NULL,
 
 #' @export
 #' @rdname rank_epsilon_squared
-rank_eta_squared <- function(x, groups, data = NULL,
-                             ci = 0.95, alternative = "greater",
-                             iterations = 200,
-                             verbose = TRUE, ...) {
+rank_eta_squared <- function(
+  x,
+  groups,
+  data = NULL,
+  ci = 0.95,
+  alternative = "greater",
+  iterations = 200,
+  verbose = TRUE,
+  ...
+) {
   alternative <- .match.alt(alternative, FALSE)
 
   if (.is_htest_of_type(x, "Kruskal-Wallis", "Kruskal-Wallis-test")) {
-    return(effectsize(x, type = "eta", ci = ci, iterations = iterations, alternative = alternative))
+    return(effectsize(
+      x,
+      type = "eta",
+      ci = ci,
+      iterations = iterations,
+      alternative = alternative
+    ))
   }
 
   ## pep data
-  data <- .get_data_multi_group(x, groups, data,
+  data <- .get_data_multi_group(
+    x,
+    groups,
+    data,
     allow_ordered = TRUE,
-    verbose = verbose, ...
+    verbose = verbose,
+    ...
   )
 
   out <- data.frame(rank_eta_squared = .reta(data))
 
   ## CI
-  if (.test_ci(ci) && insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
-    out <- cbind(out, .boot_two_group_es(
-      data, .reta, iterations,
-      ci, alternative
-    ))
+  if (
+    .test_ci(ci) &&
+      insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)
+  ) {
+    out <- cbind(
+      out,
+      .boot_two_group_es(
+        data,
+        .reta,
+        iterations,
+        ci,
+        alternative
+      )
+    )
     ci_method <- list(method = "percentile bootstrap", iterations = iterations)
   } else {
     ci_method <- alternative <- ci <- NULL
@@ -163,28 +213,44 @@ rank_eta_squared <- function(x, groups, data = NULL,
 }
 
 
-
-
-
-
 #' @rdname rank_epsilon_squared
 #' @export
-kendalls_w <- function(x, groups, blocks, data = NULL,
-                       blocks_on_rows = TRUE,
-                       ci = 0.95, alternative = "greater",
-                       iterations = 200,
-                       verbose = TRUE, ...) {
+kendalls_w <- function(
+  x,
+  groups,
+  blocks,
+  data = NULL,
+  blocks_on_rows = TRUE,
+  ci = 0.95,
+  alternative = "greater",
+  iterations = 200,
+  verbose = TRUE,
+  ...
+) {
   alternative <- .match.alt(alternative, FALSE)
 
   if (.is_htest_of_type(x, "Friedman", "Friedman-test")) {
-    return(effectsize(x, ci = ci, iterations = iterations, verbose = verbose, alternative = alternative))
+    return(effectsize(
+      x,
+      ci = ci,
+      iterations = iterations,
+      verbose = verbose,
+      alternative = alternative
+    ))
   }
 
   ## prep data
-  if (is.matrix(x) && !blocks_on_rows) x <- t(x)
-  data <- .get_data_nested_groups(x, groups, blocks, data,
+  if (is.matrix(x) && !blocks_on_rows) {
+    x <- t(x)
+  }
+  data <- .get_data_nested_groups(
+    x,
+    groups,
+    blocks,
+    data,
     allow_ordered = TRUE,
-    verbose = verbose, ...
+    verbose = verbose,
+    ...
   )
   data <- stats::na.omit(data) # wide data - drop non complete cases
 
@@ -193,7 +259,10 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
   out <- data.frame(Kendalls_W = W)
 
   ## CI
-  if (.test_ci(ci) && insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)) {
+  if (
+    .test_ci(ci) &&
+      insight::check_if_installed("boot", "for estimating CIs", stop = FALSE)
+  ) {
     out <- cbind(out, .kendalls_w_ci(data, ci, alternative, iterations))
     ci_method <- list(method = "percentile bootstrap", iterations = iterations)
   } else {
@@ -253,8 +322,17 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
         sprintf(
           "%d block(s) contain ties%s.",
           sum(!no_ties),
-          ifelse(any(apply(as.data.frame(rankings)[!no_ties, ], 1, insight::n_unique) == 1),
-            ", some containing only 1 unique ranking", ""
+          ifelse(
+            any(
+              apply(
+                as.data.frame(rankings)[!no_ties, ],
+                1,
+                insight::n_unique
+              ) ==
+                1
+            ),
+            ", some containing only 1 unique ranking",
+            ""
           )
         )
       )
@@ -274,8 +352,7 @@ kendalls_w <- function(x, groups, blocks, data = NULL,
 ## CI ----
 
 #' @keywords internal
-.boot_two_group_es <- function(data, foo_es, iterations,
-                               ci, alternative, lim) {
+.boot_two_group_es <- function(data, foo_es, iterations, ci, alternative, lim) {
   ci.level <- .adjust_ci(ci, alternative)
 
   boot_fun <- function(.data, .i) {

@@ -26,9 +26,11 @@ interpret_icc <- function(icc, rules = "koo2016", ...) {
   rules <- .match.rules(
     rules,
     list(
-      koo2016 = rules(c(0.5, 0.75, 0.9),
+      koo2016 = rules(
+        c(0.5, 0.75, 0.9),
         c("poor", "moderate", "good", "excellent"),
-        name = "koo2016", right = FALSE
+        name = "koo2016",
+        right = FALSE
       )
     )
   )

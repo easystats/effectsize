@@ -7,7 +7,6 @@ test_that("mahalanobis_d | two sample | vs cohens_d", {
     D = sample(bayestestR::distribution_normal(1000, sd = 17))
   )
 
-
   # Simple:
   y <- within(x, {
     B <- B + 15
@@ -17,8 +16,10 @@ test_that("mahalanobis_d | two sample | vs cohens_d", {
   expect_equal(D[[1]], d[[1]], tolerance = 0.01)
   expect_equal(D[[3]], d[[3]], tolerance = 0.1)
   expect_equal(D[[4]], d[[4]], tolerance = 0.1)
-  expect_equal(D[[1]], sqrt(mahalanobis(rep(0, 4), colMeans(x) - colMeans(y), cov_pooled(x, y)))) # TRUE!
-
+  expect_equal(
+    D[[1]],
+    sqrt(mahalanobis(rep(0, 4), colMeans(x) - colMeans(y), cov_pooled(x, y)))
+  ) # TRUE!
 
   # Standardized:
   y2 <- within(y, {
@@ -26,12 +27,12 @@ test_that("mahalanobis_d | two sample | vs cohens_d", {
   })
   d <- unlist(mapply(cohens_d, x, y2, MoreArgs = list(ci = NULL)))
   R <- cov2cor(cov_pooled(x, y2))
-  expect_equal(c(sqrt(t(d) %*% R %*% d)),
+  expect_equal(
+    c(sqrt(t(d) %*% R %*% d)),
     mahalanobis_d(x, y2, ci = NULL)[[1]],
     tolerance = 0.01
   )
 })
-
 
 
 test_that("mahalanobis_d | one sample | vs cohens_d", {
@@ -42,7 +43,6 @@ test_that("mahalanobis_d | one sample | vs cohens_d", {
     C = sample(bayestestR::distribution_normal(1000, sd = 50)),
     D = sample(bayestestR::distribution_normal(1000, sd = 17))
   )
-
 
   # Simple:
   D <- mahalanobis_d(x, alternative = "two")
@@ -55,7 +55,8 @@ test_that("mahalanobis_d | one sample | vs cohens_d", {
   # Standardized:
   d <- unlist(mapply(cohens_d, x, MoreArgs = list(ci = NULL)))
   R <- cor(x)
-  expect_equal(c(sqrt(t(d) %*% R %*% d)),
+  expect_equal(
+    c(sqrt(t(d) %*% R %*% d)),
     mahalanobis_d(x, ci = NULL)[[1]],
     tolerance = 0.01
   )
@@ -64,15 +65,24 @@ test_that("mahalanobis_d | one sample | vs cohens_d", {
 
 test_that("mahalanobis_d | mu types", {
   mu <- 0
-  expect_error(D1 <- mahalanobis_d(mtcars[, c("mpg", "hp")], mu = mu), regexp = NA)
+  expect_error(
+    D1 <- mahalanobis_d(mtcars[, c("mpg", "hp")], mu = mu),
+    regexp = NA
+  )
 
   mu <- 2
-  expect_error(D2 <- mahalanobis_d(mtcars[, c("mpg", "hp")], mu = mu), regexp = NA)
+  expect_error(
+    D2 <- mahalanobis_d(mtcars[, c("mpg", "hp")], mu = mu),
+    regexp = NA
+  )
 
   expect_false(D1[[1]] == D2[[1]])
 
   mu <- list(mpg = 3, hp = -14)
-  expect_error(D3 <- mahalanobis_d(mtcars[, c("mpg", "hp")], mu = mu), regexp = NA)
+  expect_error(
+    D3 <- mahalanobis_d(mtcars[, c("mpg", "hp")], mu = mu),
+    regexp = NA
+  )
 
   expect_equal(attr(D3, "mu"), dist(rbind(mu, 0)), ignore_attr = TRUE)
 

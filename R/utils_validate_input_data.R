@@ -1,8 +1,14 @@
 #' @keywords internal
-.get_data_2_samples <- function(x, y = NULL, data = NULL,
-                                paired = FALSE, reference = NULL,
-                                allow_ordered = FALSE,
-                                verbose = TRUE, ...) {
+.get_data_2_samples <- function(
+  x,
+  y = NULL,
+  data = NULL,
+  paired = FALSE,
+  reference = NULL,
+  allow_ordered = FALSE,
+  verbose = TRUE,
+  ...
+) {
   if (inherits(x, "formula")) {
     if (isTRUE(paired)) {
       # This is to be consistent with R>=4.4.0
@@ -42,12 +48,13 @@
     y <- .resolve_char(y, data)
   }
 
-
   # If x is ordered and allowed to be...
   if (allow_ordered && is.ordered(x)) {
     if (is.ordered(y)) {
       if (!isTRUE(all.equal(levels(y), levels(x)))) {
-        insight::format_error("x and y are ordered, but do not have the same levels.")
+        insight::format_error(
+          "x and y are ordered, but do not have the same levels."
+        )
       }
       y <- as.numeric(y)
     }
@@ -57,7 +64,9 @@
 
   # x should be a numeric vector or a Pair:
   if (!is.numeric(x)) {
-    insight::format_error("Cannot compute effect size for a non-numeric vector.")
+    insight::format_error(
+      "Cannot compute effect size for a non-numeric vector."
+    )
   } else if (inherits(x, "Pair")) {
     if (is.null(reference)) {
       y <- x[, 2]
@@ -68,7 +77,6 @@
     }
     paired <- TRUE
   }
-
 
   # y should be NULL, numeric, or a factor:
   if (!is.null(y)) {
@@ -118,9 +126,15 @@
 }
 
 #' @keywords internal
-.get_data_paired <- function(x, y = NULL, data = NULL, method = NULL,
-                             reference = NULL,
-                             verbose = TRUE, ...) {
+.get_data_paired <- function(
+  x,
+  y = NULL,
+  data = NULL,
+  method = NULL,
+  reference = NULL,
+  verbose = TRUE,
+  ...
+) {
   if (inherits(x, "formula")) {
     formula_error <-
       "Formula must have one of the following forms:
@@ -150,7 +164,11 @@
 
       if (verbose && any(tapply(mf[[1]], mf[3:2], length) > 1L, na.rm = TRUE)) {
         insight::format_alert(
-          paste0("The ", method, " standardized difference requires paired data,"),
+          paste0(
+            "The ",
+            method,
+            " standardized difference requires paired data,"
+          ),
           "but data contains more than one observation per design cell.",
           "Aggregating data using `mean()`."
         )
@@ -189,7 +207,9 @@
 
   # x should be a numeric vector or a Pair:
   if (!is.numeric(x) || !is.numeric(y)) {
-    insight::format_error("Cannot compute effect size for a non-numeric vector.")
+    insight::format_error(
+      "Cannot compute effect size for a non-numeric vector."
+    )
   }
 
   o <- stats::complete.cases(x, y)
@@ -228,9 +248,14 @@
 }
 
 #' @keywords internal
-.get_data_multi_group <- function(x, groups, data = NULL,
-                                  allow_ordered = FALSE,
-                                  verbose = TRUE, ...) {
+.get_data_multi_group <- function(
+  x,
+  groups,
+  data = NULL,
+  allow_ordered = FALSE,
+  verbose = TRUE,
+  ...
+) {
   if (inherits(x, "formula")) {
     if (length(x) != 3) {
       insight::format_error("Formula must have the form of 'outcome ~ group'.")
@@ -259,7 +284,9 @@
     x <- as.numeric(x)
   }
   if (!is.numeric(x)) {
-    insight::format_error("Cannot compute effect size for a non-numeric vector.")
+    insight::format_error(
+      "Cannot compute effect size for a non-numeric vector."
+    )
   }
 
   # groups should be not numeric
@@ -279,9 +306,16 @@
 }
 
 #' @keywords internal
-.get_data_nested_groups <- function(x, groups = NULL, blocks = NULL, data = NULL,
-                                    wide = TRUE, allow_ordered = FALSE,
-                                    verbose = TRUE, ...) {
+.get_data_nested_groups <- function(
+  x,
+  groups = NULL,
+  blocks = NULL,
+  data = NULL,
+  wide = TRUE,
+  allow_ordered = FALSE,
+  verbose = TRUE,
+  ...
+) {
   if (inherits(x, "formula")) {
     if (length(x) != 3L || x[[3L]][[1L]] != as.name("|")) {
       insight::format_error("Formula must have the 'x ~ groups | blocks'.")
@@ -308,7 +342,6 @@
     x <- data.frame(x, groups, blocks)
   }
 
-
   if (inherits(x, c("matrix", "array"))) {
     x <- as.table(x)
   }
@@ -323,11 +356,16 @@
     x$x <- as.numeric(x$x)
   }
   if (!is.numeric(x$x)) {
-    insight::format_error("Cannot compute effect size for a non-numeric vector.")
+    insight::format_error(
+      "Cannot compute effect size for a non-numeric vector."
+    )
   }
-  if (!is.factor(x$groups)) x$groups <- factor(x$groups)
-  if (!is.factor(x$blocks)) x$blocks <- factor(x$blocks)
-
+  if (!is.factor(x$groups)) {
+    x$groups <- factor(x$groups)
+  }
+  if (!is.factor(x$blocks)) {
+    x$blocks <- factor(x$blocks)
+  }
 
   if (verbose && anyNA(x)) {
     insight::format_warning("Missing values detected. NAs dropped.")
@@ -336,7 +374,8 @@
 
   # By this point, the data is in long format
   if (wide) {
-    x <- datawizard::data_to_wide(x,
+    x <- datawizard::data_to_wide(
+      x,
       values_from = "x",
       id_cols = "blocks",
       names_from = "groups"
@@ -347,14 +386,25 @@
 }
 
 #' @keywords internal
-.get_data_multivariate <- function(x, y = NULL, data = NULL,
-                                   verbose = TRUE, ...) {
+.get_data_multivariate <- function(
+  x,
+  y = NULL,
+  data = NULL,
+  verbose = TRUE,
+  ...
+) {
   if (inherits(x, "formula")) {
     if (length(x) != 3L || length(x[[3]]) != 1L) {
-      insight::format_error("Formula must have the form of 'DV1 + ... + DVk ~ group', with exactly one term on the RHS.") # nolint
+      insight::format_error(
+        "Formula must have the form of 'DV1 + ... + DVk ~ group', with exactly one term on the RHS."
+      ) # nolint
     }
 
-    data <- .resolve_formula(stats::reformulate(as.character(x)[3:2]), data, ...)
+    data <- .resolve_formula(
+      stats::reformulate(as.character(x)[3:2]),
+      data,
+      ...
+    )
 
     if (x[[3]] == 1) {
       # Then it is one sampled
@@ -385,7 +435,6 @@
     insight::format_error("All DVs must be numeric.")
   }
 
-
   # y should be null, a data frame or matrix
   if (!is.null(y)) {
     if (is.matrix(y)) {
@@ -399,7 +448,9 @@
     }
 
     if (!all(colnames(x) == colnames(y))) {
-      insight::format_error("x,y must have the same variables (in the same order).")
+      insight::format_error(
+        "x,y must have the same variables (in the same order)."
+      )
     }
   }
 
@@ -415,9 +466,14 @@
 
 # Helpers -----------------------------------------------------------------
 
-
 #' @keywords internal
-.resolve_formula <- function(formula, data, subset, na.action = stats::na.pass, ...) {
+.resolve_formula <- function(
+  formula,
+  data,
+  subset,
+  na.action = stats::na.pass,
+  ...
+) {
   cl <- match.call(expand.dots = FALSE)
   cl[[1]] <- quote(stats::model.frame)
 

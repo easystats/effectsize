@@ -83,7 +83,6 @@ oddsratio_to_d <- function(OR, p0, log = FALSE, ...) {
     return(log_OR * (sqrt(3) / pi))
   }
 
-
   if (log) {
     OR <- exp(OR)
   }
@@ -116,8 +115,6 @@ d_to_oddsratio <- function(d, log = FALSE, ...) {
 d_to_logoddsratio <- function(d, log = TRUE, ...) {
   d_to_oddsratio(d, log = log, ...)
 }
-
-
 
 
 # OR - r ----------------------------------------------------------------
@@ -156,8 +153,12 @@ r_to_logoddsratio <- function(r, n1, n2, log = TRUE, ...) {
     return(4)
   }
 
-  if (missing(n1)) n1 <- n2
-  if (missing(n2)) n2 <- n1
+  if (missing(n1)) {
+    n1 <- n2
+  }
+  if (missing(n2)) {
+    n2 <- n1
+  }
   m <- n1 + n2 - 2
   m / n1 + m / n2
 }

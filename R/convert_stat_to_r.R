@@ -95,9 +95,7 @@
 #' distributions. Educational and Psychological Measurement, 61(4), 532-574.
 #'
 #' @export
-t_to_r <- function(t, df_error,
-                   ci = 0.95, alternative = "two.sided",
-                   ...) {
+t_to_r <- function(t, df_error, ci = 0.95, alternative = "two.sided", ...) {
   alternative <- .match.alt(alternative)
 
   res <- data.frame(r = t / sqrt(t^2 + df_error))
@@ -108,7 +106,9 @@ t_to_r <- function(t, df_error,
 
     ts <- t(mapply(
       .get_ncp_t,
-      t, df_error, ci.level
+      t,
+      df_error,
+      ci.level
     ))
 
     res$CI_low <- ts[, 1] / sqrt(ts[, 1]^2 + df_error)
@@ -129,13 +129,9 @@ t_to_r <- function(t, df_error,
 
 # z -----------------------------------------------------------------------
 
-
-
 #' @rdname t_to_r
 #' @export
-z_to_r <- function(z, n,
-                   ci = 0.95, alternative = "two.sided",
-                   ...) {
+z_to_r <- function(z, n, ci = 0.95, alternative = "two.sided", ...) {
   alternative <- .match.alt(alternative)
 
   res <- data.frame(r = z / sqrt(z^2 + n))
@@ -170,14 +166,9 @@ z_to_r <- function(z, n,
 
 #' @rdname t_to_r
 #' @export
-F_to_r <- function(f, df, df_error,
-                   ci = 0.95, alternative = "two.sided",
-                   ...) {
+F_to_r <- function(f, df, df_error, ci = 0.95, alternative = "two.sided", ...) {
   if (df > 1) {
     insight::format_error("Cannot convert F with more than 1 df to r.")
   }
-  t_to_r(sqrt(f), df_error,
-    ci = ci, alternative = alternative,
-    ...
-  )
+  t_to_r(sqrt(f), df_error, ci = ci, alternative = alternative, ...)
 }

@@ -2,15 +2,26 @@ test_that("means_ratio", {
   # Direction ---------------------------------------------------------------
   rez_t <- t.test(iris$Sepal.Length, iris$Sepal.Width)
   rez_means_ratio <- means_ratio(iris$Sepal.Length, iris$Sepal.Width)
-  expect_equal(sign(rez_t$statistic), sign(log(rez_means_ratio[[1]])),
+  expect_equal(
+    sign(rez_t$statistic),
+    sign(log(rez_means_ratio[[1]])),
     ignore_attr = TRUE
   )
 
-
   # Alternative -------------------------------------------------------------
   d1 <- means_ratio(iris$Sepal.Length, iris$Sepal.Width, ci = 0.80)
-  d2 <- means_ratio(iris$Sepal.Length, iris$Sepal.Width, ci = 0.90, alternative = "l")
-  d3 <- means_ratio(iris$Sepal.Length, iris$Sepal.Width, ci = 0.90, alternative = "g")
+  d2 <- means_ratio(
+    iris$Sepal.Length,
+    iris$Sepal.Width,
+    ci = 0.90,
+    alternative = "l"
+  )
+  d3 <- means_ratio(
+    iris$Sepal.Length,
+    iris$Sepal.Width,
+    ci = 0.90,
+    alternative = "g"
+  )
   expect_equal(d1$CI_high, d2$CI_high)
   expect_equal(d1$CI_low, d3$CI_low)
 
@@ -73,16 +84,20 @@ test_that("means_ratio paired - adjusted", {
   expect_error(means_ratio(extra ~ group, data = sleep), "negative")
 
   sleep$y <- sleep$extra + 4
-  sleep_wide <- datawizard::data_to_wide(sleep,
+  sleep_wide <- datawizard::data_to_wide(
+    sleep,
     id_cols = "ID",
     values_from = "y",
     names_from = "group",
     names_prefix = "extra_"
   )
 
-  x <- means_ratio(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]],
+  x <- means_ratio(
+    sleep_wide[["extra_1"]],
+    sleep_wide[["extra_2"]],
     data = sleep,
-    adjust = TRUE, paired = TRUE
+    adjust = TRUE,
+    paired = TRUE
   )
   expect_equal(colnames(x)[1], "Means_ratio_adjusted")
   expect_equal(x[[1]], 0.752, tolerance = 0.001)
@@ -93,15 +108,19 @@ test_that("means_ratio paired - adjusted", {
 test_that("means_ratio paired - not adjusted", {
   data(sleep)
   sleep$y <- sleep$extra + 4
-  sleep_wide <- datawizard::data_to_wide(sleep,
+  sleep_wide <- datawizard::data_to_wide(
+    sleep,
     id_cols = "ID",
     values_from = "y",
     names_from = "group",
     names_prefix = "extra_"
   )
-  x <- means_ratio(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]],
+  x <- means_ratio(
+    sleep_wide[["extra_1"]],
+    sleep_wide[["extra_2"]],
     data = sleep,
-    adjust = FALSE, paired = TRUE
+    adjust = FALSE,
+    paired = TRUE
   )
   expect_equal(colnames(x)[1], "Means_ratio")
   expect_equal(x[[1]], 0.75, tolerance = 0.001)

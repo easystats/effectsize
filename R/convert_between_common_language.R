@@ -49,8 +49,6 @@
 #' @name diff_to_cles
 #' @aliases d_to_cles rb_to_cles
 
-
-
 # p_superiority ------------------------------------------------------
 
 #' @export
@@ -151,7 +149,9 @@ rb_to_wmw_odds.numeric <- function(rb) {
 #' @export
 rb_to_wmw_odds.effectsize_difference <- function(rb) {
   if (!any(colnames(rb) == "r_rank_biserial")) {
-    insight::format_error("Common language effect size only applicable rank-biserial correlation.")
+    insight::format_error(
+      "Common language effect size only applicable rank-biserial correlation."
+    )
   }
 
   cols_to_conv <- colnames(rb) %in% c("r_rank_biserial", "CI_low", "CI_high")
@@ -167,12 +167,15 @@ rb_to_wmw_odds.effectsize_difference <- function(rb) {
 }
 
 
-
 # From Cohen's d ----------------------------------------------------------
 
 #' @export
 d_to_p_superiority.effectsize_difference <- function(d) {
-  out <- .cohens_d_to_cles(d, converter = d_to_p_superiority, allow_paired = TRUE)
+  out <- .cohens_d_to_cles(
+    d,
+    converter = d_to_p_superiority,
+    allow_paired = TRUE
+  )
   colnames(out)[1] <- "p_superiority"
   out
 }
@@ -275,10 +278,13 @@ d_to_overlap.effectsize_difference <- function(d) {
 #' @keywords internal
 .cohens_d_to_cles <- function(d, converter, allow_paired = FALSE) {
   if (!.is_cles_applicable(d, allow_paired)) {
-    insight::format_error("Common language effect size only applicable to 2-sample Cohen's d with pooled SD.")
+    insight::format_error(
+      "Common language effect size only applicable to 2-sample Cohen's d with pooled SD."
+    )
   }
 
-  cols_to_convert <- colnames(d) %in% c("Cohens_d", "Hedges_g", "CI_low", "CI_high")
+  cols_to_convert <- colnames(d) %in%
+    c("Cohens_d", "Hedges_g", "CI_low", "CI_high")
 
   out <- d
   out[cols_to_convert] <- lapply(d[cols_to_convert], converter)
@@ -290,15 +296,14 @@ d_to_overlap.effectsize_difference <- function(d) {
 }
 
 
-
-
-
 # From r {rbs} ------------------------------------------------------------
 
 #' @export
 rb_to_p_superiority.effectsize_difference <- function(rb) {
   if (!any(colnames(rb) == "r_rank_biserial")) {
-    insight::format_error("Common language effect size only applicable rank-biserial correlation.")
+    insight::format_error(
+      "Common language effect size only applicable rank-biserial correlation."
+    )
   }
 
   cols_to_conv <- colnames(rb) %in% c("r_rank_biserial", "CI_low", "CI_high")

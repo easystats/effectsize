@@ -14,7 +14,6 @@ test_that("xtab", {
   )
   expect_equal(res, cramers_v(xtab), ignore_attr = TRUE)
 
-
   res <- chisq_to_cohens_w(
     chisq$statistic,
     n = sum(xtab),
@@ -29,19 +28,49 @@ test_that("r", {
 
   res2 <- t_to_r(t = res1$statistic, res1$parameter)
   expect_equal(res2$r, res1$estimate, tolerance = 0.01, ignore_attr = TRUE)
-  expect_equal(res2$CI_low, res1$conf.int[1], tolerance = 0.02, ignore_attr = TRUE)
-  expect_equal(res2$CI_high, res1$conf.int[2], tolerance = 0.01, ignore_attr = TRUE)
+  expect_equal(
+    res2$CI_low,
+    res1$conf.int[1],
+    tolerance = 0.02,
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    res2$CI_high,
+    res1$conf.int[2],
+    tolerance = 0.01,
+    ignore_attr = TRUE
+  )
 
   res3 <- F_to_r(res1$statistic^2, 1, res1$parameter)
   expect_equal(res3$r, -res1$estimate, tolerance = 0.01, ignore_attr = TRUE)
-  expect_equal(res3$CI_low, -res1$conf.int[2], tolerance = 0.02, ignore_attr = TRUE)
-  expect_equal(res3$CI_high, -res1$conf.int[1], tolerance = 0.02, ignore_attr = TRUE)
+  expect_equal(
+    res3$CI_low,
+    -res1$conf.int[2],
+    tolerance = 0.02,
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    res3$CI_high,
+    -res1$conf.int[1],
+    tolerance = 0.02,
+    ignore_attr = TRUE
+  )
   expect_error(F_to_r(3, 2, 3), "df")
 
   res4 <- z_to_r(res1$statistic, res1$parameter)
   expect_equal(res4$r, res1$estimate, tolerance = 0.01, ignore_attr = TRUE)
-  expect_equal(res4$CI_low, res1$conf.int[1], tolerance = 0.02, ignore_attr = TRUE)
-  expect_equal(res4$CI_high, res1$conf.int[2], tolerance = 0.02, ignore_attr = TRUE)
+  expect_equal(
+    res4$CI_low,
+    res1$conf.int[1],
+    tolerance = 0.02,
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    res4$CI_high,
+    res1$conf.int[2],
+    tolerance = 0.02,
+    ignore_attr = TRUE
+  )
 })
 
 test_that("d", {

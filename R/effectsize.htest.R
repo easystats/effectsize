@@ -5,7 +5,13 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     .effectsize_t.test(model, type = type, verbose = verbose, ...)
   } else if (grepl("Pearson's Chi-squared", model$method, fixed = TRUE)) {
     .effectsize_chisq.test_dep(model, type = type, verbose = verbose, ...)
-  } else if (grepl("Chi-squared test for given probabilities", model$method, fixed = TRUE)) {
+  } else if (
+    grepl(
+      "Chi-squared test for given probabilities",
+      model$method,
+      fixed = TRUE
+    )
+  ) {
     .effectsize_chisq.test_gof(model, type = type, verbose = verbose, ...)
   } else if (grepl("Fisher's Exact", model$method, fixed = TRUE)) {
     .effectsize_fisher.test(model, type = type, verbose = verbose, ...)
@@ -59,7 +65,11 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     } else if (grepl("$", vars, fixed = TRUE)) {
       # Special case for square bracket subsetting
       # E.g., x = dat$mpg[dat$am == 1], y = dat$mpg[dat$am == 0]
-      vars_cols <- gsub("(\\b\\w+\\$)", paste0(match.call()[["data"]], "$"), vars)
+      vars_cols <- gsub(
+        "(\\b\\w+\\$)",
+        paste0(match.call()[["data"]], "$"),
+        vars
+      )
       columns <- unlist(strsplit(vars_cols, " and ", fixed = TRUE))
       x <- eval(parse(text = columns[1]))
       y <- eval(parse(text = columns[2]))
@@ -79,7 +89,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       form <- stats::as.formula(paste0(vars, "~1"))
       data_out <- .resolve_formula(form, ...)
     } else if (verbose) {
-      message("To use the `data` argument, consider using modifiers outside the formula.")
+      message(
+        "To use the `data` argument, consider using modifiers outside the formula."
+      )
     }
   } else {
     data_out <- model_data
@@ -95,8 +107,12 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   approx1 <- is.null(data1)
 
-  if (is.null(type) || tolower(type) == "cohens_d") type <- "d"
-  if (tolower(type) == "hedges_g") type <- "g"
+  if (is.null(type) || tolower(type) == "cohens_d") {
+    type <- "d"
+  }
+  if (tolower(type) == "hedges_g") {
+    type <- "g"
+  }
 
   cl <- match.call()
   cl <- cl[-which(names(cl) == "subset")]
@@ -145,10 +161,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     }
 
     if (type %in% c("d", "g")) {
-      f <- switch(tolower(type),
-        d = cohens_d,
-        g = hedges_g
-      )
+      f <- switch(tolower(type), d = cohens_d, g = hedges_g)
     } else if (dots$paired && startsWith(type, "rm")) {
       args1[c("x", "y")] <- split(args1$x, args1$y)
       dots$paired <- args1$pooled_sd <- NULL
@@ -156,10 +169,13 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       f <- rm_d
     } else {
       if (!dots$paired && !args1$pooled_sd) {
-        insight::format_error("Common language effect size only applicable to Cohen's d with pooled SD.")
+        insight::format_error(
+          "Common language effect size only applicable to Cohen's d with pooled SD."
+        )
       }
 
-      f <- switch(tolower(type),
+      f <- switch(
+        tolower(type),
         u1 = cohens_u1,
         u2 = cohens_u2,
         u3 = cohens_u3,
@@ -176,7 +192,12 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 }
 
 #' @keywords internal
-.effectsize_chisq.test_dep <- function(model, type = NULL, verbose = TRUE, ...) {
+.effectsize_chisq.test_dep <- function(
+  model,
+  type = NULL,
+  verbose = TRUE,
+  ...
+) {
   # Get data?
   model_data <- insight::get_data(model)
   data1 <- .data_from_formula(model_data, model, verbose, ...)
@@ -188,15 +209,20 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   Exp <- model$expected
 
   if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
-    insight::format_error("Cannot have empty rows/columns in the contingency tables.")
+    insight::format_error(
+      "Cannot have empty rows/columns in the contingency tables."
+    )
   }
   nr <- nrow(Obs)
   nc <- ncol(Obs)
 
-  if (is.null(type)) type <- "cramers_v"
+  if (is.null(type)) {
+    type <- "cramers_v"
+  }
 
   if (grepl("(c|v|t|w|phi)$", tolower(type)) && tolower(type) != "nnt") {
-    f <- switch(tolower(type),
+    f <- switch(
+      tolower(type),
       v = ,
       cramers_v = chisq_to_cramers_v,
       t = ,
@@ -217,7 +243,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
       ...
     )
   } else {
-    f <- switch(tolower(type),
+    f <- switch(
+      tolower(type),
       or = ,
       oddsratio = oddsratio,
       rr = ,
@@ -237,7 +264,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
 #' @keywords internal
 .effectsize_fisher.test <- function(model, type = NULL, verbose = TRUE, ...) {
-  if (is.null(type)) type <- "cramers_v"
+  if (is.null(type)) {
+    type <- "cramers_v"
+  }
 
   # If OR - return OR
   if (tolower(type) %in% c("or", "oddsratio")) {
@@ -255,7 +284,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
     class(out) <- c("effectsize_table", "see_effectsize_table", "data.frame")
     .someattributes(out) <-
       .nlist(
-        ci = out$CI, ci_method,
+        ci = out$CI,
+        ci_method,
         approximate = FALSE,
         alternative = model[["alternative"]]
       )
@@ -263,13 +293,18 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   }
 
   dots <- list(...)
-  if (!is.null(model[["conf.int"]])) dots$ci <- attr(model[["conf.int"]], "conf.level")
-  if (!is.null(model[["alternative"]])) dots$alternative <- model[["alternative"]]
+  if (!is.null(model[["conf.int"]])) {
+    dots$ci <- attr(model[["conf.int"]], "conf.level")
+  }
+  if (!is.null(model[["alternative"]])) {
+    dots$alternative <- model[["alternative"]]
+  }
 
   data1 <- insight::get_data(model)
   .fail_if_approx(is.null(data1), type)
 
-  f <- switch(tolower(type),
+  f <- switch(
+    tolower(type),
     v = ,
     cramers_v = cramers_v,
     t = ,
@@ -299,7 +334,12 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 }
 
 #' @keywords internal
-.effectsize_chisq.test_gof <- function(model, type = NULL, verbose = TRUE, ...) {
+.effectsize_chisq.test_gof <- function(
+  model,
+  type = NULL,
+  verbose = TRUE,
+  ...
+) {
   # Get data?
   model_data <- insight::get_data(model)
   data1 <- .data_from_formula(model_data, model, verbose, ...)
@@ -312,15 +352,20 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   nr <- length(Obs)
   p <- Exp
 
-  if (is.null(type)) type <- "fei"
+  if (is.null(type)) {
+    type <- "fei"
+  }
 
-  f <- switch(tolower(type),
+  f <- switch(
+    tolower(type),
     w = ,
     cohens_w = chisq_to_cohens_w,
     c = ,
     pearsons_c = chisq_to_pearsons_c,
     fei = chisq_to_fei,
-    insight::format_error("The selected effect size is not supported for goodness-of-fit tests.")
+    insight::format_error(
+      "The selected effect size is not supported for goodness-of-fit tests."
+    )
   )
 
   out <- f(
@@ -347,12 +392,17 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   approx1 <- grepl("not assuming", model$method, fixed = TRUE)
   if (approx1 && verbose) {
-    insight::format_alert("`var.equal = FALSE` - effect size is an {.b approximation.}")
+    insight::format_alert(
+      "`var.equal = FALSE` - effect size is an {.b approximation.}"
+    )
   }
 
-  if (is.null(type)) type <- "eta"
+  if (is.null(type)) {
+    type <- "eta"
+  }
 
-  f <- switch(tolower(type),
+  f <- switch(
+    tolower(type),
     eta = ,
     eta2 = ,
     eta_squared = F_to_eta2,
@@ -407,7 +457,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   approx1 <- is.null(data1)
 
-  if (is.null(type) || tolower(type) == "rank_biserial") type <- "rb"
+  if (is.null(type) || tolower(type) == "rank_biserial") {
+    type <- "rb"
+  }
 
   cl <- match.call()
   cl <- cl[-which(names(cl) == "subset")]
@@ -425,7 +477,8 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
   }
   data1 <- stats::na.omit(data1)
 
-  f <- switch(tolower(type),
+  f <- switch(
+    tolower(type),
     rb = rank_biserial,
     u1 = cohens_u1,
     u2 = cohens_u2,
@@ -444,7 +497,9 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   if (tolower(type) != "rb") {
     if (dots$paired) {
-      insight::format_error("Common language effect size only applicable to 2-sample rank-biserial correlation.")
+      insight::format_error(
+        "Common language effect size only applicable to 2-sample rank-biserial correlation."
+      )
     }
     args1$parametric <- FALSE
   }
@@ -461,14 +516,13 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 
   approx1 <- is.null(data1)
 
-  if (is.null(type)) type <- "epsilon"
+  if (is.null(type)) {
+    type <- "epsilon"
+  }
 
   .fail_if_approx(approx1, "rank_epsilon_squared")
 
-  f <- switch(type,
-    epsilon = rank_epsilon_squared,
-    eta = rank_eta_squared
-  )
+  f <- switch(type, epsilon = rank_epsilon_squared, eta = rank_eta_squared)
 
   if (inherits(data1, "data.frame")) {
     out <- f(data1[[1]], data1[[2]], verbose = verbose, ...)
@@ -498,7 +552,6 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 }
 
 # Utils -------------------------------------------------------------------
-
 
 #' @keywords internal
 .chisq <- function(Obs, Exp) {

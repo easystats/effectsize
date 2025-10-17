@@ -1,4 +1,3 @@
-
 # OR, d, r ------------------------------
 
 test_that("oddsratio_to_d", {
@@ -22,7 +21,6 @@ test_that("oddsratio_to_d (exact)", {
   expect_equal(oddsratio_to_r(1), 0, tolerance = 0.0001)
   expect_equal(oddsratio_to_r(OR, p0), d_to_r(d), tolerance = 0.0001)
 
-
   # From Chen et al 2010
   chen_tab_1 <- as.matrix(
     read.table(
@@ -43,7 +41,12 @@ test_that("oddsratio_to_d (exact)", {
 
   for (i in seq_len(nrow(chen_tab_1))) {
     d_recovered <- oddsratio_to_d(chen_tab_1[i, 2:4], p0 = chen_tab_1[i, 1])
-    expect_equal(d_recovered, c(0.2, 0.5, 0.8), tolerance = 0.01, ignore_attr = TRUE)
+    expect_equal(
+      d_recovered,
+      c(0.2, 0.5, 0.8),
+      tolerance = 0.01,
+      ignore_attr = TRUE
+    )
   }
 })
 
@@ -52,8 +55,16 @@ test_that("d_to_r", {
   expect_equal(d_to_r(1.1547), 0.5, tolerance = 0.01)
   expect_equal(r_to_d(0.5), 1.1547, tolerance = 0.01)
 
-  expect_equal(oddsratio_to_r(d_to_oddsratio(r_to_d(0.5))), 0.5, tolerance = 0.001)
-  expect_equal(oddsratio_to_d(r_to_oddsratio(d_to_r(1), log = TRUE), log = TRUE), 1, tolerance = 0.001)
+  expect_equal(
+    oddsratio_to_r(d_to_oddsratio(r_to_d(0.5))),
+    0.5,
+    tolerance = 0.001
+  )
+  expect_equal(
+    oddsratio_to_d(r_to_oddsratio(d_to_r(1), log = TRUE), log = TRUE),
+    1,
+    tolerance = 0.001
+  )
 
   r <- cor(mtcars$hp, -mtcars$am)
   d <- cohens_d(hp ~ am, data = mtcars, ci = NULL)[[1]]
@@ -106,18 +117,37 @@ test_that("OR, RR, ARR, NNT | numeric", {
 
   expect_equal(riskratio_to_oddsratio(RR, p0 = p0), OR, tolerance = 1e-4)
   expect_equal(oddsratio_to_riskratio(OR, p0 = p0), RR, tolerance = 1e-4)
-  expect_equal(oddsratio_to_riskratio(1 / OR, p0 = p1), 1 / RR, tolerance = 1e-4)
+  expect_equal(
+    oddsratio_to_riskratio(1 / OR, p0 = p1),
+    1 / RR,
+    tolerance = 1e-4
+  )
   expect_equal(riskratio_to_arr(RR, p0 = p0), ARR, tolerance = 1e-4)
   expect_equal(oddsratio_to_arr(OR, p0 = p0), ARR, tolerance = 1e-4)
   expect_equal(arr_to_oddsratio(ARR, p0 = p0), OR, tolerance = 1e-4)
   expect_equal(arr_to_riskratio(ARR, p0 = p0), RR, tolerance = 1e-4)
 
-  expect_equal(riskratio_to_oddsratio(RR, p0 = p0, log = TRUE), log(OR), tolerance = 1e-4)
-  expect_equal(oddsratio_to_riskratio(log(OR), p0 = p0, log = TRUE), RR, tolerance = 1e-4)
-  expect_equal(arr_to_oddsratio(ARR, p0 = p0, log = TRUE), log(OR), tolerance = 1e-4)
-  expect_equal(oddsratio_to_arr(log(OR), p0 = p0, log = TRUE), ARR, tolerance = 1e-4)
+  expect_equal(
+    riskratio_to_oddsratio(RR, p0 = p0, log = TRUE),
+    log(OR),
+    tolerance = 1e-4
+  )
+  expect_equal(
+    oddsratio_to_riskratio(log(OR), p0 = p0, log = TRUE),
+    RR,
+    tolerance = 1e-4
+  )
+  expect_equal(
+    arr_to_oddsratio(ARR, p0 = p0, log = TRUE),
+    log(OR),
+    tolerance = 1e-4
+  )
+  expect_equal(
+    oddsratio_to_arr(log(OR), p0 = p0, log = TRUE),
+    ARR,
+    tolerance = 1e-4
+  )
 })
-
 
 
 test_that("OR <=> RR | models", {
@@ -126,16 +156,16 @@ test_that("OR <=> RR | models", {
   # -- GLMs --
   data(mtcars)
 
-  m1 <<- glm(am ~ factor(cyl),
-    data = mtcars,
-    family = binomial("logit")
-  )
+  m1 <<- glm(am ~ factor(cyl), data = mtcars, family = binomial("logit"))
 
   expect_warning(RR <- oddsratio_to_riskratio(m1, ci = NULL), "p0") # nolint
   expect_false("(Intercept)" %in% RR$Parameter)
   expect_true("(p0)" %in% RR$Parameter)
 
-  expect_warning(RR <- oddsratio_to_riskratio(m1, ci_method = "wald", p0 = 0.7272727), NA) # nolint
+  expect_warning(
+    RR <- oddsratio_to_riskratio(m1, ci_method = "wald", p0 = 0.7272727),
+    NA
+  ) # nolint
   expect_false("(Intercept)" %in% RR$Parameter)
   expect_true("(p0)" %in% RR$Parameter)
   # these values confirmed from emmeans
@@ -152,10 +182,7 @@ test_that("OR <=> RR | models", {
   # -- GLMs2 --
   data(mtcars)
 
-  m2 <<- glm(am ~ factor(cyl),
-            data = mtcars,
-            family = binomial("log")
-  )
+  m2 <<- glm(am ~ factor(cyl), data = mtcars, family = binomial("log"))
 
   ORt <- parameters::model_parameters(m1, exp = TRUE)
 
@@ -163,7 +190,10 @@ test_that("OR <=> RR | models", {
   expect_false("(Intercept)" %in% OR$Parameter)
   expect_true("(p0)" %in% OR$Parameter)
 
-  expect_warning(OR <- riskratio_to_oddsratio(m2, ci_method = "wald", p0 = 0.7272727), NA) # nolint
+  expect_warning(
+    OR <- riskratio_to_oddsratio(m2, ci_method = "wald", p0 = 0.7272727),
+    NA
+  ) # nolint
   expect_false("(Intercept)" %in% OR$Parameter)
   expect_true("(p0)" %in% OR$Parameter)
   # these values confirmed from marginaleffects
@@ -179,7 +209,8 @@ test_that("OR <=> RR | models", {
 
   # -- GLMMs --
   skip_if_not_installed("lme4")
-  m <<- lme4::glmer(am ~ factor(cyl) + (1 | gear),
+  m <<- lme4::glmer(
+    am ~ factor(cyl) + (1 | gear),
     data = mtcars,
     family = binomial()
   )
@@ -188,7 +219,10 @@ test_that("OR <=> RR | models", {
   expect_false("(Intercept)" %in% RR$Parameter)
   expect_true("(p0)" %in% RR$Parameter)
 
-  expect_warning(RR <- oddsratio_to_riskratio(m, ci_method = "wald", p0 = 0.7047536), NA) # nolint
+  expect_warning(
+    RR <- oddsratio_to_riskratio(m, ci_method = "wald", p0 = 0.7047536),
+    NA
+  ) # nolint
   expect_false("(Intercept)" %in% RR$Parameter)
   expect_true("(p0)" %in% RR$Parameter)
   # these values confirmed from emmeans
@@ -222,8 +256,7 @@ test_that("=> probs", {
   expect_equal(riskratio_to_probs(RR, p0 = p0), p1)
   expect_equal(oddsratio_to_probs(OR, p0 = p0), p1)
 
-  expect_equal(nnt_to_probs(NNT, p0 = p0, odds = TRUE),
-               probs_to_odds(p1))
+  expect_equal(nnt_to_probs(NNT, p0 = p0, odds = TRUE), probs_to_odds(p1))
 
   expect_equal(arr_to_probs(-ARR, p0 = p1), p0)
   expect_equal(nnt_to_probs(-NNT, p0 = p1), p0)
@@ -250,4 +283,3 @@ test_that("between anova", {
   expect_equal(f2_to_eta2(1 / 3), 0.25)
   expect_equal(f_to_eta2(1 / sqrt(3)), f2_to_eta2(1 / 3), tolerance = 1e-4)
 })
-

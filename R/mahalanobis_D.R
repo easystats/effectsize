@@ -81,16 +81,22 @@
 #' )
 #'
 #' @export
-mahalanobis_d <- function(x, y = NULL, data = NULL,
-                          pooled_cov = TRUE, mu = 0,
-                          ci = 0.95, alternative = "greater",
-                          verbose = TRUE, ...) {
+mahalanobis_d <- function(
+  x,
+  y = NULL,
+  data = NULL,
+  pooled_cov = TRUE,
+  mu = 0,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE,
+  ...
+) {
   # TODO add paired samples case DV1 + DV2 ~ 1 | ID
   alternative <- .match.alt(alternative, FALSE)
   data <- .get_data_multivariate(x, y, data, verbose = verbose, ...)
   x <- data[["x"]]
   y <- data[["y"]]
-
 
   # deal with mu
   if (is.vector(mu)) {
@@ -98,18 +104,26 @@ mahalanobis_d <- function(x, y = NULL, data = NULL,
       mu <- rep(mu, length.out = ncol(x))
       names(mu) <- colnames(x)
     } else if (length(mu) != ncol(x) || is.null(names(mu))) {
-      insight::format_error("mu must be of length 1 or a named vector/list of length ncol(x).")
+      insight::format_error(
+        "mu must be of length 1 or a named vector/list of length ncol(x)."
+      )
     }
 
     mu <- as.list(mu)
   }
 
   if (!is.list(mu)) {
-    insight::format_error("mu must be of length 1 or a named vector/list of length ncol(x).")
+    insight::format_error(
+      "mu must be of length 1 or a named vector/list of length ncol(x)."
+    )
   } else if (!all(names(mu) == colnames(x))) {
-    insight::format_error("x,y must have the same variables (in the same order)")
+    insight::format_error(
+      "x,y must have the same variables (in the same order)"
+    )
   } else if (!all(lengths(mu) == 1L) || !all(vapply(mu, is.numeric, TRUE))) {
-    insight::format_error("Each element of mu must be a numeric vector of length 1.")
+    insight::format_error(
+      "Each element of mu must be a numeric vector of length 1."
+    )
   }
   mu <- unlist(mu)
 
@@ -160,11 +174,18 @@ mahalanobis_d <- function(x, y = NULL, data = NULL,
     ci_method <- alternative <- NULL
   }
 
-  class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
+  class(out) <- c(
+    "effectsize_difference",
+    "effectsize_table",
+    "see_effectsize_table",
+    class(out)
+  )
   .someattributes(out) <- .nlist(
     pooled_cov,
     mu = sqrt(sum(mu^2)),
-    ci, ci_method, alternative,
+    ci,
+    ci_method,
+    alternative,
     approximate = FALSE
   )
   return(out)

@@ -108,77 +108,121 @@
 #'
 #'
 #' @export
-phi <- function(x, y = NULL,
-                adjust = TRUE,
-                ci = 0.95, alternative = "greater",
-                ...) {
+phi <- function(
+  x,
+  y = NULL,
+  adjust = TRUE,
+  ci = 0.95,
+  alternative = "greater",
+  ...
+) {
   alternative <- .match.alt(alternative, FALSE)
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "phi", adjust = adjust, ci = ci))
-  } else if (!.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") &&
-             !inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))) {
+  } else if (
+    !.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") &&
+      !inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))
+  ) {
     x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
   }
 
-  effectsize(x, type = "phi", adjust = adjust, ci = ci, alternative = alternative)
+  effectsize(
+    x,
+    type = "phi",
+    adjust = adjust,
+    ci = ci,
+    alternative = alternative
+  )
 }
 
 #' @rdname phi
 #' @export
-cramers_v <- function(x, y = NULL,
-                      adjust = TRUE,
-                      ci = 0.95, alternative = "greater",
-                      ...) {
+cramers_v <- function(
+  x,
+  y = NULL,
+  adjust = TRUE,
+  ci = 0.95,
+  alternative = "greater",
+  ...
+) {
   alternative <- .match.alt(alternative, FALSE)
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "cramers_v", adjust = adjust, ci = ci))
-  } else if (!.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") &&
-             !inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))) {
+  } else if (
+    !.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") &&
+      !inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))
+  ) {
     x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
   }
 
-  effectsize(x, type = "cramers_v", adjust = adjust, ci = ci, alternative = alternative)
+  effectsize(
+    x,
+    type = "cramers_v",
+    adjust = adjust,
+    ci = ci,
+    alternative = alternative
+  )
 }
 
 
 #' @rdname phi
 #' @export
-tschuprows_t <- function(x, y = NULL,
-                         adjust = TRUE,
-                         ci = 0.95, alternative = "greater",
-                         ...) {
+tschuprows_t <- function(
+  x,
+  y = NULL,
+  adjust = TRUE,
+  ci = 0.95,
+  alternative = "greater",
+  ...
+) {
   alternative <- .match.alt(alternative, FALSE)
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "tschuprows_t", ci = ci))
-  } else if (!.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") &&
-             !inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))) {
+  } else if (
+    !.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") &&
+      !inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))
+  ) {
     x <- suppressWarnings(stats::chisq.test(x, y))
     x$data.name <- NULL
   }
 
-  effectsize(x, type = "tschuprows_t", adjust = adjust, ci = ci, alternative = alternative)
+  effectsize(
+    x,
+    type = "tschuprows_t",
+    adjust = adjust,
+    ci = ci,
+    alternative = alternative
+  )
 }
 
 #' @rdname phi
 #' @export
-cohens_w <- function(x, y = NULL, p = rep(1, length(x)),
-                     ci = 0.95, alternative = "greater",
-                     ...) {
+cohens_w <- function(
+  x,
+  y = NULL,
+  p = rep(1, length(x)),
+  ci = 0.95,
+  alternative = "greater",
+  ...
+) {
   alternative <- .match.alt(alternative, FALSE)
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "cohens_w", ci = ci))
-  } else if (!.is_htest_of_type(
-    x, "(Pearson's Chi-squared|Chi-squared test for given probabilities)",
-    "Chi-squared-test"
-  ) &&
-  !inherits(x, c("datawizard_crosstabs", "datawizard_crosstab")) &&
-  !inherits(x, c("datawizard_tables", "datawizard_table"))) {
+  } else if (
+    !.is_htest_of_type(
+      x,
+      "(Pearson's Chi-squared|Chi-squared test for given probabilities)",
+      "Chi-squared-test"
+    ) &&
+      !inherits(x, c("datawizard_crosstabs", "datawizard_crosstab")) &&
+      !inherits(x, c("datawizard_tables", "datawizard_table"))
+  ) {
     x <- suppressWarnings(stats::chisq.test(x, y, p = p, rescale.p = TRUE))
     x$data.name <- NULL
   }
@@ -189,21 +233,36 @@ cohens_w <- function(x, y = NULL, p = rep(1, length(x)),
 
 #' @rdname phi
 #' @export
-fei <- function(x, p = rep(1, length(x)),
-                ci = 0.95, alternative = "greater",
-                ...) {
+fei <- function(
+  x,
+  p = rep(1, length(x)),
+  ci = 0.95,
+  alternative = "greater",
+  ...
+) {
   alternative <- .match.alt(alternative, FALSE)
 
   if (inherits(x, "BFBayesFactor")) {
     insight::format_error("Fei is only applicable to goodness of fit tests.")
-  } else if (!.is_htest_of_type(x, "Chi-squared test for given probabilities", "Chi-squared-test") &&
-             !inherits(x, c("datawizard_tables", "datawizard_table"))) {
-    x <- suppressWarnings(stats::chisq.test(x, y = NULL, p = p, rescale.p = TRUE))
+  } else if (
+    !.is_htest_of_type(
+      x,
+      "Chi-squared test for given probabilities",
+      "Chi-squared-test"
+    ) &&
+      !inherits(x, c("datawizard_tables", "datawizard_table"))
+  ) {
+    x <- suppressWarnings(stats::chisq.test(
+      x,
+      y = NULL,
+      p = p,
+      rescale.p = TRUE
+    ))
     x$data.name <- NULL
 
     table_dim <- dim(x$observed)
-    is_1d_table <- is.null(table_dim) ||            # vector
-      length(table_dim) == 1 ||                     # 1D table
+    is_1d_table <- is.null(table_dim) || # vector
+      length(table_dim) == 1 || # 1D table
       (length(table_dim) == 2 && any(table_dim == 1))
     if (!is_1d_table) {
       insight::format_error("Fei is only applicable to goodness of fit tests.")
@@ -215,25 +274,32 @@ fei <- function(x, p = rep(1, length(x)),
 
 #' @rdname phi
 #' @export
-pearsons_c <- function(x, y = NULL, p = rep(1, length(x)),
-                       ci = 0.95, alternative = "greater",
-                       ...) {
+pearsons_c <- function(
+  x,
+  y = NULL,
+  p = rep(1, length(x)),
+  ci = 0.95,
+  alternative = "greater",
+  ...
+) {
   alternative <- .match.alt(alternative, FALSE)
 
   if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "pearsons_c", ci = ci))
-  } else if (!.is_htest_of_type(
-    x, "(Pearson's Chi-squared|Chi-squared test for given probabilities)",
-    "Chi-squared-test"
-  ) &&
-  !inherits(x, c("datawizard_crosstabs", "datawizard_crosstab")) &&
-  !inherits(x, c("datawizard_tables", "datawizard_table"))) {
+  } else if (
+    !.is_htest_of_type(
+      x,
+      "(Pearson's Chi-squared|Chi-squared test for given probabilities)",
+      "Chi-squared-test"
+    ) &&
+      !inherits(x, c("datawizard_crosstabs", "datawizard_crosstab")) &&
+      !inherits(x, c("datawizard_tables", "datawizard_table"))
+  ) {
     x <- suppressWarnings(stats::chisq.test(x, y, p = p, rescale.p = TRUE))
     x$data.name <- NULL
   }
 
   effectsize(x, type = "pearsons_c", ci = ci, alternative = alternative)
 }
-
 
 # styler: on

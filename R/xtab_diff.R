@@ -58,12 +58,31 @@
 #' nnt(RCT_table)
 #'
 #' @export
-oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = FALSE, ...) {
+oddsratio <- function(
+  x,
+  y = NULL,
+  ci = 0.95,
+  alternative = "two.sided",
+  log = FALSE,
+  ...
+) {
   alternative <- .match.alt(alternative)
 
-  if (.is_htest_of_type(x, "(Pearson's Chi-squared|Fisher's Exact)", "Chi-squared-test or Fisher's Exact test") ||
-      inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))) {
-    return(effectsize(x, type = "or", log = log, ci = ci, alternative = alternative))
+  if (
+    .is_htest_of_type(
+      x,
+      "(Pearson's Chi-squared|Fisher's Exact)",
+      "Chi-squared-test or Fisher's Exact test"
+    ) ||
+      inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))
+  ) {
+    return(effectsize(
+      x,
+      type = "or",
+      log = log,
+      ci = ci,
+      alternative = alternative
+    ))
   } else if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "or", log = log, ci = ci))
   }
@@ -72,11 +91,15 @@ oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
   Obs <- res$observed
 
   if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
-    insight::format_error("Cannot have empty rows/columns in the contingency tables.")
+    insight::format_error(
+      "Cannot have empty rows/columns in the contingency tables."
+    )
   }
 
   if (nrow(Obs) != 2 || ncol(Obs) != 2) {
-    insight::format_error("Odds ratio only available for 2-by-2 contingency tables")
+    insight::format_error(
+      "Odds ratio only available for 2-by-2 contingency tables"
+    )
   }
 
   OR <- (Obs[1, 1] / Obs[2, 1]) /
@@ -121,14 +144,18 @@ oddsratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", log = F
 #' @export
 riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   if ("log" %in% ...names() && isTRUE(list(...)$log)) {
-    insight::format_warning("'log' argument has been deprecated.",
-                            "Returning RR instead of log(RR)")
+    insight::format_warning(
+      "'log' argument has been deprecated.",
+      "Returning RR instead of log(RR)"
+    )
   }
 
   alternative <- .match.alt(alternative)
 
-  if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") ||
-      inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))) {
+  if (
+    .is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") ||
+      inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))
+  ) {
     return(effectsize(x, type = "rr", ci = ci, alternative = alternative))
   } else if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "rr", ci = ci, ...))
@@ -138,11 +165,15 @@ riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   Obs <- res$observed
 
   if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
-    insight::format_error("Cannot have empty rows/columns in the contingency tables.")
+    insight::format_error(
+      "Cannot have empty rows/columns in the contingency tables."
+    )
   }
 
   if (nrow(Obs) != 2 || ncol(Obs) != 2) {
-    insight::format_error("Risk ratio only available for 2-by-2 contingency tables")
+    insight::format_error(
+      "Risk ratio only available for 2-by-2 contingency tables"
+    )
   }
 
   n1 <- sum(Obs[, 1])
@@ -185,8 +216,10 @@ riskratio <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
 cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   alternative <- .match.alt(alternative)
 
-  if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") ||
-      inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))) {
+  if (
+    .is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") ||
+      inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))
+  ) {
     return(effectsize(x, type = "cohens_h", ci = ci, alternative = alternative))
   } else if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "cohens_h", ci = ci, ...))
@@ -196,11 +229,15 @@ cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   Obs <- res$observed
 
   if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
-    insight::format_error("Cannot have empty rows/columns in the contingency tables.")
+    insight::format_error(
+      "Cannot have empty rows/columns in the contingency tables."
+    )
   }
 
   if (nrow(Obs) != 2 || ncol(Obs) != 2) {
-    insight::format_error("Cohen's h only available for 2-by-2 contingency tables")
+    insight::format_error(
+      "Cohen's h only available for 2-by-2 contingency tables"
+    )
   }
 
   n1 <- sum(Obs[, 1])
@@ -242,8 +279,10 @@ cohens_h <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
 arr <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   alternative <- .match.alt(alternative)
 
-  if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") ||
-      inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))) {
+  if (
+    .is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") ||
+      inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))
+  ) {
     return(effectsize(x, type = "arr", ci = ci, alternative = alternative))
   } else if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "arr", ci = ci, ...))
@@ -253,11 +292,15 @@ arr <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   Obs <- res$observed
 
   if (any(c(colSums(Obs), rowSums(Obs)) == 0L)) {
-    insight::format_error("Cannot have empty rows/columns in the contingency tables.")
+    insight::format_error(
+      "Cannot have empty rows/columns in the contingency tables."
+    )
   }
 
   if (nrow(Obs) != 2 || ncol(Obs) != 2) {
-    insight::format_error("This effect size is only available for 2-by-2 contingency tables")
+    insight::format_error(
+      "This effect size is only available for 2-by-2 contingency tables"
+    )
   }
 
   n1 <- sum(Obs[, 1])
@@ -302,8 +345,10 @@ nnt <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   flip_alt <- c(less = "greater", greater = "less", two.sided = "two.sided")
   alternative2 <- unname(flip_alt[alternative])
 
-  if (.is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") ||
-      inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))) {
+  if (
+    .is_htest_of_type(x, "Pearson's Chi-squared", "Chi-squared-test") ||
+      inherits(x, c("datawizard_crosstabs", "datawizard_crosstab"))
+  ) {
     return(effectsize(x, type = "nnt", ci = ci, alternative = alternative))
   } else if (.is_BF_of_type(x, "BFcontingencyTable", "Chi-squared")) {
     return(effectsize(x, type = "nnt", ci = ci, ...))

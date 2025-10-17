@@ -1,22 +1,45 @@
-
 # htest -------------------------------------------------------------------
 
 test_that("t-test", {
   x <<- 1:10
   y <<- c(1, 1:9)
   model <- t.test(x, y)
-  expect_equal(effectsize(model), d <- cohens_d(x, y, pooled_sd = FALSE), ignore_attr = TRUE)
+  expect_equal(
+    effectsize(model),
+    d <- cohens_d(x, y, pooled_sd = FALSE),
+    ignore_attr = TRUE
+  )
   expect_equal(cohens_d(model), d, ignore_attr = TRUE)
-  expect_equal(effectsize(model, type = "g"), hedges_g(x, y, pooled_sd = FALSE), ignore_attr = TRUE)
+  expect_equal(
+    effectsize(model, type = "g"),
+    hedges_g(x, y, pooled_sd = FALSE),
+    ignore_attr = TRUE
+  )
   expect_error(effectsize(model, type = "u1"), "applicable")
 
   model <- t.test(x, y, var.equal = TRUE)
-  expect_equal(effectsize(model, type = "u1"), cohens_u1(x, y), ignore_attr = TRUE)
-  expect_equal(effectsize(model, type = "u2"), cohens_u2(x, y), ignore_attr = TRUE)
-  expect_equal(effectsize(model, type = "u3"), cohens_u3(x, y), ignore_attr = TRUE)
+  expect_equal(
+    effectsize(model, type = "u1"),
+    cohens_u1(x, y),
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    effectsize(model, type = "u2"),
+    cohens_u2(x, y),
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    effectsize(model, type = "u3"),
+    cohens_u3(x, y),
+    ignore_attr = TRUE
+  )
 
   model <- t.test(x, y, alternative = "less", conf.level = 0.8)
-  expect_equal(effectsize(model), cohens_d(x, y, pooled_sd = FALSE, alternative = "less", ci = 0.8), ignore_attr = TRUE)
+  expect_equal(
+    effectsize(model),
+    cohens_d(x, y, pooled_sd = FALSE, alternative = "less", ci = 0.8),
+    ignore_attr = TRUE
+  )
 
   model <- t.test(x, y, var.equal = TRUE)
   expect_equal(effectsize(model), cohens_d(x, y), ignore_attr = TRUE)
@@ -30,7 +53,8 @@ test_that("t-test", {
 
   ## Auto convert y to factor
   Ts <- t.test(mtcars$mpg ~ mtcars$vs)
-  expect_equal(effectsize(Ts, verbose = FALSE),
+  expect_equal(
+    effectsize(Ts, verbose = FALSE),
     cohens_d(mtcars$mpg, factor(mtcars$vs), pooled_sd = FALSE),
     ignore_attr = TRUE
   )
@@ -38,19 +62,17 @@ test_that("t-test", {
   # one sample
   z <<- mtcars$wt
   model <- t.test(z, mu = 3, var.equal = TRUE)
-  expect_equal(effectsize(model),
-    cohens_d(z, mu = 3),
-    ignore_attr = TRUE
-  )
+  expect_equal(effectsize(model), cohens_d(z, mu = 3), ignore_attr = TRUE)
 
   ## Paired sample
   model <- t.test(x, y, paired = TRUE)
-  expect_equal(effectsize(model, verbose = FALSE), cohens_d(x, y, paired = TRUE, verbose = FALSE), ignore_attr = TRUE)
-
-  sleep2 <<- reshape(sleep,
-    direction = "wide",
-    idvar = "ID", timevar = "group"
+  expect_equal(
+    effectsize(model, verbose = FALSE),
+    cohens_d(x, y, paired = TRUE, verbose = FALSE),
+    ignore_attr = TRUE
   )
+
+  sleep2 <<- reshape(sleep, direction = "wide", idvar = "ID", timevar = "group")
   tt <- t.test(sleep2$extra.1, sleep2$extra.2, paired = TRUE)
 
   es1 <- effectsize(tt, type = "rm_b")
@@ -58,7 +80,6 @@ test_that("t-test", {
   es <- rm_d(sleep2$extra.1, sleep2$extra.2, method = "b")
   expect_equal(es1, es, ignore_attr = TRUE)
   expect_equal(es2, es, ignore_attr = TRUE)
-
 
   ## Missing
   y <<- rnorm(12)
@@ -94,12 +115,20 @@ test_that("Wilcox | CLES", {
   y <<- c(1, 1:3)
   Wt <- suppressWarnings(wilcox.test(x, y))
 
-  expect_equal(e <- p_superiority(Wt), p_superiority(x, y, parametric = FALSE), ignore_attr = TRUE)
+  expect_equal(
+    e <- p_superiority(Wt),
+    p_superiority(x, y, parametric = FALSE),
+    ignore_attr = TRUE
+  )
   expect_equal(effectsize(Wt, type = "p_superiority"), e)
 
   expect_error(effectsize(Wt, type = "u1"), "parametric")
 
-  expect_equal(e <- cohens_u3(Wt), cohens_u3(x, y, parametric = FALSE), ignore_attr = TRUE)
+  expect_equal(
+    e <- cohens_u3(Wt),
+    cohens_u3(x, y, parametric = FALSE),
+    ignore_attr = TRUE
+  )
   expect_equal(effectsize(Wt, type = "u3"), e)
 })
 
@@ -127,16 +156,28 @@ test_that("Chisq-test", {
 
   contingency_table22 <- contingency_table[1:2, 1:2]
   Xsq4 <- chisq.test(contingency_table22)
-  expect_equal(effectsize(Xsq4, type = "phi", adjust = FALSE), ph <- phi(contingency_table22, adjust = FALSE))
+  expect_equal(
+    effectsize(Xsq4, type = "phi", adjust = FALSE),
+    ph <- phi(contingency_table22, adjust = FALSE)
+  )
   expect_equal(phi(Xsq4, adjust = FALSE), ph)
 
-  expect_equal(effectsize(Xsq4, type = "oddsratio"), or <- oddsratio(contingency_table22))
+  expect_equal(
+    effectsize(Xsq4, type = "oddsratio"),
+    or <- oddsratio(contingency_table22)
+  )
   expect_equal(oddsratio(Xsq4), or)
 
-  expect_equal(effectsize(Xsq4, type = "riskratio"), rr <- riskratio(contingency_table22))
+  expect_equal(
+    effectsize(Xsq4, type = "riskratio"),
+    rr <- riskratio(contingency_table22)
+  )
   expect_equal(riskratio(Xsq4), rr)
 
-  expect_equal(effectsize(Xsq4, type = "pearsons_c"), pc <- pearsons_c(contingency_table22))
+  expect_equal(
+    effectsize(Xsq4, type = "pearsons_c"),
+    pc <- pearsons_c(contingency_table22)
+  )
   expect_equal(pearsons_c(Xsq4), pc)
 
   expect_equal(effectsize(Xsq4, type = "h"), h <- cohens_h(contingency_table22))
@@ -149,7 +190,10 @@ test_that("Chisq-test", {
   x <- chisq.test(x = observed.dfc, p = expected.dfc)
   expect_error(effectsize(x, type = "v"), "goodness")
   expect_equal(effectsize(x), effectsize(x, type = "fei"))
-  expect_equal(effectsize(x, type = "fei"), Fei <- fei(observed.dfc, p = expected.dfc))
+  expect_equal(
+    effectsize(x, type = "fei"),
+    Fei <- fei(observed.dfc, p = expected.dfc)
+  )
   expect_equal(fei(x), Fei)
 })
 
@@ -174,21 +218,32 @@ test_that("one way", {
   onew <- oneway.test(mpg ~ cyl, mtcars)
   expect_message(effectsize(onew), "var")
 
-
   onew <- oneway.test(mpg ~ cyl, mtcars, var.equal = TRUE)
   m <- aov(mpg ~ cyl, mtcars)
 
-  expect_equal(eta_squared(m, partial = FALSE)[, -1], effectsize(onew),
-    tolerance = 0.03, ignore_attr = TRUE
+  expect_equal(
+    eta_squared(m, partial = FALSE)[, -1],
+    effectsize(onew),
+    tolerance = 0.03,
+    ignore_attr = TRUE
   )
-  expect_equal(eta_squared(m, partial = FALSE)[, -1], eta_squared(onew, verbose = FALSE),
-    tolerance = 0.03, ignore_attr = TRUE
+  expect_equal(
+    eta_squared(m, partial = FALSE)[, -1],
+    eta_squared(onew, verbose = FALSE),
+    tolerance = 0.03,
+    ignore_attr = TRUE
   )
-  expect_equal(omega_squared(m, partial = FALSE)[, -1], effectsize(onew, type = "omega"),
-    tolerance = 0.03, ignore_attr = TRUE
+  expect_equal(
+    omega_squared(m, partial = FALSE)[, -1],
+    effectsize(onew, type = "omega"),
+    tolerance = 0.03,
+    ignore_attr = TRUE
   )
-  expect_equal(cohens_f(m, partial = FALSE)[, -1], effectsize(onew, type = "f"),
-    tolerance = 0.03, ignore_attr = TRUE
+  expect_equal(
+    cohens_f(m, partial = FALSE)[, -1],
+    effectsize(onew, type = "f"),
+    tolerance = 0.03,
+    ignore_attr = TRUE
   )
 })
 
@@ -199,52 +254,109 @@ test_that("McNemar", {
   )
 
   model <- mcnemar.test(Performance)
-  expect_equal(effectsize(model), g <- cohens_g(Performance), ignore_attr = TRUE)
+  expect_equal(
+    effectsize(model),
+    g <- cohens_g(Performance),
+    ignore_attr = TRUE
+  )
   expect_equal(cohens_g(model), g, ignore_attr = TRUE)
 
   model <- mcnemar.test(mtcars$cyl, mtcars$gear)
-  expect_equal(effectsize(model), cohens_g(mtcars$cyl, mtcars$gear), ignore_attr = TRUE)
+  expect_equal(
+    effectsize(model),
+    cohens_g(mtcars$cyl, mtcars$gear),
+    ignore_attr = TRUE
+  )
 })
 
 test_that("htest | rank", {
   suppressWarnings(ww <- wilcox.test(mtcars$hp, mtcars$mpg + 80))
-  expect_equal(effectsize(ww), rbs <- rank_biserial(mtcars$hp, mtcars$mpg + 80), ignore_attr = TRUE)
+  expect_equal(
+    effectsize(ww),
+    rbs <- rank_biserial(mtcars$hp, mtcars$mpg + 80),
+    ignore_attr = TRUE
+  )
   expect_equal(rank_biserial(ww), rbs, ignore_attr = TRUE)
-  expect_equal(effectsize(ww, type = "u2", ci = NULL)[[1]],
+  expect_equal(
+    effectsize(ww, type = "u2", ci = NULL)[[1]],
     cohens_u2(mtcars$hp, mtcars$mpg + 80, parametric = FALSE, ci = NULL)[[1]],
     tolerance = 0.001
   )
-  expect_equal(effectsize(ww, type = "overlap")[[1]],
+  expect_equal(
+    effectsize(ww, type = "overlap")[[1]],
     p_overlap(mtcars$hp, mtcars$mpg + 80, parametric = FALSE, ci = NULL)[[1]],
     tolerance = 0.001
   )
 
-
   RoundingTimes <-
     matrix(
       c(
-        5.40, 5.50, 5.55,
-        5.85, 5.70, 5.75,
-        5.20, 5.60, 5.50,
-        5.55, 5.50, 5.40,
-        5.90, 5.85, 5.70,
-        5.45, 5.55, 5.60,
-        5.40, 5.40, 5.35,
-        5.45, 5.50, 5.35,
-        5.25, 5.15, 5.00,
-        5.85, 5.80, 5.70,
-        5.25, 5.20, 5.10,
-        5.65, 5.55, 5.45,
-        5.60, 5.35, 5.45,
-        5.05, 5.00, 4.95,
-        5.50, 5.50, 5.40,
-        5.45, 5.55, 5.50,
-        5.55, 5.55, 5.35,
-        5.45, 5.50, 5.55,
-        5.50, 5.45, 5.25,
-        5.65, 5.60, 5.40,
-        5.70, 5.65, 5.55,
-        6.30, 6.30, 6.25
+        5.40,
+        5.50,
+        5.55,
+        5.85,
+        5.70,
+        5.75,
+        5.20,
+        5.60,
+        5.50,
+        5.55,
+        5.50,
+        5.40,
+        5.90,
+        5.85,
+        5.70,
+        5.45,
+        5.55,
+        5.60,
+        5.40,
+        5.40,
+        5.35,
+        5.45,
+        5.50,
+        5.35,
+        5.25,
+        5.15,
+        5.00,
+        5.85,
+        5.80,
+        5.70,
+        5.25,
+        5.20,
+        5.10,
+        5.65,
+        5.55,
+        5.45,
+        5.60,
+        5.35,
+        5.45,
+        5.05,
+        5.00,
+        4.95,
+        5.50,
+        5.50,
+        5.40,
+        5.45,
+        5.55,
+        5.50,
+        5.55,
+        5.55,
+        5.35,
+        5.45,
+        5.50,
+        5.55,
+        5.50,
+        5.45,
+        5.25,
+        5.65,
+        5.60,
+        5.40,
+        5.70,
+        5.65,
+        5.55,
+        6.30,
+        6.30,
+        6.25
       ),
       nrow = 22,
       byrow = TRUE,
@@ -255,14 +367,26 @@ test_that("htest | rank", {
     )
   ft <- friedman.test(RoundingTimes)
   W <- kendalls_w(RoundingTimes, verbose = FALSE, ci = NULL)
-  expect_equal(effectsize(ft, verbose = FALSE, ci = NULL), W, ignore_attr = TRUE)
-  expect_equal(kendalls_w(ft, verbose = FALSE, ci = NULL), W, ignore_attr = TRUE)
+  expect_equal(
+    effectsize(ft, verbose = FALSE, ci = NULL),
+    W,
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    kendalls_w(ft, verbose = FALSE, ci = NULL),
+    W,
+    ignore_attr = TRUE
+  )
 
   X <<- c(2.9, 3.0, 2.5, 2.6, 3.2) # normal subjects
   Y <<- c(3.8, 2.7, 4.0, 2.4) # with obstructive airway disease
   Z <<- c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
   kt <- kruskal.test(list(X, Y, Z))
-  expect_equal(effectsize(kt)[[1]], E <- rank_epsilon_squared(list(X, Y, Z))[[1]], ignore_attr = TRUE)
+  expect_equal(
+    effectsize(kt)[[1]],
+    E <- rank_epsilon_squared(list(X, Y, Z))[[1]],
+    ignore_attr = TRUE
+  )
   expect_equal(rank_epsilon_squared(kt)[[1]], E, ignore_attr = TRUE)
 })
 
@@ -338,17 +462,28 @@ test_that("BayesFactor", {
   skip_on_cran()
   set.seed(6)
   data(raceDolls, package = "BayesFactor")
-  bf1 <- BayesFactor::contingencyTableBF(raceDolls, sampleType = "poisson", fixedMargin = "cols")
+  bf1 <- BayesFactor::contingencyTableBF(
+    raceDolls,
+    sampleType = "poisson",
+    fixedMargin = "cols"
+  )
   expect_equal(effectsize(bf1)[[1]], 0.143, tolerance = 0.01)
   expect_equal(effectsize(bf1, type = "OR")[[1]], 1 / 0.503, tolerance = 0.03)
 
-  bf2 <- BayesFactor::ttestBF(mtcars$mpg[mtcars$am == 1], mtcars$mpg[mtcars$am == 0])
+  bf2 <- BayesFactor::ttestBF(
+    mtcars$mpg[mtcars$am == 1],
+    mtcars$mpg[mtcars$am == 0]
+  )
   expect_equal(effectsize(bf2)[[1]], 1.30, tolerance = 0.03)
   expect_equal(effectsize(bf2, type = "u1")[[1]], 0.65, tolerance = 0.05)
   expect_equal(effectsize(bf2, type = "u2")[[1]], 0.74, tolerance = 0.05)
   expect_equal(effectsize(bf2, type = "u3")[[1]], 0.9, tolerance = 0.05)
   expect_equal(effectsize(bf2, type = "overlap")[[1]], 0.52, tolerance = 0.05)
-  expect_equal(effectsize(bf2, type = "p_superiority")[[1]], 0.8, tolerance = 0.05)
+  expect_equal(
+    effectsize(bf2, type = "p_superiority")[[1]],
+    0.8,
+    tolerance = 0.05
+  )
 
   bf3 <- BayesFactor::correlationBF(iris$Sepal.Length, iris$Sepal.Width)
   expect_equal(effectsize(bf3)[[1]], -0.116, tolerance = 0.03)
@@ -384,10 +519,15 @@ test_that("effectsize | datawizard crosstabs", {
     pearsons_c(mtcars$cyl, mtcars$am)
   )
 
-
-  xtabs2 <- datawizard::data_tabulate(mtcars, select = c("cyl", "gear"), by = "am")
-  xtabs3 <- datawizard::data_tabulate(datawizard::data_group(mtcars, select = c("carb")),
-    select = c("cyl", "gear"), by = "am"
+  xtabs2 <- datawizard::data_tabulate(
+    mtcars,
+    select = c("cyl", "gear"),
+    by = "am"
+  )
+  xtabs3 <- datawizard::data_tabulate(
+    datawizard::data_group(mtcars, select = c("carb")),
+    select = c("cyl", "gear"),
+    by = "am"
   )
   expect_error(effectsize(xtabs2), regexp = "Multilpe tables")
   expect_error(effectsize(xtabs3), regexp = "Multilpe tables")
@@ -417,10 +557,11 @@ test_that("effectsize | datawizard tables", {
     pearsons_c(table(mtcars$cyl))
   )
 
-
   xtabs2 <- datawizard::data_tabulate(mtcars, select = c("cyl", "gear"))
-  xtabs3 <- datawizard::data_tabulate(datawizard::data_group(mtcars, select = c("carb")),
-                                      select = c("cyl", "gear"))
+  xtabs3 <- datawizard::data_tabulate(
+    datawizard::data_group(mtcars, select = c("carb")),
+    select = c("cyl", "gear")
+  )
   expect_error(effectsize(xtabs2), regexp = "Multilpe tables")
   expect_error(effectsize(xtabs3), regexp = "Multilpe tables")
 })
@@ -437,7 +578,8 @@ test_that("effectsize | easycorrelation", {
 test_that("effectsize | other", {
   m <- lm(mpg ~ ., mtcars)
 
-  expect_equal(effectsize(m),
+  expect_equal(
+    effectsize(m),
     parameters::standardize_parameters(m),
     ignore_attr = TRUE
   )

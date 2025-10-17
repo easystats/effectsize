@@ -4,7 +4,11 @@ test_that("print | effectsize table", {
   expect_output(print(d), "[-1.37, 1.16]", fixed = TRUE)
   expect_output(print(d, digits = 4), "[-1.3730, 1.1595]", fixed = TRUE)
   expect_output(print(d, digits = "signif4"), "[-1.373, 1.16]", fixed = TRUE)
-  expect_output(print(d, digits = "scientific4"), "[-1.3730e+00, 1.1595e+00]", fixed = TRUE)
+  expect_output(
+    print(d, digits = "scientific4"),
+    "[-1.3730e+00, 1.1595e+00]",
+    fixed = TRUE
+  )
 
   ## alternative + rounded bound
   RCT <- matrix(c(71, 30, 31, 13, 50, 100, 4, 5, 7), nrow = 3, byrow = TRUE)
@@ -14,18 +18,24 @@ test_that("print | effectsize table", {
 
   expect_output(print(V1), regexp = "[1.00]", fixed = TRUE)
   expect_output(print(V1, digits = "signif4"), regexp = "[1]", fixed = TRUE)
-  expect_output(print(V1, digits = "scientific2"), regexp = "[1.00e+00]", fixed = TRUE)
+  expect_output(
+    print(V1, digits = "scientific2"),
+    regexp = "[1.00e+00]",
+    fixed = TRUE
+  )
   expect_error(expect_output(print(V2), regexp = "fixed"))
   expect_output(print(w), regexp = "[1.41~]", fixed = TRUE)
   expect_output(print(w, digits = "signif4"), regexp = "[1.414]", fixed = TRUE)
-  expect_output(print(w, digits = "scientific2"), regexp = "[1.41e+00]", fixed = TRUE)
-
+  expect_output(
+    print(w, digits = "scientific2"),
+    regexp = "[1.41e+00]",
+    fixed = TRUE
+  )
 
   ## Column name
   expect_output(print(d), "Cohen's d")
   expect_output(print(V1), "Cramer's V")
   expect_output(print(w), "Cohen's w")
-
 
   ## Interpretation
   d_ <- interpret(d, rules = "sawilowsky2009")
@@ -78,7 +88,11 @@ test_that("print | effectsize_anova", {
   e1 <- eta_squared(a)
   expect_output(print(e1), regexp = "(Type I)", fixed = TRUE)
   expect_output(print(e1), regexp = "Eta2 (partial)", fixed = TRUE)
-  expect_output(print(e1), regexp = "One-sided CIs: upper bound fixed at [1.00]", fixed = TRUE)
+  expect_output(
+    print(e1),
+    regexp = "One-sided CIs: upper bound fixed at [1.00]",
+    fixed = TRUE
+  )
 
   e2 <- eta_squared(a, generalized = "gear")
   expect_output(print(e2), regexp = "Observed variables: gear", fixed = TRUE)
@@ -102,7 +116,11 @@ test_that("print | equivalence_test_effectsize", {
   expect_output(print(equtest2), regexp = "Conditional")
 
   equtest3 <- equivalence_test(d, rule = "bayes")
-  expect_output(print(equtest3), regexp = "Using Bayesian guidlines", fixed = TRUE)
+  expect_output(
+    print(equtest3),
+    regexp = "Using Bayesian guidlines",
+    fixed = TRUE
+  )
 })
 
 # Rules -----------
@@ -113,10 +131,11 @@ test_that("rules", {
   expect_output(print(r1), regexp = "<=")
   expect_output(print(r1), regexp = "XX")
   expect_output(print(r1), regexp = "1 <   b   <= 2")
-  expect_output(print(r1, digits = "scientific1"),
-    regexp = "2.0e+00 <   c   <= 3.0e+00", fixed = TRUE
+  expect_output(
+    print(r1, digits = "scientific1"),
+    regexp = "2.0e+00 <   c   <= 3.0e+00",
+    fixed = TRUE
   )
-
 
   r2 <- rules(c(1, 2, 3.1), letters[1:3], name = "YY")
   expect_output(print(r2), regexp = "Values")
@@ -124,13 +143,15 @@ test_that("rules", {
   expect_output(print(r2), regexp = "b ~ 2")
   expect_output(print(r2), regexp = "c ~ 3.1")
   expect_output(print(r2, digits = "signif3"), regexp = "c ~ 3.1")
-  expect_output(print(r2, digits = "scientific1"), regexp = "a ~ 1.0e+00", fixed = TRUE)
-
+  expect_output(
+    print(r2, digits = "scientific1"),
+    regexp = "a ~ 1.0e+00",
+    fixed = TRUE
+  )
 
   expect_output(print(interpret(0, r1)), '"a"')
   expect_output(print(interpret(0, r1)), "XX")
 })
-
 
 
 test_that("printing symbols works as expected", {

@@ -5,7 +5,6 @@ test_that("equivalence_test", {
     ci = 0.9
   ) # TOST approach
 
-
   expect_equal(
     equivalence_test(ds, range = 0.2)$ROPE_Equivalence,
     c("Accepted", "Undecided", "Rejected", "Rejected", "Accepted")

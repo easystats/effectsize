@@ -14,7 +14,10 @@ test_that(".get_data_2_samples", {
   expect_error(d2 <- cohens_d("a", "c", data = df), regexp = NA)
   expect_error(d3 <- cohens_d(df$a ~ df$c), regexp = NA)
   expect_error(d4 <- cohens_d(df$a, df$c), regexp = NA)
-  expect_error(d5 <- cohens_d(df$a[df$c == "a"], df$a[df$c == "b"]), regexp = NA)
+  expect_error(
+    d5 <- cohens_d(df$a[df$c == "a"], df$a[df$c == "b"]),
+    regexp = NA
+  )
   expect_identical(d1, d2)
   expect_identical(d1, d3)
   expect_identical(d1, d4)
@@ -28,7 +31,6 @@ test_that(".get_data_2_samples", {
     cohens_d(exp(a) ~ c, data = df),
     cohens_d("exp_a", "c", data = df)
   )
-
 
   expect_error(cohens_d(a ~ b, data = df), "exactly")
   expect_error(cohens_d(a ~ d, data = df), "exactly")
@@ -62,48 +64,82 @@ test_that(".get_data_2_samples | na.action", {
   data("mtcars")
   mtcars$mpg[1] <- NA
   expect_warning(d1 <- cohens_d(mpg ~ am, data = mtcars), "dropped")
-  expect_warning(d2 <- cohens_d(mpg ~ am, data = mtcars, na.action = na.omit), NA)
+  expect_warning(
+    d2 <- cohens_d(mpg ~ am, data = mtcars, na.action = na.omit),
+    NA
+  )
 })
 
 test_that(".get_data_2_samples | subset", {
   expect_error(cohens_d(mpg ~ cyl, data = mtcars), "exactly")
-  expect_error(cohens_d(mpg ~ cyl, data = mtcars, subset = cyl %in% c(4, 6)), regexp = NA)
+  expect_error(
+    cohens_d(mpg ~ cyl, data = mtcars, subset = cyl %in% c(4, 6)),
+    regexp = NA
+  )
 
   expect_error(rank_biserial(mpg ~ cyl, data = mtcars), "exactly")
-  expect_error(rank_biserial(mpg ~ cyl, data = mtcars, subset = cyl %in% c(4, 6)), regexp = NA)
+  expect_error(
+    rank_biserial(mpg ~ cyl, data = mtcars, subset = cyl %in% c(4, 6)),
+    regexp = NA
+  )
 
   expect_error(sd_pooled(mpg ~ cyl, data = mtcars), "exactly")
-  expect_error(sd_pooled(mpg ~ cyl, data = mtcars, subset = cyl %in% c(4, 6)), regexp = NA)
+  expect_error(
+    sd_pooled(mpg ~ cyl, data = mtcars, subset = cyl %in% c(4, 6)),
+    regexp = NA
+  )
 
   expect_error(cohens_u1(mpg ~ cyl, data = mtcars), "exactly")
-  expect_error(cohens_u1(mpg ~ cyl, data = mtcars, subset = cyl %in% c(4, 6)), regexp = NA)
-
-  d1 <- cohens_d(mpg ~ cyl,
-    data = mtcars,
-    subset = cyl < 8
+  expect_error(
+    cohens_u1(mpg ~ cyl, data = mtcars, subset = cyl %in% c(4, 6)),
+    regexp = NA
   )
+
+  d1 <- cohens_d(mpg ~ cyl, data = mtcars, subset = cyl < 8)
 
   x <- mtcars$cyl < 8
-  d2 <- cohens_d(mpg ~ cyl,
-    data = mtcars,
-    subset = x
-  )
+  d2 <- cohens_d(mpg ~ cyl, data = mtcars, subset = x)
 
   x <- mtcars$cyl
-  d3 <- cohens_d(mpg ~ cyl,
-    data = mtcars,
-    subset = x < 8
-  )
+  d3 <- cohens_d(mpg ~ cyl, data = mtcars, subset = x < 8)
 
-  d4 <- cohens_d(mpg ~ cyl,
+  d4 <- cohens_d(
+    mpg ~ cyl,
     data = mtcars,
-    subset =
-      c(
-        TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE,
-        TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE,
-        TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE,
-        FALSE, TRUE
-      )
+    subset = c(
+      TRUE,
+      TRUE,
+      TRUE,
+      TRUE,
+      FALSE,
+      TRUE,
+      FALSE,
+      TRUE,
+      TRUE,
+      TRUE,
+      TRUE,
+      FALSE,
+      FALSE,
+      FALSE,
+      FALSE,
+      FALSE,
+      FALSE,
+      TRUE,
+      TRUE,
+      TRUE,
+      TRUE,
+      FALSE,
+      FALSE,
+      FALSE,
+      FALSE,
+      TRUE,
+      TRUE,
+      TRUE,
+      FALSE,
+      TRUE,
+      FALSE,
+      TRUE
+    )
   )
 
   expect_identical(d1, d2)
@@ -115,7 +151,32 @@ test_that(".get_data_2_samples | reference", {
   # create data
   my_tib <- data.frame(
     group = gl(2, 12, labels = c("No treatment", "Treatment")),
-    outcome = c(3, 1, 5, 4, 6, 4, 6, 2, 0, 5, 4, 5, 4, 3, 6, 6, 8, 5, 5, 4, 2, 5, 7, 5)
+    outcome = c(
+      3,
+      1,
+      5,
+      4,
+      6,
+      4,
+      6,
+      2,
+      0,
+      5,
+      4,
+      5,
+      4,
+      3,
+      6,
+      6,
+      8,
+      5,
+      5,
+      4,
+      2,
+      5,
+      7,
+      5
+    )
   )
   my_tib$group_chr <- as.character(my_tib$group)
 
@@ -128,7 +189,9 @@ test_that(".get_data_2_samples | reference", {
   # fomula input w/ character
   expect_identical(
     cohens_d(outcome ~ group_chr, data = my_tib)[[1]],
-    -cohens_d(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]]
+    -cohens_d(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[
+      1
+    ]]
   )
 
   # vector input w/ factor
@@ -146,68 +209,105 @@ test_that(".get_data_2_samples | reference", {
   # name input w/ factor
   expect_identical(
     cohens_d("outcome", "group", data = my_tib)[[1]],
-    -cohens_d("outcome", "group", data = my_tib, reference = "No treatment")[[1]]
+    -cohens_d("outcome", "group", data = my_tib, reference = "No treatment")[[
+      1
+    ]]
   )
 
   # name input w/ character
   expect_identical(
     cohens_d("outcome", "group_chr", data = my_tib)[[1]],
-    -cohens_d("outcome", "group_chr", data = my_tib, reference = "No treatment")[[1]]
+    -cohens_d(
+      "outcome",
+      "group_chr",
+      data = my_tib,
+      reference = "No treatment"
+    )[[1]]
   )
 
   # sign is opposite, same value
   expect_identical(
     rank_biserial(outcome ~ group_chr, data = my_tib)[[1]],
-    -rank_biserial(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]]
+    -rank_biserial(
+      outcome ~ group_chr,
+      data = my_tib,
+      reference = "No treatment"
+    )[[1]]
   )
 
   # inverse
   expect_equal(
     means_ratio(outcome ~ group_chr, data = my_tib)[[1]],
-    1 / means_ratio(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]],
+    1 /
+      means_ratio(
+        outcome ~ group_chr,
+        data = my_tib,
+        reference = "No treatment"
+      )[[1]],
     tolerance = 0.001
   )
 
   # sum to 1
   expect_equal(
     cohens_u3(outcome ~ group_chr, data = my_tib)[[1]],
-    1 - cohens_u3(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]],
+    1 -
+      cohens_u3(
+        outcome ~ group_chr,
+        data = my_tib,
+        reference = "No treatment"
+      )[[1]],
     tolerance = 0.001
   )
 
   # sum to 1
   expect_equal(
     p_superiority(outcome ~ group_chr, data = my_tib)[[1]],
-    1 - p_superiority(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]],
+    1 -
+      p_superiority(
+        outcome ~ group_chr,
+        data = my_tib,
+        reference = "No treatment"
+      )[[1]],
     tolerance = 0.001
   )
 
   # sign is opposite but so is value
   delta1 <- glass_delta(outcome ~ group_chr, data = my_tib)[[1]]
-  delta2 <- glass_delta(outcome ~ group_chr, data = my_tib, reference = "No treatment")[[1]]
+  delta2 <- glass_delta(
+    outcome ~ group_chr,
+    data = my_tib,
+    reference = "No treatment"
+  )[[1]]
   expect_identical(sign(delta1), -sign(delta2))
   expect_true(abs(delta1) != abs(delta2))
 
-
-
-
   data("sleep")
-  sleep2 <- reshape(sleep,
-    direction = "wide",
-    idvar = "ID", timevar = "group"
-  )
+  sleep2 <- reshape(sleep, direction = "wide", idvar = "ID", timevar = "group")
 
   # formula w/ Pair()
   expect_identical(
     hedges_g(Pair(extra.1, extra.2) ~ 1, data = sleep2, verbose = FALSE)[[1]],
-    -hedges_g(Pair(extra.1, extra.2) ~ 1, data = sleep2, verbose = FALSE, reference = "extra.1")[[1]]
+    -hedges_g(
+      Pair(extra.1, extra.2) ~ 1,
+      data = sleep2,
+      verbose = FALSE,
+      reference = "extra.1"
+    )[[1]]
   )
-
 
   # formula w/ arbitrary Pair()
   expect_identical(
-    cohens_d(Pair(extra[group == 1] + pi, extra[group == 2]) ~ 1, data = sleep, verbose = FALSE)[[1]],
-    -cohens_d(Pair(extra[group == 1] + pi, extra[group == 2]) ~ 1, data = sleep, verbose = FALSE, reference = "extra[group == 1] + pi")[[1]]
+    cohens_d(
+      Pair(extra[group == 1] + pi, extra[group == 2]) ~ 1,
+      data = sleep,
+      verbose = FALSE
+    )[[1]],
+    -cohens_d(
+      Pair(extra[group == 1] + pi, extra[group == 2]) ~ 1,
+      data = sleep,
+      verbose = FALSE,
+      reference = "extra[group == 1] + pi"
+    )[[1]]
   )
 })
 
@@ -221,8 +321,14 @@ test_that(".get_data_multi_group", {
   )
   df$exp_a <- exp(df$a)
 
-  expect_error(d1 <- rank_epsilon_squared(a ~ c, data = df, ci = NULL), regexp = NA)
-  expect_error(d2 <- rank_epsilon_squared("a", "c", data = df, ci = NULL), regexp = NA)
+  expect_error(
+    d1 <- rank_epsilon_squared(a ~ c, data = df, ci = NULL),
+    regexp = NA
+  )
+  expect_error(
+    d2 <- rank_epsilon_squared("a", "c", data = df, ci = NULL),
+    regexp = NA
+  )
   expect_error(d3 <- rank_epsilon_squared(df$a ~ df$c, ci = NULL), regexp = NA)
   expect_error(d4 <- rank_epsilon_squared(df$a, df$c, ci = NULL), regexp = NA)
   L <- split(df$a, df$c)
@@ -243,7 +349,10 @@ test_that(".get_data_multi_group", {
   expect_error(rank_epsilon_squared("a", "aa", data = df), "missing")
 
   df[1, ] <- NA
-  expect_warning(E1 <- rank_epsilon_squared(a ~ c, data = df, ci = NULL), "dropped")
+  expect_warning(
+    E1 <- rank_epsilon_squared(a ~ c, data = df, ci = NULL),
+    "dropped"
+  )
   expect_identical(E1, rank_epsilon_squared(df$a[-1], df$c[-1], ci = NULL))
 })
 
@@ -268,9 +377,15 @@ test_that(".get_data_nested_groups", {
   M2 <- data.frame(
     id = c(1L, 1L, 1L, 2L, 2L, 2L, 3L, 3L, 3L),
     name = c(
-      "Round Out", "Narrow Angle", "Wide Angle",
-      "Round Out", "Narrow Angle", "Wide Angle",
-      "Round Out", "Narrow Angle", "Wide Angle"
+      "Round Out",
+      "Narrow Angle",
+      "Wide Angle",
+      "Round Out",
+      "Narrow Angle",
+      "Wide Angle",
+      "Round Out",
+      "Narrow Angle",
+      "Wide Angle"
     ),
     value = c(5.4, 5.5, 5.55, 5.85, 5.7, 5.75, 5.2, 5.6, 5.5),
     stringsAsFactors = FALSE
@@ -323,25 +438,31 @@ test_that(".get_data_multivariate | na.action", {
   data("mtcars")
   mtcars$mpg[1] <- NA
   expect_warning(mahalanobis_d(mtcars[, c("mpg", "hp")]), regexp = "dropped")
-  expect_warning(mahalanobis_d(mpg + hp ~ 1, data = mtcars, na.action = na.omit), regexp = NA)
-  expect_warning(D1 <- mahalanobis_d(mpg + hp ~ 1, data = mtcars), regexp = "dropped")
+  expect_warning(
+    mahalanobis_d(mpg + hp ~ 1, data = mtcars, na.action = na.omit),
+    regexp = NA
+  )
+  expect_warning(
+    D1 <- mahalanobis_d(mpg + hp ~ 1, data = mtcars),
+    regexp = "dropped"
+  )
   expect_identical(D1, mahalanobis_d(mpg + hp ~ 1, data = mtcars[-1, ]))
 })
 
 
 test_that(".get_data_paired | reference", {
   data("sleep")
-  sleep2 <- reshape(sleep,
-    direction = "wide",
-    idvar = "ID", timevar = "group"
-  )
+  sleep2 <- reshape(sleep, direction = "wide", idvar = "ID", timevar = "group")
 
   # formual w/ Pair()
   expect_identical(
     repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2)[[1]],
-    -repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, reference = "extra.1")[[1]]
+    -repeated_measures_d(
+      Pair(extra.1, extra.2) ~ 1,
+      data = sleep2,
+      reference = "extra.1"
+    )[[1]]
   )
-
 
   # 3 part formula (+aggragate)
   data("rouder2016")
@@ -349,12 +470,28 @@ test_that(".get_data_paired | reference", {
 
   # with factor
   expect_identical(
-    repeated_measures_d(rt ~ cond | id, data = rouder2016, verbose = FALSE)[[1]],
-    -repeated_measures_d(rt ~ cond | id, data = rouder2016, verbose = FALSE, reference = "2")[[1]]
+    repeated_measures_d(rt ~ cond | id, data = rouder2016, verbose = FALSE)[[
+      1
+    ]],
+    -repeated_measures_d(
+      rt ~ cond | id,
+      data = rouder2016,
+      verbose = FALSE,
+      reference = "2"
+    )[[1]]
   )
 
   expect_identical(
-    repeated_measures_d(rt ~ cond_num | id, data = rouder2016, verbose = FALSE)[[1]],
-    -repeated_measures_d(rt ~ cond_num | id, data = rouder2016, verbose = FALSE, reference = "2")[[1]]
+    repeated_measures_d(
+      rt ~ cond_num | id,
+      data = rouder2016,
+      verbose = FALSE
+    )[[1]],
+    -repeated_measures_d(
+      rt ~ cond_num | id,
+      data = rouder2016,
+      verbose = FALSE,
+      reference = "2"
+    )[[1]]
   )
 })

@@ -87,16 +87,24 @@
 #' parameters::dominance_analysis(m_full)
 #'
 #' @export
-r2_semipartial <- function(model, type = c("terms", "parameters"),
-                           ci = 0.95, alternative = "greater",
-                           ...) {
+r2_semipartial <- function(
+  model,
+  type = c("terms", "parameters"),
+  ci = 0.95,
+  alternative = "greater",
+  ...
+) {
   UseMethod("r2_semipartial")
 }
 
 #' @export
-r2_semipartial.lm <- function(model, type = c("terms", "parameters"),
-                              ci = 0.95, alternative = "greater",
-                              ...) {
+r2_semipartial.lm <- function(
+  model,
+  type = c("terms", "parameters"),
+  ci = 0.95,
+  alternative = "greater",
+  ...
+) {
   type <- match.arg(type)
   alternative <- .match.alt(alternative, FALSE)
 
@@ -117,10 +125,18 @@ r2_semipartial.lm <- function(model, type = c("terms", "parameters"),
     idx_sub <- idx[Parameter != "(Intercept)"]
   }
 
-  tot_mod <- stats::lm(stats::reformulate("mm", response = "y", intercept = has_incpt))
+  tot_mod <- stats::lm(stats::reformulate(
+    "mm",
+    response = "y",
+    intercept = has_incpt
+  ))
 
   sub_mods <- lapply(unique(idx_sub), function(.i) {
-    f <- stats::reformulate("mm[, .i != idx]", response = "y", intercept = has_incpt)
+    f <- stats::reformulate(
+      "mm[, .i != idx]",
+      response = "y",
+      intercept = has_incpt
+    )
     stats::lm(f)
   })
 
@@ -186,7 +202,14 @@ r2_semipartial.lm <- function(model, type = c("terms", "parameters"),
   rhor <- sqrt(R2r)
   rhof <- sqrt(R2f)
 
-  (4 * rhof * rhor * (0.5 * (2 * rhor / rhof - rhor * rhof) * (1 - R2f - R2r - R2r / R2f) + (rhor / rhof)^3)) / N
+  (4 *
+    rhof *
+    rhor *
+    (0.5 *
+      (2 * rhor / rhof - rhor * rhof) *
+      (1 - R2f - R2r - R2r / R2f) +
+      (rhor / rhof)^3)) /
+    N
 }
 
 #' @keywords internal

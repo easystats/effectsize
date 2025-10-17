@@ -118,11 +118,18 @@
 #'
 #'
 #' @export
-rank_biserial <- function(x, y = NULL, data = NULL,
-                          mu = 0, paired = FALSE,
-                          reference = NULL,
-                          ci = 0.95, alternative = "two.sided",
-                          verbose = TRUE, ...) {
+rank_biserial <- function(
+  x,
+  y = NULL,
+  data = NULL,
+  mu = 0,
+  paired = FALSE,
+  reference = NULL,
+  ci = 0.95,
+  alternative = "two.sided",
+  verbose = TRUE,
+  ...
+) {
   alternative <- .match.alt(alternative)
 
   if (.is_htest_of_type(x, "Wilcoxon", "Wilcoxon-test")) {
@@ -130,11 +137,15 @@ rank_biserial <- function(x, y = NULL, data = NULL,
   }
 
   ## Prep data
-  out <- .get_data_2_samples(x, y, data,
+  out <- .get_data_2_samples(
+    x,
+    y,
+    data,
     paired = paired,
     reference = reference,
     allow_ordered = TRUE,
-    verbose = verbose, ...
+    verbose = verbose,
+    ...
   )
   x <- out[["x"]]
   y <- out[["y"]]
@@ -148,7 +159,13 @@ rank_biserial <- function(x, y = NULL, data = NULL,
   }
 
   ## Compute
-  r_rbs <- .r_rbs(x, y, mu = mu, paired = is_paired_or_onesample, verbose = verbose)
+  r_rbs <- .r_rbs(
+    x,
+    y,
+    mu = mu,
+    paired = is_paired_or_onesample,
+    verbose = verbose
+  )
   out <- data.frame(r_rank_biserial = r_rbs)
 
   ## CI
@@ -196,7 +213,12 @@ rank_biserial <- function(x, y = NULL, data = NULL,
     ci_method <- alternative <- NULL
   }
 
-  class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
+  class(out) <- c(
+    "effectsize_difference",
+    "effectsize_table",
+    "see_effectsize_table",
+    class(out)
+  )
   attr(out, "paired") <- paired
   attr(out, "mu") <- mu
   attr(out, "ci") <- ci
@@ -208,13 +230,22 @@ rank_biserial <- function(x, y = NULL, data = NULL,
 
 #' @export
 #' @rdname rank_biserial
-cliffs_delta <- function(x, y = NULL, data = NULL,
-                         mu = 0,
-                         reference = NULL,
-                         ci = 0.95, alternative = "two.sided",
-                         verbose = TRUE, ...) {
+cliffs_delta <- function(
+  x,
+  y = NULL,
+  data = NULL,
+  mu = 0,
+  reference = NULL,
+  ci = 0.95,
+  alternative = "two.sided",
+  verbose = TRUE,
+  ...
+) {
   cl <- match.call()
-  data <- .get_data_2_samples(x, y, data,
+  data <- .get_data_2_samples(
+    x,
+    y,
+    data,
     verbose = verbose,
     allow_ordered = TRUE,
     reference = reference,
@@ -223,7 +254,9 @@ cliffs_delta <- function(x, y = NULL, data = NULL,
   x <- data$x
   y <- data$y
   if (is.null(y) || isTRUE(cl$paired) || isTRUE(data[["paired"]])) {
-    insight::format_error("This effect size is only applicable for two independent samples.")
+    insight::format_error(
+      "This effect size is only applicable for two independent samples."
+    )
   }
 
   cl[[1]] <- quote(effectsize::rank_biserial)
