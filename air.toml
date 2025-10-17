@@ -1,3 +1,9 @@
 [format]
+line-width = 80
+indent-width = 2
+indent-style = "space"
+line-ending = "lf"
+persistent-line-breaks = true
 exclude = ["data-raw/**/*.R", "papers/**/*.R"]
 default-exclude = true
+skip = ["tribble"]
