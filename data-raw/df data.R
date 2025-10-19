@@ -263,16 +263,13 @@ save(rouder2016, file = "data/rouder2016.rdata")
 
 # https://github.com/ianhussey/not-so-simple-preferences -----------------
 
-library(tidyverse)
+desirability <- readRDS(url("https://github.com/ianhussey/not-so-simple-preferences/raw/refs/heads/main/data/processed/data_processed.rds"))
 
-desirability <- readRDS("data-raw/data_processed.rds")
-glimpse(desirability)
+desirability <- desirability[
+  desirability$global_check == "passed",
+  c("participant_id", "desirability_poop", "desirability_chocolate")
+]
 
-desirability <- desirability |>
-  filter(global_check == "passed") |>
-  select(participant_id,
-         poop = desirability_poop,
-         chocolate = desirability_chocolate) |>
-  as.data.frame()
+colnames(desirability) <- gsub("desirability_", "", colnames(desirability))
 
 save(desirability, file = "data/desirability.rdata")
