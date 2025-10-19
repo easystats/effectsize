@@ -37,7 +37,13 @@
 #'
 #' @keywords interpreters
 #' @export
-interpret_oddsratio <- function(OR, rules = "cohen1988", p0 = NULL, log = FALSE, ...) {
+interpret_oddsratio <- function(
+  OR,
+  rules = "cohen1988",
+  p0 = NULL,
+  log = FALSE,
+  ...
+) {
   if (is.character(rules) && rules == "cohen1988") {
     d <- oddsratio_to_d(OR, p0, log = log)
     return(interpret_cohens_d(d, rules = rules))

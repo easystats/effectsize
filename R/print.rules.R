@@ -3,9 +3,21 @@ print.rules <- function(x, digits = "signif2", ...) {
   x_fmt <- format(x, digits = digits, ...)
 
   if (length(x$values) == length(x$labels)) {
-    cat(insight::export_table(x_fmt, align = "rl", format = NULL, sep = " ~ ", ...))
+    cat(insight::export_table(
+      x_fmt,
+      align = "rl",
+      format = NULL,
+      sep = " ~ ",
+      ...
+    ))
   } else {
-    cat(insight::export_table(x_fmt, align = "rcl", format = NULL, sep = " ", ...))
+    cat(insight::export_table(
+      x_fmt,
+      align = "rcl",
+      format = NULL,
+      sep = " ",
+      ...
+    ))
   }
   invisible(x)
 }
@@ -33,7 +45,6 @@ print_html.rules <- function(x, digits = "signif2", ...) {
     insight::export_table(x_fmt, align = "rcl", format = "html", ...)
   }
 }
-
 
 
 #' @export

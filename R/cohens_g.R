@@ -52,15 +52,12 @@
 #' # Test 2 gives a negative result more than test 1!
 #'
 #' @export
-cohens_g <- function(x, y = NULL,
-                     ci = 0.95, alternative = "two.sided",
-                     ...) {
+cohens_g <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
   alternative <- .match.alt(alternative)
 
   if (.is_htest_of_type(x, "McNemar")) {
     return(effectsize(x, ci = ci, alternative = alternative))
   }
-
 
   if (!is.matrix(x)) {
     if (is.null(y)) {
@@ -73,13 +70,16 @@ cohens_g <- function(x, y = NULL,
     x <- as.factor(x[OK])
     y <- as.factor(y[OK])
     if ((nlevels(x) < 2) || (nlevels(y) != nlevels(x))) {
-      insight::format_error("'x' and 'y' must have the same number of levels (minimum 2)")
+      insight::format_error(
+        "'x' and 'y' must have the same number of levels (minimum 2)"
+      )
     }
     x <- table(x, y)
   } else if ((nrow(x) < 2) || (ncol(x) != nrow(x))) {
-    insight::format_error("'x' must be square with at least two rows and columns")
+    insight::format_error(
+      "'x' must be square with at least two rows and columns"
+    )
   }
-
 
   a <- x[upper.tri(x)]
   b <- t(x)[upper.tri(x)]
@@ -95,7 +95,9 @@ cohens_g <- function(x, y = NULL,
     n <- sum(a) + sum(b)
     k <- P * n
 
-    res <- stats::prop.test(k, n,
+    res <- stats::prop.test(
+      k,
+      n,
       p = 0.5,
       alternative = alternative,
       conf.level = ci,

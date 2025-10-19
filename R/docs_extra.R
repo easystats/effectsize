@@ -168,7 +168,6 @@ NULL
 NULL
 
 
-
 #' `effectsize` options
 #'
 #' Currently, the following global options are supported:

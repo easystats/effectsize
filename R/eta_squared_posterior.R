@@ -7,29 +7,35 @@
 #'
 #' @export
 #' @rdname eta_squared
-eta_squared_posterior <- function(model,
-                                  partial = TRUE,
-                                  generalized = FALSE,
-                                  ss_function = stats::anova,
-                                  draws = 500,
-                                  verbose = TRUE,
-                                  ...) {
+eta_squared_posterior <- function(
+  model,
+  partial = TRUE,
+  generalized = FALSE,
+  ss_function = stats::anova,
+  draws = 500,
+  verbose = TRUE,
+  ...
+) {
   UseMethod("eta_squared_posterior")
 }
 
 #' @export
-eta_squared_posterior.stanreg <- function(model,
-                                          partial = TRUE,
-                                          generalized = FALSE,
-                                          ss_function = stats::anova,
-                                          draws = 500,
-                                          verbose = TRUE,
-                                          ...) {
+eta_squared_posterior.stanreg <- function(
+  model,
+  partial = TRUE,
+  generalized = FALSE,
+  ss_function = stats::anova,
+  draws = 500,
+  verbose = TRUE,
+  ...
+) {
   insight::check_if_installed("rstantools")
 
   mi <- .get_model_info(model, ...)
   if (!mi$is_linear || mi$is_multivariate) {
-    insight::format_error("Computation of Eta Squared is only applicable to univariate linear models.")
+    insight::format_error(
+      "Computation of Eta Squared is only applicable to univariate linear models."
+    )
   }
 
   if (mi$is_mixed) {
@@ -56,7 +62,6 @@ eta_squared_posterior.stanreg <- function(model,
     }
   }
 
-
   ## 1. get model data
   f <- insight::find_formula(model)$conditional
   X <- insight::get_predictors(model)
@@ -66,7 +71,8 @@ eta_squared_posterior.stanreg <- function(model,
   # if (verbose) .all_centered(X)
 
   ## 2. get ppd
-  ppd <- rstantools::posterior_predict(model,
+  ppd <- rstantools::posterior_predict(
+    model,
     draws = draws, # for rstanreg
     nsamples = draws # for brms
   )
@@ -90,7 +96,13 @@ eta_squared_posterior.stanreg <- function(model,
       ANOVA <- suppressWarnings(ss_function(temp_fit, ...))
     }
 
-    es <- eta_squared(ANOVA, ci = NULL, partial = partial, generalized = generalized, verbose = verbose)
+    es <- eta_squared(
+      ANOVA,
+      ci = NULL,
+      partial = partial,
+      generalized = generalized,
+      verbose = verbose
+    )
 
     es <- stats::setNames(
       es[[if (partial) "Eta2_partial" else "Eta2"]],
@@ -106,7 +118,6 @@ eta_squared_posterior.stanreg <- function(model,
 
 #' @export
 eta_squared_posterior.brmsfit <- eta_squared_posterior.stanreg
-
 
 #' #' @keywords internal
 #' .all_centered <- function(X) {

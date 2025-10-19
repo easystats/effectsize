@@ -21,9 +21,14 @@ test_that("basic examples", {
   expect_no_warning(effectsize(x, data = mtcars))
 
   # friedman.test
-  wb <- aggregate(warpbreaks$breaks, by = list(
-    w = warpbreaks$wool, t = warpbreaks$tension
-  ), FUN = mean)
+  wb <- aggregate(
+    warpbreaks$breaks,
+    by = list(
+      w = warpbreaks$wool,
+      t = warpbreaks$tension
+    ),
+    FUN = mean
+  )
   x <- friedman.test(x ~ w | t, data = wb)
   expect_error(effectsize(x), "Unable to retrieve data")
   expect_no_warning(effectsize(x, data = wb))
@@ -108,7 +113,8 @@ test_that("subset and na.action", {
   some_data <- mtcars
   some_data$mpg[1] <- NA
 
-  tt <- t.test(mpg ~ am,
+  tt <- t.test(
+    mpg ~ am,
     data = some_data,
     alternative = "less",
     mu = 1,
@@ -117,7 +123,8 @@ test_that("subset and na.action", {
     na.action = na.omit
   )
 
-  d1 <- effectsize(tt,
+  d1 <- effectsize(
+    tt,
     data = some_data,
     alternative = "less",
     mu = 1,
@@ -126,7 +133,8 @@ test_that("subset and na.action", {
     na.action = na.omit
   )
 
-  d2 <- cohens_d(mpg ~ am,
+  d2 <- cohens_d(
+    mpg ~ am,
     data = some_data,
     alternative = "less",
     mu = 1,
@@ -138,10 +146,7 @@ test_that("subset and na.action", {
   expect_equal(d1, d2, ignore_attr = TRUE)
 
   # Paired t.test with formula
-  sleep2 <- reshape(sleep,
-    direction = "wide",
-    idvar = "ID", timevar = "group"
-  )
+  sleep2 <- reshape(sleep, direction = "wide", idvar = "ID", timevar = "group")
   sleep2$ID <- as.numeric(sleep2$ID)
   sleep2$extra.2[1] <- NA
 
@@ -210,9 +215,14 @@ test_that("subset and na.action", {
   expect_equal(d1, d2, ignore_attr = TRUE)
 
   # friedman.test
-  wb <- aggregate(warpbreaks$breaks, by = list(
-    w = warpbreaks$wool, t = warpbreaks$tension
-  ), FUN = mean)
+  wb <- aggregate(
+    warpbreaks$breaks,
+    by = list(
+      w = warpbreaks$wool,
+      t = warpbreaks$tension
+    ),
+    FUN = mean
+  )
   new_row <- data.frame(w = "B", t = "H", x = 99, stringsAsFactors = FALSE)
   wb <- rbind(wb, wb[6, ], new_row)
   wb$x[7] <- NA

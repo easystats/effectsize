@@ -16,7 +16,14 @@
 #' format_standardize(standardize(mtcars$wt), digits = 1)
 #' format_standardize(standardize(mtcars$wt, robust = TRUE), digits = 1)
 #' @export
-format_standardize <- function(x, reference = x, robust = FALSE, digits = 1, protect_integers = TRUE, ...) {
+format_standardize <- function(
+  x,
+  reference = x,
+  robust = FALSE,
+  digits = 1,
+  protect_integers = TRUE,
+  ...
+) {
   # Check if robust info stored in attributes
   if ("robust" %in% names(attributes(reference))) {
     robust <- attributes(reference)$robust
@@ -43,7 +50,6 @@ format_standardize <- function(x, reference = x, robust = FALSE, digits = 1, pro
     deviation <- attributes(reference)$scale
   }
 
-
   # Express in deviations
   if (length(x) != length(reference) || any(x != reference)) {
     x <- (x - central) / deviation
@@ -52,12 +58,14 @@ format_standardize <- function(x, reference = x, robust = FALSE, digits = 1, pro
   # Round
   x <- round(x, digits = digits)
 
-
   # Format vector as character
   L <- insight::format_value(x, digits = digits, ...)
 
   # Complete
-  L[!grepl("-", L, fixed = TRUE)] <- paste0("+", L[!grepl("-", L, fixed = TRUE)])
+  L[!grepl("-", L, fixed = TRUE)] <- paste0(
+    "+",
+    L[!grepl("-", L, fixed = TRUE)]
+  )
   L <- paste(L, deviation_name)
   L[x == 0] <- central_name
 

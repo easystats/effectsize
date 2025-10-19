@@ -52,17 +52,29 @@ interpret_r2 <- function(r2, rules = "cohen1988") {
   rules <- .match.rules(
     rules,
     list(
-      cohen1988 = rules(c(0.02, 0.13, 0.26), c("very weak", "weak", "moderate", "substantial"),
-        name = "cohen1988", right = FALSE
+      cohen1988 = rules(
+        c(0.02, 0.13, 0.26),
+        c("very weak", "weak", "moderate", "substantial"),
+        name = "cohen1988",
+        right = FALSE
       ),
-      falk1992 = rules(0.10, c("negligible", "adequate"),
-        name = "falk1992", right = FALSE
+      falk1992 = rules(
+        0.10,
+        c("negligible", "adequate"),
+        name = "falk1992",
+        right = FALSE
       ),
-      chin1998 = rules(c(0.19, 0.33, 0.67), c("very weak", "weak", "moderate", "substantial"),
-        name = "chin1998", right = FALSE
+      chin1998 = rules(
+        c(0.19, 0.33, 0.67),
+        c("very weak", "weak", "moderate", "substantial"),
+        name = "chin1998",
+        right = FALSE
       ),
-      hair2011 = rules(c(0.25, 0.50, 0.75), c("very weak", "weak", "moderate", "substantial"),
-        name = "hair2011", right = FALSE
+      hair2011 = rules(
+        c(0.25, 0.50, 0.75),
+        c("very weak", "weak", "moderate", "substantial"),
+        name = "hair2011",
+        right = FALSE
       )
     )
   )

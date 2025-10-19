@@ -17,7 +17,7 @@
 #' @inheritParams cohens_d
 #'
 #' @details
-#' If an impossible combination of risk ratio `RR` and baseline risk `p0` is provided, 
+#' If an impossible combination of risk ratio `RR` and baseline risk `p0` is provided,
 #' such that `RR * p0 > 1`, then this conversion will produce invalid results where
 #' the expected risk is larger than 1. In such cases `riskratio_to_*()` functions will return `NA`.
 #'
@@ -60,8 +60,16 @@ oddsratio_to_riskratio <- function(OR, p0, log = FALSE, verbose = TRUE, ...) {
 }
 
 #' @export
-oddsratio_to_riskratio.numeric <- function(OR, p0, log = FALSE, verbose = TRUE, ...) {
-  if (log) OR <- exp(OR)
+oddsratio_to_riskratio.numeric <- function(
+  OR,
+  p0,
+  log = FALSE,
+  verbose = TRUE,
+  ...
+) {
+  if (log) {
+    OR <- exp(OR)
+  }
 
   RR <- OR / (1 - p0 + (p0 * OR))
 
@@ -69,9 +77,21 @@ oddsratio_to_riskratio.numeric <- function(OR, p0, log = FALSE, verbose = TRUE, 
 }
 
 #' @export
-oddsratio_to_riskratio.default <- function(OR, p0, log = FALSE, verbose = TRUE, ...) {
-  .model_to_riskchange(OR, p0 = p0, verbose = verbose,
-                       link = "logit", trans = "riskratio", ...)
+oddsratio_to_riskratio.default <- function(
+  OR,
+  p0,
+  log = FALSE,
+  verbose = TRUE,
+  ...
+) {
+  .model_to_riskchange(
+    OR,
+    p0 = p0,
+    verbose = verbose,
+    link = "logit",
+    trans = "riskratio",
+    ...
+  )
 }
 
 #' @rdname oddsratio_to_riskratio
@@ -82,15 +102,23 @@ oddsratio_to_arr <- function(OR, p0, log = FALSE, verbose = TRUE, ...) {
 
 #' @export
 oddsratio_to_arr.numeric <- function(OR, p0, log = FALSE, verbose = TRUE, ...) {
-  if (log) OR <- exp(OR)
+  if (log) {
+    OR <- exp(OR)
+  }
   RR <- oddsratio_to_riskratio(OR, p0, log = FALSE, verbose = verbose)
   riskratio_to_arr(RR, p0, verbose = verbose)
 }
 
 #' @export
 oddsratio_to_arr.default <- function(OR, p0, log = FALSE, verbose = TRUE, ...) {
-  .model_to_riskchange(OR, p0 = p0, verbose = verbose,
-                       link = "logit", trans = "arr", ...)
+  .model_to_riskchange(
+    OR,
+    p0 = p0,
+    verbose = verbose,
+    link = "logit",
+    trans = "arr",
+    ...
+  )
 }
 
 #' @rdname oddsratio_to_riskratio
@@ -107,8 +135,14 @@ oddsratio_to_nnt.numeric <- function(OR, p0, log = FALSE, verbose = TRUE, ...) {
 
 #' @export
 oddsratio_to_nnt.default <- function(OR, p0, log = FALSE, verbose = TRUE, ...) {
-  .model_to_riskchange(OR, p0 = p0, verbose = verbose,
-                       link = "logit", trans = "nnt", ...)
+  .model_to_riskchange(
+    OR,
+    p0 = p0,
+    verbose = verbose,
+    link = "logit",
+    trans = "nnt",
+    ...
+  )
 }
 
 
@@ -116,7 +150,13 @@ oddsratio_to_nnt.default <- function(OR, p0, log = FALSE, verbose = TRUE, ...) {
 
 #' @rdname oddsratio_to_riskratio
 #' @export
-logoddsratio_to_riskratio <- function(logOR, p0, log = TRUE, verbose = TRUE, ...) {
+logoddsratio_to_riskratio <- function(
+  logOR,
+  p0,
+  log = TRUE,
+  verbose = TRUE,
+  ...
+) {
   oddsratio_to_riskratio(logOR, p0, log = log, verbose = verbose)
 }
 
@@ -135,7 +175,6 @@ logoddsratio_to_nnt <- function(logOR, p0, log = TRUE, verbose = TRUE, ...) {
 }
 
 
-
 # From RR -----------------------------------------------------------------
 
 #' @rdname oddsratio_to_riskratio
@@ -145,19 +184,39 @@ riskratio_to_oddsratio <- function(RR, p0, log = FALSE, verbose = TRUE, ...) {
 }
 
 #' @export
-riskratio_to_oddsratio.numeric <- function(RR, p0, log = FALSE, verbose = TRUE, ...) {
+riskratio_to_oddsratio.numeric <- function(
+  RR,
+  p0,
+  log = FALSE,
+  verbose = TRUE,
+  ...
+) {
   p1 <- RR * p0
   OR <- RR * (1 - p0) / (1 - p1)
   OR[p1 > 1] <- NA
 
-  if (log) OR <- log(OR)
+  if (log) {
+    OR <- log(OR)
+  }
   return(OR)
 }
 
 #' @export
-riskratio_to_oddsratio.default <- function(RR, p0, log = FALSE, verbose = TRUE, ...) {
-  .model_to_riskchange(RR, p0 = p0, verbose = verbose,
-                       link = "log", trans = if (log) "logoddsratio" else "oddsratio", ...)
+riskratio_to_oddsratio.default <- function(
+  RR,
+  p0,
+  log = FALSE,
+  verbose = TRUE,
+  ...
+) {
+  .model_to_riskchange(
+    RR,
+    p0 = p0,
+    verbose = verbose,
+    link = "log",
+    trans = if (log) "logoddsratio" else "oddsratio",
+    ...
+  )
 }
 
 #' @rdname oddsratio_to_riskratio
@@ -174,8 +233,14 @@ riskratio_to_arr.numeric <- function(RR, p0, verbose = TRUE, ...) {
 
 #' @export
 riskratio_to_arr.default <- function(RR, p0, verbose = TRUE, ...) {
-  .model_to_riskchange(RR, p0 = p0, verbose = verbose,
-                       link = "log", trans = "arr", ...)
+  .model_to_riskchange(
+    RR,
+    p0 = p0,
+    verbose = verbose,
+    link = "log",
+    trans = "arr",
+    ...
+  )
 }
 
 #' @rdname oddsratio_to_riskratio
@@ -198,8 +263,14 @@ riskratio_to_nnt.numeric <- function(RR, p0, verbose = TRUE, ...) {
 
 #' @export
 riskratio_to_nnt.default <- function(RR, p0, verbose = TRUE, ...) {
-  .model_to_riskchange(RR, p0 = p0, verbose = verbose,
-                       link = "log", trans = "nnt", ...)
+  .model_to_riskchange(
+    RR,
+    p0 = p0,
+    verbose = verbose,
+    link = "log",
+    trans = "nnt",
+    ...
+  )
 }
 
 
@@ -262,29 +333,57 @@ nnt_to_arr <- function(NNT, ...) {
 }
 
 
-
 # Utils -------------------------------------------------------------------
 
 #' @keywords internal
-.model_to_riskchange <- function(model, p0,
-                                 trans = c("oddsratio", "logoddsratio", "riskratio", "nnt", "arr"),
-                                 link = c("logit", "log"),
-                                 verbose = TRUE,
-                                 ...) {
+.model_to_riskchange <- function(
+  model,
+  p0,
+  trans = c("oddsratio", "logoddsratio", "riskratio", "nnt", "arr"),
+  link = c("logit", "log"),
+  verbose = TRUE,
+  ...
+) {
   link <- match.arg(link)
   trans <- match.arg(trans)
   to_log <- trans == "logoddsratio"
-  if (to_log) trans <- "oddsratio"
-  ftrans <- match.fun(paste0(ifelse(link == "logit", "oddsratio", "riskratio"), "_to_", trans))
+  if (to_log) {
+    trans <- "oddsratio"
+  }
+  ftrans <- match.fun(paste0(
+    ifelse(link == "logit", "oddsratio", "riskratio"),
+    "_to_",
+    trans
+  ))
 
   mi <- .get_model_info(model, ...)
   if (!mi$is_binomial || mi$link_function != link) {
-    insight::format_error(sprintf("Model must be a binomial model with a %s link function.", link))
+    insight::format_error(sprintf(
+      "Model must be a binomial model with a %s link function.",
+      link
+    ))
   }
 
   # Coef table
-  pars <- parameters::model_parameters(model, exponentiate = TRUE, effects = "fixed", ...)
-  pars[,setdiff(colnames(pars), c("Effects", "Group", "Component", "Parameter", "Coefficient", "CI", "CI_low", "CI_high"))] <- NULL
+  pars <- parameters::model_parameters(
+    model,
+    exponentiate = TRUE,
+    effects = "fixed",
+    ...
+  )
+  pars[, setdiff(
+    colnames(pars),
+    c(
+      "Effects",
+      "Group",
+      "Component",
+      "Parameter",
+      "Coefficient",
+      "CI",
+      "CI_low",
+      "CI_high"
+    )
+  )] <- NULL
 
   # p0
   if (missing(p0)) {
@@ -300,7 +399,10 @@ nnt_to_arr <- function(NNT, ...) {
     if (verbose) {
       insight::format_warning(
         "'p0' not provided:",
-        sprintf("Computing effect size relative to the intercept (p0 = %.3f);", p0),
+        sprintf(
+          "Computing effect size relative to the intercept (p0 = %.3f);",
+          p0
+        ),
         "Make sure your intercept is meaningful."
       )
     }
@@ -308,21 +410,34 @@ nnt_to_arr <- function(NNT, ...) {
 
   # transform
   trans_cols <- intersect(colnames(pars), c("Coefficient", "CI_low", "CI_high"))
-  pars_out <- datawizard::data_modify(pars, .at = trans_cols,
-                                      .modify = function(x) ftrans(x, p0 = p0))
+  pars_out <- datawizard::data_modify(
+    pars,
+    .at = trans_cols,
+    .modify = function(x) ftrans(x, p0 = p0)
+  )
   if (trans == "nnt" && "CI" %in% colnames(pars_out)) {
     for (i in seq_len(nrow(pars_out))) {
       ci_sign <- unlist(sign(pars_out[i, c("CI_low", "CI_high")]))
       if (all(ci_sign == 1) || all(ci_sign == -1)) {
-        pars_out[i, c("CI_low", "CI_high")] <- pars_out[i, c("CI_high", "CI_low")]
+        pars_out[i, c("CI_low", "CI_high")] <- pars_out[
+          i,
+          c("CI_high", "CI_low")
+        ]
       } else {
-        pars_out[i, c("CI_low", "CI_high")] <- pars_out[i, c("CI_low", "CI_high")]
+        pars_out[i, c("CI_low", "CI_high")] <- pars_out[
+          i,
+          c("CI_low", "CI_high")
+        ]
       }
     }
   }
 
   if (to_log) {
-    pars_out <- datawizard::data_modify(pars_out, .at = trans_cols, .modify = log)
+    pars_out <- datawizard::data_modify(
+      pars_out,
+      .at = trans_cols,
+      .modify = log
+    )
     trans <- "logoddsratio"
   }
 
@@ -331,12 +446,13 @@ nnt_to_arr <- function(NNT, ...) {
   pars_out[pars_out$Parameter == "(Intercept)", c("CI_low", "CI_high")] <- NA
   pars_out[pars_out$Parameter == "(Intercept)", "Parameter"] <- "(p0)"
 
-  attr(pars_out, "coefficient_name") <- switch (trans,
-                                                "oddsratio" = "Odds ratio",
-                                                "logoddsratio" = "log(Odds ratio)",
-                                                "riskratio" = "Risk ratio",
-                                                "nnt" = "NNT",
-                                                "arr" = "ARR"
+  attr(pars_out, "coefficient_name") <- switch(
+    trans,
+    "oddsratio" = "Odds ratio",
+    "logoddsratio" = "log(Odds ratio)",
+    "riskratio" = "Risk ratio",
+    "nnt" = "NNT",
+    "arr" = "ARR"
   )
   return(pars_out)
 }

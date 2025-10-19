@@ -53,3 +53,5 @@ hextools
 # ^vignettes/(?!additional).*
 ^vignettes/additional
 ^LICENSE\.md$
+^\.vscode$
+^[.]?air[.]toml$

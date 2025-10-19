@@ -1,6 +1,5 @@
 # Rules ---------------------------------------------------------------
 
-
 #' Create an Interpretation Grid
 #'
 #' Create a container for interpretation rules of thumb. Usually used in conjunction with [interpret].
@@ -73,19 +72,13 @@ rules <- function(values, labels = NULL, name = NULL, right = TRUE) {
 }
 
 
-
-
 #' @rdname rules
 #' @param x An arbitrary R object.
 #' @export
 is.rules <- function(x) inherits(x, "rules")
 
 
-
-
 # Interpret ---------------------------------------------------------------
-
-
 
 #' Generic Function for Interpretation
 #'
@@ -143,8 +136,13 @@ interpret <- function(x, ...) {
 
 #' @rdname interpret
 #' @export
-interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"),
-                              transform = NULL, ...) {
+interpret.numeric <- function(
+  x,
+  rules,
+  name = attr(rules, "rule_name"),
+  transform = NULL,
+  ...
+) {
   # This is meant to circumvent https://github.com/easystats/report/issues/442
   if (is.character(transform)) {
     transform <- match.fun(transform)
@@ -158,7 +156,9 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"),
     rules <- rules(rules)
   }
 
-  if (is.null(name)) name <- "Custom rules"
+  if (is.null(name)) {
+    name <- "Custom rules"
+  }
   attr(rules, "rule_name") <- name
 
   if (length(x_tran) > 1) {
@@ -180,7 +180,9 @@ interpret.numeric <- function(x, rules, name = attr(rules, "rule_name"),
 #' @rdname interpret
 #' @export
 interpret.effectsize_table <- function(x, rules, transform = NULL, ...) {
-  if (missing(rules)) insight::format_error("You {.b must} specify the rules of interpretation!")
+  if (missing(rules)) {
+    insight::format_error("You {.b must} specify the rules of interpretation!")
+  }
 
   # This is meant to circumvent https://github.com/easystats/report/issues/442
   if (is.character(transform)) {
@@ -192,7 +194,8 @@ interpret.effectsize_table <- function(x, rules, transform = NULL, ...) {
   es_name <- colnames(x)[is_effectsize_name(colnames(x))]
   value <- transform(x[[es_name]])
 
-  x$Interpretation <- switch(es_name,
+  x$Interpretation <- switch(
+    es_name,
     ## std diff
     Cohens_d = ,
     Hedges_g = ,
@@ -233,7 +236,10 @@ interpret.effectsize_table <- function(x, rules, transform = NULL, ...) {
     Cohens_f = ,
     Cohens_f_partial = interpret_omega_squared(f_to_eta2(value), rules = rules),
     Cohens_f2 = ,
-    Cohens_f2_partial = interpret_omega_squared(f2_to_eta2(value), rules = rules),
+    Cohens_f2_partial = interpret_omega_squared(
+      f2_to_eta2(value),
+      rules = rules
+    ),
 
     ## Rank
     r_rank_biserial = interpret_r(value, rules = rules),

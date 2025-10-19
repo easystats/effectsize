@@ -26,7 +26,11 @@ get_effectsize_name <- function(x, ignore_case = TRUE) {
 
 #' @export
 #' @rdname is_effectsize_name
-get_effectsize_label <- function(x, ignore_case = TRUE, use_symbols = getOption("es.use_symbols", FALSE)) {
+get_effectsize_label <- function(
+  x,
+  ignore_case = TRUE,
+  use_symbols = getOption("es.use_symbols", FALSE)
+) {
   x_comp <- es_info$name
   use_symbols <- .resolve_use_symbols(use_symbols)
 
@@ -45,7 +49,6 @@ get_effectsize_label <- function(x, ignore_case = TRUE, use_symbols = getOption(
 # See data-raw/es_info.R
 
 # Utils -------------------------------------------------------------------
-
 
 #' @keywords internal
 .resolve_use_symbols <- function(use_symbols) {

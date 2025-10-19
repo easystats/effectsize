@@ -45,13 +45,17 @@ interpret_ess <- function(ess, rules = "burkner2017") {
   rules <- .match.rules(
     rules,
     list(
-      burkner2017 = rules(1000, c("insufficient", "sufficient"), name = "burkner2017", right = FALSE)
+      burkner2017 = rules(
+        1000,
+        c("insufficient", "sufficient"),
+        name = "burkner2017",
+        right = FALSE
+      )
     )
   )
 
   interpret(ess, rules)
 }
-
 
 
 #' @rdname interpret_ess

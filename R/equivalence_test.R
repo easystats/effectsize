@@ -79,9 +79,12 @@
 #' }
 #'
 #' @export
-equivalence_test.effectsize_table <- function(x,
-                                              range = "default",
-                                              rule = c("classic", "cet", "bayes"), ...) {
+equivalence_test.effectsize_table <- function(
+  x,
+  range = "default",
+  rule = c("classic", "cet", "bayes"),
+  ...
+) {
   rule <- match.arg(rule)
 
   if (!all(c("CI", "CI_low", "CI_high") %in% colnames(x))) {
@@ -107,14 +110,19 @@ equivalence_test.effectsize_table <- function(x,
   }
   range <- sort(range)
 
-
   if (range[1] < x_es_info$lb) {
     range[1] <- x_es_info$lb
-    insight::format_warning(sprintf("Lower bound set to %s.", insight::format_value(range[1])))
+    insight::format_warning(sprintf(
+      "Lower bound set to %s.",
+      insight::format_value(range[1])
+    ))
   }
   if (range[2] > x_es_info$ub) {
     range[2] <- x_es_info$ub
-    insight::format_warning(sprintf("Upper bound set to %s.", insight::format_value(range[2])))
+    insight::format_warning(sprintf(
+      "Upper bound set to %s.",
+      insight::format_value(range[2])
+    ))
   }
 
   # Test ---
@@ -137,7 +145,12 @@ equivalence_test.effectsize_table <- function(x,
 
   # x$ROPE_Equivalence[x$CI_low == x$CI_high] <- NA_character_
 
-  class(x) <- c("equivalence_test_effectsize", "effectsize_table", "see_equivalence_test_effectsize", "data.frame")
+  class(x) <- c(
+    "equivalence_test_effectsize",
+    "effectsize_table",
+    "see_equivalence_test_effectsize",
+    "data.frame"
+  )
   attr(x, "rope") <- range
   attr(x, "rule") <- rule
   return(x)

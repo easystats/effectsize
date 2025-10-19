@@ -34,16 +34,20 @@ interpret_rope <- function(rope, rules = "default", ci = 0.9) {
   if (ci < 1) {
     e <- .Machine$double.eps
 
-    default_rule <- rules(c(0, 0 + e, 1 - e, 1),
+    default_rule <- rules(
+      c(0, 0 + e, 1 - e, 1),
       c("significant", "undecided", "undecided", "negligible"),
       name = "default"
     )
   } else {
-    default_rule <- rules(c(0.01, 0.025, 0.975, 0.99),
+    default_rule <- rules(
+      c(0.01, 0.025, 0.975, 0.99),
       c(
-        "significant", "probably significant",
+        "significant",
+        "probably significant",
         "undecided",
-        "probably negligible", "negligible"
+        "probably negligible",
+        "negligible"
       ),
       name = "default"
     )

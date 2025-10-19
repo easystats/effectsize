@@ -136,22 +136,37 @@
 #' Correcting error and bias in research findings. Sage.
 #'
 #' @export
-cohens_d <- function(x, y = NULL, data = NULL,
-                     pooled_sd = TRUE, mu = 0, paired = FALSE,
-                     reference = NULL,
-                     adjust = FALSE,
-                     ci = 0.95, alternative = "two.sided",
-                     verbose = TRUE, ...) {
+cohens_d <- function(
+  x,
+  y = NULL,
+  data = NULL,
+  pooled_sd = TRUE,
+  mu = 0,
+  paired = FALSE,
+  reference = NULL,
+  adjust = FALSE,
+  ci = 0.95,
+  alternative = "two.sided",
+  verbose = TRUE,
+  ...
+) {
   var.equal <- eval.parent(match.call()[["var.equal"]])
-  if (!is.null(var.equal)) pooled_sd <- var.equal
+  if (!is.null(var.equal)) {
+    pooled_sd <- var.equal
+  }
 
   .effect_size_difference(
     x,
-    y = y, data = data,
-    type = "d", adjust = adjust,
-    pooled_sd = pooled_sd, mu = mu, paired = paired,
+    y = y,
+    data = data,
+    type = "d",
+    adjust = adjust,
+    pooled_sd = pooled_sd,
+    mu = mu,
+    paired = paired,
     reference = reference,
-    ci = ci, alternative = alternative,
+    ci = ci,
+    alternative = alternative,
     verbose = verbose,
     ...
   )
@@ -159,11 +174,19 @@ cohens_d <- function(x, y = NULL, data = NULL,
 
 #' @rdname cohens_d
 #' @export
-hedges_g <- function(x, y = NULL, data = NULL,
-                     pooled_sd = TRUE, mu = 0, paired = FALSE,
-                     reference = NULL,
-                     ci = 0.95, alternative = "two.sided",
-                     verbose = TRUE, ...) {
+hedges_g <- function(
+  x,
+  y = NULL,
+  data = NULL,
+  pooled_sd = TRUE,
+  mu = 0,
+  paired = FALSE,
+  reference = NULL,
+  ci = 0.95,
+  alternative = "two.sided",
+  verbose = TRUE,
+  ...
+) {
   cl <- match.call()
   cl[[1]] <- quote(effectsize::cohens_d)
   cl$adjust <- TRUE
@@ -172,47 +195,77 @@ hedges_g <- function(x, y = NULL, data = NULL,
 
 #' @rdname cohens_d
 #' @export
-glass_delta <- function(x, y = NULL, data = NULL,
-                        mu = 0, adjust = TRUE,
-                        reference = NULL,
-                        ci = 0.95, alternative = "two.sided",
-                        verbose = TRUE, ...) {
+glass_delta <- function(
+  x,
+  y = NULL,
+  data = NULL,
+  mu = 0,
+  adjust = TRUE,
+  reference = NULL,
+  ci = 0.95,
+  alternative = "two.sided",
+  verbose = TRUE,
+  ...
+) {
   .effect_size_difference(
     x,
-    y = y, data = data,
+    y = y,
+    data = data,
     type = "delta",
-    mu = mu, adjust = adjust,
+    mu = mu,
+    adjust = adjust,
     reference = reference,
-    ci = ci, alternative = alternative,
+    ci = ci,
+    alternative = alternative,
     verbose = verbose,
-    pooled_sd = NULL, paired = FALSE,
+    pooled_sd = NULL,
+    paired = FALSE,
     ...
   )
 }
 
 
-
 #' @keywords internal
-.effect_size_difference <- function(x, y = NULL, data = NULL,
-                                    type = "d", adjust = FALSE,
-                                    mu = 0, pooled_sd = TRUE, paired = FALSE,
-                                    reference = NULL,
-                                    ci = 0.95, alternative = "two.sided",
-                                    verbose = TRUE, ...) {
-  if (type == "d" && adjust) type <- "g"
+.effect_size_difference <- function(
+  x,
+  y = NULL,
+  data = NULL,
+  type = "d",
+  adjust = FALSE,
+  mu = 0,
+  pooled_sd = TRUE,
+  paired = FALSE,
+  reference = NULL,
+  ci = 0.95,
+  alternative = "two.sided",
+  verbose = TRUE,
+  ...
+) {
+  if (type == "d" && adjust) {
+    type <- "g"
+  }
 
   # TODO: Check if we can do anything with `reference` for these classes
   if (type != "delta") {
     if (.is_htest_of_type(x, "t-test")) {
       return(effectsize(x, type = type, verbose = verbose, data = data, ...))
-    } else if (.is_BF_of_type(x, c("BFoneSample", "BFindepSample"), "t-squared")) {
+    } else if (
+      .is_BF_of_type(x, c("BFoneSample", "BFindepSample"), "t-squared")
+    ) {
       return(effectsize(x, ci = ci, verbose = verbose, ...))
     }
   }
 
-
   alternative <- .match.alt(alternative)
-  out <- .get_data_2_samples(x, y, data, paired = paired, reference = reference, verbose = verbose, ...)
+  out <- .get_data_2_samples(
+    x,
+    y,
+    data,
+    paired = paired,
+    reference = reference,
+    verbose = verbose,
+    ...
+  )
   x <- out[["x"]]
   y <- out[["y"]]
   paired <- out[["paired"]]
@@ -225,7 +278,9 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
   if (is.null(y)) {
     if (type == "delta") {
-      insight::format_error("For Glass' Delta, please provide data from two samples.")
+      insight::format_error(
+        "For Glass' Delta, please provide data from two samples."
+      )
     }
     y <- 0
     is_paired_or_onesample <- TRUE
@@ -236,7 +291,9 @@ glass_delta <- function(x, y = NULL, data = NULL,
   # Compute index
   if (is_paired_or_onesample) {
     if (type == "delta") {
-      insight::format_error("This effect size is only applicable for two independent samples.")
+      insight::format_error(
+        "This effect size is only applicable for two independent samples."
+      )
     }
 
     d <- mean(x - y)
@@ -304,7 +361,10 @@ glass_delta <- function(x, y = NULL, data = NULL,
 
   if (adjust) {
     J <- .J(df1)
-    col_to_adjust <- intersect(colnames(out), c(types[type], "CI_low", "CI_high"))
+    col_to_adjust <- intersect(
+      colnames(out),
+      c(types[type], "CI_low", "CI_high")
+    )
     out[, col_to_adjust] <- out[, col_to_adjust] * J
 
     if (type == "delta") {
@@ -312,9 +372,20 @@ glass_delta <- function(x, y = NULL, data = NULL,
     }
   }
 
-  class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
+  class(out) <- c(
+    "effectsize_difference",
+    "effectsize_table",
+    "see_effectsize_table",
+    class(out)
+  )
   .someattributes(out) <- .nlist(
-    paired, pooled_sd, mu, ci, ci_method, alternative, adjust,
+    paired,
+    pooled_sd,
+    mu,
+    ci,
+    ci_method,
+    alternative,
+    adjust,
     approximate = FALSE
   )
   out

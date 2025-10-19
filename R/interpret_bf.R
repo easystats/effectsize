@@ -44,32 +44,44 @@
 #'
 #' @keywords interpreters
 #' @export
-interpret_bf <- function(bf,
-                         rules = "jeffreys1961",
-                         log = FALSE,
-                         include_value = FALSE,
-                         protect_ratio = TRUE,
-                         exact = TRUE) {
+interpret_bf <- function(
+  bf,
+  rules = "jeffreys1961",
+  log = FALSE,
+  include_value = FALSE,
+  protect_ratio = TRUE,
+  exact = TRUE
+) {
   if (!log && any(bf < 0, na.rm = TRUE)) {
-    insight::format_error("Negative BFs detected. These are not possible, and are {.i ignored}.")
+    insight::format_error(
+      "Negative BFs detected. These are not possible, and are {.i ignored}."
+    )
   }
 
-  if (!log) bf <- log(bf)
+  if (!log) {
+    bf <- log(bf)
+  }
 
   # interpret strength
   rules <- .match.rules(
     rules,
     list(
-      jeffreys1961 = rules(c(3, 10, 30, 100), c("anecdotal", "moderate", "strong", "very strong", "extreme"),
+      jeffreys1961 = rules(
+        c(3, 10, 30, 100),
+        c("anecdotal", "moderate", "strong", "very strong", "extreme"),
         name = "jeffreys1961"
       ),
-      raftery1995 = rules(c(3, 20, 150), c("weak", "positive", "strong", "very strong"),
+      raftery1995 = rules(
+        c(3, 20, 150),
+        c("weak", "positive", "strong", "very strong"),
         name = "raftery1995"
       )
     )
   )
 
-  interpretation <- interpret(bf, rules, transform = function(.x) exp(ifelse(.x < 0, -.x, .x)))
+  interpretation <- interpret(bf, rules, transform = function(.x) {
+    exp(ifelse(.x < 0, -.x, .x))
+  })
   interpretation[bf == 0] <- "no"
 
   # interpret direction
@@ -78,8 +90,17 @@ interpret_bf <- function(bf,
 
   # Format text
   if (include_value) {
-    bf_fmt <- insight::format_bf(exp(bf), protect_ratio = protect_ratio, exact = exact)
-    interpretation[] <- sprintf("%s evidence (%s) %s", interpretation, bf_fmt, direction)
+    bf_fmt <- insight::format_bf(
+      exp(bf),
+      protect_ratio = protect_ratio,
+      exact = exact
+    )
+    interpretation[] <- sprintf(
+      "%s evidence (%s) %s",
+      interpretation,
+      bf_fmt,
+      direction
+    )
   } else {
     interpretation[] <- paste0(interpretation, " evidence ", direction)
   }

@@ -53,9 +53,6 @@ f_to_eta2 <- function(f) {
   f2_to_eta2(f^2)
 }
 
-
-
-
 # eta2_to_F <- function(eta2, df, df_error, ...) {
 #   eta2 * df_error / ((1 - eta2) * df)
 # }

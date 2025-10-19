@@ -109,9 +109,12 @@ effectsize <- function(model, ...) {
 
 #' @export
 effectsize.anova <- function(model, type = NULL, ...) {
-  if (is.null(type)) type <- "eta"
+  if (is.null(type)) {
+    type <- "eta"
+  }
 
-  f <- switch(tolower(type),
+  f <- switch(
+    tolower(type),
     eta = ,
     eta2 = ,
     eta_squared = eta_squared,

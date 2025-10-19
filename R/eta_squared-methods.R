@@ -1,16 +1,23 @@
 # Specific tables ---------------------------------------------------------
 
 #' @keywords internal
-.anova_es.afex_aov <- function(model,
-                               type = c("eta", "omega", "epsilon"),
-                               partial = TRUE,
-                               generalized = FALSE,
-                               ci = 0.95, alternative = "greater",
-                               verbose = TRUE,
-                               include_intercept = FALSE,
-                               ...) {
+.anova_es.afex_aov <- function(
+  model,
+  type = c("eta", "omega", "epsilon"),
+  partial = TRUE,
+  generalized = FALSE,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE,
+  include_intercept = FALSE,
+  ...
+) {
   type <- match.arg(type)
-  if (type == "eta" && isTRUE(generalized) && length(attr(model$anova_table, "observed"))) {
+  if (
+    type == "eta" &&
+      isTRUE(generalized) &&
+      length(attr(model$anova_table, "observed"))
+  ) {
     generalized <- attr(model$anova_table, "observed")
   }
 
@@ -20,7 +27,8 @@
       type = type,
       partial = partial,
       generalized = generalized,
-      ci = ci, alternative = alternative,
+      ci = ci,
+      alternative = alternative,
       verbose = FALSE,
       include_intercept = include_intercept,
       ...
@@ -32,21 +40,29 @@
 }
 
 #' @keywords internal
-.anova_es.mixed <- function(model,
-                            type = c("eta", "omega", "epsilon"),
-                            partial = TRUE, generalized = FALSE,
-                            ci = 0.95, alternative = "greater",
-                            verbose = TRUE,
-                            include_intercept = FALSE,
-                            ...) {
+.anova_es.mixed <- function(
+  model,
+  type = c("eta", "omega", "epsilon"),
+  partial = TRUE,
+  generalized = FALSE,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE,
+  include_intercept = FALSE,
+  ...
+) {
   aov_tab <- as.data.frame(model[["anova_table"]])
 
   if (!"F" %in% colnames(aov_tab)) {
-    insight::format_error("Cannot estimate approx effect size for `mixed` type model - no F-statistic found.")
+    insight::format_error(
+      "Cannot estimate approx effect size for `mixed` type model - no F-statistic found."
+    )
   }
 
   if (verbose && include_intercept && !"(Intercept)" %in% rownames(aov_tab)) {
-    insight::format_warning("Cannot estimate (Intercept) effect size for `mixed` model.")
+    insight::format_warning(
+      "Cannot estimate (Intercept) effect size for `mixed` model."
+    )
     include_intercept <- FALSE
   }
 
@@ -55,12 +71,16 @@
   aov_tab$df_error <- aov_tab[["den Df"]]
   aov_tab <- aov_tab[, c("Parameter", "df", "df_error", "F")]
 
-  out <- .es_aov_table(aov_tab,
+  out <- .es_aov_table(
+    aov_tab,
     type = type,
-    partial = partial, generalized = generalized,
-    ci = ci, alternative = alternative,
+    partial = partial,
+    generalized = generalized,
+    ci = ci,
+    alternative = alternative,
     verbose = verbose,
-    include_intercept = include_intercept, ...
+    include_intercept = include_intercept,
+    ...
   )
 
   attr(out, "anova_type") <- attr(model, "type")
@@ -70,14 +90,17 @@
 
 #' @keywords internal
 .anova_es.Anova.mlm <-
-  function(model,
-           type = c("eta", "omega", "epsilon"),
-           partial = TRUE,
-           generalized = FALSE,
-           ci = 0.95, alternative = "greater",
-           verbose = TRUE,
-           include_intercept = FALSE,
-           ...) {
+  function(
+    model,
+    type = c("eta", "omega", "epsilon"),
+    partial = TRUE,
+    generalized = FALSE,
+    ci = 0.95,
+    alternative = "greater",
+    verbose = TRUE,
+    include_intercept = FALSE,
+    ...
+  ) {
     suppressWarnings({
       aov_tab <- summary(model)$univariate.tests
     })
@@ -87,12 +110,18 @@
       # TODO this should be the method for manova,
       # so this should be copied there, and here happsed to:
       # .anova_es.manova
-      aov_tab <- parameters::model_parameters(model, include_intercept = include_intercept)
+      aov_tab <- parameters::model_parameters(
+        model,
+        include_intercept = include_intercept
+      )
       aov_tab$df <- aov_tab$df_num
-      out <- .anova_es(aov_tab,
+      out <- .anova_es(
+        aov_tab,
         type = type,
-        partial = partial, generalized = generalized,
-        ci = ci, alternative = alternative,
+        partial = partial,
+        generalized = generalized,
+        ci = ci,
+        alternative = alternative,
         include_intercept = include_intercept,
         verbose = verbose
       )
@@ -106,7 +135,13 @@
     aov_tab$Parameter <- rownames(aov_tab)
     colnames(aov_tab)[colnames(aov_tab) == "Sum Sq"] <- "Sum_Squares"
     colnames(aov_tab)[colnames(aov_tab) == "num Df"] <- "df"
-    aov_tab <- aov_tab[c("Parameter", "Sum_Squares", "Error SS", "df", "den Df")]
+    aov_tab <- aov_tab[c(
+      "Parameter",
+      "Sum_Squares",
+      "Error SS",
+      "df",
+      "den Df"
+    )]
 
     id <- "Subject"
     within_subj <- names(model$idata)
@@ -137,7 +172,10 @@
     aov_tab[["F"]] <- ifelse(aov_tab$Parameter == "Residuals", NA, 1)
     aov_tab$Mean_Square <- aov_tab$Sum_Squares / aov_tab$df
 
-    DV_names <- c(id, setdiff(unlist(strsplit(model$terms, ":", fixed = TRUE)), "(Intercept)"))
+    DV_names <- c(
+      id,
+      setdiff(unlist(strsplit(model$terms, ":", fixed = TRUE)), "(Intercept)")
+    )
 
     out <-
       .es_aov_strata(
@@ -146,7 +184,8 @@
         type = type,
         partial = partial,
         generalized = generalized,
-        ci = ci, alternative = alternative,
+        ci = ci,
+        alternative = alternative,
         verbose = verbose,
         include_intercept = include_intercept
       )
@@ -182,19 +221,27 @@
 .anova_es.anova.lme <- .anova_es.anova
 
 #' @keywords internal
-.anova_es.parameters_model <- function(model,
-                                       type = c("eta", "omega", "epsilon"),
-                                       partial = TRUE,
-                                       generalized = FALSE,
-                                       ci = 0.95, alternative = "greater",
-                                       verbose = TRUE,
-                                       by_response = TRUE,
-                                       ...) {
+.anova_es.parameters_model <- function(
+  model,
+  type = c("eta", "omega", "epsilon"),
+  partial = TRUE,
+  generalized = FALSE,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE,
+  by_response = TRUE,
+  ...
+) {
   if (by_response && "Response" %in% colnames(model)) {
     out <- split(model, model[["Response"]])
-    out <- lapply(out, .anova_es.parameters_model,
-      type = type, partial = partial, generalized = generalized,
-      ci = ci, alternative = alternative,
+    out <- lapply(
+      out,
+      .anova_es.parameters_model,
+      type = type,
+      partial = partial,
+      generalized = generalized,
+      ci = ci,
+      alternative = alternative,
       verbose = verbose,
       by_response = FALSE,
       ...
@@ -213,32 +260,45 @@
     return(out)
   }
 
-
   approximate <- FALSE
-  if ("Sum_Squares" %in% colnames(model) && "Residuals" %in% model[["Parameter"]]) {
+  if (
+    "Sum_Squares" %in% colnames(model) && "Residuals" %in% model[["Parameter"]]
+  ) {
     if ("Group" %in% colnames(model)) {
       DVs <- unlist(insight::find_predictors(.get_object_from_params(model)))
       out <- .es_aov_strata(
         model,
         DV_names = DVs,
-        type = type, partial = partial, generalized = generalized,
-        ci = ci, alternative = alternative,
-        verbose = verbose, ...
+        type = type,
+        partial = partial,
+        generalized = generalized,
+        ci = ci,
+        alternative = alternative,
+        verbose = verbose,
+        ...
       )
     } else {
       out <- .es_aov_simple(
         model,
-        type = type, partial = partial, generalized = generalized,
-        ci = ci, alternative = alternative,
-        verbose = verbose, ...
+        type = type,
+        partial = partial,
+        generalized = generalized,
+        ci = ci,
+        alternative = alternative,
+        verbose = verbose,
+        ...
       )
     }
   } else {
     out <- .es_aov_table(
       model,
-      type = type, partial = partial, generalized = generalized,
-      ci = ci, alternative = alternative,
-      verbose = verbose, ...
+      type = type,
+      partial = partial,
+      generalized = generalized,
+      ci = ci,
+      alternative = alternative,
+      verbose = verbose,
+      ...
     )
     approximate <- TRUE
   }
@@ -250,23 +310,36 @@
 # Specific models ---------------------------------------------------------
 
 #' @keywords internal
-.anova_es.maov <- function(model,
-                           type = c("eta", "omega", "epsilon"),
-                           partial = TRUE,
-                           generalized = FALSE,
-                           ci = 0.95, alternative = "greater",
-                           verbose = TRUE,
-                           ...) {
+.anova_es.maov <- function(
+  model,
+  type = c("eta", "omega", "epsilon"),
+  partial = TRUE,
+  generalized = FALSE,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE,
+  ...
+) {
   ## TODO: add back `effects = "fixed"` once the deprecation warning in parameters is removed
-  params <- parameters::model_parameters(model, verbose = verbose, es_type = NULL)
+  params <- parameters::model_parameters(
+    model,
+    verbose = verbose,
+    es_type = NULL
+  )
   anova_type <- attr(params, "anova_type")
 
-  params <- split(params, factor(params$Response, levels = unique(params$Response))) # make sure row order is not changed
-  params <- lapply(params, .es_aov_simple,
+  params <- split(
+    params,
+    factor(params$Response, levels = unique(params$Response))
+  ) # make sure row order is not changed
+  params <- lapply(
+    params,
+    .es_aov_simple,
     type = type,
     partial = partial,
     generalized = generalized,
-    ci = ci, alternative = alternative,
+    ci = ci,
+    alternative = alternative,
     verbose = verbose,
     ...
   )
@@ -293,38 +366,60 @@
 
 
 #' @keywords internal
-.anova_es.htest <- function(model,
-                            type = c("eta", "omega", "epsilon"),
-                            partial = TRUE,
-                            generalized = FALSE,
-                            ci = 0.95, alternative = "greater",
-                            verbose = TRUE,
-                            ...) {
+.anova_es.htest <- function(
+  model,
+  type = c("eta", "omega", "epsilon"),
+  partial = TRUE,
+  generalized = FALSE,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE,
+  ...
+) {
   if (!grepl("One-way", model$method, fixed = TRUE)) {
     insight::format_error("'model' is not a one-way test!")
   }
 
-  if (verbose && (partial || isTRUE(generalized) || is.character(generalized))) {
-    txt_type <- ifelse(isTRUE(generalized) || is.character(generalized), "generalized", "partial")
+  if (
+    verbose && (partial || isTRUE(generalized) || is.character(generalized))
+  ) {
+    txt_type <- ifelse(
+      isTRUE(generalized) || is.character(generalized),
+      "generalized",
+      "partial"
+    )
     insight::format_alert(
       sprintf(
         "For one-way between subjects designs, %s %s squared is equivalent to %s squared. Returning %s squared.",
-        txt_type, type, type, type
+        txt_type,
+        type,
+        type,
+        type
       )
     )
   }
 
-  effectsize(model, type = type, ci = ci, alternative = alternative, verbose = verbose, ...)
+  effectsize(
+    model,
+    type = type,
+    ci = ci,
+    alternative = alternative,
+    verbose = verbose,
+    ...
+  )
 }
 
 #' @keywords internal
-.anova_es.merMod <- function(model,
-                             type = c("eta", "omega", "epsilon"),
-                             partial = TRUE,
-                             generalized = FALSE,
-                             ci = 0.95, alternative = "greater",
-                             verbose = TRUE,
-                             ...) {
+.anova_es.merMod <- function(
+  model,
+  type = c("eta", "omega", "epsilon"),
+  partial = TRUE,
+  generalized = FALSE,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE,
+  ...
+) {
   insight::check_if_installed("lmerTest")
 
   model <- lmerTest::as_lmerModLmerTest(model)
@@ -344,13 +439,16 @@
 }
 
 #' @keywords internal
-.anova_es.gam <- function(model,
-                          type = c("eta", "omega", "epsilon"),
-                          partial = TRUE,
-                          generalized = FALSE,
-                          ci = 0.95, alternative = "greater",
-                          verbose = TRUE,
-                          ...) {
+.anova_es.gam <- function(
+  model,
+  type = c("eta", "omega", "epsilon"),
+  partial = TRUE,
+  generalized = FALSE,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE,
+  ...
+) {
   model <- stats::anova(model)
 
   p.table <- as.data.frame(model$pTerms.table)
@@ -371,7 +469,8 @@
       type = type,
       generalized = generalized,
       partial = partial,
-      ci = ci, alternative = alternative,
+      ci = ci,
+      alternative = alternative,
       verbose = verbose
     )
   out$Component <- tab$Component
@@ -384,13 +483,16 @@
 
 
 #' @keywords internal
-.anova_es.rms <- function(model,
-                          type = c("eta", "omega", "epsilon"),
-                          partial = TRUE,
-                          generalized = FALSE,
-                          ci = 0.95, alternative = "greater",
-                          verbose = TRUE,
-                          ...) {
+.anova_es.rms <- function(
+  model,
+  type = c("eta", "omega", "epsilon"),
+  partial = TRUE,
+  generalized = FALSE,
+  ci = 0.95,
+  alternative = "greater",
+  verbose = TRUE,
+  ...
+) {
   if (!inherits(model, "anova.rms")) {
     model <- stats::anova(model, test = "F")
   }
@@ -440,9 +542,11 @@
         NULL
       }
     )
-    if (is.null(model) ||
-      # prevent self reference
-      inherits(model, "parameters_model")) {
+    if (
+      is.null(model) ||
+        # prevent self reference
+        inherits(model, "parameters_model")
+    ) {
       model <- tryCatch(
         {
           get(obj_name, envir = globalenv())

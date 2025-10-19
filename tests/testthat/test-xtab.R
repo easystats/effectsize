@@ -12,7 +12,11 @@ test_that("contingency table", {
 
   expect_error(phi(contingency_table), "appropriate")
 
-  expect_equal(tschuprows_t(contingency_table, adjust = FALSE), res, ignore_attr = TRUE)
+  expect_equal(
+    tschuprows_t(contingency_table, adjust = FALSE),
+    res,
+    ignore_attr = TRUE
+  )
 
   ## Size does not affect estimate
   xtab <- rbind(
@@ -27,8 +31,16 @@ test_that("contingency table", {
   expect_equal(cv1$Cramers_v, cv2$Cramers_v, tolerance = 1e-4)
 
   # Upper bound of phi is the ratio between phi / V and sqrt(min(K,L)-1)
-  expect_equal(cohens_w(xtab, alternative = "greater")$CI_high, sqrt(2), tolerance = 1e-4)
-  expect_equal(cohens_w(xtab)[[1]] / cramers_v(xtab, adjust = FALSE)[[1]], sqrt(2), tolerance = 1e-4)
+  expect_equal(
+    cohens_w(xtab, alternative = "greater")$CI_high,
+    sqrt(2),
+    tolerance = 1e-4
+  )
+  expect_equal(
+    cohens_w(xtab)[[1]] / cramers_v(xtab, adjust = FALSE)[[1]],
+    sqrt(2),
+    tolerance = 1e-4
+  )
 
   # Tschuprows_t with non-square tables
   xtab <- rbind(
@@ -36,9 +48,11 @@ test_that("contingency table", {
     c(0, 1, 0)
   )
   expect_equal(cramers_v(xtab, adjust = FALSE)[[1]], 1, tolerance = 1e-4)
-  expect_lt(tschuprows_t(xtab, adjust = FALSE)[[1]], cramers_v(xtab, adjust = FALSE)[[1]])
+  expect_lt(
+    tschuprows_t(xtab, adjust = FALSE)[[1]],
+    cramers_v(xtab, adjust = FALSE)[[1]]
+  )
   expect_lt(tschuprows_t(xtab)[[1]], cramers_v(xtab)[[1]])
-
 
   ## 2*2 tables return phi and cramers_v
   xtab <- rbind(
@@ -55,7 +69,6 @@ test_that("contingency table", {
   res <- pearsons_c(xtab)
   expect_equal(res[[1]], 0.032, tolerance = 0.01)
 
-
   ## 2*2 perfect correlation
   xtab <- rbind(
     c(100, 0),
@@ -66,14 +79,12 @@ test_that("contingency table", {
   expect_equal(V, 1, tolerance = 1e-4)
   expect_lt(pearsons_c(xtab)[[1]], V) # C is not perfect
 
-
   ## 2*2 0 correlation
   xtab <- rbind(
     c(50, 50),
     c(100, 100)
   )
   expect_equal(cramers_v(xtab, adjust = FALSE)$Cramers_v, 0, tolerance = 1e-5)
-
 
   ## Empty rows/columns
   xtab <- rbind(
@@ -110,14 +121,26 @@ test_that("goodness of fit", {
   expect_equal(w2$CI_high, sqrt(0.9 / 0.1), tolerance = 1e-4)
 
   C <- pearsons_c(table(mtcars$cyl), p = c(0.8, 0.1, 0.1))
-  expect_equal(C[[1]], sqrt(49.289 / (49.289 + sum(table(mtcars$cyl)))), tolerance = 0.001)
+  expect_equal(
+    C[[1]],
+    sqrt(49.289 / (49.289 + sum(table(mtcars$cyl)))),
+    tolerance = 0.001
+  )
   expect_equal(C$CI_high, 1, tolerance = 1e-4)
 
   # some weird exeptions...
   df <- subset(mtcars, am == "0")
   expect_equal(cohens_w(table(df$am, df$cyl))[[1]], 0.64, tolerance = 0.01)
-  expect_equal(cohens_w(table(df$am, df$cyl)), cohens_w(table(df$cyl)), tolerance = 1e-4)
-  expect_equal(cohens_w(table(df$am, df$cyl)), cohens_w(table(df$cyl, df$am)), tolerance = 1e-4)
+  expect_equal(
+    cohens_w(table(df$am, df$cyl)),
+    cohens_w(table(df$cyl)),
+    tolerance = 1e-4
+  )
+  expect_equal(
+    cohens_w(table(df$am, df$cyl)),
+    cohens_w(table(df$cyl, df$am)),
+    tolerance = 1e-4
+  )
 
   # p is a table
   O <- as.table(c(10, 20, 30, 40))
@@ -182,7 +205,6 @@ test_that("oddsratio & riskratio", {
   expect_equal(RR$CI_high, 0.5567815, tolerance = 1e-4)
 
   expect_warning(riskratio(RCT, log = TRUE), "log")
-
 
   ## OR
   data("mtcars")
