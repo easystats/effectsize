@@ -98,8 +98,8 @@ NULL
 #' @format A data frame with 489 rows and 3 variables:
 #' \describe{
 #'   \item{participant_id}{Unique identifier for each participant}
-#'   \item{desirability_poop}{Desirability rating of poop (1 = very undesirable, 7 = very desirable)}
-#'   \item{desirability_chocolate}{Desirability rating of chocolate (1 = very undesirable, 7 = very desirable)}
+#'   \item{poop}{Desirability rating of poop (1 = very undesirable, 7 = very desirable)}
+#'   \item{chocolate}{Desirability rating of chocolate (1 = very undesirable, 7 = very desirable)}
 #' }
 #'
 #' ```{r}
@@ -108,6 +108,7 @@ NULL
 #' ```
 #' @family effect size datasets
 #'
+#' @seealso [repeated_measures_d()]
 NULL
 
 

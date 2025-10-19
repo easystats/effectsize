@@ -8,8 +8,8 @@
 A data frame with 489 rows and 3 variables:
 \describe{
 \item{participant_id}{Unique identifier for each participant}
-\item{desirability_poop}{Desirability rating of poop (1 = very undesirable, 7 = very desirable)}
-\item{desirability_chocolate}{Desirability rating of chocolate (1 = very undesirable, 7 = very desirable)}
+\item{poop}{Desirability rating of poop (1 = very undesirable, 7 = very desirable)}
+\item{chocolate}{Desirability rating of chocolate (1 = very undesirable, 7 = very desirable)}
 }
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{data("desirability")
@@ -27,6 +27,8 @@ A subset of Ian Hussey's replication of \emph{Balcetis & Dunning (2010) Study 3b
 Data available at https://github.com/ianhussey/not-so-simple-preferences.
 }
 \seealso{
+\code{\link[=repeated_measures_d]{repeated_measures_d()}}
+
 Other effect size datasets: 
 \code{\link{Music_preferences}},
 \code{\link{Music_preferences2}},
