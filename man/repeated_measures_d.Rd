@@ -161,32 +161,30 @@ The \code{see} package contains relevant plotting functions. See the \href{https
 \examples{
 # Paired data -------
 
-data("sleep")
-sleep2 <- reshape(sleep,
-  direction = "wide",
-  idvar = "ID", timevar = "group"
-)
+data("preferences2025")
+# Is chocolate preferred over... poop?
 
-repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2)
-
-# Same as:
-# repeated_measures_d(sleep$extra[sleep$group==1],
-#                     sleep$extra[sleep$group==2])
-# repeated_measures_d(extra ~ group | ID, data = sleep)
-
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences2025)
 
 # More options:
-repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, mu = -1)
-repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, alternative = "less")
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences2025,
+                    mu = 3.4)
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences2025,
+                    alternative = "greater")
 
 # Other methods
-repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, method = "av")
-repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, method = "b")
-repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, method = "d")
-repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, method = "z", adjust = FALSE)
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences2025,
+                    method = "av")
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences2025,
+                    method = "b")
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences2025,
+                    method = "d")
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences2025,
+                    method = "z")
 
 # d_z is the same as Cohen's d for one sample (of individual difference):
-cohens_d(extra.1 - extra.2 ~ 1, data = sleep2)
+cohens_d(chocolate - poop ~ 1, data = preferences2025)
+
 
 
 

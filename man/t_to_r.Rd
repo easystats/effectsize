@@ -134,7 +134,7 @@ t_to_d(t = res$statistic, res$parameter, paired = TRUE)
 t_to_r(t = res$statistic, res$parameter)
 t_to_r(t = res$statistic, res$parameter, alternative = "greater")
 
-\dontshow{if (require(correlation)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require(correlation)) withAutoprint(\{ # examplesIf}
 ## Linear Regression
 model <- lm(rating ~ complaints + critical, data = attitude)
 (param_tab <- parameters::model_parameters(model))

@@ -274,10 +274,10 @@ interpret_epsilon_squared(0.10, rules = "cohen1992")
 
 interpret(eta2, rules = "cohen1992")
 
-\dontshow{if (require("see") && interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require("see") && interactive()) withAutoprint(\{ # examplesIf}
 plot(eta2) # Requires the {see} package
 \dontshow{\}) # examplesIf}
-\dontshow{if (require("car")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require("car")) withAutoprint(\{ # examplesIf}
 # Recommended: Type-2 or -3 effect sizes + effects coding
 # -------------------------------------------------------
 contrasts(mtcars$am_f) <- contr.sum
@@ -288,7 +288,7 @@ model_anova <- car::Anova(model, type = 3)
 
 epsilon_squared(model_anova)
 \dontshow{\}) # examplesIf}
-\dontshow{if (require("car") && require("afex")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require("car") && require("afex")) withAutoprint(\{ # examplesIf}
 # afex takes care of both type-3 effects and effects coding:
 data(obk.long, package = "afex")
 model <- afex::aov_car(value ~ gender + Error(id / (phase * hour)),
@@ -298,13 +298,13 @@ model <- afex::aov_car(value ~ gender + Error(id / (phase * hour)),
 omega_squared(model)
 eta_squared(model, generalized = TRUE) # observed vars are pulled from the afex model.
 \dontshow{\}) # examplesIf}
-\dontshow{if (require("lmerTest") && require("lme4") && FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require("lmerTest") && require("lme4") && FALSE) withAutoprint(\{ # examplesIf}
 ## Approx. effect sizes for mixed models
 ## -------------------------------------
 model <- lme4::lmer(mpg ~ am_f * cyl_f + (1 | vs), data = mtcars)
 omega_squared(model)
 \dontshow{\}) # examplesIf}
-\dontshow{if (require(rstanarm) && require(bayestestR) && require(car) && interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require(rstanarm) && require(bayestestR) && require(car) && interactive()) withAutoprint(\{ # examplesIf}
 ## Bayesian Models (PPD)
 ## ---------------------
 fit_bayes <- rstanarm::stan_glm(

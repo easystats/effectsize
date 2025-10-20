@@ -111,7 +111,7 @@ eta_squared(npk.aov, partial = FALSE)
 
 r2_semipartial(npk.aov)
 
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # Compare to `dominance_analysis()`
 # ---------------------------------
 m_full <- lm(salary ~ ., data = hardlyworking)

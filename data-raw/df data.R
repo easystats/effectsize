@@ -259,3 +259,17 @@ rouder2016[["cond"]] <- factor(rouder2016[["cond"]])
 save(rouder2016, file = "data/rouder2016.rdata")
 
 # styler: on
+
+
+# https://github.com/ianhussey/not-so-simple-preferences -----------------
+
+preferences2025 <- read.csv(url("https://github.com/ianhussey/not-so-simple-preferences/raw/refs/heads/main/data/processed/data_processed_subset_with_exclusions.csv"))
+
+preferences2025 <- preferences2025[
+  ,
+  c("participant_id", "evaluations_poop", "evaluations_chocolate")
+]
+
+colnames(preferences2025) <- gsub("evaluations_", "", colnames(preferences2025))
+
+save(preferences2025, file = "data/preferences2025.rdata")

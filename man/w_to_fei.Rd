@@ -72,7 +72,7 @@ w_to_fei(0.11, p = c(0.015, 0.010, 0.975))
 
 fei(Smoking_FASD, p = c(0.015, 0.010, 0.975))
 
-\dontshow{if (require(pwr)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require(pwr)) withAutoprint(\{ # examplesIf}
 ## Power analysis
 ## --------------
 # See https://osf.io/cg64s/

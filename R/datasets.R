@@ -84,6 +84,38 @@ NULL
 NULL
 
 
+#' Preferences of Poop vs Chocolate
+#'
+#' A subset of Hussey and Cummins replication of _Balcetis & Dunning (2010)
+#' Study 3b_. Each scale is average of 3 items both for "a toilet filled with
+#' human poop" and for  and for "a toilet filled with human poop" (how positive
+#' or negative / pleasant or unpleasant / good or bad).
+#'
+#' @references  Hussey, I., & Cummins, J. (2025). (Not so) simple preferences. https://github.com/ianhussey/not-so-simple-preferences
+#'
+#' @docType data
+#'
+#' @name preferences2025
+#'
+#' @keywords data
+#'
+#' @format A data frame with 489 rows and 3 variables:
+#' \describe{
+#'   \item{participant_id}{Unique identifier for each participant}
+#'   \item{poop}{Preference rating of poop (1 = low, 7 = high)}
+#'   \item{chocolate}{Preference rating of poop (1 = low, 7 = high)}
+#' }
+#'
+#' ```{r}
+#' data("preferences2025")
+#' head(preferences2025, n = 5)
+#' ```
+#' @family effect size datasets
+#'
+#' @seealso [repeated_measures_d()]
+NULL
+
+
 # Tables ------------------------------------------------------------------
 
 #' Fictional Results from a Workers' Randomized Control Trial
