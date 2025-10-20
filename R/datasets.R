@@ -95,20 +95,20 @@ NULL
 #'
 #' @docType data
 #'
-#' @name preferences
+#' @name preferences2025
 #'
 #' @keywords data
 #'
 #' @format A data frame with 489 rows and 3 variables:
 #' \describe{
 #'   \item{participant_id}{Unique identifier for each participant}
-#'   \item{poop}{Desirability rating of poop (1 = very undesirable, 7 = very desirable)}
-#'   \item{chocolate}{Desirability rating of chocolate (1 = very undesirable, 7 = very desirable)}
+#'   \item{poop}{Preference rating of poop (1 = low, 7 = high)}
+#'   \item{chocolate}{Preference rating of poop (1 = low, 7 = high)}
 #' }
 #'
 #' ```{r}
-#' data("preferences")
-#' head(preferences, n = 5)
+#' data("preferences2025")
+#' head(preferences2025, n = 5)
 #' ```
 #' @family effect size datasets
 #'

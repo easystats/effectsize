@@ -23,7 +23,7 @@ Other effect size datasets:
 \code{\link{RCT_table}},
 \code{\link{food_class}},
 \code{\link{hardlyworking}},
-\code{\link{preferences}},
+\code{\link{preferences2025}},
 \code{\link{rouder2016}},
 \code{\link{screening_test}}
 }
