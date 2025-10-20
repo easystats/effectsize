@@ -263,13 +263,13 @@ save(rouder2016, file = "data/rouder2016.rdata")
 
 # https://github.com/ianhussey/not-so-simple-preferences -----------------
 
-desirability <- readRDS(url("https://github.com/ianhussey/not-so-simple-preferences/raw/refs/heads/main/data/processed/data_processed.rds"))
+preferences <- read.csv(url("https://github.com/ianhussey/not-so-simple-preferences/raw/refs/heads/main/data/processed/data_processed_subset_with_exclusions.csv"))
 
-desirability <- desirability[
-  desirability$global_check == "passed",
-  c("participant_id", "desirability_poop", "desirability_chocolate")
+preferences <- preferences[
+  ,
+  c("participant_id", "evaluations_poop", "evaluations_chocolate")
 ]
 
-colnames(desirability) <- gsub("desirability_", "", colnames(desirability))
+colnames(preferences) <- gsub("evaluations_", "", colnames(preferences))
 
-save(desirability, file = "data/desirability.rdata")
+save(preferences, file = "data/preferences.rdata")

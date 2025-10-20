@@ -84,14 +84,18 @@ NULL
 NULL
 
 
-#' Desirability of Poop vs Chocolate
+#' Preferences of Poop vs Chocolate
 #'
-#' A subset of Ian Hussey's replication of _Balcetis & Dunning (2010) Study 3b_.
-#' Data available at https://github.com/ianhussey/not-so-simple-preferences.
+#' A subset of Hussey and Cummins replication of _Balcetis & Dunning (2010)
+#' Study 3b_. Each scale is average of 3 items both for "a toilet filled with
+#' human poop" and for  and for "a toilet filled with human poop" (how positive
+#' or negative / pleasant or unpleasant / good or bad).
+#'
+#' @references  Hussey, I., & Cummins, J. (2025). (Not so) simple preferences. https://github.com/ianhussey/not-so-simple-preferences
 #'
 #' @docType data
 #'
-#' @name desirability
+#' @name preferences
 #'
 #' @keywords data
 #'
@@ -103,8 +107,8 @@ NULL
 #' }
 #'
 #' ```{r}
-#' data("desirability")
-#' head(desirability, n = 5)
+#' data("preferences")
+#' head(preferences, n = 5)
 #' ```
 #' @family effect size datasets
 #'

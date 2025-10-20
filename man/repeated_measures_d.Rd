@@ -161,23 +161,29 @@ The \code{see} package contains relevant plotting functions. See the \href{https
 \examples{
 # Paired data -------
 
-data("desirability")
-# Is chocolate more desirable then... poop?
+data("preferences")
+# Is chocolate preferred over... poop?
 
-repeated_measures_d(Pair(chocolate, poop) ~ 1, data = desirability)
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences)
 
 # More options:
-repeated_measures_d(Pair(chocolate, poop) ~ 1, data = desirability, mu = 3.4)
-repeated_measures_d(Pair(chocolate, poop) ~ 1, data = desirability, alternative = "greater")
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences,
+                    mu = 3.4)
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences,
+                    alternative = "greater")
 
 # Other methods
-repeated_measures_d(Pair(chocolate, poop) ~ 1, data = desirability, method = "av")
-repeated_measures_d(Pair(chocolate, poop) ~ 1, data = desirability, method = "b")
-repeated_measures_d(Pair(chocolate, poop) ~ 1, data = desirability, method = "d")
-repeated_measures_d(Pair(chocolate, poop) ~ 1, data = desirability, method = "z")
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences,
+                    method = "av")
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences,
+                    method = "b")
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences,
+                    method = "d")
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences,
+                    method = "z")
 
 # d_z is the same as Cohen's d for one sample (of individual difference):
-cohens_d(chocolate - poop ~ 1, data = desirability)
+cohens_d(chocolate - poop ~ 1, data = preferences)
 
 
 
