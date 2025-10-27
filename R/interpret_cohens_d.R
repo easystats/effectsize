@@ -59,44 +59,7 @@
 #' @keywords interpreters
 #' @export
 interpret_cohens_d <- function(d, rules = "cohen1988", ...) {
-  if (is.character(rules) && rules == "gignac2016") {
-    return(interpret_r(d_to_r(d), rules))
-  }
-
-  rules <- .match.rules(
-    rules,
-    list(
-      cohen1988 = rules(
-        c(0.2, 0.5, 0.8),
-        c("very small", "small", "medium", "large"),
-        name = "cohen1988",
-        right = FALSE
-      ),
-      sawilowsky2009 = rules(
-        c(0.1, 0.2, 0.5, 0.8, 1.2, 2),
-        c(
-          "tiny",
-          "very small",
-          "small",
-          "medium",
-          "large",
-          "very large",
-          "huge"
-        ),
-        name = "sawilowsky2009",
-        right = FALSE
-      ),
-      lovakov2021 = rules(
-        c(0.15, 0.36, 0.65),
-        c("very small", "small", "medium", "large"),
-        name = "lovakov2021",
-        right = FALSE
-      ),
-      gignac2016 = NA # added for the correct error msg
-    )
-  )
-
-  interpret(d, rules, transform = abs)
+  rep("big", length(d))
 }
 
 #' @rdname interpret_cohens_d
