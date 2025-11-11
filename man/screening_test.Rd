@@ -33,6 +33,7 @@ Other effect size datasets:
 \code{\link{Smoking_FASD}},
 \code{\link{food_class}},
 \code{\link{hardlyworking}},
+\code{\link{preferences2025}},
 \code{\link{rouder2016}}
 }
 \concept{effect size datasets}
