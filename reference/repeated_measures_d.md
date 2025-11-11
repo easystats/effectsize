@@ -246,70 +246,70 @@ Other standardized differences:
 ``` r
 # Paired data -------
 
-data("sleep")
-sleep2 <- reshape(sleep,
-  direction = "wide",
-  idvar = "ID", timevar = "group"
-)
+data("preferences2025")
+# Is chocolate preferred over... poop?
 
-repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2)
-#> d (rm) |         95% CI
-#> -----------------------
-#> -0.75  | [-1.17, -0.33]
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences2025)
+#> d (rm) |       95% CI
+#> ---------------------
+#> 5.58   | [5.01, 6.15]
 #> 
 #> - Adjusted for small sample bias.
-
-# Same as:
-# repeated_measures_d(sleep$extra[sleep$group==1],
-#                     sleep$extra[sleep$group==2])
-# repeated_measures_d(extra ~ group | ID, data = sleep)
-
 
 # More options:
-repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, mu = -1)
-#> d (rm) |        95% CI
-#> ----------------------
-#> -0.28  | [-0.65, 0.09]
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences2025,
+                    mu = 3.4)
+#> d (rm) |       95% CI
+#> ---------------------
+#> 1.53   | [1.32, 1.73]
 #> 
 #> - Adjusted for small sample bias.
-#> - Deviation from a difference of -1.
-repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, alternative = "less")
-#> d (rm) |        95% CI
-#> ----------------------
-#> -0.75  | [-Inf, -0.40]
+#> - Deviation from a difference of 3.4.
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences2025,
+                    alternative = "greater")
+#> d (rm) |      95% CI
+#> --------------------
+#> 5.58   | [5.11, Inf]
 #> 
 #> - Adjusted for small sample bias.
-#> - One-sided CIs: lower bound fixed at [-Inf].
+#> - One-sided CIs: upper bound fixed at [Inf].
 
 # Other methods
-repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, method = "av")
-#> d (av) |         95% CI
-#> -----------------------
-#> -0.76  | [-1.13, -0.39]
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences2025,
+                    method = "av")
+#> d (av) |       95% CI
+#> ---------------------
+#> 5.57   | [5.43, 5.71]
 #> 
 #> - Adjusted for small sample bias.
-repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, method = "b")
-#> Becker's d |         95% CI
-#> ---------------------------
-#> -0.72      | [-1.20, -0.24]
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences2025,
+                    method = "b")
+#> Becker's d |       95% CI
+#> -------------------------
+#> 5.17       | [4.82, 5.53]
 #> 
 #> - Adjusted for small sample bias.
-repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, method = "d")
-#> Cohen's d |         95% CI
-#> --------------------------
-#> -0.80     | [-1.29, -0.30]
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences2025,
+                    method = "d")
+#> Cohen's d |       95% CI
+#> ------------------------
+#> 5.58      | [5.29, 5.86]
 #> 
 #> - Adjusted for small sample bias.
-repeated_measures_d(Pair(extra.1, extra.2) ~ 1, data = sleep2, method = "z", adjust = FALSE)
-#> d (z) |         95% CI
-#> ----------------------
-#> -1.28 | [-2.12, -0.45]
+repeated_measures_d(Pair(chocolate, poop) ~ 1, data = preferences2025,
+                    method = "z")
+#> d (z) |       95% CI
+#> --------------------
+#> 3.56  | [3.32, 3.80]
+#> 
+#> - Adjusted for small sample bias.
 
 # d_z is the same as Cohen's d for one sample (of individual difference):
-cohens_d(extra.1 - extra.2 ~ 1, data = sleep2)
-#> Cohen's d |         95% CI
-#> --------------------------
-#> -1.28     | [-2.12, -0.41]
+cohens_d(chocolate - poop ~ 1, data = preferences2025)
+#> Cohen's d |       95% CI
+#> ------------------------
+#> 3.56      | [3.32, 3.80]
+
 
 
 

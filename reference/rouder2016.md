@@ -41,4 +41,5 @@ Other effect size datasets:
 [`Smoking_FASD`](https://easystats.github.io/effectsize/reference/Smoking_FASD.md),
 [`food_class`](https://easystats.github.io/effectsize/reference/food_class.md),
 [`hardlyworking`](https://easystats.github.io/effectsize/reference/hardlyworking.md),
+[`preferences2025`](https://easystats.github.io/effectsize/reference/preferences2025.md),
 [`screening_test`](https://easystats.github.io/effectsize/reference/screening_test.md)

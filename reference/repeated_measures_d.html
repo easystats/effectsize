@@ -302,70 +302,70 @@ more flexible methods.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Paired data -------</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"sleep"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">sleep2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/reshape.html" class="external-link">reshape</a></span><span class="op">(</span><span class="va">sleep</span>,</span></span>
-<span class="r-in"><span>  direction <span class="op">=</span> <span class="st">"wide"</span>,</span></span>
-<span class="r-in"><span>  idvar <span class="op">=</span> <span class="st">"ID"</span>, timevar <span class="op">=</span> <span class="st">"group"</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"preferences2025"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Is chocolate preferred over... poop?</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">repeated_measures_d</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">extra.1</span>, <span class="va">extra.2</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">sleep2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> d (rm) |         95% CI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.75  | [-1.17, -0.33]</span>
+<span class="r-in"><span><span class="fu">repeated_measures_d</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">chocolate</span>, <span class="va">poop</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">preferences2025</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d (rm) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5.58   | [5.01, 6.15]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Adjusted for small sample bias.</span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Same as:</span></span></span>
-<span class="r-in"><span><span class="co"># repeated_measures_d(sleep$extra[sleep$group==1],</span></span></span>
-<span class="r-in"><span><span class="co">#                     sleep$extra[sleep$group==2])</span></span></span>
-<span class="r-in"><span><span class="co"># repeated_measures_d(extra ~ group | ID, data = sleep)</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># More options:</span></span></span>
-<span class="r-in"><span><span class="fu">repeated_measures_d</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">extra.1</span>, <span class="va">extra.2</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">sleep2</span>, mu <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> d (rm) |        95% CI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.28  | [-0.65, 0.09]</span>
+<span class="r-in"><span><span class="fu">repeated_measures_d</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">chocolate</span>, <span class="va">poop</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">preferences2025</span>,</span></span>
+<span class="r-in"><span>                    mu <span class="op">=</span> <span class="fl">3.4</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d (rm) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1.53   | [1.32, 1.73]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Adjusted for small sample bias.</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Deviation from a difference of -1.</span></span>
-<span class="r-in"><span><span class="fu">repeated_measures_d</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">extra.1</span>, <span class="va">extra.2</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">sleep2</span>, alternative <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> d (rm) |        95% CI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.75  | [-Inf, -0.40]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Deviation from a difference of 3.4.</span></span>
+<span class="r-in"><span><span class="fu">repeated_measures_d</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">chocolate</span>, <span class="va">poop</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">preferences2025</span>,</span></span>
+<span class="r-in"><span>                    alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d (rm) |      95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> --------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5.58   | [5.11, Inf]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Adjusted for small sample bias.</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: lower bound fixed at [-Inf].</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- One-sided CIs: upper bound fixed at [Inf].</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Other methods</span></span></span>
-<span class="r-in"><span><span class="fu">repeated_measures_d</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">extra.1</span>, <span class="va">extra.2</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">sleep2</span>, method <span class="op">=</span> <span class="st">"av"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> d (av) |         95% CI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -----------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.76  | [-1.13, -0.39]</span>
+<span class="r-in"><span><span class="fu">repeated_measures_d</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">chocolate</span>, <span class="va">poop</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">preferences2025</span>,</span></span>
+<span class="r-in"><span>                    method <span class="op">=</span> <span class="st">"av"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d (av) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5.57   | [5.43, 5.71]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Adjusted for small sample bias.</span></span>
-<span class="r-in"><span><span class="fu">repeated_measures_d</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">extra.1</span>, <span class="va">extra.2</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">sleep2</span>, method <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Becker's d |         95% CI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.72      | [-1.20, -0.24]</span>
+<span class="r-in"><span><span class="fu">repeated_measures_d</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">chocolate</span>, <span class="va">poop</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">preferences2025</span>,</span></span>
+<span class="r-in"><span>                    method <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Becker's d |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5.17       | [4.82, 5.53]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Adjusted for small sample bias.</span></span>
-<span class="r-in"><span><span class="fu">repeated_measures_d</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">extra.1</span>, <span class="va">extra.2</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">sleep2</span>, method <span class="op">=</span> <span class="st">"d"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's d |         95% CI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.80     | [-1.29, -0.30]</span>
+<span class="r-in"><span><span class="fu">repeated_measures_d</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">chocolate</span>, <span class="va">poop</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">preferences2025</span>,</span></span>
+<span class="r-in"><span>                    method <span class="op">=</span> <span class="st">"d"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's d |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5.58      | [5.29, 5.86]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Adjusted for small sample bias.</span></span>
-<span class="r-in"><span><span class="fu">repeated_measures_d</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">extra.1</span>, <span class="va">extra.2</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">sleep2</span>, method <span class="op">=</span> <span class="st">"z"</span>, adjust <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> d (z) |         95% CI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -1.28 | [-2.12, -0.45]</span>
+<span class="r-in"><span><span class="fu">repeated_measures_d</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Pair.html" class="external-link">Pair</a></span><span class="op">(</span><span class="va">chocolate</span>, <span class="va">poop</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">preferences2025</span>,</span></span>
+<span class="r-in"><span>                    method <span class="op">=</span> <span class="st">"z"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d (z) |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> --------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3.56  | [3.32, 3.80]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">- Adjusted for small sample bias.</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># d_z is the same as Cohen's d for one sample (of individual difference):</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">extra.1</span> <span class="op">-</span> <span class="va">extra.2</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">sleep2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's d |         95% CI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -1.28     | [-2.12, -0.41]</span>
+<span class="r-in"><span><span class="fu"><a href="cohens_d.html">cohens_d</a></span><span class="op">(</span><span class="va">chocolate</span> <span class="op">-</span> <span class="va">poop</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">preferences2025</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cohen's d |       95% CI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3.56      | [3.32, 3.80]</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -424,7 +424,7 @@ more flexible methods.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.9000.</p>
 </div>
 
     </footer></div>

@@ -47,5 +47,6 @@ Other effect size datasets:
 [`RCT_table`](https://easystats.github.io/effectsize/reference/RCT_table.md),
 [`Smoking_FASD`](https://easystats.github.io/effectsize/reference/Smoking_FASD.md),
 [`food_class`](https://easystats.github.io/effectsize/reference/food_class.md),
+[`preferences2025`](https://easystats.github.io/effectsize/reference/preferences2025.md),
 [`rouder2016`](https://easystats.github.io/effectsize/reference/rouder2016.md),
 [`screening_test`](https://easystats.github.io/effectsize/reference/screening_test.md)

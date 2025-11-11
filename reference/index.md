@@ -353,6 +353,8 @@ sizes
   : Workers' Salary and Other Information
 - [`rouder2016`](https://easystats.github.io/effectsize/reference/rouder2016.md)
   : Jeff Rouder's Example Dataset for Repeated Measures
+- [`preferences2025`](https://easystats.github.io/effectsize/reference/preferences2025.md)
+  : Preferences of Poop vs Chocolate
 - [`screening_test`](https://easystats.github.io/effectsize/reference/screening_test.md)
   : Results from 2 Screening Tests
 - [`RCT_table`](https://easystats.github.io/effectsize/reference/RCT_table.md)
