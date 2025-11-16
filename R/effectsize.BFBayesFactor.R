@@ -96,7 +96,7 @@ effectsize.BFBayesFactor <- function(
     nnt = nnt
   )
   data <- insight::get_data(model)
-  posts <- insight::get_parameters(model)
+  posts <- insight::get_parameters(model, verbose = verbose)
 
   ES <- apply(posts, 1, function(a) {
     M <- matrix(a, nrow = nrow(data))
@@ -169,7 +169,7 @@ effectsize.BFBayesFactor <- function(
 
 #' @keywords internal
 .effectsize_correlationBF <- function(model, type = NULL, verbose = TRUE) {
-  rho <- insight::get_parameters(model)[["rho"]]
+  rho <- insight::get_parameters(model, verbose = verbose)[["rho"]]
   res <- data.frame(rho = rho)
 
   list(
@@ -182,7 +182,7 @@ effectsize.BFBayesFactor <- function(
 
 #' @keywords internal
 .effectsize_proportionBF <- function(model, type = NULL, verbose = TRUE) {
-  res <- insight::get_parameters(model)
+  res <- insight::get_parameters(model, verbose = verbose)
 
   p0 <- model@denominator@identifier[["p0"]]
   xtra_footer <- list(c(sprintf("\n- Against the null: p = %s.", p0), "cyan"))
