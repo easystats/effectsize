@@ -39,7 +39,7 @@ effectsize.htest <- function(model, type = NULL, verbose = TRUE, ...) {
 #' @keywords internal
 .data_from_formula <- function(model_data, model, verbose = TRUE, ...) {
   if (is.null(model_data) && "data" %in% names(match.call())) {
-    vars <- insight::get_parameters(model)$Parameter
+    vars <- insight::get_parameters(model, verbose = verbose)$Parameter
     vars_split <- unlist(strsplit(vars, " by | and "))
     data_ellipsis <- eval.parent(match.call()[["data"]])
     if (!grepl("\\$|\\[", vars) && length(vars_split) > 1) {
