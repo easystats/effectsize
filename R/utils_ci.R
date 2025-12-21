@@ -10,8 +10,9 @@
   probs <- c(alpha / 2, 1 - alpha / 2)
 
   lambda <- f * df
+  init <- rep(ifelse(lambda < 2, 2, lambda / 2), 2)
   ncp <- suppressWarnings(stats::optim(
-    par = 1.1 * rep(lambda, 2),
+    par = init,
     fn = function(x) {
       quan <- stats::qf(p = probs, df, df_error, ncp = x)
       sum(abs(quan - f))
@@ -39,9 +40,9 @@
 
   alpha <- 1 - conf.level
   probs <- c(alpha / 2, 1 - alpha / 2)
-
+  init <- rep(ifelse(abs(t) < 2, sign(t) * 2, t / 2), 2)
   ncp <- suppressWarnings(stats::optim(
-    par = 1.1 * rep(t, 2),
+    par = init,
     fn = function(x) {
       quan <- stats::qt(p = probs, df = df_error, ncp = x)
       sum(abs(quan - t))
@@ -62,9 +63,9 @@
 
   alpha <- 1 - conf.level
   probs <- c(alpha / 2, 1 - alpha / 2)
-
+  init <- rep(ifelse(chisq < 2, 2, chisq / 2), 2)
   ncp <- suppressWarnings(stats::optim(
-    par = 1.1 * rep(chisq, 2),
+    par = init,
     fn = function(x) {
       quan <- stats::qchisq(p = probs, df, ncp = x)
       sum(abs(quan - chisq))
