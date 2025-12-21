@@ -115,7 +115,7 @@ joint_tests(aov_fit, by = "noise")
     > 
     > noise = present:
     >  model term df1 df2 F.ratio p.value
-    >  angle        2   9  51.000  <.0001
+    >  angle        2   9  51.000 <0.0001
 
 ``` r
 
@@ -407,7 +407,7 @@ pairs(em_tension)
 
     >  contrast estimate SE df t.ratio p.value
     >  L - M        10.0  4 51   2.500  0.0400
-    >  L - H        14.7  4 51   3.700  <.0001
+    >  L - H        14.7  4 51   3.700 <0.0001
     >  M - H         4.7  4 51   1.200  0.4600
     > 
     > P value adjustment: tukey method for comparing a family of 3 estimates
