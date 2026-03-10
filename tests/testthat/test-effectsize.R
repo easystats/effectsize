@@ -390,12 +390,13 @@ test_that("htest | rank", {
   expect_equal(rank_epsilon_squared(kt)[[1]], E, ignore_attr = TRUE)
 })
 
-test_that("htest | Get args from htest", {
+test_that("htest | Get args from htest (t.test)", {
+  skip_on_cran() # TODO: remove this after next R version release (4.6)
   tt <- t.test(
     mtcars$hp,
     mtcars$mpg,
     alternative = "l",
-    mu = -3,
+    mu = 100,
     conf.level = 0.8,
     var.equal = TRUE
   )
@@ -405,18 +406,21 @@ test_that("htest | Get args from htest", {
       mtcars$hp,
       mtcars$mpg,
       alternative = "l",
-      mu = -3,
+      mu = 100,
       ci = 0.8
     ),
     ignore_attr = TRUE
   )
+})
 
+test_that("htest | Get args from htest (wilcox.test)", {
+  skip_on_cran() # TODO: remove this after next R version release (4.6)
   suppressWarnings({
-    ww1 <- wilcox.test(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3)
+    ww1 <- wilcox.test(mtcars$hp, mtcars$mpg, alternative = "l", mu = 80)
   })
   expect_equal(
     rank_biserial(ww1),
-    rank_biserial(mtcars$hp, mtcars$mpg, alternative = "l", mu = -3),
+    rank_biserial(mtcars$hp, mtcars$mpg, alternative = "l", mu = 80),
     ignore_attr = TRUE
   )
 
@@ -425,7 +429,7 @@ test_that("htest | Get args from htest", {
       mtcars$hp,
       mtcars$mpg,
       alternative = "l",
-      mu = -3,
+      mu = 80,
       conf.int = TRUE,
       conf.level = 0.8
     )
@@ -436,7 +440,7 @@ test_that("htest | Get args from htest", {
       mtcars$hp,
       mtcars$mpg,
       alternative = "l",
-      mu = -3,
+      mu = 80,
       ci = 0.8
     ),
     ignore_attr = TRUE
