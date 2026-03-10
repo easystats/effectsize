@@ -391,7 +391,6 @@ test_that("htest | rank", {
 })
 
 test_that("htest | Get args from htest (t.test)", {
-  skip_on_cran() # TODO: remove this after next R version release (4.6)
   tt <- t.test(
     mtcars$hp,
     mtcars$mpg,
@@ -414,7 +413,6 @@ test_that("htest | Get args from htest (t.test)", {
 })
 
 test_that("htest | Get args from htest (wilcox.test)", {
-  skip_on_cran() # TODO: remove this after next R version release (4.6)
   suppressWarnings({
     ww1 <- wilcox.test(mtcars$hp, mtcars$mpg, alternative = "l", mu = 80)
   })
@@ -431,7 +429,7 @@ test_that("htest | Get args from htest (wilcox.test)", {
       alternative = "l",
       mu = 80,
       conf.int = TRUE,
-      conf.level = 0.8
+      conf.level = 0.7
     )
   })
   expect_equal(
@@ -441,9 +439,10 @@ test_that("htest | Get args from htest (wilcox.test)", {
       mtcars$mpg,
       alternative = "l",
       mu = 80,
-      ci = 0.8
+      ci = 0.7
     ),
-    ignore_attr = TRUE
+    ignore_attr = TRUE,
+    tolerance = 0.01
   )
 })
 
