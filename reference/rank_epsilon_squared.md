@@ -118,8 +118,8 @@ non-parametric tests of differences between 2 or more samples (a rank
 based ANOVA). See
 [stats::kruskal.test](https://rdrr.io/r/stats/kruskal.test.html). Values
 range from 0 to 1, with larger values indicating larger differences
-between groups.  
-  
+between groups.\
+\
 Kendall's *W* is appropriate for non-parametric tests of differences
 between 2 or more dependent samples (a rank based rmANOVA), where each
 `group` (e.g., experimental condition) was measured for each `block`
@@ -151,8 +151,8 @@ test could be performed with either a CI or a p value. The 100 (1 -
 \\\alpha\\)% confidence interval contains all of the parameter values
 for which *p* \> \\\alpha\\ for the current data and model. For example,
 a 95% confidence interval contains all of the values for which p \>
-.05.  
-  
+.05.\
+\
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided
@@ -174,8 +174,8 @@ and
 [Overlap](https://easystats.github.io/effectsize/reference/p_superiority.md):
 the null value of \\U_2\\ is 0.5, but it can never be smaller than 0.5;
 am *Overlap* of 1 means "full overlap" (no difference), but it cannot be
-larger than 1.  
-  
+larger than 1.\
+\
 When bootstrapping CIs for such effect sizes, the bounds of the CIs will
 never cross (and often will never cover) the null. Therefore, these CIs
 should not be used for statistical inference.

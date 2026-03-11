@@ -7,7 +7,7 @@ Cohen's f. These are useful in cases where the various Sum of Squares
 and Mean Squares are not easily available or their computation is not
 straightforward (e.g., in liner mixed models, contrasts, etc.). For test
 statistics derived from `lm` and `aov` models, these functions give
-exact results. For all other cases, they return close approximations.  
+exact results. For all other cases, they return close approximations.\
 See [Effect Size from Test Statistics
 vignette.](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
 
@@ -94,15 +94,15 @@ A data frame with the effect size(s) between 0-1 (`Eta2_partial`,
 
 ## Details
 
-These functions use the following formulae:  
+These functions use the following formulae:\
 \$\$\eta_p^2 = \frac{F \times df\_{num}}{F \times df\_{num} +
-df\_{den}}\$\$  
+df\_{den}}\$\$\
 \$\$\epsilon_p^2 = \frac{(F - 1) \times df\_{num}}{F \times df\_{num} +
-df\_{den}}\$\$  
+df\_{den}}\$\$\
 \$\$\omega_p^2 = \frac{(F - 1) \times df\_{num}}{F \times df\_{num} +
-df\_{den} + 1}\$\$  
-\$\$f_p = \sqrt{\frac{\eta_p^2}{1-\eta_p^2}}\$\$  
-  
+df\_{den} + 1}\$\$\
+\$\$f_p = \sqrt{\frac{\eta_p^2}{1-\eta_p^2}}\$\$\
+\
 For *t*, the conversion is based on the equality of \\t^2 = F\\ when
 \\df\_{num}=1\\.
 
@@ -135,8 +135,8 @@ noncentral *t* distribution is *t* = 2.0 the .025 quantile (answer: the
 noncentral *t* distribution with *ncp* = .04)? After estimating these
 confidence bounds on the *ncp*, they are converted into the effect size
 metric to obtain a confidence interval for the effect size (Steiger,
-2004).  
-  
+2004).\
+\
 For additional details on estimation and troubleshooting, see
 [effectsize_CIs](https://easystats.github.io/effectsize/reference/effectsize_CIs.md).
 
@@ -150,8 +150,8 @@ test could be performed with either a CI or a p value. The 100 (1 -
 \\\alpha\\)% confidence interval contains all of the parameter values
 for which *p* \> \\\alpha\\ for the current data and model. For example,
 a 95% confidence interval contains all of the values for which p \>
-.05.  
-  
+.05.\
+\
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided

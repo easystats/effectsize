@@ -28,12 +28,12 @@ f_to_eta2(f)
 ## Details
 
 Any measure of variance explained can be converted to a corresponding
-Cohen's *f* via:  
-  
-\$\$f^2 = \frac{\eta^2}{1 - \eta^2}\$\$  
-  
-\$\$\eta^2 = \frac{f^2}{1 + f^2}\$\$  
-  
+Cohen's *f* via:\
+\
+\$\$f^2 = \frac{\eta^2}{1 - \eta^2}\$\$\
+\
+\$\$\eta^2 = \frac{f^2}{1 + f^2}\$\$\
+\
 If a partial Eta-Squared is used, the resulting Cohen's *f* is a
 partial-Cohen's *f*; If a less biased estimate of variance explained is
 used (such as Epsilon- or Omega-Squared), the resulting Cohen's *f* is

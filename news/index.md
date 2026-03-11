@@ -1,6 +1,6 @@
 # Changelog
 
-## effectsize 1.0.x
+## effectsize 1.0.2
 
 ### New features
 

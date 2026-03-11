@@ -4,7 +4,7 @@ These functions are convenience functions to convert t, z and F test
 statistics to Cohen's d and **partial** r. These are useful in cases
 where the data required to compute these are not easily available or
 their computation is not straightforward (e.g., in liner mixed models,
-contrasts, etc.).  
+contrasts, etc.).\
 See [Effect Size from Test Statistics
 vignette.](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
 
@@ -75,16 +75,16 @@ A data frame with the effect size(s)(`r` or `d`), and their CIs
 
 ## Details
 
-These functions use the following formulae to approximate *r* and *d*:  
-  
-\$\$r\_{partial} = t / \sqrt{t^2 + df\_{error}}\$\$  
-  
-\$\$r\_{partial} = z / \sqrt{z^2 + N}\$\$  
-  
-\$\$d = 2 \* t / \sqrt{df\_{error}}\$\$  
-  
-\$\$d_z = t / \sqrt{df\_{error}}\$\$  
-  
+These functions use the following formulae to approximate *r* and *d*:\
+\
+\$\$r\_{partial} = t / \sqrt{t^2 + df\_{error}}\$\$\
+\
+\$\$r\_{partial} = z / \sqrt{z^2 + N}\$\$\
+\
+\$\$d = 2 \* t / \sqrt{df\_{error}}\$\$\
+\
+\$\$d_z = t / \sqrt{df\_{error}}\$\$\
+\
 \$\$d = 2 \* z / \sqrt{N}\$\$
 
 The resulting `d` effect size is an *approximation* to Cohen's *d*, and
@@ -107,8 +107,8 @@ noncentral *t* distribution is *t* = 2.0 the .025 quantile (answer: the
 noncentral *t* distribution with *ncp* = .04)? After estimating these
 confidence bounds on the *ncp*, they are converted into the effect size
 metric to obtain a confidence interval for the effect size (Steiger,
-2004).  
-  
+2004).\
+\
 For additional details on estimation and troubleshooting, see
 [effectsize_CIs](https://easystats.github.io/effectsize/reference/effectsize_CIs.md).
 
@@ -122,8 +122,8 @@ test could be performed with either a CI or a p value. The 100 (1 -
 \\\alpha\\)% confidence interval contains all of the parameter values
 for which *p* \> \\\alpha\\ for the current data and model. For example,
 a 95% confidence interval contains all of the values for which p \>
-.05.  
-  
+.05.\
+\
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided

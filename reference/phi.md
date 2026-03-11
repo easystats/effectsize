@@ -92,8 +92,8 @@ Pearson's *C* are effect sizes for tests of independence in 2D
 contingency tables. For 2-by-2 tables, phi, Cramer's *V*, Tschuprow's
 *T*, and Cohen's *w* are identical, and are equal to the simple
 correlation between two dichotomous variables, ranging between 0 (no
-dependence) and 1 (perfect dependence).  
-  
+dependence) and 1 (perfect dependence).\
+\
 For larger tables, Cramer's *V*, Tschuprow's *T* or Pearson's *C* should
 be used, as they are bounded between 0-1. (Cohen's *w* can also be used,
 but since it is not bounded at 1 (can be larger) its interpretation is
@@ -101,15 +101,15 @@ more difficult.) For square table, Cramer's *V* and Tschuprow's *T* give
 the same results, but for non-square tables Tschuprow's *T* is more
 conservative: while *V* will be 1 if either columns are fully dependent
 on rows (for each column, there is only one non-0 cell) *or* rows are
-fully dependent on columns, *T* will only be 1 if both are true.  
-  
+fully dependent on columns, *T* will only be 1 if both are true.\
+\
 For goodness-of-fit in 1D tables Cohen's *W*, פ (Fei) or Pearson's *C*
 can be used. Cohen's *w* has no upper bound (can be arbitrarily large,
 depending on the expected distribution). *Fei* is an adjusted Cohen's
 *w*, accounting for the expected distribution, making it bounded between
 0-1 (Ben-Shachar et al, 2023). Pearson's *C* is also bounded between
-0-1.  
-  
+0-1.\
+\
 To summarize, for correlation-like effect sizes, we recommend:
 
 - For a 2x2 table, use `phi()`
@@ -131,8 +131,8 @@ noncentral *t* distribution is *t* = 2.0 the .025 quantile (answer: the
 noncentral *t* distribution with *ncp* = .04)? After estimating these
 confidence bounds on the *ncp*, they are converted into the effect size
 metric to obtain a confidence interval for the effect size (Steiger,
-2004).  
-  
+2004).\
+\
 For additional details on estimation and troubleshooting, see
 [effectsize_CIs](https://easystats.github.io/effectsize/reference/effectsize_CIs.md).
 
@@ -146,8 +146,8 @@ test could be performed with either a CI or a p value. The 100 (1 -
 \\\alpha\\)% confidence interval contains all of the parameter values
 for which *p* \> \\\alpha\\ for the current data and model. For example,
 a 95% confidence interval contains all of the values for which p \>
-.05.  
-  
+.05.\
+\
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided

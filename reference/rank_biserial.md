@@ -109,8 +109,8 @@ of favorable and unfavorable pairs / signed ranks (Kerby, 2014). Values
 range from `-1` complete dominance of the second sample (*all* values of
 the second sample are larger than *all* the values of the first sample)
 to `+1` complete dominance of the fist sample (*all* values of the
-second sample are smaller than *all* the values of the first sample).  
-  
+second sample are smaller than *all* the values of the first sample).\
+\
 Cliff's *delta* is an alias to the rank-biserial correlation in the two
 sample case.
 
@@ -137,8 +137,8 @@ test could be performed with either a CI or a p value. The 100 (1 -
 \\\alpha\\)% confidence interval contains all of the parameter values
 for which *p* \> \\\alpha\\ for the current data and model. For example,
 a 95% confidence interval contains all of the values for which p \>
-.05.  
-  
+.05.\
+\
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided

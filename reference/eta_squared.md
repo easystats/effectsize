@@ -4,8 +4,8 @@ Functions to compute effect size measures for ANOVAs, such as Eta-
 (\\\eta\\), Omega- (\\\omega\\) and Epsilon- (\\\epsilon\\) squared, and
 Cohen's f (or their partialled versions) for ANOVA tables. These indices
 represent an estimate of how much variance in the response variables is
-accounted for by the explanatory variable(s).  
-  
+accounted for by the explanatory variable(s).\
+\
 When passing models, effect sizes are computed using the sums of squares
 obtained from `anova(model)` which might not always be appropriate. See
 details.
@@ -155,8 +155,8 @@ eta_squared_posterior(
 
 A data frame with the effect size(s) between 0-1 (`Eta2`, `Epsilon2`,
 `Omega2`, `Cohens_f` or `Cohens_f2`, possibly with the `partial` or
-`generalized` suffix), and their CIs (`CI_low` and `CI_high`).  
-  
+`generalized` suffix), and their CIs (`CI_low` and `CI_high`).\
+\
 For `eta_squared_posterior()`, a data frame containing the ppd of the
 Eta squared for each fixed effect, which can then be passed to
 [`bayestestR::describe_posterior()`](https://easystats.github.io/bayestestR/reference/describe_posterior.html)
@@ -170,8 +170,8 @@ intervals.
 For `aov` (or `lm`), `aovlist` and `afex_aov` models, and for `anova`
 objects that provide Sums-of-Squares, the effect sizes are computed
 directly using Sums-of-Squares. (For `maov` (or `mlm`) models, effect
-sizes are computed for each response separately.)  
-  
+sizes are computed for each response separately.)\
+\
 For other ANOVA tables and models (converted to ANOVA-like tables via
 [`anova()`](https://rdrr.io/r/stats/anova.html) methods), effect sizes
 are approximated via test statistic conversion of the omnibus *F*
@@ -191,8 +191,8 @@ squares you are interested in. You might want to convert your model to
 an ANOVA(-like) table yourself and then pass the result to
 `eta_squared()`. See examples below for use of
 [`car::Anova()`](https://rdrr.io/pkg/car/man/Anova.html) and the `afex`
-package.  
-  
+package.\
+\
 For type 3 sum of squares, it is generally recommended to fit models
 with *orthogonal factor weights* (e.g., `contr.sum`) and *centered
 covariates*, for sensible results. See examples and the `afex` package.
@@ -201,8 +201,8 @@ covariates*, for sensible results. See examples and the `afex` package.
 
 Both ***Omega*** and ***Epsilon*** are unbiased estimators of the
 population's ***Eta***, which is especially important is small samples.
-But which to choose?  
-  
+But which to choose?\
+\
 Though Omega is the more popular choice (Albers and Lakens, 2018),
 Epsilon is analogous to adjusted R2 (Allen, 2017, p. 382), and has been
 found to be less biased (Carroll & Nordholm, 1975).
@@ -212,12 +212,12 @@ found to be less biased (Carroll & Nordholm, 1975).
 Cohen's f can take on values between zero, when the population means are
 all equal, and an indefinitely large number as standard deviation of
 means increases relative to the average standard deviation within each
-group.  
-  
+group.\
+\
 When comparing two models in a sequential regression analysis, Cohen's f
 for R-square change is the ratio between the increase in R-square and
-the percent of unexplained variance.  
-  
+the percent of unexplained variance.\
+\
 Cohen has suggested that the values of 0.10, 0.25, and 0.40 represent
 small, medium, and large effect sizes, respectively.
 
@@ -245,8 +245,8 @@ noncentral *t* distribution is *t* = 2.0 the .025 quantile (answer: the
 noncentral *t* distribution with *ncp* = .04)? After estimating these
 confidence bounds on the *ncp*, they are converted into the effect size
 metric to obtain a confidence interval for the effect size (Steiger,
-2004).  
-  
+2004).\
+\
 For additional details on estimation and troubleshooting, see
 [effectsize_CIs](https://easystats.github.io/effectsize/reference/effectsize_CIs.md).
 
@@ -260,8 +260,8 @@ test could be performed with either a CI or a p value. The 100 (1 -
 \\\alpha\\)% confidence interval contains all of the parameter values
 for which *p* \> \\\alpha\\ for the current data and model. For example,
 a 95% confidence interval contains all of the values for which p \>
-.05.  
-  
+.05.\
+\
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided

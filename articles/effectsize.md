@@ -35,7 +35,7 @@ al. 2020), **ggstatsplot** (Patil 2018), **gtsummary** (Sjoberg et al.
   for the computation the effect sizes, whereas **effectsize** can
   automatically extract this information from the provided models, thus
   allowing for better ease-of-use as well as reducing any potential for
-  error.  
+  error.\
 
 ## Examples of Features
 

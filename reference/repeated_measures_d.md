@@ -2,8 +2,8 @@
 
 Compute effect size indices for standardized mean differences in
 repeated measures data. Pair with any reported
-`stats::t.test(paired = TRUE)`.  
-  
+`stats::t.test(paired = TRUE)`.\
+\
 In a repeated-measures design, the same subjects are measured in
 multiple conditions or time points. Unlike the case of independent
 groups, there are multiple sources of variation that can be used to
@@ -158,8 +158,8 @@ Standardize by...
   variance in an ANOVA or MLM setting). In between-subjects designs
   where each subject contributes a single response, this is equivalent
   to classical Cohen’s d. Priors in the `BayesFactor` package are
-  defined on this scale (Rouder et al., 2012).  
-    
+  defined on this scale (Rouder et al., 2012).\
+  \
   Note that for paired data, when the two conditions have equal
   variance, \\d\_{rm}\\, \\d\_{av}\\, \\d\_{b}\\ are equal to \\d\\.
 
@@ -179,8 +179,8 @@ test could be performed with either a CI or a p value. The 100 (1 -
 \\\alpha\\)% confidence interval contains all of the parameter values
 for which *p* \> \\\alpha\\ for the current data and model. For example,
 a 95% confidence interval contains all of the values for which p \>
-.05.  
-  
+.05.\
+\
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided

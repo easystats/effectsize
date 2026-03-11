@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">effectsize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,9 +75,9 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.0" id="effectsize-10x">effectsize 1.0.x<a class="anchor" aria-label="anchor" href="#effectsize-10x"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.0.2" id="effectsize-102">effectsize 1.0.2<a class="anchor" aria-label="anchor" href="#effectsize-102"></a></h2>
 <div class="section level3">
-<h3 id="new-features-1-0">New features<a class="anchor" aria-label="anchor" href="#new-features-1-0"></a></h3>
+<h3 id="new-features-1-0-2">New features<a class="anchor" aria-label="anchor" href="#new-features-1-0-2"></a></h3>
 <ul><li>
 <code>oddsratio_to_*()</code> and <code>riskratio_to_*()</code> can now convert binomial models with logit- or log-links (respectively) to any of RR, OR, ARR, NNT.</li>
 <li>New functions to convert between measures of change in probabilities and probabilities. See <code><a href="../reference/oddsratio_to_probs.html">?oddsratio_to_probs</a></code> for all available functions.</li>
@@ -85,11 +85,11 @@
 <code>effetsize()</code> and friends support <code><a href="https://easystats.github.io/datawizard/reference/data_tabulate.html" class="external-link">datawizard::data_tabulate()</a></code> objects as inputs.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="changes-1-0">Changes<a class="anchor" aria-label="anchor" href="#changes-1-0"></a></h3>
+<h3 id="changes-1-0-2">Changes<a class="anchor" aria-label="anchor" href="#changes-1-0-2"></a></h3>
 <p><code>riskratio_to_*()</code> now returns <code>NA</code> if the expected risk is larger than 1. This results when impossible combinations of risk ratio <code>RR</code> and baseline risk <code>p0</code> are provided.</p>
 </div>
 <div class="section level3">
-<h3 id="breaking-changes-1-0">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-1-0"></a></h3>
+<h3 id="breaking-changes-1-0-2">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-1-0-2"></a></h3>
 <ul><li>
 <code>probs_to_odds(&lt;data.frame&gt;)</code> and <code>odds_to_probs(&lt;data.frame&gt;)</code> methods has been deprecated.</li>
 <li>

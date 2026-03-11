@@ -19,7 +19,7 @@ statistical models and hypothesis tests, such as
 and many more.
 
 See
-[[`vignette("effectsize", package = "effectsize")`](https://easystats.github.io/effectsize/articles/effectsize.md)](https://easystats.github.io/effectsize/articles/effectsize.html)
+[`vignette("effectsize", package = "effectsize")`](https://easystats.github.io/effectsize/articles/effectsize.html)
 for more details, or
 [`vignette(package = "effectsize")`](https://easystats.github.io/effectsize/articles/)
 for a full list of vignettes.

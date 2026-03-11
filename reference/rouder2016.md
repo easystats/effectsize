@@ -2,8 +2,8 @@
 
 A dataset "with 25 people each observing 50 trials in 2 conditions",
 published as `effectSizePuzzler.txt` by Jeff Rouder on March 24, 2016
-(*http://jeffrouder.blogspot.com/2016/03/the-effect-size-puzzler.html*).  
-  
+(*http://jeffrouder.blogspot.com/2016/03/the-effect-size-puzzler.html*).\
+\
 The data is used in examples and tests of
 [`rm_d()`](https://easystats.github.io/effectsize/reference/repeated_measures_d.md).
 

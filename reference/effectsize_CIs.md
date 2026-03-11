@@ -16,8 +16,8 @@ noncentral *t* distribution is *t* = 2.0 the .025 quantile (answer: the
 noncentral *t* distribution with *ncp* = .04)? After estimating these
 confidence bounds on the *ncp*, they are converted into the effect size
 metric to obtain a confidence interval for the effect size (Steiger,
-2004).  
-  
+2004).\
+\
 For additional details on estimation and troubleshooting, see
 effectsize_CIs.
 
@@ -31,8 +31,8 @@ test could be performed with either a CI or a p value. The 100 (1 -
 \\\alpha\\)% confidence interval contains all of the parameter values
 for which *p* \> \\\alpha\\ for the current data and model. For example,
 a 95% confidence interval contains all of the values for which p \>
-.05.  
-  
+.05.\
+\
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided
@@ -56,8 +56,8 @@ and
 [Overlap](https://easystats.github.io/effectsize/reference/p_superiority.md):
 the null value of \\U_2\\ is 0.5, but it can never be smaller than 0.5;
 am *Overlap* of 1 means "full overlap" (no difference), but it cannot be
-larger than 1.  
-  
+larger than 1.\
+\
 When bootstrapping CIs for such effect sizes, the bounds of the CIs will
 never cross (and often will never cover) the null. Therefore, these CIs
 should not be used for statistical inference.
@@ -68,16 +68,16 @@ Typically, CIs are constructed as two-tailed intervals, with an equal
 proportion of the cumulative probability distribution above and below
 the interval. CIs can also be constructed as *one-sided* intervals,
 giving only a lower bound or upper bound. This is analogous to computing
-a 1-tailed *p* value or conducting a 1-tailed hypothesis test.  
-  
+a 1-tailed *p* value or conducting a 1-tailed hypothesis test.\
+\
 Significance tests conducted using CIs (whether a value is inside the
 interval) and using *p* values (whether p \< alpha for that value) are
 only guaranteed to agree when both are constructed using the same number
-of sides/tails.  
-  
+of sides/tails.\
+\
 Most effect sizes are not bounded by zero (e.g., *r*, *d*, *g*), and as
-such are generally tested using 2-tailed tests and 2-sided CIs.  
-  
+such are generally tested using 2-tailed tests and 2-sided CIs.\
+\
 Some effect sizes are strictly positive–they do have a minimum value, of
 0. For example, \\R^2\\, \\\eta^2\\, \\sr^2\\, and other
 variance-accounted-for effect sizes, as well as Cramer's *V* and
@@ -87,26 +87,26 @@ which test whether the estimated effect size is *larger* than the
 hypothesized null value (e.g., 0). In order for a CI to yield the same
 significance decision it must then by a *1-sided* CI, estimating only a
 lower bound. This is the default CI computed by *effectsize* for these
-effect sizes, where `alternative = "greater"` is set.  
-  
+effect sizes, where `alternative = "greater"` is set.\
+\
 This lower bound interval indicates the smallest effect size that is not
 significantly different from the observed effect size. That is, it is
 the minimum effect size compatible with the observed data, background
 model assumptions, and \\\alpha\\ level. This type of interval does not
 indicate a maximum effect size value; anything up to the maximum
-possible value of the effect size (e.g., 1) is in the interval.  
-  
+possible value of the effect size (e.g., 1) is in the interval.\
+\
 One-sided CIs can also be used to test against a maximum effect size
 value (e.g., is \\R^2\\ significantly smaller than a perfect correlation
 of 1.0?) by setting `alternative = "less"`. This estimates a CI with
 only an *upper* bound; anything from the minimum possible value of the
-effect size (e.g., 0) up to this upper bound is in the interval.  
-  
+effect size (e.g., 0) up to this upper bound is in the interval.\
+\
 We can also obtain a 2-sided interval by setting
 `alternative = "two.sided"`. These intervals can be interpreted in the
 same way as other 2-sided intervals, such as those for *r*, *d*, or
-*g*.  
-  
+*g*.\
+\
 An alternative approach to aligning significance tests using CIs and
 1-tailed *p* values that can often be found in the literature is to
 construct a 2-sided CI at a lower confidence level (e.g.,

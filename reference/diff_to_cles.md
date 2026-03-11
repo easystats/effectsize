@@ -40,13 +40,13 @@ of `Pr(superiority)`, or a data frame, depending on the input.
 ## Details
 
 This function use the following formulae for Cohen's *d*:
-\$\$Pr(superiority) = \Phi(d/\sqrt{2})\$\$  
-\$\$\textrm{Cohen's } U_3 = \Phi(d)\$\$  
-\$\$\textrm{Cohen's } U_2 = \Phi(\|d\|/2)\$\$  
-\$\$\textrm{Cohen's } U_1 = (2\times U_2 - 1)/U_2\$\$  
-\$\$Overlap = 2 \times \Phi(-\|d\|/2)\$\$  
+\$\$Pr(superiority) = \Phi(d/\sqrt{2})\$\$\
+\$\$\textrm{Cohen's } U_3 = \Phi(d)\$\$\
+\$\$\textrm{Cohen's } U_2 = \Phi(\|d\|/2)\$\$\
+\$\$\textrm{Cohen's } U_1 = (2\times U_2 - 1)/U_2\$\$\
+\$\$Overlap = 2 \times \Phi(-\|d\|/2)\$\$\
 And the following for the rank-biserial correlation: \$\$Pr(superiority)
-= (r\_{rb} + 1)/2\$\$  
+= (r\_{rb} + 1)/2\$\$\
 \\WMW\_{Odds} = Pr(superiority) / (1 - Pr(superiority))\\
 
 ## Note

@@ -3,8 +3,8 @@
 Compute Odds Ratios, Risk Ratios, Cohen's *h*, Absolute Risk Reduction
 or Number Needed to Treat. Report with any
 [`stats::chisq.test()`](https://rdrr.io/r/stats/chisq.test.html) or
-[`stats::fisher.test()`](https://rdrr.io/r/stats/fisher.test.html).  
-  
+[`stats::fisher.test()`](https://rdrr.io/r/stats/fisher.test.html).\
+\
 Note that these are computed with each **column** representing the
 different groups (the *first* column representing the treatment group
 and the *second* column the baseline or control group), and the *first*
@@ -81,8 +81,8 @@ test could be performed with either a CI or a p value. The 100 (1 -
 \\\alpha\\)% confidence interval contains all of the parameter values
 for which *p* \> \\\alpha\\ for the current data and model. For example,
 a 95% confidence interval contains all of the values for which p \>
-.05.  
-  
+.05.\
+\
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided

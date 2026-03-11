@@ -4,11 +4,11 @@ Compute effect size indices for standardized difference between two
 normal multivariate distributions or between one multivariate
 distribution and a defined point. This is the standardized effect size
 for Hotelling's \\T^2\\ test (e.g., `DescTools::HotellingsT2Test()`).
-*D* is computed as:  
-  
+*D* is computed as:\
+\
 \$\$D = \sqrt{(\bar{X}\_1-\bar{X}\_2-\mu)^T \Sigma_p^{-1}
-(\bar{X}\_1-\bar{X}\_2-\mu)}\$\$  
-  
+(\bar{X}\_1-\bar{X}\_2-\mu)}\$\$\
+\
 Where \\\bar{X}\_i\\ are the column means, \\\Sigma_p\\ is the *pooled*
 covariance matrix, and \\\mu\\ is a vector of the null differences for
 each variable. When there is only one variate, this formula reduces to
@@ -98,8 +98,8 @@ noncentral *t* distribution is *t* = 2.0 the .025 quantile (answer: the
 noncentral *t* distribution with *ncp* = .04)? After estimating these
 confidence bounds on the *ncp*, they are converted into the effect size
 metric to obtain a confidence interval for the effect size (Steiger,
-2004).  
-  
+2004).\
+\
 For additional details on estimation and troubleshooting, see
 [effectsize_CIs](https://easystats.github.io/effectsize/reference/effectsize_CIs.md).
 
@@ -113,8 +113,8 @@ test could be performed with either a CI or a p value. The 100 (1 -
 \\\alpha\\)% confidence interval contains all of the parameter values
 for which *p* \> \\\alpha\\ for the current data and model. For example,
 a 95% confidence interval contains all of the values for which p \>
-.05.  
-  
+.05.\
+\
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided

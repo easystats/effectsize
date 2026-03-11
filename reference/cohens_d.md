@@ -3,8 +3,8 @@
 Compute effect size indices for standardized mean differences: Cohen's
 *d*, Hedges' *g* and Glass’s *delta* (\\\Delta\\). (This function
 returns the **population** estimate.) Pair with any reported
-[`stats::t.test()`](https://rdrr.io/r/stats/t.test.html).  
-  
+[`stats::t.test()`](https://rdrr.io/r/stats/t.test.html).\
+\
 Both Cohen's *d* and Hedges' *g* are the estimated the standardized
 difference between the means of two populations. Hedges' *g* provides a
 correction for small-sample bias (using the exact method) to Cohen's
@@ -154,8 +154,8 @@ noncentral *t* distribution is *t* = 2.0 the .025 quantile (answer: the
 noncentral *t* distribution with *ncp* = .04)? After estimating these
 confidence bounds on the *ncp*, they are converted into the effect size
 metric to obtain a confidence interval for the effect size (Steiger,
-2004).  
-  
+2004).\
+\
 For additional details on estimation and troubleshooting, see
 [effectsize_CIs](https://easystats.github.io/effectsize/reference/effectsize_CIs.md).
 
@@ -169,8 +169,8 @@ test could be performed with either a CI or a p value. The 100 (1 -
 \\\alpha\\)% confidence interval contains all of the parameter values
 for which *p* \> \\\alpha\\ for the current data and model. For example,
 a 95% confidence interval contains all of the values for which p \>
-.05.  
-  
+.05.\
+\
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided
