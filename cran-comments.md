@@ -1,7 +1,7 @@
 
 ## Test environments
 
-* local installation: R 4.4.1 on Windows 11 x64
+* local installation: R 4.5.2 on Windows 11 x64
 * GitHub Actions
     - Windows:        release, devel
     - macOS:          release
@@ -16,7 +16,6 @@
 
 ## revdepcheck results
 
-We checked 28 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 37 reverse dependencies (34 from CRAN + 3 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 0 new problems related to effectsize.
-
+* We saw 0 new problems related to effectsize.
