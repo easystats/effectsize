@@ -48,7 +48,6 @@
 #' @return A data frame with the effect size `r_rank_biserial` and its CI
 #'   (`CI_low` and `CI_high`).
 #'
-#' @family effect size indices
 #' @family standardized differences
 #' @family rank-based effect sizes
 #'

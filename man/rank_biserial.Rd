@@ -199,6 +199,5 @@ Other rank-based effect sizes:
 \code{\link{p_superiority}()},
 \code{\link{rank_epsilon_squared}()}
 }
-\concept{effect size indices}
 \concept{rank-based effect sizes}
 \concept{standardized differences}
