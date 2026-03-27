@@ -779,6 +779,53 @@ test_that("Anova.mlm Manova", {
   expect_equal(A1[c(2:4, 6:7), ], A2[c(2:4, 6:7), -1], ignore_attr = TRUE)
 })
 
+test_that("Anova.mlm / afex | overlapping factor names", {
+  skip_if_not_installed("car")
+  skip_if_not_installed("afex")
+
+  data <- data.frame(
+    subject = c(1L, 2L, 1L, 2L, 1L, 2L, 1L, 2L, 9L, 10L, 9L, 10L, 9L, 10L, 9L, 10L),
+    XBlock = factor(c(1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L), labels = c("a1", "a2")),
+    Block = factor(c(1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L), labels = c("aa1", "aa2")),
+    C = factor(c(1L, 1L, 2L, 2L, 1L, 1L, 2L, 2L, 1L, 1L, 2L, 2L, 1L, 1L, 2L, 2L), labels = c("C_c1", "C_c2")),
+    y = c(-0.09, -0.29, 0.13, 0.06, 0.17, -0.01, 0.07, 0.27, 0.05, -0.01, -0.07, -0.05, 0.15, 0.12, 0.09, 0.26)
+  )
+  contrasts(data$XBlock) <- contr.sum
+  data$X <- data$XBlock
+
+
+  # list partial eta_squared:
+  aov_overlap <- afex::aov_ez(
+    "subject", "y", data,
+    between = "XBlock",
+    within = c("Block", "C"),
+    anova_table = list(es = "pes")
+  )
+
+  aov_nooverlap <- afex::aov_ez(
+    "subject", "y", data,
+    between = "X",
+    within = c("Block", "C"),
+    anova_table = list(es = "pes")
+  )
+
+  expect_equal(
+    aov_overlap$anova_table$pes,
+    eta_squared(aov_overlap)$Eta2_partial
+  )
+
+  expect_equal(
+    eta_squared(aov_overlap)$Eta2_partial,
+    eta_squared(aov_nooverlap)$Eta2_partial
+  )
+
+  expect_equal(
+    eta_squared(aov_overlap)$Eta2_partial,
+    eta_squared(aov_overlap$Anova)$Eta2_partial
+  )
+})
+
+
 ## merMod --------------------
 
 test_that("merMod and lmerModLmerTest", {
