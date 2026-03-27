@@ -152,7 +152,7 @@
     within_subj <- sapply(within_subj, paste, collapse = ":")
     within_subj <- within_subj[order(ns)]
     within_subj <- Filter(function(x) nzchar(x, keepNA = TRUE), within_subj)
-    l <- sapply(within_subj, grepl, x = aov_tab$Parameter, simplify = TRUE)
+    l <- sapply(paste0("\\b", within_subj, "\\b"), grepl, x = aov_tab$Parameter, simplify = TRUE)
     l <- apply(l, 1, function(x) if (any(x)) max(which(x)) else 0)
     l <- c(NA, within_subj)[l + 1]
     l <- sapply(l, function(x) paste0(stats::na.omit(c(id, x)), collapse = ":"))
