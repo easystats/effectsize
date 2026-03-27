@@ -472,7 +472,7 @@ eta_squared(model, generalized = TRUE) # observed vars are pulled from the afex 
 #> -----------------------------------------------------
 #> gender            |               0.03 | [0.00, 1.00]
 #> phase             |               0.15 | [0.00, 1.00]
-#> gender:phase      |           3.53e-34 | [0.00, 1.00]
+#> gender:phase      |           7.39e-34 | [0.00, 1.00]
 #> hour              |               0.10 | [0.00, 1.00]
 #> gender:hour       |           2.36e-03 | [0.00, 1.00]
 #> phase:hour        |               0.01 | [0.00, 1.00]

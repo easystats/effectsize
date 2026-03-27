@@ -2,6 +2,8 @@
 
 ## effectsize 1.0.2
 
+CRAN release: 2026-03-11
+
 ### New features
 
 - `oddsratio_to_*()` and `riskratio_to_*()` can now convert binomial
