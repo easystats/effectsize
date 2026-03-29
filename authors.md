@@ -11,9 +11,8 @@
 - **[Daniel Lüdecke](https://github.com/strengejacke)**. Author.
   [](https://orcid.org/0000-0002-8895-3206)
 
-- **[Indrajeet
-  Patil](https://sites.google.com/site/indrajeetspatilmorality/)**.
-  Author. [](https://orcid.org/0000-0003-1995-6531)
+- **[Indrajeet Patil](https://indrajeetpatil.github.io/)**. Author.
+  [](https://orcid.org/0000-0003-1995-6531)
 
 - **[Brenton M. Wiernik](https://wiernik.org/)**. Author.
   [](https://orcid.org/0000-0001-9560-6336)
