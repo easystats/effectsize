@@ -1,3 +1,9 @@
+# effectsize 1.0.x
+
+## Bug fixes
+
+- `eta_squared(<afex> / <Anova.mlm>)` with partially overlapping factor names now return correct effect sizes ( #697 )
+
 # effectsize 1.0.2
 
 ## New features
