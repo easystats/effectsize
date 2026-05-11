@@ -42,7 +42,8 @@ library(afex)
 
 data(md_12.1)
 
-aov_fit <- aov_car(rt ~ angle * noise + Error(id / (angle * noise)),
+aov_fit <- aov_car(
+  rt ~ angle * noise + Error(id / (angle * noise)),
   data = md_12.1,
   anova_table = list(correction = "none", es = "pes")
 )
@@ -200,7 +201,11 @@ for the slope of `Days` (which in this case gives the same result).
 
 ``` r
 
-parameters::model_parameters(fit_lmm, effects = "fixed", ci_method = "satterthwaite")
+parameters::model_parameters(
+  fit_lmm,
+  effects = "fixed",
+  ci_method = "satterthwaite"
+)
 ```
 
     > # Fixed Effects
@@ -276,7 +281,11 @@ number, which looks better).
 
 ``` r
 
-parameters::model_parameters(fit_lmm, effects = "fixed", ci_method = "satterthwaite")
+parameters::model_parameters(
+  fit_lmm,
+  effects = "fixed",
+  ci_method = "satterthwaite"
+)
 ```
 
     > # Fixed Effects
@@ -336,7 +345,8 @@ to:
 
 ``` r
 
-correlation::correlation(attitude,
+correlation::correlation(
+  attitude,
   select = "rating",
   select2 = c("complaints", "critical"),
   partial = TRUE
