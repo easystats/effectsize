@@ -1,6 +1,6 @@
 ---
 title: "Effect Size from Test Statistics"
-output: 
+output:
   rmarkdown::html_vignette:
     toc: true
     fig_width: 10.08
@@ -10,7 +10,7 @@ vignette: >
   %\VignetteIndexEntry{Effect Size from Test Statistics}
   \usepackage[utf8]{inputenc}
   %\VignetteEngine{knitr::rmarkdown}
-editor_options: 
+editor_options:
   chunk_output_type: console
 bibliography: bibliography.bib
 ---
@@ -27,7 +27,8 @@ set.seed(747)
 
 .eval_if_requireNamespace <- function(...) {
   pkgs <- c(...)
-  knitr::opts_chunk$get("eval") && all(sapply(pkgs, requireNamespace, quietly = TRUE))
+  knitr::opts_chunk$get("eval") &&
+    all(sapply(pkgs, requireNamespace, quietly = TRUE))
 }
 ```
 
@@ -73,7 +74,8 @@ library(afex)
 
 data(md_12.1)
 
-aov_fit <- aov_car(rt ~ angle * noise + Error(id / (angle * noise)),
+aov_fit <- aov_car(
+  rt ~ angle * noise + Error(id / (angle * noise)),
   data = md_12.1,
   anova_table = list(correction = "none", es = "pes")
 )
@@ -149,7 +151,11 @@ We can also use `t_to_eta2()` for the slope of `Days` (which in this case gives
 the same result).
 
 ```{r, eval = .eval_if_requireNamespace("lmerTest")}
-parameters::model_parameters(fit_lmm, effects = "fixed", ci_method = "satterthwaite")
+parameters::model_parameters(
+  fit_lmm,
+  effects = "fixed",
+  ci_method = "satterthwaite"
+)
 
 t_to_eta2(6.77, df_error = 17)
 ```
@@ -177,7 +183,11 @@ better).
 ### For Slopes
 
 ```{r, eval = .eval_if_requireNamespace("lmerTest")}
-parameters::model_parameters(fit_lmm, effects = "fixed", ci_method = "satterthwaite")
+parameters::model_parameters(
+  fit_lmm,
+  effects = "fixed",
+  ci_method = "satterthwaite"
+)
 
 t_to_r(6.77, df_error = 17)
 ```
@@ -199,7 +209,8 @@ t_to_r(
 to:
 
 ```{r, eval=.eval_if_requireNamespace("correlation")}
-correlation::correlation(attitude,
+correlation::correlation(
+  attitude,
   select = "rating",
   select2 = c("complaints", "critical"),
   partial = TRUE
@@ -230,6 +241,10 @@ approximation when comparing two groups of equal size [@wolf1986meta;
 These can be useful in contrast analyses.
 
 ### Between-Subject Contrasts
+
+```{r, eval = .eval_if_requireNamespace("emmeans"), include=FALSE}
+library(emmeans)
+```
 
 ```{r, eval = .eval_if_requireNamespace("emmeans")}
 m <- lm(breaks ~ tension, data = warpbreaks)
