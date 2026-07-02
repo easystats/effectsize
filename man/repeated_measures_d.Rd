@@ -238,6 +238,7 @@ Other standardized differences:
 \code{\link{cohens_d}()},
 \code{\link{mahalanobis_d}()},
 \code{\link{means_ratio}()},
+\code{\link{med}()},
 \code{\link{p_superiority}()},
 \code{\link{rank_biserial}()}
 }

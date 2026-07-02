@@ -132,6 +132,7 @@ response ratios in experimental ecology. Ecology, 80(4), 1150–1156.
 Other standardized differences: 
 \code{\link{cohens_d}()},
 \code{\link{mahalanobis_d}()},
+\code{\link{med}()},
 \code{\link{p_superiority}()},
 \code{\link{rank_biserial}()},
 \code{\link{repeated_measures_d}()}
