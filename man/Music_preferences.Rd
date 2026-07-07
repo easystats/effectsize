@@ -19,7 +19,7 @@ Music_preferences
 Fictional data.
 }
 \seealso{
-Other effect size datasets: 
+Other effect size datasets:
 \code{\link{Music_preferences2}},
 \code{\link{RCT_table}},
 \code{\link{Smoking_FASD}},

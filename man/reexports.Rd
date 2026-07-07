@@ -19,12 +19,12 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{bayestestR}{\code{\link[bayestestR]{equivalence_test}}}
+  \item{bayestestR}{\code{\link[bayestestR:equivalence_test]{equivalence_test()}}}
 
-  \item{datawizard}{\code{\link[datawizard:standardize]{standardise}}, \code{\link[datawizard]{standardize}}}
+  \item{datawizard}{\code{\link[datawizard:standardise]{standardise()}}, \code{\link[datawizard:standardize]{standardize()}}}
 
-  \item{insight}{\code{\link[insight]{display}}, \code{\link[insight:display]{print_html}}, \code{\link[insight:display]{print_md}}}
+  \item{insight}{\code{\link[insight:display]{display()}}, \code{\link[insight:print_html]{print_html()}}, \code{\link[insight:print_md]{print_md()}}}
 
-  \item{parameters}{\code{\link[parameters]{standardize_info}}, \code{\link[parameters]{standardize_parameters}}, \code{\link[parameters:standardize_parameters]{standardize_posteriors}}}
+  \item{parameters}{\code{\link[parameters:standardize_info]{standardize_info()}}, \code{\link[parameters:standardize_parameters]{standardize_parameters()}}, \code{\link[parameters:standardize_posteriors]{standardize_posteriors()}}}
 }}
 

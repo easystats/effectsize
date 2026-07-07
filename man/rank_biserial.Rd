@@ -188,16 +188,16 @@ revisited. An overview of some recommended measures of effect size.
 }
 }
 \seealso{
-Other standardized differences: 
-\code{\link{cohens_d}()},
-\code{\link{mahalanobis_d}()},
-\code{\link{means_ratio}()},
-\code{\link{p_superiority}()},
-\code{\link{repeated_measures_d}()}
+Other standardized differences:
+\code{\link[=cohens_d]{cohens_d()}},
+\code{\link[=mahalanobis_d]{mahalanobis_d()}},
+\code{\link[=means_ratio]{means_ratio()}},
+\code{\link[=p_superiority]{p_superiority()}},
+\code{\link[=repeated_measures_d]{repeated_measures_d()}}
 
-Other rank-based effect sizes: 
-\code{\link{p_superiority}()},
-\code{\link{rank_epsilon_squared}()}
+Other rank-based effect sizes:
+\code{\link[=p_superiority]{p_superiority()}},
+\code{\link[=rank_epsilon_squared]{rank_epsilon_squared()}}
 }
 \concept{rank-based effect sizes}
 \concept{standardized differences}

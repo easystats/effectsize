@@ -30,7 +30,7 @@ published as \code{effectSizePuzzler.txt} by Jeff Rouder on March 24, 2016
 The data is used in examples and tests of \code{\link[=rm_d]{rm_d()}}.
 }
 \seealso{
-Other effect size datasets: 
+Other effect size datasets:
 \code{\link{Music_preferences}},
 \code{\link{Music_preferences2}},
 \code{\link{RCT_table}},

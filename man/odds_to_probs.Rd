@@ -32,13 +32,13 @@ probs_to_odds(0.95)
 probs_to_odds(0.95, log = TRUE)
 }
 \seealso{
-\code{\link[stats:Logistic]{stats::plogis()}}
+\code{\link[stats:plogis]{stats::plogis()}}
 
-Other convert between effect sizes: 
-\code{\link{d_to_r}()},
+Other convert between effect sizes:
+\code{\link[=d_to_r]{d_to_r()}},
 \code{\link{diff_to_cles}},
-\code{\link{eta2_to_f2}()},
-\code{\link{oddsratio_to_riskratio}()},
-\code{\link{w_to_fei}()}
+\code{\link[=eta2_to_f2]{eta2_to_f2()}},
+\code{\link[=oddsratio_to_riskratio]{oddsratio_to_riskratio()}},
+\code{\link[=w_to_fei]{w_to_fei()}}
 }
 \concept{convert between effect sizes}

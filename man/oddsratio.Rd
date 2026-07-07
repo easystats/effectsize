@@ -110,8 +110,8 @@ nnt(RCT_table)
 }
 }
 \seealso{
-Other effect sizes for contingency table: 
-\code{\link{cohens_g}()},
-\code{\link{phi}()}
+Other effect sizes for contingency table:
+\code{\link[=cohens_g]{cohens_g()}},
+\code{\link[=phi]{phi()}}
 }
 \concept{effect sizes for contingency table}

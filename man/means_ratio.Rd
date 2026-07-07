@@ -129,11 +129,11 @@ response ratios in experimental ecology. Ecology, 80(4), 1150–1156.
 \doi{10.1890/0012-9658(1999)080[1150:TMAORR]2.0.CO;2}
 }
 \seealso{
-Other standardized differences: 
-\code{\link{cohens_d}()},
-\code{\link{mahalanobis_d}()},
-\code{\link{p_superiority}()},
-\code{\link{rank_biserial}()},
-\code{\link{repeated_measures_d}()}
+Other standardized differences:
+\code{\link[=cohens_d]{cohens_d()}},
+\code{\link[=mahalanobis_d]{mahalanobis_d()}},
+\code{\link[=p_superiority]{p_superiority()}},
+\code{\link[=rank_biserial]{rank_biserial()}},
+\code{\link[=repeated_measures_d]{repeated_measures_d()}}
 }
 \concept{standardized differences}

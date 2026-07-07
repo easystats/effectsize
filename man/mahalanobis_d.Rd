@@ -155,11 +155,11 @@ mahalanobis_d(mpg + hp + cyl ~ 1,
 \seealso{
 \code{\link[stats:mahalanobis]{stats::mahalanobis()}}, \code{\link[=cov_pooled]{cov_pooled()}}
 
-Other standardized differences: 
-\code{\link{cohens_d}()},
-\code{\link{means_ratio}()},
-\code{\link{p_superiority}()},
-\code{\link{rank_biserial}()},
-\code{\link{repeated_measures_d}()}
+Other standardized differences:
+\code{\link[=cohens_d]{cohens_d()}},
+\code{\link[=means_ratio]{means_ratio()}},
+\code{\link[=p_superiority]{p_superiority()}},
+\code{\link[=rank_biserial]{rank_biserial()}},
+\code{\link[=repeated_measures_d]{repeated_measures_d()}}
 }
 \concept{standardized differences}

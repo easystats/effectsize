@@ -234,11 +234,11 @@ Default Bayes factors for ANOVA designs. Journal of mathematical psychology,
 \code{\link[=cohens_d]{cohens_d()}}, and \code{lmeInfo::g_mlm()} and \code{emmeans::effsize()} for
 more flexible methods.
 
-Other standardized differences: 
-\code{\link{cohens_d}()},
-\code{\link{mahalanobis_d}()},
-\code{\link{means_ratio}()},
-\code{\link{p_superiority}()},
-\code{\link{rank_biserial}()}
+Other standardized differences:
+\code{\link[=cohens_d]{cohens_d()}},
+\code{\link[=mahalanobis_d]{mahalanobis_d()}},
+\code{\link[=means_ratio]{means_ratio()}},
+\code{\link[=p_superiority]{p_superiority()}},
+\code{\link[=rank_biserial]{rank_biserial()}}
 }
 \concept{standardized differences}
