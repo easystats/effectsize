@@ -160,7 +160,7 @@ rb_to_wmw_odds.effectsize_difference <- function(rb) {
   colnames(out)[1] <- "WMW_odds"
 
   class(out) <- c("effectsize_table", class(out))
-  # TODO
+  # TODO: add classes effectsize_table and see_effectsize_table
   # class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
   attr(out, "table_footer") <- "Non-parametric CLES"
   out
@@ -290,7 +290,7 @@ d_to_overlap.effectsize_difference <- function(d) {
   out[cols_to_convert] <- lapply(d[cols_to_convert], converter)
   out <- as.data.frame(out)
   class(out) <- c("effectsize_table", class(out))
-  # TODO
+  # TODO: add classes effectsize_table and see_effectsize_table
   # class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
   out
 }
@@ -312,7 +312,7 @@ rb_to_p_superiority.effectsize_difference <- function(rb) {
   colnames(out)[1] <- "p_superiority"
 
   class(out) <- c("effectsize_table", class(out))
-  # TODO
+  # TODO: add classes effectsize_table and see_effectsize_table
   # class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
   attr(out, "table_footer") <- "Non-parametric CLES"
   out

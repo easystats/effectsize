@@ -581,7 +581,7 @@ wmw_odds <- function(
     }
 
     class(out) <- c("effectsize_table", class(out))
-    # TODO
+    # TODO: add classes effectsize_table and see_effectsize_table
     # class(out) <- c("effectsize_difference", "effectsize_table", "see_effectsize_table", class(out))
     .someattributes(out) <- .nlist(
       mu,
