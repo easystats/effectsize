@@ -46,6 +46,9 @@ Useful links:
 
 Authors:
 
+- Mattan S. Ben-Shachar <mattansb@msbstats.info>
+  ([ORCID](https://orcid.org/0000-0002-4287-4801))
+
 - Dominique Makowski <dom.makowski@gmail.com>
   ([ORCID](https://orcid.org/0000-0001-5375-9967))
 

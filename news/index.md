@@ -1,6 +1,8 @@
 # Changelog
 
-## effectsize 1.0.x
+## effectsize 1.0.3
+
+CRAN release: 2026-07-07
 
 ### Bug fixes
 
