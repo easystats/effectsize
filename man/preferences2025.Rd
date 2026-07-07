@@ -34,7 +34,7 @@ Hussey, I., & Cummins, J. (2025). (Not so) simple preferences. https://github.co
 \seealso{
 \code{\link[=repeated_measures_d]{repeated_measures_d()}}
 
-Other effect size datasets: 
+Other effect size datasets:
 \code{\link{Music_preferences}},
 \code{\link{Music_preferences2}},
 \code{\link{RCT_table}},

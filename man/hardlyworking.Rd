@@ -29,7 +29,7 @@ head(hardlyworking, n = 5)
 A sample (simulated) dataset, used in tests and some examples.
 }
 \seealso{
-Other effect size datasets: 
+Other effect size datasets:
 \code{\link{Music_preferences}},
 \code{\link{Music_preferences2}},
 \code{\link{RCT_table}},

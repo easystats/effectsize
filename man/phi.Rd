@@ -208,8 +208,8 @@ tests to effect sizes for meta-analysis. PloS one, 5(4), e10059.
 \seealso{
 \code{\link[=chisq_to_phi]{chisq_to_phi()}} for details regarding estimation and CIs.
 
-Other effect sizes for contingency table: 
-\code{\link{cohens_g}()},
-\code{\link{oddsratio}()}
+Other effect sizes for contingency table:
+\code{\link[=cohens_g]{cohens_g()}},
+\code{\link[=oddsratio]{oddsratio()}}
 }
 \concept{effect sizes for contingency table}

@@ -19,7 +19,7 @@ RCT_table
 Fictional Results from a Workers' Randomized Control Trial
 }
 \seealso{
-Other effect size datasets: 
+Other effect size datasets:
 \code{\link{Music_preferences}},
 \code{\link{Music_preferences2}},
 \code{\link{Smoking_FASD}},

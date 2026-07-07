@@ -81,11 +81,11 @@ to base rates and other factors. Psychological methods, 13(1), 19–30.
 \code{\link[=cohens_u3]{cohens_u3()}} for descriptions of the effect sizes (also,
 \code{\link[=cohens_d]{cohens_d()}}, \code{\link[=rank_biserial]{rank_biserial()}}).
 
-Other convert between effect sizes: 
-\code{\link{d_to_r}()},
-\code{\link{eta2_to_f2}()},
-\code{\link{odds_to_probs}()},
-\code{\link{oddsratio_to_riskratio}()},
-\code{\link{w_to_fei}()}
+Other convert between effect sizes:
+\code{\link[=d_to_r]{d_to_r()}},
+\code{\link[=eta2_to_f2]{eta2_to_f2()}},
+\code{\link[=odds_to_probs]{odds_to_probs()}},
+\code{\link[=oddsratio_to_riskratio]{oddsratio_to_riskratio()}},
+\code{\link[=w_to_fei]{w_to_fei()}}
 }
 \concept{convert between effect sizes}

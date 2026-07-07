@@ -49,11 +49,11 @@ Psychological Methods, 9, 164-182.
 \seealso{
 \code{\link[=eta_squared]{eta_squared()}} for more details.
 
-Other convert between effect sizes: 
-\code{\link{d_to_r}()},
+Other convert between effect sizes:
+\code{\link[=d_to_r]{d_to_r()}},
 \code{\link{diff_to_cles}},
-\code{\link{odds_to_probs}()},
-\code{\link{oddsratio_to_riskratio}()},
-\code{\link{w_to_fei}()}
+\code{\link[=odds_to_probs]{odds_to_probs()}},
+\code{\link[=oddsratio_to_riskratio]{oddsratio_to_riskratio()}},
+\code{\link[=w_to_fei]{w_to_fei()}}
 }
 \concept{convert between effect sizes}

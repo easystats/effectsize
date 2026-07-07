@@ -351,7 +351,7 @@ Psychological Methods, 9, 164-182.
 \seealso{
 \code{\link[=F_to_eta2]{F_to_eta2()}}
 
-Other effect sizes for ANOVAs: 
-\code{\link{rank_epsilon_squared}()}
+Other effect sizes for ANOVAs:
+\code{\link[=rank_epsilon_squared]{rank_epsilon_squared()}}
 }
 \concept{effect sizes for ANOVAs}

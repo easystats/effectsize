@@ -217,7 +217,7 @@ interpret.effectsize_table <- function(x, rules, transform = NULL, ...) {
     Cohens_h = interpret_cohens_d(value, rules = rules),
     Odds_ratio = interpret_oddsratio(value, rules = rules, log = FALSE),
     log_Odds_ratio = interpret_oddsratio(value, rules = rules, log = TRUE),
-    # TODO:
+    # TODO: add (log) risk ratio interpretation
     # Risk_ratio = ,
     # log_Risk_ratio = ,
 

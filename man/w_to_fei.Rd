@@ -99,11 +99,11 @@ Chi‑Squared Statistic. Mathematics, 11, 1982. \doi{10.3390/math11091982}
 \seealso{
 \code{\link[=cramers_v]{cramers_v()}} \code{\link[=chisq_to_fei]{chisq_to_fei()}}
 
-Other convert between effect sizes: 
-\code{\link{d_to_r}()},
+Other convert between effect sizes:
+\code{\link[=d_to_r]{d_to_r()}},
 \code{\link{diff_to_cles}},
-\code{\link{eta2_to_f2}()},
-\code{\link{odds_to_probs}()},
-\code{\link{oddsratio_to_riskratio}()}
+\code{\link[=eta2_to_f2]{eta2_to_f2()}},
+\code{\link[=odds_to_probs]{odds_to_probs()}},
+\code{\link[=oddsratio_to_riskratio]{oddsratio_to_riskratio()}}
 }
 \concept{convert between effect sizes}

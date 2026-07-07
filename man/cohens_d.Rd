@@ -235,11 +235,11 @@ Correcting error and bias in research findings. Sage.
 \seealso{
 \code{\link[=rm_d]{rm_d()}}, \code{\link[=sd_pooled]{sd_pooled()}}, \code{\link[=t_to_d]{t_to_d()}}, \code{\link[=r_to_d]{r_to_d()}}
 
-Other standardized differences: 
-\code{\link{mahalanobis_d}()},
-\code{\link{means_ratio}()},
-\code{\link{p_superiority}()},
-\code{\link{rank_biserial}()},
-\code{\link{repeated_measures_d}()}
+Other standardized differences:
+\code{\link[=mahalanobis_d]{mahalanobis_d()}},
+\code{\link[=means_ratio]{means_ratio()}},
+\code{\link[=p_superiority]{p_superiority()}},
+\code{\link[=rank_biserial]{rank_biserial()}},
+\code{\link[=repeated_measures_d]{repeated_measures_d()}}
 }
 \concept{standardized differences}

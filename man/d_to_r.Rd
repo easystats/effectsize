@@ -98,11 +98,11 @@ methods, 8(4), 448.
 \seealso{
 \code{\link[=cohens_d]{cohens_d()}}
 
-Other convert between effect sizes: 
+Other convert between effect sizes:
 \code{\link{diff_to_cles}},
-\code{\link{eta2_to_f2}()},
-\code{\link{odds_to_probs}()},
-\code{\link{oddsratio_to_riskratio}()},
-\code{\link{w_to_fei}()}
+\code{\link[=eta2_to_f2]{eta2_to_f2()}},
+\code{\link[=odds_to_probs]{odds_to_probs()}},
+\code{\link[=oddsratio_to_riskratio]{oddsratio_to_riskratio()}},
+\code{\link[=w_to_fei]{w_to_fei()}}
 }
 \concept{convert between effect sizes}

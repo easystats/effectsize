@@ -90,8 +90,8 @@ cohens_g(tests)
 }
 }
 \seealso{
-Other effect sizes for contingency table: 
-\code{\link{oddsratio}()},
-\code{\link{phi}()}
+Other effect sizes for contingency table:
+\code{\link[=oddsratio]{oddsratio()}},
+\code{\link[=phi]{phi()}}
 }
 \concept{effect sizes for contingency table}

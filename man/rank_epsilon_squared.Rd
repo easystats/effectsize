@@ -188,12 +188,12 @@ sport sciences, 1(21), 19-25.
 }
 }
 \seealso{
-Other rank-based effect sizes: 
-\code{\link{p_superiority}()},
-\code{\link{rank_biserial}()}
+Other rank-based effect sizes:
+\code{\link[=p_superiority]{p_superiority()}},
+\code{\link[=rank_biserial]{rank_biserial()}}
 
-Other effect sizes for ANOVAs: 
-\code{\link{eta_squared}()}
+Other effect sizes for ANOVAs:
+\code{\link[=eta_squared]{eta_squared()}}
 }
 \concept{effect sizes for ANOVAs}
 \concept{rank-based effect sizes}

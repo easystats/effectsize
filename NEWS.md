@@ -1,4 +1,4 @@
-# effectsize 1.0.x
+# effectsize 1.0.3
 
 ## Bug fixes
 
@@ -20,7 +20,7 @@
 
 - `probs_to_odds(<data.frame>)` and `odds_to_probs(<data.frame>)` methods has been deprecated.
 - `riskratio(log=)` argument has been deprecated.
-- `convert_*()` aliases, deprecated since March 2023, have been removed. 
+- `convert_*()` aliases, deprecated since March 2023, have been removed.
 
 # effectsize 1.0.1
 
