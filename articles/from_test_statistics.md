@@ -36,19 +36,17 @@ The conversion of the F- or t-statistic is based on Friedman (1982).
 
 Let’s look at an example:
 
-``` r
-
-library(afex)
-
-data(md_12.1)
-
-aov_fit <- aov_car(
-  rt ~ angle * noise + Error(id / (angle * noise)),
-  data = md_12.1,
-  anova_table = list(correction = "none", es = "pes")
-)
-aov_fit
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`afex`](https://afex.singmann.science/)`)`\
+\
+[`data`](https://rdrr.io/r/utils/data.html)`(``md_12.1``)`\
+\
+`aov_fit`` ``<-`` `[`aov_car`](https://rdrr.io/pkg/afex/man/aov_car.html)`(`\
+`  ``rt`` ``~`` ``angle`` ``*`` ``noise`` ``+`` ``Error``(``id`` ``/`` ``(``angle`` ``*`` ``noise``)``)``,`\
+`  data ``=`` ``md_12.1``,`\
+`  anova_table ``=`` `[`list`](https://rdrr.io/r/base/list.html)`(``correction ``=`` ``"none"``, es ``=`` ``"pes"``)`\
+`)`\
+`aov_fit`
 
     > Anova Table (Type 3 tests)
     > 
@@ -64,17 +62,15 @@ Let’s compare the \eta^2_p (the `pes` column) obtained here with ones
 recovered from
 [`F_to_eta2()`](https://easystats.github.io/effectsize/reference/F_to_eta2.md):
 
-``` r
-
-library(effectsize)
-options(es.use_symbols = TRUE) # get nice symbols when printing! (On Windows, requires R >= 4.2.0)
-
-F_to_eta2(
-  f = c(40.72, 33.77, 45.31),
-  df = c(2, 1, 2),
-  df_error = c(18, 9, 18)
-)
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`effectsize`](https://easystats.github.io/effectsize/)`)`\
+[`options`](https://rdrr.io/r/base/options.html)`(``es.use_symbols ``=`` ``TRUE``)`` ``# get nice symbols when printing! (On Windows, requires R >= 4.2.0)`\
+\
+[`F_to_eta2`](https://easystats.github.io/effectsize/reference/F_to_eta2.md)`(`\
+`  f ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``40.72``, ``33.77``, ``45.31``)``,`\
+`  df ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2``, ``1``, ``2``)``,`\
+`  df_error ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``18``, ``9``, ``18``)`\
+`)`
 
     > η² (partial) |       95% CI
     > ---------------------------
@@ -96,19 +92,15 @@ For example:
 
 #### In Simple Effect and Contrast Analysis
 
-``` r
-
-library(emmeans)
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`emmeans`](https://rvlenth.github.io/emmeans/)`)`
 
     > Welcome to emmeans.
     > Caution: You lose important information if you filter this package's results.
     > See '? untidy'
 
-``` r
-
-joint_tests(aov_fit, by = "noise")
-```
+\
+[`joint_tests`](https://rvlenth.github.io/emmeans/reference/joint_tests.html)`(``aov_fit``, by ``=`` ``"noise"``)`
 
     > noise = absent:
     >  model term df1 df2 F.ratio p.value
@@ -118,14 +110,12 @@ joint_tests(aov_fit, by = "noise")
     >  model term df1 df2 F.ratio p.value
     >  angle        2   9  51.000 <0.0001
 
-``` r
-
-F_to_eta2(
-  f = c(8, 51),
-  df = 2,
-  df_error = 9
-)
-```
+\
+[`F_to_eta2`](https://easystats.github.io/effectsize/reference/F_to_eta2.md)`(`\
+`  f ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``8``, ``51``)``,`\
+`  df ``=`` ``2``,`\
+`  df_error ``=`` ``9`\
+`)`
 
     > η² (partial) |       95% CI
     > ---------------------------
@@ -138,10 +128,8 @@ We can also use
 [`t_to_eta2()`](https://easystats.github.io/effectsize/reference/F_to_eta2.md)
 for contrast analysis:
 
-``` r
-
-pairs(emmeans(aov_fit, ~angle))
-```
+\
+[`pairs`](https://rdrr.io/r/graphics/pairs.html)`(`[`emmeans`](https://rvlenth.github.io/emmeans/reference/emmeans.html)`(``aov_fit``, ``~``angle``)``)`
 
     >  contrast estimate   SE df t.ratio p.value
     >  X0 - X4      -108 17.4  9  -6.200  0.0004
@@ -151,13 +139,11 @@ pairs(emmeans(aov_fit, ~angle))
     > Results are averaged over the levels of: noise 
     > P value adjustment: tukey method for comparing a family of 3 estimates
 
-``` r
-
-t_to_eta2(
-  t = c(-6.2, -8.2, -3.2),
-  df_error = 9
-)
-```
+\
+[`t_to_eta2`](https://easystats.github.io/effectsize/reference/F_to_eta2.md)`(`\
+`  t ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``-``6.2``, ``-``8.2``, ``-``3.2``)``,`\
+`  df_error ``=`` ``9`\
+`)`
 
     > η² (partial) |       95% CI
     > ---------------------------
@@ -169,14 +155,12 @@ t_to_eta2(
 
 #### In Linear Mixed Models
 
-``` r
-
-library(lmerTest)
-
-fit_lmm <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
-
-anova(fit_lmm)
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`lmerTest`](https://github.com/runehaubo/lmerTestR)`)`\
+\
+`fit_lmm`` ``<-`` `[`lmer`](https://rdrr.io/pkg/lmerTest/man/lmer.html)`(``Reaction`` ``~`` ``Days`` ``+`` ``(``Days`` ``|`` ``Subject``)``, ``sleepstudy``)`\
+\
+[`anova`](https://rdrr.io/r/stats/anova.html)`(``fit_lmm``)`
 
     > Type III Analysis of Variance Table with Satterthwaite's method
     >      Sum Sq Mean Sq NumDF DenDF F value  Pr(>F)    
@@ -184,10 +168,8 @@ anova(fit_lmm)
     > ---
     > Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-``` r
-
-F_to_eta2(45.9, 1, 17)
-```
+\
+[`F_to_eta2`](https://easystats.github.io/effectsize/reference/F_to_eta2.md)`(``45.9``, ``1``, ``17``)`
 
     > η² (partial) |       95% CI
     > ---------------------------
@@ -199,14 +181,12 @@ We can also use
 [`t_to_eta2()`](https://easystats.github.io/effectsize/reference/F_to_eta2.md)
 for the slope of `Days` (which in this case gives the same result).
 
-``` r
-
-parameters::model_parameters(
-  fit_lmm,
-  effects = "fixed",
-  ci_method = "satterthwaite"
-)
-```
+\
+`parameters``::`[`model_parameters`](https://easystats.github.io/parameters/reference/model_parameters.html)`(`\
+`  ``fit_lmm``,`\
+`  effects ``=`` ``"fixed"``,`\
+`  ci_method ``=`` ``"satterthwaite"`\
+`)`
 
     > # Fixed Effects
     > 
@@ -219,10 +199,8 @@ parameters::model_parameters(
     > Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed
     >   using a Wald t-distribution with Satterthwaite approximation.
 
-``` r
-
-t_to_eta2(6.77, df_error = 17)
-```
+\
+[`t_to_eta2`](https://easystats.github.io/effectsize/reference/F_to_eta2.md)`(``6.77``, df_error ``=`` ``17``)`
 
     > η² (partial) |       95% CI
     > ---------------------------
@@ -236,10 +214,8 @@ Alongside \eta^2_p there are also the less biased \omega_p^2 (Omega) and
 \epsilon^2_p (Epsilon; sometimes called \text{Adj. }\eta^2_p, which is
 equivalent to R^2\_{adj}; Albers and Lakens (2018), Mordkoff (2019)).
 
-``` r
-
-F_to_eta2(45.9, 1, 17)
-```
+\
+[`F_to_eta2`](https://easystats.github.io/effectsize/reference/F_to_eta2.md)`(``45.9``, ``1``, ``17``)`
 
     > η² (partial) |       95% CI
     > ---------------------------
@@ -247,10 +223,8 @@ F_to_eta2(45.9, 1, 17)
     > 
     > - One-sided CIs: upper bound fixed at [1.00].
 
-``` r
-
-F_to_epsilon2(45.9, 1, 17)
-```
+\
+[`F_to_epsilon2`](https://easystats.github.io/effectsize/reference/F_to_eta2.md)`(``45.9``, ``1``, ``17``)`
 
     > ε² (partial) |       95% CI
     > ---------------------------
@@ -258,10 +232,8 @@ F_to_epsilon2(45.9, 1, 17)
     > 
     > - One-sided CIs: upper bound fixed at [1.00].
 
-``` r
-
-F_to_omega2(45.9, 1, 17)
-```
+\
+[`F_to_omega2`](https://easystats.github.io/effectsize/reference/F_to_eta2.md)`(``45.9``, ``1``, ``17``)`
 
     > ω² (partial) |       95% CI
     > ---------------------------
@@ -279,14 +251,12 @@ number, which looks better).
 
 #### For Slopes
 
-``` r
-
-parameters::model_parameters(
-  fit_lmm,
-  effects = "fixed",
-  ci_method = "satterthwaite"
-)
-```
+\
+`parameters``::`[`model_parameters`](https://easystats.github.io/parameters/reference/model_parameters.html)`(`\
+`  ``fit_lmm``,`\
+`  effects ``=`` ``"fixed"``,`\
+`  ci_method ``=`` ``"satterthwaite"`\
+`)`
 
     > # Fixed Effects
     > 
@@ -299,10 +269,8 @@ parameters::model_parameters(
     > Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed
     >   using a Wald t-distribution with Satterthwaite approximation.
 
-``` r
-
-t_to_r(6.77, df_error = 17)
-```
+\
+[`t_to_r`](https://easystats.github.io/effectsize/reference/t_to_r.md)`(``6.77``, df_error ``=`` ``17``)`
 
     > r    |       95% CI
     > -------------------
@@ -311,12 +279,10 @@ t_to_r(6.77, df_error = 17)
 In a fixed-effect linear model, this returns the **partial**
 correlation. Compare:
 
-``` r
-
-fit_lm <- lm(rating ~ complaints + critical, data = attitude)
-
-parameters::model_parameters(fit_lm)
-```
+\
+`fit_lm`` ``<-`` `[`lm`](https://rdrr.io/r/stats/lm.html)`(``rating`` ``~`` ``complaints`` ``+`` ``critical``, data ``=`` ``attitude``)`\
+\
+`parameters``::`[`model_parameters`](https://easystats.github.io/parameters/reference/model_parameters.html)`(``fit_lm``)`
 
     > Parameter   | Coefficient |    SE |         95% CI | t(27) |      p
     > -------------------------------------------------------------------
@@ -328,13 +294,11 @@ parameters::model_parameters(fit_lm)
     > Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed
     >   using a Wald t-distribution approximation.
 
-``` r
-
-t_to_r(
-  t = c(7.46, 0.01),
-  df_error = 27
-)
-```
+\
+[`t_to_r`](https://easystats.github.io/effectsize/reference/t_to_r.md)`(`\
+`  t ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``7.46``, ``0.01``)``,`\
+`  df_error ``=`` ``27`\
+`)`
 
     > r        |        95% CI
     > ------------------------
@@ -343,15 +307,13 @@ t_to_r(
 
 to:
 
-``` r
-
-correlation::correlation(
-  attitude,
-  select = "rating",
-  select2 = c("complaints", "critical"),
-  partial = TRUE
-)
-```
+\
+`correlation``::`[`correlation`](https://easystats.github.io/correlation/reference/correlation.html)`(`\
+`  ``attitude``,`\
+`  select ``=`` ``"rating"``,`\
+`  select2 ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"complaints"``, ``"critical"``)``,`\
+`  partial ``=`` ``TRUE`\
+`)`
 
     > # Correlation Matrix (pearson-method)
     > 
@@ -369,10 +331,8 @@ This measure is also sometimes used in contrast analysis, where it is
 called the point bi-serial correlation - r\_{pb} (Cohen et al. 1965;
 Rosnow et al. 2000):
 
-``` r
-
-pairs(emmeans(aov_fit, ~angle))
-```
+\
+[`pairs`](https://rdrr.io/r/graphics/pairs.html)`(`[`emmeans`](https://rvlenth.github.io/emmeans/reference/emmeans.html)`(``aov_fit``, ``~``angle``)``)`
 
     >  contrast estimate   SE df t.ratio p.value
     >  X0 - X4      -108 17.4  9  -6.200  0.0004
@@ -382,13 +342,11 @@ pairs(emmeans(aov_fit, ~angle))
     > Results are averaged over the levels of: noise 
     > P value adjustment: tukey method for comparing a family of 3 estimates
 
-``` r
-
-t_to_r(
-  t = c(-6.2, -8.2, -3.2),
-  df_error = 9
-)
-```
+\
+[`t_to_r`](https://easystats.github.io/effectsize/reference/t_to_r.md)`(`\
+`  t ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``-``6.2``, ``-``8.2``, ``-``3.2``)``,`\
+`  df_error ``=`` ``9`\
+`)`
 
     > r     |         95% CI
     > ----------------------
@@ -407,13 +365,11 @@ These can be useful in contrast analyses.
 
 #### Between-Subject Contrasts
 
-``` r
-
-m <- lm(breaks ~ tension, data = warpbreaks)
-
-em_tension <- emmeans(m, ~tension)
-pairs(em_tension)
-```
+\
+`m`` ``<-`` `[`lm`](https://rdrr.io/r/stats/lm.html)`(``breaks`` ``~`` ``tension``, data ``=`` ``warpbreaks``)`\
+\
+`em_tension`` ``<-`` `[`emmeans`](https://rvlenth.github.io/emmeans/reference/emmeans.html)`(``m``, ``~``tension``)`\
+[`pairs`](https://rdrr.io/r/graphics/pairs.html)`(``em_tension``)`
 
     >  contrast estimate SE df t.ratio p.value
     >  L - M        10.0  4 51   2.500  0.0400
@@ -422,13 +378,11 @@ pairs(em_tension)
     > 
     > P value adjustment: tukey method for comparing a family of 3 estimates
 
-``` r
-
-t_to_d(
-  t = c(2.53, 3.72, 1.20),
-  df_error = 51
-)
-```
+\
+[`t_to_d`](https://easystats.github.io/effectsize/reference/t_to_r.md)`(`\
+`  t ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2.53``, ``3.72``, ``1.20``)``,`\
+`  df_error ``=`` ``51`\
+`)`
 
     > d    |        95% CI
     > --------------------
@@ -441,10 +395,8 @@ advised to directly estimate Cohen’s *d*, whenever possible. For
 example, here with
 [`emmeans::eff_size()`](https://rvlenth.github.io/emmeans/reference/eff_size.html):
 
-``` r
-
-eff_size(em_tension, sigma = sigma(m), edf = df.residual(m))
-```
+\
+[`eff_size`](https://rvlenth.github.io/emmeans/reference/eff_size.html)`(``em_tension``, sigma ``=`` `[`sigma`](https://rdrr.io/r/stats/sigma.html)`(``m``)``, edf ``=`` `[`df.residual`](https://rdrr.io/r/stats/df.residual.html)`(``m``)``)`
 
     >  contrast effect.size   SE df lower.CL upper.CL
     >  L - M           0.84 0.34 51     0.15     1.53
@@ -456,10 +408,8 @@ eff_size(em_tension, sigma = sigma(m), edf = df.residual(m))
 
 #### Within-Subject Contrasts
 
-``` r
-
-pairs(emmeans(aov_fit, ~angle))
-```
+\
+[`pairs`](https://rdrr.io/r/graphics/pairs.html)`(`[`emmeans`](https://rvlenth.github.io/emmeans/reference/emmeans.html)`(``aov_fit``, ``~``angle``)``)`
 
     >  contrast estimate   SE df t.ratio p.value
     >  X0 - X4      -108 17.4  9  -6.200  0.0004
@@ -469,14 +419,12 @@ pairs(emmeans(aov_fit, ~angle))
     > Results are averaged over the levels of: noise 
     > P value adjustment: tukey method for comparing a family of 3 estimates
 
-``` r
-
-t_to_d(
-  t = c(-6.2, -8.2, -3.3),
-  df_error = 9,
-  paired = TRUE
-)
-```
+\
+[`t_to_d`](https://easystats.github.io/effectsize/reference/t_to_r.md)`(`\
+`  t ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``-``6.2``, ``-``8.2``, ``-``3.3``)``,`\
+`  df_error ``=`` ``9``,`\
+`  paired ``=`` ``TRUE`\
+`)`
 
     > d     |         95% CI
     > ----------------------

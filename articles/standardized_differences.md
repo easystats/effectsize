@@ -5,11 +5,9 @@ groups, which are typically achieved with the
 [`t.test()`](https://rdrr.io/r/stats/t.test.html) and
 [`wilcox.test()`](https://rdrr.io/r/stats/wilcox.test.html) functions.
 
-``` r
-
-library(effectsize)
-options(es.use_symbols = TRUE) # get nice symbols when printing! (On Windows, requires R >= 4.2.0)
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`effectsize`](https://easystats.github.io/effectsize/)`)`\
+[`options`](https://rdrr.io/r/base/options.html)`(``es.use_symbols ``=`` ``TRUE``)`` ``# get nice symbols when printing! (On Windows, requires R >= 4.2.0)`
 
 ## Standardized Differences
 
@@ -24,10 +22,8 @@ For two independent samples, the difference between the means is
 standardized based on the pooled standard deviation of both samples
 (assumed to be equal in the population):
 
-``` r
-
-t.test(mpg ~ am, data = mtcars, var.equal = TRUE)
-```
+\
+[`t.test`](https://rdrr.io/r/stats/t.test.html)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``, var.equal ``=`` ``TRUE``)`
 
     > 
     >   Two Sample t-test
@@ -41,10 +37,8 @@ t.test(mpg ~ am, data = mtcars, var.equal = TRUE)
     > mean in group 0 mean in group 1 
     >            17.1            24.4
 
-``` r
-
-cohens_d(mpg ~ am, data = mtcars)
-```
+\
+[`cohens_d`](https://easystats.github.io/effectsize/reference/cohens_d.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``)`
 
     > Cohen's d |         95% CI
     > --------------------------
@@ -55,10 +49,8 @@ cohens_d(mpg ~ am, data = mtcars)
 Hedges’ *g* provides a small-sample bias correction (for small sample
 sizes, N \< 20).
 
-``` r
-
-hedges_g(mpg ~ am, data = mtcars)
-```
+\
+[`hedges_g`](https://easystats.github.io/effectsize/reference/cohens_d.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``)`
 
     > Hedges' g |         95% CI
     > --------------------------
@@ -69,10 +61,8 @@ hedges_g(mpg ~ am, data = mtcars)
 If variances cannot be assumed to be equal, it is possible to get
 estimates that are not based on the pooled standard deviation:
 
-``` r
-
-t.test(mpg ~ am, data = mtcars, var.equal = FALSE)
-```
+\
+[`t.test`](https://rdrr.io/r/stats/t.test.html)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``, var.equal ``=`` ``FALSE``)`
 
     > 
     >   Welch Two Sample t-test
@@ -86,10 +76,8 @@ t.test(mpg ~ am, data = mtcars, var.equal = FALSE)
     > mean in group 0 mean in group 1 
     >            17.1            24.4
 
-``` r
-
-cohens_d(mpg ~ am, data = mtcars, pooled_sd = FALSE)
-```
+\
+[`cohens_d`](https://easystats.github.io/effectsize/reference/cohens_d.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``, pooled_sd ``=`` ``FALSE``)`
 
     > Cohen's d |         95% CI
     > --------------------------
@@ -97,10 +85,8 @@ cohens_d(mpg ~ am, data = mtcars, pooled_sd = FALSE)
     > 
     > - Estimated using un-pooled SD.
 
-``` r
-
-hedges_g(mpg ~ am, data = mtcars, pooled_sd = FALSE)
-```
+\
+[`hedges_g`](https://easystats.github.io/effectsize/reference/cohens_d.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``, pooled_sd ``=`` ``FALSE``)`
 
     > Hedges' g |         95% CI
     > --------------------------
@@ -114,10 +100,8 @@ deviation of one of the groups (usually the “control” group); this
 effect size is known as Glass’ \Delta (delta) (Note that the standard
 deviation is taken from the *second* sample).
 
-``` r
-
-glass_delta(mpg ~ am, data = mtcars)
-```
+\
+[`glass_delta`](https://easystats.github.io/effectsize/reference/cohens_d.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``)`
 
     > Glass' Δ (adj.) |         95% CI
     > --------------------------------
@@ -126,10 +110,8 @@ glass_delta(mpg ~ am, data = mtcars)
 For a one-sided hypothesis, it is also possible to construct one-sided
 confidence intervals:
 
-``` r
-
-t.test(mpg ~ am, data = mtcars, var.equal = TRUE, alternative = "less")
-```
+\
+[`t.test`](https://rdrr.io/r/stats/t.test.html)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``, var.equal ``=`` ``TRUE``, alternative ``=`` ``"less"``)`
 
     > 
     >   Two Sample t-test
@@ -143,10 +125,8 @@ t.test(mpg ~ am, data = mtcars, var.equal = TRUE, alternative = "less")
     > mean in group 0 mean in group 1 
     >            17.1            24.4
 
-``` r
-
-cohens_d(mpg ~ am, data = mtcars, pooled_sd = TRUE, alternative = "less")
-```
+\
+[`cohens_d`](https://easystats.github.io/effectsize/reference/cohens_d.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``, pooled_sd ``=`` ``TRUE``, alternative ``=`` ``"less"``)`
 
     > Cohen's d |        95% CI
     > -------------------------
@@ -160,10 +140,8 @@ cohens_d(mpg ~ am, data = mtcars, pooled_sd = TRUE, alternative = "less")
 In the case of a one-sample test, the effect size represents the
 standardized distance of the mean of the sample from the null value.
 
-``` r
-
-t.test(mtcars$wt, mu = 2.7)
-```
+\
+[`t.test`](https://rdrr.io/r/stats/t.test.html)`(``mtcars``$``wt``, mu ``=`` ``2.7``)`
 
     > 
     >   One Sample t-test
@@ -177,10 +155,8 @@ t.test(mtcars$wt, mu = 2.7)
     > mean of x 
     >      3.22
 
-``` r
-
-cohens_d(mtcars$wt, mu = 2.7)
-```
+\
+[`cohens_d`](https://easystats.github.io/effectsize/reference/cohens_d.md)`(``mtcars``$``wt``, mu ``=`` ``2.7``)`
 
     > Cohen's d |       95% CI
     > ------------------------
@@ -188,10 +164,8 @@ cohens_d(mtcars$wt, mu = 2.7)
     > 
     > - Deviation from a difference of 2.7.
 
-``` r
-
-hedges_g(mtcars$wt, mu = 2.7)
-```
+\
+[`hedges_g`](https://easystats.github.io/effectsize/reference/cohens_d.md)`(``mtcars``$``wt``, mu ``=`` ``2.7``)`
 
     > Hedges' g |       95% CI
     > ------------------------
@@ -212,17 +186,15 @@ scores and compute a one-sample effect size. This effect size, known as
 Cohen’s d_z, represents the difference in terms of its homogeneity (a
 small but stable difference will have a large d_z).
 
-``` r
-
-sleep_wide <- datawizard::data_to_wide(sleep,
-  id_cols = "ID",
-  values_from = "extra",
-  names_from = "group",
-  names_prefix = "extra_"
-)
-
-t.test(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], paired = TRUE)
-```
+\
+`sleep_wide`` ``<-`` ``datawizard``::`[`data_to_wide`](https://easystats.github.io/datawizard/reference/data_to_wide.html)`(``sleep``,`\
+`  id_cols ``=`` ``"ID"``,`\
+`  values_from ``=`` ``"extra"``,`\
+`  names_from ``=`` ``"group"``,`\
+`  names_prefix ``=`` ``"extra_"`\
+`)`\
+\
+[`t.test`](https://rdrr.io/r/stats/t.test.html)`(``sleep_wide``[[``"extra_1"``]``]``, ``sleep_wide``[[``"extra_2"``]``]``, paired ``=`` ``TRUE``)`
 
     > 
     >   Paired t-test
@@ -236,10 +208,8 @@ t.test(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], paired = TRUE)
     > mean difference 
     >           -1.58
 
-``` r
-
-repeated_measures_d(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], method = "z")
-```
+\
+[`repeated_measures_d`](https://easystats.github.io/effectsize/reference/repeated_measures_d.md)`(``sleep_wide``[[``"extra_1"``]``]``, ``sleep_wide``[[``"extra_2"``]``]``, method ``=`` ``"z"``)`
 
     > d (z) |         95% CI
     > ----------------------
@@ -247,11 +217,9 @@ repeated_measures_d(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], method = "
     > 
     > - Adjusted for small sample bias.
 
-``` r
-
-# same as:
-hedges_g(sleep_wide[["extra_1"]] - sleep_wide[["extra_2"]])
-```
+\
+`# same as:`\
+[`hedges_g`](https://easystats.github.io/effectsize/reference/cohens_d.md)`(``sleep_wide``[[``"extra_1"``]``]`` ``-`` ``sleep_wide``[[``"extra_2"``]``]``)`
 
     > Hedges' g |         95% CI
     > --------------------------
@@ -261,10 +229,8 @@ Other options try to get close to the value that would have been reached
 if the samples were independant (see more info in the documentation of
 [`repeated_measures_d()`](https://easystats.github.io/effectsize/reference/repeated_measures_d.md)):
 
-``` r
-
-repeated_measures_d(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]])
-```
+\
+[`repeated_measures_d`](https://easystats.github.io/effectsize/reference/repeated_measures_d.md)`(``sleep_wide``[[``"extra_1"``]``]``, ``sleep_wide``[[``"extra_2"``]``]``)`
 
     > dᵣₘ   |         95% CI
     > ----------------------
@@ -272,10 +238,8 @@ repeated_measures_d(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]])
     > 
     > - Adjusted for small sample bias.
 
-``` r
-
-repeated_measures_d(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], method = "av")
-```
+\
+[`repeated_measures_d`](https://easystats.github.io/effectsize/reference/repeated_measures_d.md)`(``sleep_wide``[[``"extra_1"``]``]``, ``sleep_wide``[[``"extra_2"``]``]``, method ``=`` ``"av"``)`
 
     > dₐᵥ   |         95% CI
     > ----------------------
@@ -283,10 +247,8 @@ repeated_measures_d(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], method = "
     > 
     > - Adjusted for small sample bias.
 
-``` r
-
-repeated_measures_d(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], method = "b")
-```
+\
+[`repeated_measures_d`](https://easystats.github.io/effectsize/reference/repeated_measures_d.md)`(``sleep_wide``[[``"extra_1"``]``]``, ``sleep_wide``[[``"extra_2"``]``]``, method ``=`` ``"b"``)`
 
     > Becker's d |         95% CI
     > ---------------------------
@@ -294,10 +256,8 @@ repeated_measures_d(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], method = "
     > 
     > - Adjusted for small sample bias.
 
-``` r
-
-repeated_measures_d(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], method = "d")
-```
+\
+[`repeated_measures_d`](https://easystats.github.io/effectsize/reference/repeated_measures_d.md)`(``sleep_wide``[[``"extra_1"``]``]``, ``sleep_wide``[[``"extra_2"``]``]``, method ``=`` ``"d"``)`
 
     > Cohen's d |         95% CI
     > --------------------------
@@ -305,11 +265,9 @@ repeated_measures_d(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], method = "
     > 
     > - Adjusted for small sample bias.
 
-``` r
-
-# all closer to:
-cohens_d(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], ci = NULL)
-```
+\
+`# all closer to:`\
+[`cohens_d`](https://easystats.github.io/effectsize/reference/cohens_d.md)`(``sleep_wide``[[``"extra_1"``]``]``, ``sleep_wide``[[``"extra_2"``]``]``, ci ``=`` ``NULL``)`
 
     > Cohen's d
     > ---------
@@ -320,12 +278,10 @@ cohens_d(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]], ci = NULL)
 For data containing repetition in each condition/subject, another effect
 size (residual *d*) is also available:
 
-``` r
-
-data("rouder2016")
-
-head(rouder2016)
-```
+\
+[`data`](https://rdrr.io/r/utils/data.html)`(``"rouder2016"``)`\
+\
+[`head`](https://rdrr.io/r/utils/head.html)`(``rouder2016``)`
 
     >   id cond    rt
     > 1  1    1 0.560
@@ -335,10 +291,8 @@ head(rouder2016)
     > 5  1    1 1.028
     > 6  1    1 0.845
 
-``` r
-
-repeated_measures_d(rt ~ cond | id, data = rouder2016, method = "r")
-```
+\
+[`repeated_measures_d`](https://easystats.github.io/effectsize/reference/repeated_measures_d.md)`(``rt`` ``~`` ``cond`` ``|`` ``id``, data ``=`` ``rouder2016``, method ``=`` ``"r"``)`
 
     > dᵣ    |         95% CI
     > ----------------------
@@ -353,13 +307,11 @@ A Bayesian estimate of Cohen’s *d* can also be provided based on
 [`effectsize()`](https://easystats.github.io/effectsize/reference/effectsize.md)
 function:
 
-``` r
-
-library(BayesFactor)
-BFt <- ttestBF(formula = mpg ~ am, data = mtcars)
-
-effectsize(BFt, type = "d")
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`BayesFactor`](https://richarddmorey.github.io/BayesFactor/)`)`\
+`BFt`` ``<-`` `[`ttestBF`](https://rdrr.io/pkg/BayesFactor/man/ttestBF.html)`(``formula ``=`` ``mpg`` ``~`` ``am``, data ``=`` ``mtcars``)`\
+\
+[`effectsize`](https://easystats.github.io/effectsize/reference/effectsize.md)`(``BFt``, type ``=`` ``"d"``)`
 
     > Cohen's d |         95% CI
     > --------------------------
@@ -376,10 +328,8 @@ Cohen’s *d*. Unlike Cohen’s *d* which is a measure of standardized
 *distances*. As such, it cannot be negative, and ranges from 0 (no
 distance between the multivariate distributions) to +\infty.
 
-``` r
-
-mahalanobis_d(mpg + hp + cyl ~ am, data = mtcars)
-```
+\
+[`mahalanobis_d`](https://easystats.github.io/effectsize/reference/mahalanobis_d.md)`(``mpg`` ``+`` ``hp`` ``+`` ``cyl`` ``~`` ``am``, data ``=`` ``mtcars``)`
 
     > Mahalanobis' D |      95% CI
     > ----------------------------
@@ -395,10 +345,8 @@ scale** outcomes (variables with an absolute zero).
 
 Lucky for us, miles-per-gallon is on a ratio scale!
 
-``` r
-
-means_ratio(mpg ~ am, data = mtcars)
-```
+\
+[`means_ratio`](https://easystats.github.io/effectsize/reference/means_ratio.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``)`
 
     > Means Ratio (adj.) |       95% CI
     > ---------------------------------
@@ -423,13 +371,11 @@ test or the signed-rank test (both available in
 
 ### Two Independent Samples
 
-``` r
-
-A <- c(48, 48, 77, 86, 85, 85)
-B <- c(14, 34, 34, 77)
-
-wilcox.test(A, B, exact = FALSE) # aka Mann–Whitney U test
-```
+\
+`A`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``48``, ``48``, ``77``, ``86``, ``85``, ``85``)`\
+`B`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``14``, ``34``, ``34``, ``77``)`\
+\
+[`wilcox.test`](https://rdrr.io/r/stats/wilcox.test.html)`(``A``, ``B``, exact ``=`` ``FALSE``)`` ``# aka Mann–Whitney U test`
 
     > 
     >   Wilcoxon rank sum test with continuity correction
@@ -438,10 +384,8 @@ wilcox.test(A, B, exact = FALSE) # aka Mann–Whitney U test
     > W = 22, p-value = 0.05
     > alternative hypothesis: true location shift is not equal to 0
 
-``` r
-
-rank_biserial(A, B)
-```
+\
+[`rank_biserial`](https://easystats.github.io/effectsize/reference/rank_biserial.md)`(``A``, ``B``)`
 
     > r (rank biserial) |       95% CI
     > --------------------------------
@@ -454,12 +398,10 @@ value), with 0 indicating perfect symmetry, (-1) indicates that all
 observations fall below \mu, and (+1) indicates that all observations
 fall above \mu.
 
-``` r
-
-x <- c(1.15, 0.88, 0.90, 0.74, 1.21, 1.36, 0.89)
-
-wilcox.test(x, mu = 1) # aka Signed-Rank test
-```
+\
+`x`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``1.15``, ``0.88``, ``0.90``, ``0.74``, ``1.21``, ``1.36``, ``0.89``)`\
+\
+[`wilcox.test`](https://rdrr.io/r/stats/wilcox.test.html)`(``x``, mu ``=`` ``1``)`` ``# aka Signed-Rank test`
 
     > 
     >   Wilcoxon signed rank exact test
@@ -468,10 +410,8 @@ wilcox.test(x, mu = 1) # aka Signed-Rank test
     > V = 16, p-value = 0.8
     > alternative hypothesis: true location is not equal to 1
 
-``` r
-
-rank_biserial(x, mu = 1)
-```
+\
+[`rank_biserial`](https://easystats.github.io/effectsize/reference/rank_biserial.md)`(``x``, mu ``=`` ``1``)`
 
     > r (rank biserial) |        95% CI
     > ---------------------------------
@@ -484,13 +424,11 @@ rank_biserial(x, mu = 1)
 For paired samples, r\_{rb} measures the symmetry of the (paired)
 *differences* around \mu as for the one sample case.
 
-``` r
-
-x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
-y <- c(0.88, 0.65, 0.60, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
-
-wilcox.test(x, y, paired = TRUE) # aka Signed-Rank test
-```
+\
+`x`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``1.83``, ``0.50``, ``1.62``, ``2.48``, ``1.68``, ``1.88``, ``1.55``, ``3.06``, ``1.30``)`\
+`y`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``0.88``, ``0.65``, ``0.60``, ``2.05``, ``1.06``, ``1.29``, ``1.06``, ``3.14``, ``1.29``)`\
+\
+[`wilcox.test`](https://rdrr.io/r/stats/wilcox.test.html)`(``x``, ``y``, paired ``=`` ``TRUE``)`` ``# aka Signed-Rank test`
 
     > 
     >   Wilcoxon signed rank exact test
@@ -499,10 +437,8 @@ wilcox.test(x, y, paired = TRUE) # aka Signed-Rank test
     > V = 40, p-value = 0.04
     > alternative hypothesis: true location shift is not equal to 0
 
-``` r
-
-rank_biserial(x, y, paired = TRUE)
-```
+\
+[`rank_biserial`](https://easystats.github.io/effectsize/reference/rank_biserial.md)`(``x``, ``y``, paired ``=`` ``TRUE``)`
 
     > r (rank biserial) |       95% CI
     > --------------------------------
@@ -522,19 +458,15 @@ overlap: Cohen’s U_1 is the proportion of the total of both
 distributions that does not overlap, while *Overlap (OVL)* is the
 proportional overlap between the distributions.
 
-``` r
-
-cohens_u1(mpg ~ am, data = mtcars)
-```
+\
+[`cohens_u1`](https://easystats.github.io/effectsize/reference/p_superiority.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``)`
 
     > Cohen's U1 |       95% CI
     > -------------------------
     > 0.70       | [0.42, 0.85]
 
-``` r
-
-p_overlap(mpg ~ am, data = mtcars)
-```
+\
+[`p_overlap`](https://easystats.github.io/effectsize/reference/p_superiority.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``)`
 
     > Overlap |       95% CI
     > ----------------------
@@ -546,10 +478,8 @@ populations. When these assumptions are not met, the values produced
 will be biased in unknown ways. In such cases, we should use the
 non-parametric versions (U_1 is not defined):
 
-``` r
-
-p_overlap(mpg ~ am, data = mtcars, parametric = FALSE)
-```
+\
+[`p_overlap`](https://easystats.github.io/effectsize/reference/p_superiority.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``, parametric ``=`` ``FALSE``)`
 
     > Overlap |       95% CI
     > ----------------------
@@ -563,10 +493,8 @@ p_overlap(mpg ~ am, data = mtcars, parametric = FALSE)
 observation from each of the groups at random, that the observation from
 the second group will be larger than the sample from the first group.
 
-``` r
-
-p_superiority(mpg ~ am, data = mtcars)
-```
+\
+[`p_superiority`](https://easystats.github.io/effectsize/reference/p_superiority.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``)`
 
     > Pr(superiority) |       95% CI
     > ------------------------------
@@ -580,19 +508,15 @@ Cohen’s U_2 is the proportion of one of the groups that exceeds the same
 proportion in the other group, and Cohen’s U_3 is the proportion of the
 second group that is smaller than the median of the first group.
 
-``` r
-
-cohens_u2(mpg ~ am, data = mtcars)
-```
+\
+[`cohens_u2`](https://easystats.github.io/effectsize/reference/p_superiority.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``)`
 
     > Cohen's U2 |       95% CI
     > -------------------------
     > 0.77       | [0.63, 0.87]
 
-``` r
-
-cohens_u3(mpg ~ am, data = mtcars)
-```
+\
+[`cohens_u3`](https://easystats.github.io/effectsize/reference/p_superiority.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``)`
 
     > Cohen's U3 |       95% CI
     > -------------------------
@@ -601,10 +525,8 @@ cohens_u3(mpg ~ am, data = mtcars)
 Here too we have a non-parametric versions when the assumptions of equal
 variance of normal populations:
 
-``` r
-
-p_superiority(mpg ~ am, data = mtcars, parametric = FALSE)
-```
+\
+[`p_superiority`](https://easystats.github.io/effectsize/reference/p_superiority.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``, parametric ``=`` ``FALSE``)`
 
     > Pr(superiority) |       95% CI
     > ------------------------------
@@ -612,10 +534,8 @@ p_superiority(mpg ~ am, data = mtcars, parametric = FALSE)
     > 
     > - Non-parametric CLES
 
-``` r
-
-cohens_u2(mpg ~ am, data = mtcars, parametric = FALSE)
-```
+\
+[`cohens_u2`](https://easystats.github.io/effectsize/reference/p_superiority.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``, parametric ``=`` ``FALSE``)`
 
     > Cohen's U2 |       95% CI
     > -------------------------
@@ -623,10 +543,8 @@ cohens_u2(mpg ~ am, data = mtcars, parametric = FALSE)
     > 
     > - Non-parametric CLES
 
-``` r
-
-cohens_u3(mpg ~ am, data = mtcars, parametric = FALSE)
-```
+\
+[`cohens_u3`](https://easystats.github.io/effectsize/reference/p_superiority.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``, parametric ``=`` ``FALSE``)`
 
     > Cohen's U3 |       95% CI
     > -------------------------
@@ -639,19 +557,15 @@ cohens_u3(mpg ~ am, data = mtcars, parametric = FALSE)
 For one sample, *probability of superiority* is the probability that,
 when sampling an observation at random, it will be larger than \mu.
 
-``` r
-
-p_superiority(mtcars$wt, mu = 2.75)
-```
+\
+[`p_superiority`](https://easystats.github.io/effectsize/reference/p_superiority.md)`(``mtcars``$``wt``, mu ``=`` ``2.75``)`
 
     > Pr(superiority) |       95% CI
     > ------------------------------
     > 0.63            | [0.53, 0.72]
 
-``` r
-
-p_superiority(mtcars$wt, mu = 2.75, parametric = FALSE)
-```
+\
+[`p_superiority`](https://easystats.github.io/effectsize/reference/p_superiority.md)`(``mtcars``$``wt``, mu ``=`` ``2.75``, parametric ``=`` ``FALSE``)`
 
     > Pr(superiority) |       95% CI
     > ------------------------------
@@ -663,12 +577,10 @@ For paired samples, *probability of superiority* is the probability
 that, when sampling an observation at random, its *difference* will be
 larger than \mu.
 
-``` r
-
-p_superiority(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]],
-  paired = TRUE, mu = -1
-)
-```
+\
+[`p_superiority`](https://easystats.github.io/effectsize/reference/p_superiority.md)`(``sleep_wide``[[``"extra_1"``]``]``, ``sleep_wide``[[``"extra_2"``]``]``,`\
+`  paired ``=`` ``TRUE``, mu ``=`` ``-``1`\
+`)`
 
     > For paired samples, 'repeated_measures_d()' provides more options.
 
@@ -676,13 +588,11 @@ p_superiority(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]],
     > ------------------------------
     > 0.37            | [0.22, 0.56]
 
-``` r
-
-p_superiority(sleep_wide[["extra_1"]], sleep_wide[["extra_2"]],
-  paired = TRUE, mu = -1,
-  parametric = FALSE
-)
-```
+\
+[`p_superiority`](https://easystats.github.io/effectsize/reference/p_superiority.md)`(``sleep_wide``[[``"extra_1"``]``]``, ``sleep_wide``[[``"extra_2"``]``]``,`\
+`  paired ``=`` ``TRUE``, mu ``=`` ``-``1``,`\
+`  parametric ``=`` ``FALSE`\
+`)`
 
     > Pr(superiority) |       95% CI
     > ------------------------------
@@ -698,46 +608,36 @@ the
 [`effectsize()`](https://easystats.github.io/effectsize/reference/effectsize.md)
 function:
 
-``` r
-
-effectsize(BFt, type = "p_superiority")
-```
+\
+[`effectsize`](https://easystats.github.io/effectsize/reference/effectsize.md)`(``BFt``, type ``=`` ``"p_superiority"``)`
 
     > Pr(superiority) |       95% CI
     > ------------------------------
     > 0.18            | [0.07, 0.36]
 
-``` r
-
-effectsize(BFt, type = "u1")
-```
+\
+[`effectsize`](https://easystats.github.io/effectsize/reference/effectsize.md)`(``BFt``, type ``=`` ``"u1"``)`
 
     > Cohen's U1 |       95% CI
     > -------------------------
     > 0.65       | [0.32, 0.83]
 
-``` r
-
-effectsize(BFt, type = "u2")
-```
+\
+[`effectsize`](https://easystats.github.io/effectsize/reference/effectsize.md)`(``BFt``, type ``=`` ``"u2"``)`
 
     > Cohen's U2 |       95% CI
     > -------------------------
     > 0.74       | [0.60, 0.85]
 
-``` r
-
-effectsize(BFt, type = "u3")
-```
+\
+[`effectsize`](https://easystats.github.io/effectsize/reference/effectsize.md)`(``BFt``, type ``=`` ``"u3"``)`
 
     > Cohen's U3 |       95% CI
     > -------------------------
     > 0.10       | [0.02, 0.31]
 
-``` r
-
-effectsize(BFt, type = "overlap")
-```
+\
+[`effectsize`](https://easystats.github.io/effectsize/reference/effectsize.md)`(``BFt``, type ``=`` ``"overlap"``)`
 
     > Overlap |       95% CI
     > ----------------------

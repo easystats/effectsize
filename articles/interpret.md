@@ -57,10 +57,8 @@ correlation coefficients, they are often also interpreted as such.
 
 ##### Funder and Ozer (2019)
 
-``` r
-
-interpret_r(x, rules = "funder2019")
-```
+\
+[`interpret_r`](https://easystats.github.io/effectsize/reference/interpret_r.md)`(``x``, rules ``=`` ``"funder2019"``)`
 
 - **r \< 0.05** - Tiny
 
@@ -80,10 +78,8 @@ Gignac’s rules of thumb are actually one of few interpretation grid
 justified and based on actual data, in this case on the distribution of
 effect magnitudes in the literature.
 
-``` r
-
-interpret_r(x, rules = "gignac2016")
-```
+\
+[`interpret_r`](https://easystats.github.io/effectsize/reference/interpret_r.md)`(``x``, rules ``=`` ``"gignac2016"``)`
 
 - **r \< 0.1** - Very small
 
@@ -95,10 +91,8 @@ interpret_r(x, rules = "gignac2016")
 
 ##### Cohen (1988)
 
-``` r
-
-interpret_r(x, rules = "cohen1988")
-```
+\
+[`interpret_r`](https://easystats.github.io/effectsize/reference/interpret_r.md)`(``x``, rules ``=`` ``"cohen1988"``)`
 
 - **r \< 0.1** - Very small
 
@@ -110,10 +104,8 @@ interpret_r(x, rules = "cohen1988")
 
 ##### Evans (1996)
 
-``` r
-
-interpret_r(x, rules = "evans1996")
-```
+\
+[`interpret_r`](https://easystats.github.io/effectsize/reference/interpret_r.md)`(``x``, rules ``=`` ``"evans1996"``)`
 
 - **r \< 0.2** - Very weak
 
@@ -127,10 +119,8 @@ interpret_r(x, rules = "evans1996")
 
 ##### Lovakov and Agadullina (2021)
 
-``` r
-
-interpret_r(x, rules = "lovakov2021")
-```
+\
+[`interpret_r`](https://easystats.github.io/effectsize/reference/interpret_r.md)`(``x``, rules ``=`` ``"lovakov2021"``)`
 
 - **r \< 0.12** - Very small
 
@@ -148,10 +138,8 @@ indices of effect size.
 
 ##### Cohen (1988)
 
-``` r
-
-interpret_cohens_d(x, rules = "cohen1988")
-```
+\
+[`interpret_cohens_d`](https://easystats.github.io/effectsize/reference/interpret_cohens_d.md)`(``x``, rules ``=`` ``"cohen1988"``)`
 
 - **d \< 0.2** - Very small
 
@@ -163,10 +151,8 @@ interpret_cohens_d(x, rules = "cohen1988")
 
 ##### Sawilowsky (2009)
 
-``` r
-
-interpret_cohens_d(x, rules = "sawilowsky2009")
-```
+\
+[`interpret_cohens_d`](https://easystats.github.io/effectsize/reference/interpret_cohens_d.md)`(``x``, rules ``=`` ``"sawilowsky2009"``)`
 
 - **d \< 0.1** - Tiny
 
@@ -189,10 +175,8 @@ justified and based on actual data, in this case on the distribution of
 effect magnitudes in the literature. These is in fact the same grid used
 for *r*, based on the conversion of *r* to *d*:
 
-``` r
-
-interpret_cohens_d(x, rules = "gignac2016")
-```
+\
+[`interpret_cohens_d`](https://easystats.github.io/effectsize/reference/interpret_cohens_d.md)`(``x``, rules ``=`` ``"gignac2016"``)`
 
 - **d \< 0.2** - Very small
 
@@ -204,10 +188,8 @@ interpret_cohens_d(x, rules = "gignac2016")
 
 ##### Lovakov and Agadullina (2021)
 
-``` r
-
-interpret_cohens_d(x, rules = "lovakov2021")
-```
+\
+[`interpret_cohens_d`](https://easystats.github.io/effectsize/reference/interpret_cohens_d.md)`(``x``, rules ``=`` ``"lovakov2021"``)`
 
 - **r \< 0.15** - Very small
 
@@ -232,10 +214,8 @@ as extreme as a Odds ratio of 0.1 (1/10).
 
 ##### Chen et al. (2010)
 
-``` r
-
-interpret_oddsratio(x, rules = "chen2010")
-```
+\
+[`interpret_oddsratio`](https://easystats.github.io/effectsize/reference/interpret_oddsratio.md)`(``x``, rules ``=`` ``"chen2010"``)`
 
 - **OR \< 1.68** - Very small
 
@@ -247,10 +227,8 @@ interpret_oddsratio(x, rules = "chen2010")
 
 ##### Cohen (1988)
 
-``` r
-
-interpret_oddsratio(x, rules = "cohen1988")
-```
+\
+[`interpret_oddsratio`](https://easystats.github.io/effectsize/reference/interpret_oddsratio.md)`(``x``, rules ``=`` ``"cohen1988"``)`
 
 - **OR \< 1.44** - Very small
 
@@ -271,10 +249,8 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 
 ##### Cohen (1988)
 
-``` r
-
-interpret_r2(x, rules = "cohen1988")
-```
+\
+[`interpret_r2`](https://easystats.github.io/effectsize/reference/interpret_r2.md)`(``x``, rules ``=`` ``"cohen1988"``)`
 
 - **R2 \< 0.02** - Very weak
 
@@ -286,10 +262,8 @@ interpret_r2(x, rules = "cohen1988")
 
 ##### Falk and Miller (1992)
 
-``` r
-
-interpret_r2(x, rules = "falk1992")
-```
+\
+[`interpret_r2`](https://easystats.github.io/effectsize/reference/interpret_r2.md)`(``x``, rules ``=`` ``"falk1992"``)`
 
 - **R2 \< 0.1** - Negligible
 
@@ -299,10 +273,8 @@ interpret_r2(x, rules = "falk1992")
 
 ##### Chin et al. (1998)
 
-``` r
-
-interpret_r2(x, rules = "chin1998")
-```
+\
+[`interpret_r2`](https://easystats.github.io/effectsize/reference/interpret_r2.md)`(``x``, rules ``=`` ``"chin1998"``)`
 
 - **R2 \< 0.19** - Very weak
 
@@ -314,10 +286,8 @@ interpret_r2(x, rules = "chin1998")
 
 ##### Hair et al. (2011)
 
-``` r
-
-interpret_r2(x, rules = "hair2011")
-```
+\
+[`interpret_r2`](https://easystats.github.io/effectsize/reference/interpret_r2.md)`(``x``, rules ``=`` ``"hair2011"``)`
 
 - **R2 \< 0.25** - Very weak
 
@@ -337,10 +307,8 @@ are small.
 
 ##### Field (2013)
 
-``` r
-
-interpret_omega_squared(x, rules = "field2013")
-```
+\
+[`interpret_omega_squared`](https://easystats.github.io/effectsize/reference/interpret_omega_squared.md)`(``x``, rules ``=`` ``"field2013"``)`
 
 - **ES \< 0.01** - Very small
 
@@ -355,10 +323,8 @@ interpret_omega_squared(x, rules = "field2013")
 These are applicable to one-way ANOVAs, or to *partial* Eta / Omega /
 Epsilon Squared in a multi-way ANOVA.
 
-``` r
-
-interpret_omega_squared(x, rules = "cohen1992")
-```
+\
+[`interpret_omega_squared`](https://easystats.github.io/effectsize/reference/interpret_omega_squared.md)`(``x``, rules ``=`` ``"cohen1992"``)`
 
 - **ES \< 0.02** - Very small
 
@@ -376,10 +342,8 @@ sum test). It is an estimate of agreement among multiple raters.
 
 ##### Landis and Koch (1977)
 
-``` r
-
-interpret_omega_squared(w, rules = "landis1977")
-```
+\
+[`interpret_omega_squared`](https://easystats.github.io/effectsize/reference/interpret_omega_squared.md)`(``w``, rules ``=`` ``"landis1977"``)`
 
 - **0.00 \<= w \< 0.20** - Slight agreement
 - **0.20 \<= w \< 0.40** - Fair agreement
@@ -396,10 +360,8 @@ different than 50%?
 
 ##### Cohen (1988)
 
-``` r
-
-interpret_cohens_g(x, rules = "cohen1988")
-```
+\
+[`interpret_cohens_g`](https://easystats.github.io/effectsize/reference/interpret_cohens_g.md)`(``x``, rules ``=`` ``"cohen1988"``)`
 
 - **d \< 0.05** - Very small
 

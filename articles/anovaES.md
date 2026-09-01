@@ -12,17 +12,15 @@ term represent specific contrasts between the factor’s levels (treatment
 groups) - the difference between each level and the reference level
 (`obk.long == 'control'`).
 
-``` r
-
-data(obk.long, package = "afex")
-# modify the data slightly for the demonstration:
-obk.long <- obk.long[1:240 %% 3 == 0, ]
-obk.long$id <- seq_len(nrow(obk.long))
-
-m <- lm(value ~ treatment, data = obk.long)
-
-parameters::model_parameters(m)
-```
+\
+[`data`](https://rdrr.io/r/utils/data.html)`(``obk.long``, package ``=`` ``"afex"``)`\
+`# modify the data slightly for the demonstration:`\
+`obk.long`` ``<-`` ``obk.long``[``1``:``240`` `[`%%`](https://rdrr.io/r/base/Arithmetic.html)` ``3`` ``==`` ``0``, ``]`\
+`obk.long``$``id`` ``<-`` `[`seq_len`](https://rdrr.io/r/base/seq.html)`(`[`nrow`](https://rdrr.io/r/base/nrow.html)`(``obk.long``)``)`\
+\
+`m`` ``<-`` `[`lm`](https://rdrr.io/r/stats/lm.html)`(``value`` ``~`` ``treatment``, data ``=`` ``obk.long``)`\
+\
+`parameters``::`[`model_parameters`](https://easystats.github.io/parameters/reference/model_parameters.html)`(``m``)`
 
     > Parameter     | Coefficient |   SE |       95% CI | t(77) |      p
     > ------------------------------------------------------------------
@@ -39,10 +37,8 @@ of the variation in our dependent variable `value` can be predicted by
 (or explained by) the variation between the `treatment` groups. Such a
 question can be answered with an ANOVA test:
 
-``` r
-
-parameters::model_parameters(anova(m))
-```
+\
+`parameters``::`[`model_parameters`](https://easystats.github.io/parameters/reference/model_parameters.html)`(`[`anova`](https://rdrr.io/r/stats/anova.html)`(``m``)``)`
 
     > Parameter | Sum_Squares | df | Mean_Square |     F |      p
     > -----------------------------------------------------------
@@ -68,14 +64,12 @@ and can be accessed via the
 [`eta_squared()`](https://easystats.github.io/effectsize/reference/eta_squared.md)
 function:
 
-``` r
-
-library(effectsize)
-options(es.use_symbols = TRUE) # get nice symbols when printing! (On Windows, requires R >= 4.2.0)
-
-
-eta_squared(m, partial = FALSE)
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`effectsize`](https://easystats.github.io/effectsize/)`)`\
+[`options`](https://rdrr.io/r/base/options.html)`(``es.use_symbols ``=`` ``TRUE``)`` ``# get nice symbols when printing! (On Windows, requires R >= 4.2.0)`\
+\
+\
+[`eta_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``m``, partial ``=`` ``FALSE``)`
 
     > # Effect Size for ANOVA (Type I)
     > 
@@ -100,12 +94,10 @@ also be accessed via the
 [`eta_squared()`](https://easystats.github.io/effectsize/reference/eta_squared.md)
 function:
 
-``` r
-
-m <- lm(value ~ gender + phase + treatment, data = obk.long)
-
-eta_squared(m, partial = FALSE)
-```
+\
+`m`` ``<-`` `[`lm`](https://rdrr.io/r/stats/lm.html)`(``value`` ``~`` ``gender`` ``+`` ``phase`` ``+`` ``treatment``, data ``=`` ``obk.long``)`\
+\
+[`eta_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``m``, partial ``=`` ``FALSE``)`
 
     > # Effect Size for ANOVA (Type I)
     > 
@@ -117,10 +109,8 @@ eta_squared(m, partial = FALSE)
     > 
     > - One-sided CIs: upper bound fixed at [1.00].
 
-``` r
-
-eta_squared(m) # partial = TRUE by default
-```
+\
+[`eta_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``m``)`` ``# partial = TRUE by default`
 
     > # Effect Size for ANOVA (Type I)
     > 
@@ -145,10 +135,8 @@ statistical programs) it is common to use “simultaneous” sums of squares
 for all other predictors, regardless of order. This can be done with
 `car::Anova(type = ...)`:
 
-``` r
-
-eta_squared(car::Anova(m, type = 2), partial = FALSE)
-```
+\
+[`eta_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``car``::`[`Anova`](https://rdrr.io/pkg/car/man/Anova.html)`(``m``, type ``=`` ``2``)``, partial ``=`` ``FALSE``)`
 
     > # Effect Size for ANOVA (Type II)
     > 
@@ -160,10 +148,8 @@ eta_squared(car::Anova(m, type = 2), partial = FALSE)
     > 
     > - One-sided CIs: upper bound fixed at [1.00].
 
-``` r
-
-eta_squared(car::Anova(m, type = 3)) # partial = TRUE by default
-```
+\
+[`eta_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``car``::`[`Anova`](https://rdrr.io/pkg/car/man/Anova.html)`(``m``, type ``=`` ``3``)``)`` ``# partial = TRUE by default`
 
     > # Effect Size for ANOVA (Type III)
     > 
@@ -200,23 +186,21 @@ associated with each lower-order term (or lower-order interaction)
 represent the ***SS*** of the **main effect** (with treatment coding
 they represent the *SS* of the simple effects).
 
-``` r
-
-# compare
-m_interaction1 <- lm(value ~ treatment * gender, data = obk.long)
-
-# to:
-m_interaction2 <- lm(
-  value ~ treatment * gender,
-  data = obk.long,
-  contrasts = list(
-    treatment = "contr.sum",
-    gender = "contr.sum"
-  )
-)
-
-eta_squared(car::Anova(m_interaction1, type = 3))
-```
+\
+`# compare`\
+`m_interaction1`` ``<-`` `[`lm`](https://rdrr.io/r/stats/lm.html)`(``value`` ``~`` ``treatment`` ``*`` ``gender``, data ``=`` ``obk.long``)`\
+\
+`# to:`\
+`m_interaction2`` ``<-`` `[`lm`](https://rdrr.io/r/stats/lm.html)`(`\
+`  ``value`` ``~`` ``treatment`` ``*`` ``gender``,`\
+`  data ``=`` ``obk.long``,`\
+`  contrasts ``=`` `[`list`](https://rdrr.io/r/base/list.html)`(`\
+`    treatment ``=`` ``"contr.sum"``,`\
+`    gender ``=`` ``"contr.sum"`\
+`  ``)`\
+`)`\
+\
+[`eta_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``car``::`[`Anova`](https://rdrr.io/pkg/car/man/Anova.html)`(``m_interaction1``, type ``=`` ``3``)``)`
 
     > Type 3 ANOVAs only give sensible and informative results when covariates
     >   are mean-centered and factors are coded with orthogonal contrasts (such
@@ -233,10 +217,8 @@ eta_squared(car::Anova(m_interaction1, type = 3))
     > 
     > - One-sided CIs: upper bound fixed at [1.00].
 
-``` r
-
-eta_squared(car::Anova(m_interaction2, type = 3))
-```
+\
+[`eta_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``car``::`[`Anova`](https://rdrr.io/pkg/car/man/Anova.html)`(``m_interaction2``, type ``=`` ``3``)``)`
 
     > Type 3 ANOVAs only give sensible and informative results when covariates
     >   are mean-centered and factors are coded with orthogonal contrasts (such
@@ -256,10 +238,8 @@ eta_squared(car::Anova(m_interaction2, type = 3))
 If all of this type-III-effects-coding seems like a hassle, you can use
 the `afex` package, which takes care of all of this behind the scenes:
 
-``` r
-
-library(afex)
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`afex`](https://afex.singmann.science/)`)`
 
     > Loading required package: lme4
 
@@ -287,17 +267,13 @@ library(afex)
     > 
     >     lmer
 
-``` r
-
-m_afex <- aov_car(value ~ treatment * gender + Error(id), data = obk.long)
-```
+\
+`m_afex`` ``<-`` `[`aov_car`](https://rdrr.io/pkg/afex/man/aov_car.html)`(``value`` ``~`` ``treatment`` ``*`` ``gender`` ``+`` ``Error``(``id``)``, data ``=`` ``obk.long``)`
 
     > Contrasts set to contr.sum for the following variables: treatment, gender
 
-``` r
-
-eta_squared(m_afex)
-```
+\
+[`eta_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``m_afex``)`
 
     > # Effect Size for ANOVA (Type III)
     > 
@@ -319,10 +295,8 @@ These effect sizes are unbiased estimators of the population’s \eta^2:
 - **Epsilon Squared** (\epsilon^2), also referred to as *Adjusted Eta
   Squared*.
 
-``` r
-
-omega_squared(m_afex)
-```
+\
+[`omega_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``m_afex``)`
 
     > # Effect Size for ANOVA (Type III)
     > 
@@ -334,10 +308,8 @@ omega_squared(m_afex)
     > 
     > - One-sided CIs: upper bound fixed at [1.00].
 
-``` r
-
-epsilon_squared(m_afex)
-```
+\
+[`epsilon_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``m_afex``)`
 
     > # Effect Size for ANOVA (Type III)
     > 
@@ -367,10 +339,8 @@ effect size in a design where only the term of interest was manipulated,
 accounting for the fact that some terms cannot be manipulated (and so
 their variance would be present in such a design).
 
-``` r
-
-eta_squared(m_afex, generalized = "gender")
-```
+\
+[`eta_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``m_afex``, generalized ``=`` ``"gender"``)`
 
     > # Effect Size for ANOVA (Type III)
     > 
@@ -401,10 +371,8 @@ equal, and an indefinitely large number as the means are further and
 further apart. It is analogous to Cohen’s d when there are only two
 groups.
 
-``` r
-
-cohens_f(m_afex)
-```
+\
+[`cohens_f`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``m_afex``)`
 
     > # Effect Size for ANOVA (Type III)
     > 
@@ -430,10 +398,8 @@ the **test-statistic approximation method** (learn more in the [*Effect
 Size from Test Statistics*
 vignette](https://easystats.github.io/effectsize/articles/from_test_statistics.html)).
 
-``` r
-
-library(lmerTest)
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`lmerTest`](https://github.com/runehaubo/lmerTestR)`)`
 
     > 
     > Attaching package: 'lmerTest'
@@ -446,12 +412,10 @@ library(lmerTest)
     > 
     >     step
 
-``` r
-
-fit_lmm <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
-
-anova(fit_lmm) # note the type-3 errors
-```
+\
+`fit_lmm`` ``<-`` `[`lmer`](https://rdrr.io/pkg/lmerTest/man/lmer.html)`(``Reaction`` ``~`` ``Days`` ``+`` ``(``Days`` ``|`` ``Subject``)``, ``sleepstudy``)`\
+\
+[`anova`](https://rdrr.io/r/stats/anova.html)`(``fit_lmm``)`` ``# note the type-3 errors`
 
     > Type III Analysis of Variance Table with Satterthwaite's method
     >      Sum Sq Mean Sq NumDF DenDF F value  Pr(>F)    
@@ -459,10 +423,8 @@ anova(fit_lmm) # note the type-3 errors
     > ---
     > Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-``` r
-
-F_to_eta2(45.8, df = 1, df_error = 17)
-```
+\
+[`F_to_eta2`](https://easystats.github.io/effectsize/reference/F_to_eta2.md)`(``45.8``, df ``=`` ``1``, df_error ``=`` ``17``)`
 
     > η² (partial) |       95% CI
     > ---------------------------
@@ -472,10 +434,8 @@ F_to_eta2(45.8, df = 1, df_error = 17)
 
 Or directly with \`eta_squared() and co.:
 
-``` r
-
-eta_squared(fit_lmm)
-```
+\
+[`eta_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``fit_lmm``)`
 
     > # Effect Size for ANOVA (Type III)
     > 
@@ -485,10 +445,8 @@ eta_squared(fit_lmm)
     > 
     > - One-sided CIs: upper bound fixed at [1.00].
 
-``` r
-
-epsilon_squared(fit_lmm)
-```
+\
+[`epsilon_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``fit_lmm``)`
 
     > # Effect Size for ANOVA (Type III)
     > 
@@ -498,10 +456,8 @@ epsilon_squared(fit_lmm)
     > 
     > - One-sided CIs: upper bound fixed at [1.00].
 
-``` r
-
-omega_squared(fit_lmm)
-```
+\
+[`omega_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``fit_lmm``)`
 
     > # Effect Size for ANOVA (Type III)
     > 
@@ -536,10 +492,8 @@ before using it to estimate explained variance measures.
 
 Let’s fit our model:
 
-``` r
-
-library(rstanarm)
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`rstanarm`](https://mc-stan.org/rstanarm/)`)`
 
     > Loading required package: Rcpp
 
@@ -553,13 +507,11 @@ library(rstanarm)
 
     >   options(mc.cores = parallel::detectCores())
 
-``` r
-
-m_bayes <- stan_glm(value ~ gender + phase + treatment,
-  data = obk.long, family = gaussian(),
-  refresh = 0
-)
-```
+\
+`m_bayes`` ``<-`` `[`stan_glm`](https://mc-stan.org/rstanarm/reference/stan_glm.html)`(``value`` ``~`` ``gender`` ``+`` ``phase`` ``+`` ``treatment``,`\
+`  data ``=`` ``obk.long``, family ``=`` `[`gaussian`](https://rdrr.io/r/stats/family.html)`(``)``,`\
+`  refresh ``=`` ``0`\
+`)`
 
 We can use
 [`eta_squared_posterior()`](https://easystats.github.io/effectsize/reference/eta_squared.md)
@@ -567,18 +519,16 @@ to get the posterior distribution of eta^2 or eta^2_p for each effect.
 Like an ANOVA table, we must make sure to use the right effects-coding
 and *SS*-type:
 
-``` r
-
-pes_posterior <- eta_squared_posterior(m_bayes,
-  draws = 500, # how many samples from the PPD?
-  partial = TRUE, # partial eta squared
-  # type 3 SS
-  ss_function = car::Anova, type = 3,
-  verbose = FALSE
-)
-
-head(pes_posterior)
-```
+\
+`pes_posterior`` ``<-`` `[`eta_squared_posterior`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``m_bayes``,`\
+`  draws ``=`` ``500``, ``# how many samples from the PPD?`\
+`  partial ``=`` ``TRUE``, ``# partial eta squared`\
+`  ``# type 3 SS`\
+`  ss_function ``=`` ``car``::`[`Anova`](https://rdrr.io/pkg/car/man/Anova.html)`, type ``=`` ``3``,`\
+`  verbose ``=`` ``FALSE`\
+`)`\
+\
+[`head`](https://rdrr.io/r/utils/head.html)`(``pes_posterior``)`
 
     >   gender  phase treatment
     > 1  0.194 0.1694     0.065
@@ -588,12 +538,10 @@ head(pes_posterior)
     > 5  0.014 0.1156     0.406
     > 6  0.025 0.0097     0.364
 
-``` r
-
-bayestestR::describe_posterior(pes_posterior,
-  rope_range = c(0, 0.1), test = "rope"
-)
-```
+\
+`bayestestR``::`[`describe_posterior`](https://easystats.github.io/bayestestR/reference/describe_posterior.html)`(``pes_posterior``,`\
+`  rope_range ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``0``, ``0.1``)``, test ``=`` ``"rope"`\
+`)`
 
     > Summary of Posterior Distribution
     > 
@@ -605,12 +553,10 @@ bayestestR::describe_posterior(pes_posterior,
 
 Compare to:
 
-``` r
-
-m_ML <- lm(value ~ gender + phase + treatment, data = obk.long)
-
-eta_squared(car::Anova(m_ML, type = 3))
-```
+\
+`m_ML`` ``<-`` `[`lm`](https://rdrr.io/r/stats/lm.html)`(``value`` ``~`` ``gender`` ``+`` ``phase`` ``+`` ``treatment``, data ``=`` ``obk.long``)`\
+\
+[`eta_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``car``::`[`Anova`](https://rdrr.io/pkg/car/man/Anova.html)`(``m_ML``, type ``=`` ``3``)``)`
 
     > # Effect Size for ANOVA (Type III)
     > 
@@ -641,16 +587,14 @@ non-rank counterparts: values range between 0 (no relative superiority
 between any of the groups) to 1 (complete separation - with no overlap
 in ranks between the groups).
 
-``` r
-
-group_data <- list(
-  g1 = c(2.9, 3.0, 2.5, 2.6, 3.2), # normal subjects
-  g2 = c(3.8, 2.7, 4.0, 2.4), # with obstructive airway disease
-  g3 = c(2.8, 3.4, 3.7, 2.2, 2.0) # with asbestosis
-)
-
-kruskal.test(group_data)
-```
+\
+`group_data`` ``<-`` `[`list`](https://rdrr.io/r/base/list.html)`(`\
+`  g1 ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2.9``, ``3.0``, ``2.5``, ``2.6``, ``3.2``)``, ``# normal subjects`\
+`  g2 ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``3.8``, ``2.7``, ``4.0``, ``2.4``)``, ``# with obstructive airway disease`\
+`  g3 ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2.8``, ``3.4``, ``3.7``, ``2.2``, ``2.0``)`` ``# with asbestosis`\
+`)`\
+\
+[`kruskal.test`](https://rdrr.io/r/stats/kruskal.test.html)`(``group_data``)`
 
     > 
     >   Kruskal-Wallis rank sum test
@@ -658,10 +602,8 @@ kruskal.test(group_data)
     > data:  group_data
     > Kruskal-Wallis chi-squared = 0.8, df = 2, p-value = 0.7
 
-``` r
-
-rank_epsilon_squared(group_data)
-```
+\
+[`rank_epsilon_squared`](https://easystats.github.io/effectsize/reference/rank_epsilon_squared.md)`(``group_data``)`
 
     > ε²(R) |       95% CI
     > --------------------
@@ -669,10 +611,8 @@ rank_epsilon_squared(group_data)
     > 
     > - One-sided CIs: upper bound fixed at [1.00].
 
-``` r
-
-rank_eta_squared(group_data)
-```
+\
+[`rank_eta_squared`](https://easystats.github.io/effectsize/reference/rank_epsilon_squared.md)`(``group_data``)`
 
     > η²(H) |       95% CI
     > --------------------
@@ -686,26 +626,24 @@ measure of agreement on the effect of condition between various “blocks”
 of the rating / scores of observations (or “groups”) between “raters”
 (“blocks”).
 
-``` r
-
-# Subjects are COLUMNS
-(ReactionTimes <- matrix(
-  c(
-    398, 338, 520,
-    325, 388, 555,
-    393, 363, 561,
-    367, 433, 470,
-    286, 492, 536,
-    362, 475, 496,
-    253, 334, 610
-  ),
-  nrow = 7, byrow = TRUE,
-  dimnames = list(
-    paste0("Subject", 1:7),
-    c("Congruent", "Neutral", "Incongruent")
-  )
-))
-```
+\
+`# Subjects are COLUMNS`\
+`(``ReactionTimes`` ``<-`` `[`matrix`](https://rdrr.io/r/base/matrix.html)`(`\
+`  `[`c`](https://rdrr.io/r/base/c.html)`(`\
+`    ``398``, ``338``, ``520``,`\
+`    ``325``, ``388``, ``555``,`\
+`    ``393``, ``363``, ``561``,`\
+`    ``367``, ``433``, ``470``,`\
+`    ``286``, ``492``, ``536``,`\
+`    ``362``, ``475``, ``496``,`\
+`    ``253``, ``334``, ``610`\
+`  ``)``,`\
+`  nrow ``=`` ``7``, byrow ``=`` ``TRUE``,`\
+`  dimnames ``=`` `[`list`](https://rdrr.io/r/base/list.html)`(`\
+`    `[`paste0`](https://rdrr.io/r/base/paste.html)`(``"Subject"``, ``1``:``7``)``,`\
+`    `[`c`](https://rdrr.io/r/base/c.html)`(``"Congruent"``, ``"Neutral"``, ``"Incongruent"``)`\
+`  ``)`\
+`)``)`
 
     >          Congruent Neutral Incongruent
     > Subject1       398     338         520
@@ -716,10 +654,8 @@ of the rating / scores of observations (or “groups”) between “raters”
     > Subject6       362     475         496
     > Subject7       253     334         610
 
-``` r
-
-friedman.test(ReactionTimes)
-```
+\
+[`friedman.test`](https://rdrr.io/r/stats/friedman.test.html)`(``ReactionTimes``)`
 
     > 
     >   Friedman rank sum test
@@ -727,10 +663,8 @@ friedman.test(ReactionTimes)
     > data:  ReactionTimes
     > Friedman chi-squared = 11, df = 2, p-value = 0.004
 
-``` r
-
-kendalls_w(ReactionTimes)
-```
+\
+[`kendalls_w`](https://easystats.github.io/effectsize/reference/rank_epsilon_squared.md)`(``ReactionTimes``)`
 
     > Kendall's W |       95% CI
     > --------------------------

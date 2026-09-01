@@ -116,19 +116,15 @@ effect size calculation, we will also leverage the simple, but excellent
 `pwr` package for the following implementation of power analysis
 (Champely and Rosario 2017).
 
-``` r
-
-library(pwr)
-library(effectsize)
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`pwr`](https://github.com/heliosdrm/pwr)`)`\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`effectsize`](https://easystats.github.io/effectsize/)`)`
 
 First, let’s fit a simple two sample t-test using the mtcars data to
 explore mean MPG for both transmission groups (`AM`).
 
-``` r
-
-t <- t.test(mpg ~ am, data = mtcars)
-```
+\
+`t`` ``<-`` `[`t.test`](https://rdrr.io/r/stats/t.test.html)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``)`
 
 There are many power tests supported by `pwr` for different contexts,
 and we encourage you to take a look and select the appropriate one for
@@ -137,16 +133,14 @@ for our t-test, we will rely on the
 [`pwr.t2n.test()`](https://rdrr.io/pkg/pwr/man/pwr.t2n.test.html)
 function. Here’s the basic anatomy:
 
-``` r
-
-pwr.t2n.test(
-  n1 = ..., n2 = ...,
-  d = ...,
-  sig.level = ...,
-  power = ...,
-  alternative = ...
-)
-```
+\
+[`pwr.t2n.test`](https://rdrr.io/pkg/pwr/man/pwr.t2n.test.html)`(`\
+`  n1 ``=`` ``...``, n2 ``=`` ``...``,`\
+`  d ``=`` ``...``,`\
+`  sig.level ``=`` ``...``,`\
+`  power ``=`` ``...``,`\
+`  alternative ``=`` ``...`\
+`)`
 
 But, before we can get to the power part, we need to collect a few
 ingredients first, as we can see above. The ingredients we need include:
@@ -182,12 +176,10 @@ the default option.
 simple approach, we update our test (`t_alt`) and then make a call to
 [`effectsize()`](https://easystats.github.io/effectsize/reference/effectsize.md).
 
-``` r
-
-t_alt <- t.test(mtcars$mpg[mtcars$am == 0], mtcars$mpg[mtcars$am == 1])
-
-effectsize(t_alt, type = "cohens_d")
-```
+\
+`t_alt`` ``<-`` `[`t.test`](https://rdrr.io/r/stats/t.test.html)`(``mtcars``$``mpg``[``mtcars``$``am`` ``==`` ``0``]``, ``mtcars``$``mpg``[``mtcars``$``am`` ``==`` ``1``]``)`\
+\
+[`effectsize`](https://easystats.github.io/effectsize/reference/effectsize.md)`(``t_alt``, type ``=`` ``"cohens_d"``)`
 
 *Note*, users can easily store the value and/or CIs as you’d like via,
 e.g., `cohens_d <- effectsize(t, type = "cohens_d")[[1]]`.
@@ -214,10 +206,8 @@ Therefore, with this second approach of using the “named” function,
 `cohens_d`, users should pass the data directly to the function instead
 of the `htest` object (e.g., `cohens_d(t)`).
 
-``` r
-
-cohens_d(mpg ~ am, data = mtcars)
-```
+\
+[`cohens_d`](https://easystats.github.io/effectsize/reference/cohens_d.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``)`
 
 #### Approach 3: `t_to_d()`
 
@@ -243,16 +233,14 @@ This can also be done directly by the user using the
 [`t_to_d()`](https://easystats.github.io/effectsize/reference/t_to_r.md)
 function:
 
-``` r
-
-t_to_d(
-  t = t$statistic,
-  df_error = t$parameter
-)
-#> d     |         95% CI
-#> ----------------------
-#> -1.76 | [-2.82, -0.67]
-```
+\
+[`t_to_d`](https://easystats.github.io/effectsize/reference/t_to_r.md)`(`\
+`  t ``=`` ``t``$``statistic``,`\
+`  df_error ``=`` ``t``$``parameter`\
+`)`\
+`#> d     |         95% CI`\
+`#> ----------------------`\
+`#> -1.76 | [-2.82, -0.67]`
 
 ### Statistical Power
 
@@ -264,35 +252,33 @@ For the present application, the effect size obtained from
 (or any of the three approaches previously described) can be passed to
 the `d` argument.
 
-``` r
-
-(result <- cohens_d(mpg ~ am, data = mtcars))
-#> Cohen's d |         95% CI
-#> --------------------------
-#> -1.48     | [-2.27, -0.67]
-#> 
-#> - Estimated using pooled SD.
-(Ns <- table(mtcars$am))
-#> 
-#>  0  1 
-#> 19 13
-
-pwr.t2n.test(
-  n1 = Ns[1], n2 = Ns[2],
-  d = result[["Cohens_d"]],
-  sig.level = 0.05,
-  alternative = "two.sided"
-)
-#> 
-#>      t test power calculation 
-#> 
-#>              n1 = 19
-#>              n2 = 13
-#>               d = 1.478
-#>       sig.level = 0.05
-#>           power = 0.9779
-#>     alternative = two.sided
-```
+\
+`(``result`` ``<-`` `[`cohens_d`](https://easystats.github.io/effectsize/reference/cohens_d.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``)``)`\
+`#> Cohen's d |         95% CI`\
+`#> --------------------------`\
+`#> -1.48     | [-2.27, -0.67]`\
+`#> `\
+`#> - Estimated using pooled SD.`\
+`(``Ns`` ``<-`` `[`table`](https://rdrr.io/r/base/table.html)`(``mtcars``$``am``)``)`\
+`#> `\
+`#>  0  1 `\
+`#> 19 13`\
+\
+[`pwr.t2n.test`](https://rdrr.io/pkg/pwr/man/pwr.t2n.test.html)`(`\
+`  n1 ``=`` ``Ns``[``1``]``, n2 ``=`` ``Ns``[``2``]``,`\
+`  d ``=`` ``result``[[``"Cohens_d"``]``]``,`\
+`  sig.level ``=`` ``0.05``,`\
+`  alternative ``=`` ``"two.sided"`\
+`)`\
+`#> `\
+`#>      t test power calculation `\
+`#> `\
+`#>              n1 = 19`\
+`#>              n2 = 13`\
+`#>               d = 1.478`\
+`#>       sig.level = 0.05`\
+`#>           power = 0.9779`\
+`#>     alternative = two.sided`
 
 The results tell us that we are sufficiently powered, with a very high
 power for each group, `0.999` and `0.990`.

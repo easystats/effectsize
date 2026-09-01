@@ -19,28 +19,22 @@ Manually, we can compute \frac{13}{13+4}=0.765. Or we can
 Odds of 13:4 can be expressed as (13/4):(4/4)=3.25:1, which we can
 convert:
 
-``` r
-
-library(effectsize)
-
-odds_to_probs(13 / 4)
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`effectsize`](https://easystats.github.io/effectsize/)`)`\
+\
+[`odds_to_probs`](https://easystats.github.io/effectsize/reference/odds_to_probs.md)`(``13`` ``/`` ``4``)`
 
     > [1] 0.765
 
-``` r
-
-# or
-odds_to_probs(3.25)
-```
+\
+`# or`\
+[`odds_to_probs`](https://easystats.github.io/effectsize/reference/odds_to_probs.md)`(``3.25``)`
 
     > [1] 0.765
 
-``` r
-
-# convert back
-probs_to_odds(0.764)
-```
+\
+`# convert back`\
+[`probs_to_odds`](https://easystats.github.io/effectsize/reference/odds_to_probs.md)`(``0.764``)`
 
     > [1] 3.24
 
@@ -80,13 +74,11 @@ the intervention (e.g., what is the probability of the migraine
 subsiding within an hour without eating any brussels sprouts). If it the
 base-rate risk is, say, 85%, we get a *RR* of:
 
-``` r
-
-OR <- 3.5
-baserate <- 0.85
-
-(RR <- oddsratio_to_riskratio(OR, baserate))
-```
+\
+`OR`` ``<-`` ``3.5`\
+`baserate`` ``<-`` ``0.85`\
+\
+`(``RR`` ``<-`` `[`oddsratio_to_riskratio`](https://easystats.github.io/effectsize/reference/oddsratio_to_riskratio.md)`(``OR``, ``baserate``)``)`
 
     > [1] 1.12
 
@@ -98,29 +90,23 @@ Similarly, we can look at ARR, which can be converted via
 
 ARR = RR \times p0 - p0
 
-``` r
-
-riskratio_to_arr(RR, baserate)
-```
+\
+[`riskratio_to_arr`](https://easystats.github.io/effectsize/reference/oddsratio_to_riskratio.md)`(``RR``, ``baserate``)`
 
     > [1] 0.102
 
 Or directly:
 
-``` r
-
-oddsratio_to_arr(OR, baserate)
-```
+\
+[`oddsratio_to_arr`](https://easystats.github.io/effectsize/reference/oddsratio_to_riskratio.md)`(``OR``, ``baserate``)`
 
     > [1] 0.102
 
 Note that the base-rate risk is crucial here. If instead of 85% it was
 only 4%, then the *RR* would be:
 
-``` r
-
-oddsratio_to_riskratio(OR, 0.04)
-```
+\
+[`oddsratio_to_riskratio`](https://easystats.github.io/effectsize/reference/oddsratio_to_riskratio.md)`(``OR``, ``0.04``)`
 
     > [1] 3.18
 

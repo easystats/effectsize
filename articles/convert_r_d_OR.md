@@ -13,12 +13,10 @@ groups / conditions.
 
 Let’s looks at some (simulated) data:
 
-``` r
-
-library(effectsize)
-data("hardlyworking")
-head(hardlyworking)
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`effectsize`](https://easystats.github.io/effectsize/)`)`\
+[`data`](https://rdrr.io/r/utils/data.html)`(``"hardlyworking"``)`\
+[`head`](https://rdrr.io/r/utils/head.html)`(``hardlyworking``)`
 
     >   salary xtra_hours n_comps age seniority is_senior
     > 1  19745       4.16       1  32         3     FALSE
@@ -30,10 +28,8 @@ head(hardlyworking)
 
 We can compute Cohen’s *d* between the two groups:
 
-``` r
-
-cohens_d(salary ~ is_senior, data = hardlyworking)
-```
+\
+[`cohens_d`](https://easystats.github.io/effectsize/reference/cohens_d.md)`(``salary`` ``~`` ``is_senior``, data ``=`` ``hardlyworking``)`
 
     > Cohen's d |         95% CI
     > --------------------------
@@ -45,10 +41,8 @@ But we can also compute a point-biserial correlation, which is Pearson’s
 *r* when treating the 2-level `is_senior` variable as a numeric binary
 variable:
 
-``` r
-
-correlation::cor_test(hardlyworking, "salary", "is_senior")
-```
+\
+`correlation``::`[`cor_test`](https://easystats.github.io/correlation/reference/cor_test.html)`(``hardlyworking``, ``"salary"``, ``"is_senior"``)`
 
     > Parameter1 | Parameter2 |    r |       95% CI | t(498) |         p
     > ------------------------------------------------------------------
@@ -64,10 +58,8 @@ r \approx \frac{d}{\sqrt{d^2 + 4}} And indeed, if we use
 [`d_to_r()`](https://easystats.github.io/effectsize/reference/d_to_r.md),
 we get a pretty decent approximation:
 
-``` r
-
-d_to_r(-0.72)
-```
+\
+[`d_to_r`](https://easystats.github.io/effectsize/reference/d_to_r.md)`(``-``0.72``)`
 
     > [1] -0.339
 
@@ -83,12 +75,10 @@ partial-*d* value (that is, the standardized difference between two
 groups / conditions, with variance from other predictors partilled out).
 For example:
 
-``` r
-
-fit <- lm(salary ~ is_senior + xtra_hours, data = hardlyworking)
-
-parameters::model_parameters(fit)
-```
+\
+`fit`` ``<-`` `[`lm`](https://rdrr.io/r/stats/lm.html)`(``salary`` ``~`` ``is_senior`` ``+`` ``xtra_hours``, data ``=`` ``hardlyworking``)`\
+\
+`parameters``::`[`model_parameters`](https://easystats.github.io/parameters/reference/model_parameters.html)`(``fit``)`
 
     > Parameter     | Coefficient |     SE |               95% CI | t(497) |      p
     > -----------------------------------------------------------------------------
@@ -100,40 +90,32 @@ parameters::model_parameters(fit)
     > Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed
     >   using a Wald t-distribution approximation.
 
-``` r
-
-# A couple of ways to get partial-d:
-1683.65 / sigma(fit)
-```
+\
+`# A couple of ways to get partial-d:`\
+`1683.65`` ``/`` `[`sigma`](https://rdrr.io/r/stats/sigma.html)`(``fit``)`
 
     > [1] 0.495
 
-``` r
-
-t_to_d(5.31, df_error = 497)[[1]]
-```
+\
+[`t_to_d`](https://easystats.github.io/effectsize/reference/t_to_r.md)`(``5.31``, df_error ``=`` ``497``)``[[``1``]``]`
 
     > [1] 0.476
 
 We can convert these semi-*d* values to *r* values, but in this case
 these represent the *partial* correlation:
 
-``` r
-
-t_to_r(5.31, df_error = 497)
-```
+\
+[`t_to_r`](https://easystats.github.io/effectsize/reference/t_to_r.md)`(``5.31``, df_error ``=`` ``497``)`
 
     > r    |       95% CI
     > -------------------
     > 0.23 | [0.15, 0.31]
 
-``` r
-
-correlation::correlation(hardlyworking[, c("salary", "xtra_hours", "is_senior")],
-  include_factors = TRUE,
-  partial = TRUE
-)[2, ]
-```
+\
+`correlation``::`[`correlation`](https://easystats.github.io/correlation/reference/correlation.html)`(``hardlyworking``[``, `[`c`](https://rdrr.io/r/base/c.html)`(``"salary"``, ``"xtra_hours"``, ``"is_senior"``)``]``,`\
+`  include_factors ``=`` ``TRUE``,`\
+`  partial ``=`` ``TRUE`\
+`)``[``2``, ``]`
 
     > # Correlation Matrix (pearson-method)
     > 
@@ -144,11 +126,9 @@ correlation::correlation(hardlyworking[, c("salary", "xtra_hours", "is_senior")]
     > p-value adjustment method: Holm (1979)
     > Observations: 500
 
-``` r
-
-# all close to:
-d_to_r(0.47)
-```
+\
+`# all close to:`\
+[`d_to_r`](https://easystats.github.io/effectsize/reference/d_to_r.md)`(``0.47``)`
 
     > [1] 0.229
 
@@ -179,24 +159,22 @@ function.
 
 Let’s give it a try:
 
-``` r
-
-# 1. Set a threshold
-thresh <- 22500
-
-# 2. dichotomize the outcome
-hardlyworking$salary_low <- factor(hardlyworking$salary < thresh,
-  labels = c("high", "low")
-)
-
-# 3. Fit a logistic regression:
-fit <- glm(salary_low ~ is_senior,
-  data = hardlyworking,
-  family = binomial()
-)
-
-parameters::model_parameters(fit)
-```
+\
+`# 1. Set a threshold`\
+`thresh`` ``<-`` ``22500`\
+\
+`# 2. dichotomize the outcome`\
+`hardlyworking``$``salary_low`` ``<-`` `[`factor`](https://rdrr.io/r/base/factor.html)`(``hardlyworking``$``salary`` ``<`` ``thresh``,`\
+`  labels ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"high"``, ``"low"``)`\
+`)`\
+\
+`# 3. Fit a logistic regression:`\
+`fit`` ``<-`` `[`glm`](https://rdrr.io/r/stats/glm.html)`(``salary_low`` ``~`` ``is_senior``,`\
+`  data ``=`` ``hardlyworking``,`\
+`  family ``=`` `[`binomial`](https://rdrr.io/r/stats/family.html)`(``)`\
+`)`\
+\
+`parameters``::`[`model_parameters`](https://easystats.github.io/parameters/reference/model_parameters.html)`(``fit``)`
 
     > Parameter     | Log-Odds |   SE |         95% CI |     z |      p
     > -----------------------------------------------------------------
@@ -211,11 +189,9 @@ parameters::model_parameters(fit)
     > The model has a log- or logit-link. Consider using `exponentiate =
     >   TRUE` to interpret coefficients as ratios.
 
-``` r
-
-# Convert log(OR) (the coefficient) to d
-oddsratio_to_d(-1.22, log = TRUE)
-```
+\
+`# Convert log(OR) (the coefficient) to d`\
+[`oddsratio_to_d`](https://easystats.github.io/effectsize/reference/d_to_r.md)`(``-``1.22``, log ``=`` ``TRUE``)`
 
     > [1] -0.673
 
@@ -224,27 +200,23 @@ That’s very close to Cohen’s *d* we got above (d=-0.72).
 We can get an even closer estimate by accounting for the rate of low
 salaries in the reference group.
 
-``` r
-
-proportions(
-  table(
-    is_senior = hardlyworking$is_senior,
-    salary_low = hardlyworking$salary_low
-  ),
-  margin = 1
-)
-```
+\
+[`proportions`](https://rdrr.io/r/base/proportions.html)`(`\
+`  `[`table`](https://rdrr.io/r/base/table.html)`(`\
+`    is_senior ``=`` ``hardlyworking``$``is_senior``,`\
+`    salary_low ``=`` ``hardlyworking``$``salary_low`\
+`  ``)``,`\
+`  margin ``=`` ``1`\
+`)`
 
     >          salary_low
     > is_senior  high   low
     >     FALSE 0.175 0.825
     >     TRUE  0.418 0.582
 
-``` r
-
-# Or
-odds_to_probs(1.55, log = TRUE)
-```
+\
+`# Or`\
+[`odds_to_probs`](https://easystats.github.io/effectsize/reference/odds_to_probs.md)`(``1.55``, log ``=`` ``TRUE``)`
 
     > [1] 0.825
 
@@ -252,10 +224,8 @@ As we can see, 82.5% of non-senior workers have a low salary. We can
 plug that in to
 [`oddsratio_to_d()`](https://easystats.github.io/effectsize/reference/d_to_r.md):
 
-``` r
-
-oddsratio_to_d(-1.22, p0 = 0.825, log = TRUE)
-```
+\
+[`oddsratio_to_d`](https://easystats.github.io/effectsize/reference/d_to_r.md)`(``-``1.22``, p0 ``=`` ``0.825``, log ``=`` ``TRUE``)`
 
     > [1] -0.728
 

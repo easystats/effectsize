@@ -64,18 +64,16 @@ for both paired and independent samples (Cohen 1988; Hedges and Olkin
 for independent samples with different variances (Hedges and Olkin
 1985).
 
-``` r
-
-library(effectsize)
-options(es.use_symbols = TRUE) # get nice symbols when printing! (On Windows, requires R >= 4.2.0)
-
-cohens_d(mpg ~ am, data = mtcars)
-#> Cohen's d |         95% CI
-#> --------------------------
-#> -1.48     | [-2.27, -0.67]
-#> 
-#> - Estimated using pooled SD.
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`effectsize`](https://easystats.github.io/effectsize/)`)`\
+[`options`](https://rdrr.io/r/base/options.html)`(``es.use_symbols ``=`` ``TRUE``)`` ``# get nice symbols when printing! (On Windows, requires R >= 4.2.0)`\
+\
+[`cohens_d`](https://easystats.github.io/effectsize/reference/cohens_d.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``)`\
+`#> Cohen's d |         95% CI`\
+`#> --------------------------`\
+`#> -1.48     | [-2.27, -0.67]`\
+`#> `\
+`#> - Estimated using pooled SD.`
 
 #### Contingency Tables
 
@@ -89,21 +87,19 @@ categorical variables (Cramér 1946), while Cohen’s *g*
 estimates the deviance between paired categorical variables (Cohen
 1988).
 
-``` r
-
-M <- rbind(
-  c(150, 130, 35, 55),
-  c(100, 50, 10, 40),
-  c(165, 65, 2, 25)
-)
-
-cramers_v(M)
-#> Cramer's V (adj.) |       95% CI
-#> --------------------------------
-#> 0.17              | [0.11, 1.00]
-#> 
-#> - One-sided CIs: upper bound fixed at [1.00].
-```
+\
+`M`` ``<-`` `[`rbind`](https://rdrr.io/r/base/cbind.html)`(`\
+`  `[`c`](https://rdrr.io/r/base/c.html)`(``150``, ``130``, ``35``, ``55``)``,`\
+`  `[`c`](https://rdrr.io/r/base/c.html)`(``100``, ``50``, ``10``, ``40``)``,`\
+`  `[`c`](https://rdrr.io/r/base/c.html)`(``165``, ``65``, ``2``, ``25``)`\
+`)`\
+\
+[`cramers_v`](https://easystats.github.io/effectsize/reference/phi.md)`(``M``)`\
+`#> Cramer's V (adj.) |       95% CI`\
+`#> --------------------------------`\
+`#> 0.17              | [0.11, 1.00]`\
+`#> `\
+`#> - One-sided CIs: upper bound fixed at [1.00].`
 
 ### Parameter and Model Standardization
 
@@ -120,53 +116,49 @@ which returns a table of standardized coefficients from a provided model
 \[for a list of supported models, see the *insight* package; Lüdecke et
 al. (2019)\].
 
-``` r
-
-model <- lm(mpg ~ cyl * am,
-  data = mtcars
-)
-
-datawizard::standardize(model)
-#> 
-#> Call:
-#> lm(formula = mpg ~ cyl * am, data = data_std)
-#> 
-#> Coefficients:
-#> (Intercept)          cyl           am       cyl:am  
-#>     -0.0977      -0.7426       0.1739      -0.1930
-
-parameters::standardize_parameters(model)
-#> # Standardization method: refit
-#> 
-#> Parameter   | Std. Coef. |         95% CI
-#> -----------------------------------------
-#> (Intercept) |      -0.10 | [-0.30,  0.11]
-#> cyl         |      -0.74 | [-0.95, -0.53]
-#> am          |       0.17 | [-0.04,  0.39]
-#> cyl × am    |      -0.19 | [-0.41,  0.02]
-```
+\
+`model`` ``<-`` `[`lm`](https://rdrr.io/r/stats/lm.html)`(``mpg`` ``~`` ``cyl`` ``*`` ``am``,`\
+`  data ``=`` ``mtcars`\
+`)`\
+\
+`datawizard``::`[`standardize`](https://easystats.github.io/datawizard/reference/standardize.html)`(``model``)`\
+`#> `\
+`#> Call:`\
+`#> lm(formula = mpg ~ cyl * am, data = data_std)`\
+`#> `\
+`#> Coefficients:`\
+`#> (Intercept)          cyl           am       cyl:am  `\
+`#>     -0.0977      -0.7426       0.1739      -0.1930`\
+\
+`parameters``::`[`standardize_parameters`](https://easystats.github.io/parameters/reference/standardize_parameters.html)`(``model``)`\
+`#> # Standardization method: refit`\
+`#> `\
+`#> Parameter   | Std. Coef. |         95% CI`\
+`#> -----------------------------------------`\
+`#> (Intercept) |      -0.10 | [-0.30,  0.11]`\
+`#> cyl         |      -0.74 | [-0.95, -0.53]`\
+`#> am          |       0.17 | [-0.04,  0.39]`\
+`#> cyl × am    |      -0.19 | [-0.41,  0.02]`
 
 Standardized parameters can also be produced for generalized linear
 models (GLMs; where only the predictors are standardized):
 
-``` r
-
-model <- glm(am ~ cyl + hp,
-  family = "binomial",
-  data = mtcars
-)
-
-parameters::standardize_parameters(model, exponentiate = TRUE)
-#> # Standardization method: refit
-#> 
-#> Parameter   | Std_Odds_Ratio |        95% CI
-#> --------------------------------------------
-#> (Intercept) |           0.53 | [0.18,  1.32]
-#> cyl         |           0.05 | [0.00,  0.29]
-#> hp          |           6.70 | [1.32, 61.54]
-#> 
-#> - Response is unstandardized.
-```
+\
+`model`` ``<-`` `[`glm`](https://rdrr.io/r/stats/glm.html)`(``am`` ``~`` ``cyl`` ``+`` ``hp``,`\
+`  family ``=`` ``"binomial"``,`\
+`  data ``=`` ``mtcars`\
+`)`\
+\
+`parameters``::`[`standardize_parameters`](https://easystats.github.io/parameters/reference/standardize_parameters.html)`(``model``, exponentiate ``=`` ``TRUE``)`\
+`#> # Standardization method: refit`\
+`#> `\
+`#> Parameter   | Std_Odds_Ratio |        95% CI`\
+`#> --------------------------------------------`\
+`#> (Intercept) |           0.53 | [0.18,  1.32]`\
+`#> cyl         |           0.05 | [0.00,  0.29]`\
+`#> hp          |           6.70 | [1.32, 61.54]`\
+`#> `\
+`#> - Response is unstandardized.`
 
 [`standardize_parameters()`](https://easystats.github.io/parameters/reference/standardize_parameters.html)
 provides several standardization methods, such as robust
@@ -186,42 +178,40 @@ can produce such popular effect sizes as Eta-squared (\eta^2), its
 partial version (\eta^2_p), as well as the generalized \eta^2_G (Cohen
 1988; Olejnik and Algina 2003):
 
-``` r
-
-options(contrasts = c("contr.sum", "contr.poly"))
-
-data("ChickWeight")
-# keep only complete cases and convert `Time` to a factor
-ChickWeight <- subset(ChickWeight, ave(weight, Chick, FUN = length) == 12)
-ChickWeight$Time <- factor(ChickWeight$Time)
-
-model <- aov(weight ~ Diet * Time + Error(Chick / Time),
-  data = ChickWeight
-)
-
-eta_squared(model, partial = TRUE)
-#> # Effect Size for ANOVA (Type I)
-#> 
-#> Group      | Parameter | η² (partial) |       95% CI
-#> ----------------------------------------------------
-#> Chick      |      Diet |         0.27 | [0.06, 1.00]
-#> Chick:Time |      Time |         0.87 | [0.85, 1.00]
-#> Chick:Time | Diet:Time |         0.22 | [0.11, 1.00]
-#> 
-#> - One-sided CIs: upper bound fixed at [1.00].
-
-eta_squared(model, generalized = "Time")
-#> # Effect Size for ANOVA (Type I)
-#> 
-#> Group      | Parameter | η² (generalized) |       95% CI
-#> --------------------------------------------------------
-#> Chick      |      Diet |             0.04 | [0.00, 1.00]
-#> Chick:Time |      Time |             0.74 | [0.71, 1.00]
-#> Chick:Time | Diet:Time |             0.03 | [0.00, 1.00]
-#> 
-#> - Observed variables: Time
-#> - One-sided CIs: upper bound fixed at [1.00].
-```
+\
+[`options`](https://rdrr.io/r/base/options.html)`(``contrasts ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``"contr.sum"``, ``"contr.poly"``)``)`\
+\
+[`data`](https://rdrr.io/r/utils/data.html)`(``"ChickWeight"``)`\
+`` # keep only complete cases and convert `Time` to a factor ``\
+`ChickWeight`` ``<-`` `[`subset`](https://rdrr.io/r/base/subset.html)`(``ChickWeight``, `[`ave`](https://rdrr.io/r/stats/ave.html)`(``weight``, ``Chick``, FUN ``=`` ``length``)`` ``==`` ``12``)`\
+`ChickWeight``$``Time`` ``<-`` `[`factor`](https://rdrr.io/r/base/factor.html)`(``ChickWeight``$``Time``)`\
+\
+`model`` ``<-`` `[`aov`](https://rdrr.io/r/stats/aov.html)`(``weight`` ``~`` ``Diet`` ``*`` ``Time`` ``+`` ``Error``(``Chick`` ``/`` ``Time``)``,`\
+`  data ``=`` ``ChickWeight`\
+`)`\
+\
+[`eta_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``model``, partial ``=`` ``TRUE``)`\
+`#> # Effect Size for ANOVA (Type I)`\
+`#> `\
+`#> Group      | Parameter | η² (partial) |       95% CI`\
+`#> ----------------------------------------------------`\
+`#> Chick      |      Diet |         0.27 | [0.06, 1.00]`\
+`#> Chick:Time |      Time |         0.87 | [0.85, 1.00]`\
+`#> Chick:Time | Diet:Time |         0.22 | [0.11, 1.00]`\
+`#> `\
+`#> - One-sided CIs: upper bound fixed at [1.00].`\
+\
+[`eta_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``model``, generalized ``=`` ``"Time"``)`\
+`#> # Effect Size for ANOVA (Type I)`\
+`#> `\
+`#> Group      | Parameter | η² (generalized) |       95% CI`\
+`#> --------------------------------------------------------`\
+`#> Chick      |      Diet |             0.04 | [0.00, 1.00]`\
+`#> Chick:Time |      Time |             0.74 | [0.71, 1.00]`\
+`#> Chick:Time | Diet:Time |             0.03 | [0.00, 1.00]`\
+`#> `\
+`#> - Observed variables: Time`\
+`#> - One-sided CIs: upper bound fixed at [1.00].`
 
 **effectsize** also offers \epsilon^2_p
 ([`epsilon_squared()`](https://easystats.github.io/effectsize/reference/eta_squared.md))
@@ -246,58 +236,54 @@ sample size (or more often of degrees of freedom). Thus it is possible
 to reverse-engineer indices of effect size from test statistics (*F*,
 *t*, \chi^2, and *z*).
 
-``` r
-
-F_to_eta2(
-  f = c(40.72, 33.77),
-  df = c(2, 1), df_error = c(18, 9)
-)
-#> η² (partial) |       95% CI
-#> ---------------------------
-#> 0.82         | [0.66, 1.00]
-#> 0.79         | [0.49, 1.00]
-#> 
-#> - One-sided CIs: upper bound fixed at [1.00].
-
-t_to_d(t = -5.14, df_error = 22)
-#> d     |         95% CI
-#> ----------------------
-#> -2.19 | [-3.23, -1.12]
-
-t_to_r(t = -5.14, df_error = 22)
-#> r     |         95% CI
-#> ----------------------
-#> -0.74 | [-0.85, -0.49]
-```
+\
+[`F_to_eta2`](https://easystats.github.io/effectsize/reference/F_to_eta2.md)`(`\
+`  f ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``40.72``, ``33.77``)``,`\
+`  df ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``2``, ``1``)``, df_error ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``18``, ``9``)`\
+`)`\
+`#> η² (partial) |       95% CI`\
+`#> ---------------------------`\
+`#> 0.82         | [0.66, 1.00]`\
+`#> 0.79         | [0.49, 1.00]`\
+`#> `\
+`#> - One-sided CIs: upper bound fixed at [1.00].`\
+\
+[`t_to_d`](https://easystats.github.io/effectsize/reference/t_to_r.md)`(``t ``=`` ``-``5.14``, df_error ``=`` ``22``)`\
+`#> d     |         95% CI`\
+`#> ----------------------`\
+`#> -2.19 | [-3.23, -1.12]`\
+\
+[`t_to_r`](https://easystats.github.io/effectsize/reference/t_to_r.md)`(``t ``=`` ``-``5.14``, df_error ``=`` ``22``)`\
+`#> r     |         95% CI`\
+`#> ----------------------`\
+`#> -0.74 | [-0.85, -0.49]`
 
 These functions also power the
 [`effectsize()`](https://easystats.github.io/effectsize/reference/effectsize.md)
 convenience function for estimating effect sizes from R’s `htest`-type
 objects. For example:
 
-``` r
-
-data(hardlyworking, package = "effectsize")
-
-aov1 <- oneway.test(salary ~ n_comps,
-  data = hardlyworking, var.equal = TRUE
-)
-effectsize(aov1)
-#> η²   |       95% CI
-#> -------------------
-#> 0.20 | [0.14, 1.00]
-#> 
-#> - One-sided CIs: upper bound fixed at [1.00].
-
-xtab <- rbind(c(762, 327, 468), c(484, 239, 477), c(484, 239, 477))
-Xsq <- chisq.test(xtab)
-effectsize(Xsq)
-#> Cramer's V (adj.) |       95% CI
-#> --------------------------------
-#> 0.07              | [0.05, 1.00]
-#> 
-#> - One-sided CIs: upper bound fixed at [1.00].
-```
+\
+[`data`](https://rdrr.io/r/utils/data.html)`(``hardlyworking``, package ``=`` ``"effectsize"``)`\
+\
+`aov1`` ``<-`` `[`oneway.test`](https://rdrr.io/r/stats/oneway.test.html)`(``salary`` ``~`` ``n_comps``,`\
+`  data ``=`` ``hardlyworking``, var.equal ``=`` ``TRUE`\
+`)`\
+[`effectsize`](https://easystats.github.io/effectsize/reference/effectsize.md)`(``aov1``)`\
+`#> η²   |       95% CI`\
+`#> -------------------`\
+`#> 0.20 | [0.14, 1.00]`\
+`#> `\
+`#> - One-sided CIs: upper bound fixed at [1.00].`\
+\
+`xtab`` ``<-`` `[`rbind`](https://rdrr.io/r/base/cbind.html)`(`[`c`](https://rdrr.io/r/base/c.html)`(``762``, ``327``, ``468``)``, `[`c`](https://rdrr.io/r/base/c.html)`(``484``, ``239``, ``477``)``, `[`c`](https://rdrr.io/r/base/c.html)`(``484``, ``239``, ``477``)``)`\
+`Xsq`` ``<-`` `[`chisq.test`](https://rdrr.io/r/stats/chisq.test.html)`(``xtab``)`\
+[`effectsize`](https://easystats.github.io/effectsize/reference/effectsize.md)`(``Xsq``)`\
+`#> Cramer's V (adj.) |       95% CI`\
+`#> --------------------------------`\
+`#> 0.07              | [0.05, 1.00]`\
+`#> `\
+`#> - One-sided CIs: upper bound fixed at [1.00].`
 
 These functions also power our *Effect Sizes From Test Statistics* shiny
 app (<https://easystats4u.shinyapps.io/statistic2effectsize/>).
@@ -309,20 +295,18 @@ useful to be able to convert between different types of effect sizes
 \[*d*, *r*, Odds ratios and Risk ratios; Borenstein et al. (2009); Grant
 (2014)\].
 
-``` r
-
-r_to_d(0.7)
-#> [1] 1.960392
-
-d_to_oddsratio(1.96)
-#> [1] 34.98946
-
-oddsratio_to_riskratio(34.99, p0 = 0.4)
-#> [1] 2.397232
-
-oddsratio_to_r(34.99)
-#> [1] 0.6999301
-```
+\
+[`r_to_d`](https://easystats.github.io/effectsize/reference/d_to_r.md)`(``0.7``)`\
+`#> [1] 1.960392`\
+\
+[`d_to_oddsratio`](https://easystats.github.io/effectsize/reference/d_to_r.md)`(``1.96``)`\
+`#> [1] 34.98946`\
+\
+[`oddsratio_to_riskratio`](https://easystats.github.io/effectsize/reference/oddsratio_to_riskratio.md)`(``34.99``, p0 ``=`` ``0.4``)`\
+`#> [1] 2.397232`\
+\
+[`oddsratio_to_r`](https://easystats.github.io/effectsize/reference/d_to_r.md)`(``34.99``)`\
+`#> [1] 0.6999301`
 
 ### Effect Size Interpretation
 
@@ -336,12 +320,10 @@ interpretation. More information is available in the [*Automated
 Interpretation of Indices of Effect Size*
 vignette](https://easystats.github.io/effectsize/articles/interpret.html).
 
-``` r
-
-interpret_cohens_d(c(0.02, 0.52, 0.86), rules = "cohen1988")
-#> [1] "very small" "medium"     "large"     
-#> (Rules: cohen1988)
-```
+\
+[`interpret_cohens_d`](https://easystats.github.io/effectsize/reference/interpret_cohens_d.md)`(`[`c`](https://rdrr.io/r/base/c.html)`(``0.02``, ``0.52``, ``0.86``)``, rules ``=`` ``"cohen1988"``)`\
+`#> [1] "very small" "medium"     "large"     `\
+`#> (Rules: cohen1988)`
 
 ## Licensing and Availability
 

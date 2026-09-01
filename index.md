@@ -23,18 +23,14 @@ coverage](https://codecov.io/gh/easystats/effectsize/branch/main/graph/badge.svg
 Run the following to install the stable release of **effectsize** from
 CRAN:
 
-``` r
-
-install.packages("effectsize")
-```
+\
+[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"effectsize"``)`
 
 Or you can install the latest development version from
 [*R-universe*](https://easystats.r-universe.dev):
 
-``` r
-
-install.packages("effectsize", repos = "https://easystats.r-universe.dev/")
-```
+\
+[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``"effectsize"``, repos ``=`` ``"https://easystats.r-universe.dev/"``)`
 
 ## Documentation
 
@@ -72,11 +68,9 @@ This package is focused on indices of effect size. Check out the package
 website for [**a full list of features and functions** provided by
 `effectsize`](https://easystats.github.io/effectsize/reference/index.html).
 
-``` r
-
-library(effectsize)
-options(es.use_symbols = TRUE) # get nice symbols when printing! (On Windows, requires R >= 4.2.0)
-```
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`effectsize`](https://easystats.github.io/effectsize/)`)`\
+[`options`](https://rdrr.io/r/base/options.html)`(``es.use_symbols ``=`` ``TRUE``)`` ``# get nice symbols when printing! (On Windows, requires R >= 4.2.0)`
 
 > **Tip:**
 >
@@ -93,93 +87,87 @@ The package provides functions to compute indices of effect size.
 
 ### Standardized Differences (Cohen’s *d*, Hedges’ *g*, Glass’ *delta*)
 
-``` r
-
-cohens_d(mpg ~ am, data = mtcars)
-## Cohen's d |         95% CI
-## --------------------------
-## -1.48     | [-2.27, -0.67]
-## 
-## - Estimated using pooled SD.
-
-hedges_g(mpg ~ am, data = mtcars)
-## Hedges' g |         95% CI
-## --------------------------
-## -1.44     | [-2.21, -0.65]
-## 
-## - Estimated using pooled SD.
-
-glass_delta(mpg ~ am, data = mtcars)
-## Glass' Δ (adj.) |         95% CI
-## --------------------------------
-## -1.10           | [-1.80, -0.37]
-```
+\
+[`cohens_d`](https://easystats.github.io/effectsize/reference/cohens_d.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``)`\
+`## Cohen's d |         95% CI`\
+`## --------------------------`\
+`## -1.48     | [-2.27, -0.67]`\
+`## `\
+`## - Estimated using pooled SD.`\
+\
+[`hedges_g`](https://easystats.github.io/effectsize/reference/cohens_d.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``)`\
+`## Hedges' g |         95% CI`\
+`## --------------------------`\
+`## -1.44     | [-2.21, -0.65]`\
+`## `\
+`## - Estimated using pooled SD.`\
+\
+[`glass_delta`](https://easystats.github.io/effectsize/reference/cohens_d.md)`(``mpg`` ``~`` ``am``, data ``=`` ``mtcars``)`\
+`## Glass' Δ (adj.) |         95% CI`\
+`## --------------------------------`\
+`## -1.10           | [-1.80, -0.37]`
 
 `effectsize` also provides effect sizes for *paired standardized
 differences*, *rank tests*, *common language effect sizes* and more…
 
 ### Contingency Tables
 
-``` r
-
-# Dependence
-phi(mtcars$am, mtcars$vs)
-## ϕ (adj.) |       95% CI
-## -----------------------
-## 0.00     | [0.00, 1.00]
-## 
-## - One-sided CIs: upper bound fixed at [1.00].
-
-cramers_v(mtcars$am, mtcars$cyl)
-## Cramer's V (adj.) |       95% CI
-## --------------------------------
-## 0.46              | [0.00, 1.00]
-## 
-## - One-sided CIs: upper bound fixed at [1.00].
-
-# Goodness-of-fit
-fei(table(mtcars$cyl), p = c(0.1, 0.3, 0.6))
-## פ‎    |       95% CI
-## -------------------
-## 0.27 | [0.17, 1.00]
-## 
-## - Adjusted for uniform expected probabilities.
-## - One-sided CIs: upper bound fixed at [1.00].
-```
+\
+`# Dependence`\
+[`phi`](https://easystats.github.io/effectsize/reference/phi.md)`(``mtcars``$``am``, ``mtcars``$``vs``)`\
+`## ϕ (adj.) |       95% CI`\
+`## -----------------------`\
+`## 0.00     | [0.00, 1.00]`\
+`## `\
+`## - One-sided CIs: upper bound fixed at [1.00].`\
+\
+[`cramers_v`](https://easystats.github.io/effectsize/reference/phi.md)`(``mtcars``$``am``, ``mtcars``$``cyl``)`\
+`## Cramer's V (adj.) |       95% CI`\
+`## --------------------------------`\
+`## 0.46              | [0.00, 1.00]`\
+`## `\
+`## - One-sided CIs: upper bound fixed at [1.00].`\
+\
+`# Goodness-of-fit`\
+[`fei`](https://easystats.github.io/effectsize/reference/phi.md)`(`[`table`](https://rdrr.io/r/base/table.html)`(``mtcars``$``cyl``)``, p ``=`` `[`c`](https://rdrr.io/r/base/c.html)`(``0.1``, ``0.3``, ``0.6``)``)`\
+`## פ‎    |       95% CI`\
+`## -------------------`\
+`## 0.27 | [0.17, 1.00]`\
+`## `\
+`## - Adjusted for uniform expected probabilities.`\
+`## - One-sided CIs: upper bound fixed at [1.00].`
 
 ### ANOVAs (Eta², Omega², …)
 
-``` r
-
-model <- aov(mpg ~ factor(gear), data = mtcars)
-
-eta_squared(model)
-## # Effect Size for ANOVA
-## 
-## Parameter    |   η² |       95% CI
-## ----------------------------------
-## factor(gear) | 0.43 | [0.18, 1.00]
-## 
-## - One-sided CIs: upper bound fixed at [1.00].
-
-omega_squared(model)
-## # Effect Size for ANOVA
-## 
-## Parameter    |   ω² |       95% CI
-## ----------------------------------
-## factor(gear) | 0.38 | [0.14, 1.00]
-## 
-## - One-sided CIs: upper bound fixed at [1.00].
-
-epsilon_squared(model)
-## # Effect Size for ANOVA
-## 
-## Parameter    |   ε² |       95% CI
-## ----------------------------------
-## factor(gear) | 0.39 | [0.14, 1.00]
-## 
-## - One-sided CIs: upper bound fixed at [1.00].
-```
+\
+`model`` ``<-`` `[`aov`](https://rdrr.io/r/stats/aov.html)`(``mpg`` ``~`` `[`factor`](https://rdrr.io/r/base/factor.html)`(``gear``)``, data ``=`` ``mtcars``)`\
+\
+[`eta_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``model``)`\
+`## # Effect Size for ANOVA`\
+`## `\
+`## Parameter    |   η² |       95% CI`\
+`## ----------------------------------`\
+`## factor(gear) | 0.43 | [0.18, 1.00]`\
+`## `\
+`## - One-sided CIs: upper bound fixed at [1.00].`\
+\
+[`omega_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``model``)`\
+`## # Effect Size for ANOVA`\
+`## `\
+`## Parameter    |   ω² |       95% CI`\
+`## ----------------------------------`\
+`## factor(gear) | 0.38 | [0.14, 1.00]`\
+`## `\
+`## - One-sided CIs: upper bound fixed at [1.00].`\
+\
+[`epsilon_squared`](https://easystats.github.io/effectsize/reference/eta_squared.md)`(``model``)`\
+`## # Effect Size for ANOVA`\
+`## `\
+`## Parameter    |   ε² |       95% CI`\
+`## ----------------------------------`\
+`## factor(gear) | 0.39 | [0.14, 1.00]`\
+`## `\
+`## - One-sided CIs: upper bound fixed at [1.00].`
 
 And more…
 
@@ -188,63 +176,55 @@ And more…
 The package also provides ways of converting between different effect
 sizes.
 
-``` r
-
-d_to_r(d = 0.2)
-## [1] 0.0995
-
-oddsratio_to_riskratio(2.6, p0 = 0.4)
-## [1] 1.59
-```
+\
+[`d_to_r`](https://easystats.github.io/effectsize/reference/d_to_r.md)`(``d ``=`` ``0.2``)`\
+`## [1] 0.0995`\
+\
+[`oddsratio_to_riskratio`](https://easystats.github.io/effectsize/reference/oddsratio_to_riskratio.md)`(``2.6``, p0 ``=`` ``0.4``)`\
+`## [1] 1.59`
 
 And for recovering effect sizes from test statistics.
 
-``` r
-
-F_to_d(15, df = 1, df_error = 60)
-## d    |       95% CI
-## -------------------
-## 1.00 | [0.46, 1.53]
-
-F_to_r(15, df = 1, df_error = 60)
-## r    |       95% CI
-## -------------------
-## 0.45 | [0.22, 0.61]
-
-F_to_eta2(15, df = 1, df_error = 60)
-## η² (partial) |       95% CI
-## ---------------------------
-## 0.20         | [0.07, 1.00]
-## 
-## - One-sided CIs: upper bound fixed at [1.00].
-```
+\
+[`F_to_d`](https://easystats.github.io/effectsize/reference/t_to_r.md)`(``15``, df ``=`` ``1``, df_error ``=`` ``60``)`\
+`## d    |       95% CI`\
+`## -------------------`\
+`## 1.00 | [0.46, 1.53]`\
+\
+[`F_to_r`](https://easystats.github.io/effectsize/reference/t_to_r.md)`(``15``, df ``=`` ``1``, df_error ``=`` ``60``)`\
+`## r    |       95% CI`\
+`## -------------------`\
+`## 0.45 | [0.22, 0.61]`\
+\
+[`F_to_eta2`](https://easystats.github.io/effectsize/reference/F_to_eta2.md)`(``15``, df ``=`` ``1``, df_error ``=`` ``60``)`\
+`## η² (partial) |       95% CI`\
+`## ---------------------------`\
+`## 0.20         | [0.07, 1.00]`\
+`## `\
+`## - One-sided CIs: upper bound fixed at [1.00].`
 
 ## Effect Size Interpretation
 
 The package allows for an automated interpretation of different indices.
 
-``` r
-
-interpret_r(r = 0.3)
-## [1] "large"
-## (Rules: funder2019)
-```
+\
+[`interpret_r`](https://easystats.github.io/effectsize/reference/interpret_r.md)`(``r ``=`` ``0.3``)`\
+`## [1] "large"`\
+`## (Rules: funder2019)`
 
 Different sets of “rules of thumb” are implemented ([**guidelines are
 detailed
 here**](https://easystats.github.io/effectsize/articles/interpret.html))
 and can be easily changed.
 
-``` r
-
-interpret_cohens_d(d = 0.45, rules = "cohen1988")
-## [1] "small"
-## (Rules: cohen1988)
-
-interpret_cohens_d(d = 0.45, rules = "gignac2016")
-## [1] "moderate"
-## (Rules: gignac2016)
-```
+\
+[`interpret_cohens_d`](https://easystats.github.io/effectsize/reference/interpret_cohens_d.md)`(``d ``=`` ``0.45``, rules ``=`` ``"cohen1988"``)`\
+`## [1] "small"`\
+`## (Rules: cohen1988)`\
+\
+[`interpret_cohens_d`](https://easystats.github.io/effectsize/reference/interpret_cohens_d.md)`(``d ``=`` ``0.45``, rules ``=`` ``"gignac2016"``)`\
+`## [1] "moderate"`\
+`## (Rules: gignac2016)`
 
 ### Citation
 
