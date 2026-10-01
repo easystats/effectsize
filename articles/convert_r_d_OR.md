@@ -80,11 +80,11 @@ For example:
 \
 `parameters``::`[`model_parameters`](https://easystats.github.io/parameters/reference/model_parameters.html)`(``fit``)`
 
-    > Parameter     | Coefficient |     SE |               95% CI | t(497) |      p
-    > -----------------------------------------------------------------------------
-    > (Intercept)   |    14258.87 | 238.71 | [13789.86, 14727.87] |  59.73 | < .001
-    > is seniorTRUE |     1683.65 | 316.85 | [ 1061.12,  2306.17] |   5.31 | < .001
-    > xtra hours    |     1257.75 |  40.33 | [ 1178.51,  1336.99] |  31.19 | < .001
+    > Parameter        | Coefficient |     SE |               95% CI | t(497) |      p
+    > --------------------------------------------------------------------------------
+    > (Intercept)      |    14258.87 | 238.71 | [13789.86, 14727.87] |  59.73 | < .001
+    > is senior [TRUE] |     1683.65 | 316.85 | [ 1061.12,  2306.17] |   5.31 | < .001
+    > xtra hours       |     1257.75 |  40.33 | [ 1178.51,  1336.99] |  31.19 | < .001
 
     > 
     > Uncertainty intervals (equal-tailed) and p-values (two-tailed) computed
@@ -176,10 +176,10 @@ Let’s give it a try:
 \
 `parameters``::`[`model_parameters`](https://easystats.github.io/parameters/reference/model_parameters.html)`(``fit``)`
 
-    > Parameter     | Log-Odds |   SE |         95% CI |     z |      p
-    > -----------------------------------------------------------------
-    > (Intercept)   |     1.55 | 0.16 | [ 1.25,  1.87] |  9.86 | < .001
-    > is seniorTRUE |    -1.22 | 0.21 | [-1.63, -0.82] | -5.86 | < .001
+    > Parameter        | Log-Odds |   SE |         95% CI |     z |      p
+    > --------------------------------------------------------------------
+    > (Intercept)      |     1.55 | 0.16 | [ 1.25,  1.87] |  9.86 | < .001
+    > is senior [TRUE] |    -1.22 | 0.21 | [-1.63, -0.82] | -5.86 | < .001
 
     > 
     > Uncertainty intervals (profile-likelihood) and p-values (two-tailed)
