@@ -283,4 +283,18 @@ test_that("kendalls_w", {
   warns <- capture_warnings(W1 <- kendalls_w(m, ci = NULL))
   expect_match(warns[1], "dropped")
   expect_equal(W1, kendalls_w(m[, -1], ci = NULL, verbose = FALSE))
+
+  d <- data.frame(
+    y = OrchardSprays$decrease,
+    g = factor(OrchardSprays$treatment),
+    b = factor(OrchardSprays$rowpos)
+  )
+  d_ordered <- d[order(d$b, d$g), ]
+
+  w1 <- kendalls_w(tapply(d$y, list(d$b, d$g), identity), ci = NULL)
+  w2 <- kendalls_w(y ~ g | b, data = d_ordered, ci = NULL)
+  w3 <- kendalls_w(y ~ g | b, data = d, ci = NULL)
+
+  expect_identical(w2[[1]], w1[[1]])
+  expect_identical(w3[[1]], w1[[1]])
 })

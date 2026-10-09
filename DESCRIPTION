@@ -75,7 +75,7 @@ Imports:
     insight (>= 1.5.4),
     parameters (>= 0.29.3),
     performance (>= 0.18.2),
-    datawizard (>= 1.4.0),
+    datawizard (>= 1.4.00001),
     stats,
     utils
 Suggests:
