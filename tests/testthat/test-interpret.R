@@ -340,7 +340,7 @@ test_that("interpret_fit", {
   expect_error(interpret_srmr(0.6, "DUPA"), "must be")
 
   skip_on_cran()
-  skip_if_not_installed("lavaan")
+  skip_if_not_installed("lavaan", minimum_version = "0.7.2")
   skip_if_not_installed("performance")
 
   structure <- " ind60 =~ x1 + x2 + x3
@@ -365,7 +365,7 @@ test_that("interpret_fit", {
   )
   expect_equal(
     int$Value,
-    c(0.9666, 0.9124, 0.9749, 1.0001, 1, 0, 0.0273, 0.9529, 0.5199, 1.0001),
+    c(1, 0.9124, 0.9749, 1.0001, 1, 0, 0.0273, 0.9529, 0.5199, 1.0001),
     tolerance = 0.001
   )
 

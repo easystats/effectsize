@@ -291,9 +291,13 @@ test_that("kendalls_w", {
   )
   d_ordered <- d[order(d$b, d$g), ]
 
-  w1 <- kendalls_w(tapply(d$y, list(d$b, d$g), identity), ci = NULL)
-  w2 <- kendalls_w(y ~ g | b, data = d_ordered, ci = NULL)
-  w3 <- kendalls_w(y ~ g | b, data = d, ci = NULL)
+  w1 <- kendalls_w(
+    tapply(d$y, list(d$b, d$g), identity),
+    ci = NULL,
+    verbose = FALSE
+  )
+  w2 <- kendalls_w(y ~ g | b, data = d_ordered, ci = NULL, verbose = FALSE)
+  w3 <- kendalls_w(y ~ g | b, data = d, ci = NULL, verbose = FALSE)
 
   expect_identical(w2[[1]], w1[[1]])
   expect_identical(w3[[1]], w1[[1]])
