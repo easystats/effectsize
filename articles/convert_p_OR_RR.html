@@ -125,13 +125,10 @@ any comparison between different types of statistical analyses.</p>
 <h2 id="converting-between-p-and-odds">Converting Between <em>p</em> and Odds<a class="anchor" aria-label="anchor" href="#converting-between-p-and-odds"></a>
 </h2>
 <p>Odds are the ratio between a probability and its complement:</p>
-<p><span class="math display">
-Odds = \frac{p}{1-p}
-</span></p>
-<p><span class="math display">
-p = \frac{Odds}{Odds + 1}
-</span> Say your bookies gives you the odds of Doutelle to win the horse
-race at 13:4, what is the probability Doutelle’s will win?</p>
+<p><span class="math display">Odds = \frac{p}{1-p}</span></p>
+<p><span class="math display">p = \frac{Odds}{Odds + 1}</span> Say your
+bookies gives you the odds of Doutelle to win the horse race at 13:4,
+what is the probability Doutelle’s will win?</p>
 <p>Manually, we can compute <span class="math inline">\frac{13}{13+4}=0.765</span>. Or we can</p>
 <p>Odds of 13:4 can be expressed as <span class="math inline">(13/4):(4/4)=3.25:1</span>, which we can
 convert:</p>
@@ -154,10 +151,10 @@ convert:</p>
 </h3>
 <p>Note that in logistic regression, the non-intercept coefficients
 represent the (log) odds ratios, not the odds.</p>
-<p><span class="math display">
-OR = \frac{Odds_1}{Odds_2} = \frac{\frac{p_1}{1-p_1}}{\frac{p_2}{1-p_2}}
-</span> The intercept, however, <em>does</em> represent the (log) odds,
-when all other variables are fixed at 0.</p>
+<p><span class="math display">OR = \frac{Odds_1}{Odds_2} =
+\frac{\frac{p_1}{1-p_1}}{\frac{p_2}{1-p_2}}</span> The intercept,
+however, <em>does</em> represent the (log) odds, when all other
+variables are fixed at 0.</p>
 </div>
 </div>
 <div class="section level2">
@@ -179,9 +176,8 @@ sprouts to effectively reduce pain? Well, hard to say… Maybe if we look
 at <em>RR</em> we’ll get a clue.</p>
 <p>We can convert between <em>OR</em> and <em>RR</em> for the following
 formula <span class="citation">(Grant 2014)</span>:</p>
-<p><span class="math display">
-RR = \frac{OR}{(1 - p0 + (p0 \times OR))}  
-</span></p>
+<p><span class="math display">RR = \frac{OR}{(1 - p0 + (p0 \times
+OR))}</span></p>
 <p>Where <span class="math inline">p0</span> is the base-rate risk - the
 probability of the event without the intervention (e.g., what is the
 probability of the migraine subsiding within an hour without eating any
@@ -197,9 +193,7 @@ brussels sprouts). If it the base-rate risk is, say, 85%, we get a
 of reducing the migraine by a mere 12%! Is if worth it? Depends on you
 affinity to brussels sprouts…</p>
 <p>Similarly, we can look at ARR, which can be converted via</p>
-<p><span class="math display">
-ARR = RR \times p0 - p0
-</span></p>
+<p><span class="math display">ARR = RR \times p0 - p0</span></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/oddsratio_to_riskratio.html">riskratio_to_arr</a></span><span class="op">(</span><span class="va">RR</span>, <span class="va">baserate</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; [1] 0.102</code></pre>

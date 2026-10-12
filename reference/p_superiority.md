@@ -1,6 +1,6 @@
 # Cohen's *U*s and Other Common Language Effect Sizes (CLES)
 
-Cohen's \\U_1\\, \\U_2\\, and \\U_3\\, probability of superiority,
+Cohen's \\(U_1\\), \\(U_2\\), and \\(U_3\\), probability of superiority,
 proportion of overlap, Wilcoxon-Mann-Whitney odds, and Vargha and
 Delaney's *A* are CLESs. These are effect sizes that represent
 differences between two (independent) distributions in probabilistic
@@ -183,13 +183,13 @@ terms:
   the sample (or difference) is larger than *mu*. (Vargha and Delaney's
   *A* is an alias for the non-parametric *probability of superiority*.)
 
-- **Cohen's \\U_1\\** is the proportion of the total of both
+- **Cohen's \\(U_1\\)** is the proportion of the total of both
   distributions that does not overlap.
 
-- **Cohen's \\U_2\\** is the proportion of one of the groups that
+- **Cohen's \\(U_2\\)** is the proportion of one of the groups that
   exceeds *the same proportion* in the other group.
 
-- **Cohen's \\U_3\\** is the proportion of the second group that is
+- **Cohen's \\(U_3\\)** is the proportion of the second group that is
   smaller than the median of the first group.
 
 - **Overlap** (OVL) is the proportional overlap between the
@@ -204,8 +204,8 @@ that is the odds that, when sampling an observation from each of the
 groups at random, that the observation from the second group will be
 larger than the sample from the first group.
 
-Where \\U_1\\, \\U_2\\, and *Overlap* are agnostic to the direction of
-the difference between the groups, \\U_3\\ and probability of
+Where \\(U_1\\), \\(U_2\\), and *Overlap* are agnostic to the direction
+of the difference between the groups, \\(U_3\\) and probability of
 superiority are not (this can be controlled with the `reference`
 argument).
 
@@ -235,20 +235,20 @@ information in a hypothesis test, and more." (Steiger, 2004). Confidence
 (compatibility) intervals and p values are complementary summaries of
 parameter uncertainty given the observed data. A dichotomous hypothesis
 test could be performed with either a CI or a p value. The 100 (1 -
-\\\alpha\\)% confidence interval contains all of the parameter values
-for which *p* \> \\\alpha\\ for the current data and model. For example,
-a 95% confidence interval contains all of the values for which p \>
-.05.\
+\\(\alpha\\))% confidence interval contains all of the parameter values
+for which *p* \> \\(\alpha\\) for the current data and model. For
+example, a 95% confidence interval contains all of the values for which
+p \> .05.\
 \
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided
 clear evidence against a parameter value of 0 (same as with any other
 value in the interval), with the level of this evidence defined by the
-chosen \\\alpha\\ level (Rafi & Greenland, 2020; Schweder & Hjort, 2016;
-Xie & Singh, 2013). To infer no effect, additional judgments about what
-parameter values are "close enough" to 0 to be negligible are needed
-("equivalence testing"; Bauer & Kiesser, 1996).
+chosen \\(\alpha\\) level (Rafi & Greenland, 2020; Schweder & Hjort,
+2016; Xie & Singh, 2013). To infer no effect, additional judgments about
+what parameter values are "close enough" to 0 to be negligible are
+needed ("equivalence testing"; Bauer & Kiesser, 1996).
 
 ## Bootstrapped CIs
 
@@ -257,9 +257,9 @@ would be interpreted as "no effect", but they cannot cross it. For
 example, a null value of [Kendall's
 W](https://easystats.github.io/effectsize/reference/rank_epsilon_squared.md)
 is 0, indicating no difference between groups, but it can never have a
-negative value. Same goes for U2 and Overlap: the null value of \\U_2\\
-is 0.5, but it can never be smaller than 0.5; am *Overlap* of 1 means
-"full overlap" (no difference), but it cannot be larger than 1.\
+negative value. Same goes for U2 and Overlap: the null value of
+\\(U_2\\) is 0.5, but it can never be smaller than 0.5; am *Overlap* of
+1 means "full overlap" (no difference), but it cannot be larger than 1.\
 \
 When bootstrapping CIs for such effect sizes, the bounds of the CIs will
 never cross (and often will never cover) the null. Therefore, these CIs

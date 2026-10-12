@@ -47,7 +47,7 @@ This function use the following formulae for Cohen's *d*:
 \$\$Overlap = 2 \times \Phi(-\|d\|/2)\$\$\
 And the following for the rank-biserial correlation: \$\$Pr(superiority)
 = (r\_{rb} + 1)/2\$\$\
-\\WMW\_{Odds} = Pr(superiority) / (1 - Pr(superiority))\\
+\\(WMW\_{Odds} = Pr(superiority) / (1 - Pr(superiority))\\)
 
 ## Note
 

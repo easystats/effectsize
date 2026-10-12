@@ -162,10 +162,9 @@ variable as a numeric binary variable:</p>
 <em>r</em> would have been? We can approximate <em>r</em> using the
 following formula <span class="citation">(Borenstein et al.
 2009)</span>:</p>
-<p><span class="math display">
-r \approx \frac{d}{\sqrt{d^2 + 4}}
-</span> And indeed, if we use <code><a href="../reference/d_to_r.html">d_to_r()</a></code>, we get a pretty
-decent approximation:</p>
+<p><span class="math display">r \approx \frac{d}{\sqrt{d^2 + 4}}</span>
+And indeed, if we use <code><a href="../reference/d_to_r.html">d_to_r()</a></code>, we get a pretty decent
+approximation:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/d_to_r.html">d_to_r</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.72</span><span class="op">)</span></span></code></pre></div>
 <pre><code>&gt; [1] -0.339</code></pre>
@@ -241,9 +240,8 @@ with a logistic regression model on the dichotomized outcome, and
 present OR. So the question can be asked: given such a OR, what would
 Cohen’s <em>d</em> have been?</p>
 <p>Fortunately, there is a formula to approximate this <span class="citation">(Sánchez-Meca et al. 2003)</span>:</p>
-<p><span class="math display">
-d = log(OR) \times \frac{\sqrt{3}}{\pi}
-</span></p>
+<p><span class="math display">d = log(OR) \times
+\frac{\sqrt{3}}{\pi}</span></p>
 <p>which is implemented in the <code><a href="../reference/d_to_r.html">oddsratio_to_d()</a></code>
 function.</p>
 <p>Let’s give it a try:</p>

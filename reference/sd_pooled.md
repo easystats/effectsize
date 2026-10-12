@@ -50,8 +50,8 @@ Numeric, the pooled standard deviation. For `cov_pooled()` a matrix.
 
 The standard version is calculated as: \$\$\sqrt{\frac{\sum (x_i -
 \bar{x})^2}{n_1 + n_2 - 2}}\$\$ The robust version is calculated as:
-\$\$1.4826 \times Median(\|\left\\x - Median_x,\\y -
-Median_y\right\\\|)\$\$
+\$\$1.4826 \times Median(\|\left\\{x - Median_x,\\,y -
+Median_y\right\\}\|)\$\$
 
 ## See also
 

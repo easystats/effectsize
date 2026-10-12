@@ -111,7 +111,7 @@ A data frame with the effect size and their CIs (`CI_low` and
 Unlike [Cohen's
 d](https://easystats.github.io/effectsize/reference/cohens_d.md) for
 independent groups, where standardization naturally is done by the
-(pooled) population standard deviation (cf. Glass’s \\\Delta\\), when
+(pooled) population standard deviation (cf. Glass’s \\(\Delta\\)), when
 measured across two conditions are dependent, there are many more
 options for what error term to standardize by. Additionally, some
 options allow for data to be replicated (many measurements per condition
@@ -123,36 +123,36 @@ notations.)
 
 Standardize by...
 
-- **Difference Score Variance: \\d\_{z}\\** (*Requires paired data*) -
+- **Difference Score Variance: \\(d\_{z}\\)** (*Requires paired data*) -
   This is akin to computing difference scores for each individual and
   then computing a one-sample Cohen's *d* (Cohen, 1988, pp. 48; see
   examples).
 
-- **Within-Subject Variance: \\d\_{rm}\\** (*Requires paired data*) -
-  Cohen suggested adjusting \\d\_{z}\\ to estimate the "standard"
-  between-subjects *d* by a factor of \\\sqrt{2(1-r)}\\, where *r* is
+- **Within-Subject Variance: \\(d\_{rm}\\)** (*Requires paired data*) -
+  Cohen suggested adjusting \\(d\_{z}\\) to estimate the "standard"
+  between-subjects *d* by a factor of \\(\sqrt{2(1-r)}\\), where *r* is
   the Pearson correlation between the paired measures (Cohen, 1988, pp.
   48).
 
-- **Control Variance: \\d\_{b}\\ (aka Becker's *d*)** (*Requires paired
-  data*) - Standardized by the variance of the control condition (or in
-  a pre- post-treatment setting, the pre-treatment condition). This is
-  akin to Glass' *delta*
+- **Control Variance: \\(d\_{b}\\) (aka Becker's *d*)** (*Requires
+  paired data*) - Standardized by the variance of the control condition
+  (or in a pre- post-treatment setting, the pre-treatment condition).
+  This is akin to Glass' *delta*
   ([`glass_delta()`](https://easystats.github.io/effectsize/reference/cohens_d.md))
   (Becker, 1988). Note that this is taken here as the *second* condition
   (`y`).
 
-- **Average Variance: \\d\_{av}\\** (*Requires paired data*) - Instead
+- **Average Variance: \\(d\_{av}\\)** (*Requires paired data*) - Instead
   of standardizing by the variance in the of the control (or pre)
   condition, Cumming suggests standardizing by the average variance of
   the two paired conditions (Cumming, 2013, pp. 291).
 
-- **All Variance: Just \\d\\** - This is the same as computing a
+- **All Variance: Just \\(d\\)** - This is the same as computing a
   standard independent-groups Cohen's *d* (Cohen, 1988). Note that CIs
   *do* account for the dependence, and so are typically more narrow (see
   examples).
 
-- **Residual Variance: \\d\_{r}\\** (*Requires data with
+- **Residual Variance: \\(d\_{r}\\)** (*Requires data with
   replications*) - Divide by the pooled variance after all individual
   differences have been partialled out (i.e., the residual/level-1
   variance in an ANOVA or MLM setting). In between-subjects designs
@@ -161,7 +161,8 @@ Standardize by...
   defined on this scale (Rouder et al., 2012).\
   \
   Note that for paired data, when the two conditions have equal
-  variance, \\d\_{rm}\\, \\d\_{av}\\, \\d\_{b}\\ are equal to \\d\\.
+  variance, \\(d\_{rm}\\), \\(d\_{av}\\), \\(d\_{b}\\) are equal to
+  \\(d\\).
 
 ## Confidence (Compatibility) Intervals (CIs)
 
@@ -176,20 +177,20 @@ information in a hypothesis test, and more." (Steiger, 2004). Confidence
 (compatibility) intervals and p values are complementary summaries of
 parameter uncertainty given the observed data. A dichotomous hypothesis
 test could be performed with either a CI or a p value. The 100 (1 -
-\\\alpha\\)% confidence interval contains all of the parameter values
-for which *p* \> \\\alpha\\ for the current data and model. For example,
-a 95% confidence interval contains all of the values for which p \>
-.05.\
+\\(\alpha\\))% confidence interval contains all of the parameter values
+for which *p* \> \\(\alpha\\) for the current data and model. For
+example, a 95% confidence interval contains all of the values for which
+p \> .05.\
 \
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided
 clear evidence against a parameter value of 0 (same as with any other
 value in the interval), with the level of this evidence defined by the
-chosen \\\alpha\\ level (Rafi & Greenland, 2020; Schweder & Hjort, 2016;
-Xie & Singh, 2013). To infer no effect, additional judgments about what
-parameter values are "close enough" to 0 to be negligible are needed
-("equivalence testing"; Bauer & Kiesser, 1996).
+chosen \\(\alpha\\) level (Rafi & Greenland, 2020; Schweder & Hjort,
+2016; Xie & Singh, 2013). To infer no effect, additional judgments about
+what parameter values are "close enough" to 0 to be negligible are
+needed ("equivalence testing"; Bauer & Kiesser, 1996).
 
 ## Plotting with `see`
 

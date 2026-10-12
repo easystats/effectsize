@@ -1,7 +1,7 @@
-# Semi-Partial (Part) Correlation Squared (\\\Delta R^2\\)
+# Semi-Partial (Part) Correlation Squared (\\(\Delta R^2\\))
 
 Compute the semi-partial (part) correlation squared (also known as
-\\\Delta R^2\\). Currently, only
+\\(\Delta R^2\\)). Currently, only
 [`lm()`](https://rdrr.io/r/stats/lm.html) models are supported.
 
 ## Usage
@@ -53,9 +53,9 @@ Statistics" section of the
 [`parameters::dominance_analysis()`](https://easystats.github.io/parameters/reference/dominance_analysis.html)
 output. For each term, the model is refit *without* the columns on the
 [model matrix](https://rdrr.io/r/stats/model.matrix.html) that
-correspond to that term. The \\R^2\\ of this *sub*-model is then
-subtracted from the \\R^2\\ of the *full* model to yield the \\\Delta
-R^2\\. (For `type = "parameters"`, this is done for each column in the
+correspond to that term. The \\(R^2\\) of this *sub*-model is then
+subtracted from the \\(R^2\\) of the *full* model to yield the \\(\Delta
+R^2\\). (For `type = "parameters"`, this is done for each column in the
 model matrix.)
 
 **Note** that this is unlike
@@ -73,12 +73,12 @@ for
 Confidence intervals are based on the normal approximation as provided
 by Alf and Graf (1999). An adjustment to the lower bound of the CI is
 used, to improve the coverage properties of the CIs, according to Algina
-et al (2008): If the *F* test associated with the \\sr^2\\ is
+et al (2008): If the *F* test associated with the \\(sr^2\\) is
 significant (at `1-ci` level), but the lower bound of the CI is 0, it is
-set to a small value (arbitrarily to a 10th of the estimated \\sr^2\\);
-if the *F* test is not significant, the lower bound is set to 0.
-(Additionally, lower and upper bound are "fixed" so that they cannot be
-smaller than 0 or larger than 1.)
+set to a small value (arbitrarily to a 10th of the estimated
+\\(sr^2\\)); if the *F* test is not significant, the lower bound is set
+to 0. (Additionally, lower and upper bound are "fixed" so that they
+cannot be smaller than 0 or larger than 1.)
 
 ## CIs and Significance Tests
 
@@ -87,20 +87,20 @@ information in a hypothesis test, and more." (Steiger, 2004). Confidence
 (compatibility) intervals and p values are complementary summaries of
 parameter uncertainty given the observed data. A dichotomous hypothesis
 test could be performed with either a CI or a p value. The 100 (1 -
-\\\alpha\\)% confidence interval contains all of the parameter values
-for which *p* \> \\\alpha\\ for the current data and model. For example,
-a 95% confidence interval contains all of the values for which p \>
-.05.\
+\\(\alpha\\))% confidence interval contains all of the parameter values
+for which *p* \> \\(\alpha\\) for the current data and model. For
+example, a 95% confidence interval contains all of the values for which
+p \> .05.\
 \
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided
 clear evidence against a parameter value of 0 (same as with any other
 value in the interval), with the level of this evidence defined by the
-chosen \\\alpha\\ level (Rafi & Greenland, 2020; Schweder & Hjort, 2016;
-Xie & Singh, 2013). To infer no effect, additional judgments about what
-parameter values are "close enough" to 0 to be negligible are needed
-("equivalence testing"; Bauer & Kiesser, 1996).
+chosen \\(\alpha\\) level (Rafi & Greenland, 2020; Schweder & Hjort,
+2016; Xie & Singh, 2013). To infer no effect, additional judgments about
+what parameter values are "close enough" to 0 to be negligible are
+needed ("equivalence testing"; Bauer & Kiesser, 1996).
 
 ## Plotting with `see`
 

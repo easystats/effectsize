@@ -1,10 +1,10 @@
-# \\\eta^2\\ and Other Effect Size for ANOVA
+# \\(\eta^2\\) and Other Effect Size for ANOVA
 
 Functions to compute effect size measures for ANOVAs, such as Eta-
-(\\\eta\\), Omega- (\\\omega\\) and Epsilon- (\\\epsilon\\) squared, and
-Cohen's f (or their partialled versions) for ANOVA tables. These indices
-represent an estimate of how much variance in the response variables is
-accounted for by the explanatory variable(s).\
+(\\(\eta\\)), Omega- (\\(\omega\\)) and Epsilon- (\\(\epsilon\\))
+squared, and Cohen's f (or their partialled versions) for ANOVA tables.
+These indices represent an estimate of how much variance in the response
+variables is accounted for by the explanatory variable(s).\
 \
 When passing models, effect sizes are computed using the sums of squares
 obtained from `anova(model)` which might not always be appropriate. See
@@ -237,8 +237,8 @@ for more info.
 Unless stated otherwise, confidence (compatibility) intervals (CIs) are
 estimated using the noncentrality parameter method (also called the
 "pivot method"). This method finds the noncentrality parameter ("*ncp*")
-of a noncentral *t*, *F*, or \\\chi^2\\ distribution that places the
-observed *t*, *F*, or \\\chi^2\\ test statistic at the desired
+of a noncentral *t*, *F*, or \\(\chi^2\\) distribution that places the
+observed *t*, *F*, or \\(\chi^2\\) test statistic at the desired
 probability point of the distribution. For example, if the observed *t*
 statistic is 2.0, with 50 degrees of freedom, for which cumulative
 noncentral *t* distribution is *t* = 2.0 the .025 quantile (answer: the
@@ -257,20 +257,20 @@ information in a hypothesis test, and more." (Steiger, 2004). Confidence
 (compatibility) intervals and p values are complementary summaries of
 parameter uncertainty given the observed data. A dichotomous hypothesis
 test could be performed with either a CI or a p value. The 100 (1 -
-\\\alpha\\)% confidence interval contains all of the parameter values
-for which *p* \> \\\alpha\\ for the current data and model. For example,
-a 95% confidence interval contains all of the values for which p \>
-.05.\
+\\(\alpha\\))% confidence interval contains all of the parameter values
+for which *p* \> \\(\alpha\\) for the current data and model. For
+example, a 95% confidence interval contains all of the values for which
+p \> .05.\
 \
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided
 clear evidence against a parameter value of 0 (same as with any other
 value in the interval), with the level of this evidence defined by the
-chosen \\\alpha\\ level (Rafi & Greenland, 2020; Schweder & Hjort, 2016;
-Xie & Singh, 2013). To infer no effect, additional judgments about what
-parameter values are "close enough" to 0 to be negligible are needed
-("equivalence testing"; Bauer & Kiesser, 1996).
+chosen \\(\alpha\\) level (Rafi & Greenland, 2020; Schweder & Hjort,
+2016; Xie & Singh, 2013). To infer no effect, additional judgments about
+what parameter values are "close enough" to 0 to be negligible are
+needed ("equivalence testing"; Bauer & Kiesser, 1996).
 
 ## Plotting with `see`
 
@@ -472,7 +472,7 @@ eta_squared(model, generalized = TRUE) # observed vars are pulled from the afex 
 #> -----------------------------------------------------
 #> gender            |               0.03 | [0.00, 1.00]
 #> phase             |               0.15 | [0.00, 1.00]
-#> gender:phase      |           3.53e-34 | [0.00, 1.00]
+#> gender:phase      |           7.39e-34 | [0.00, 1.00]
 #> hour              |               0.10 | [0.00, 1.00]
 #> gender:hour       |           2.36e-03 | [0.00, 1.00]
 #> phase:hour        |               0.01 | [0.00, 1.00]

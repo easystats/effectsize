@@ -78,20 +78,20 @@ information in a hypothesis test, and more." (Steiger, 2004). Confidence
 (compatibility) intervals and p values are complementary summaries of
 parameter uncertainty given the observed data. A dichotomous hypothesis
 test could be performed with either a CI or a p value. The 100 (1 -
-\\\alpha\\)% confidence interval contains all of the parameter values
-for which *p* \> \\\alpha\\ for the current data and model. For example,
-a 95% confidence interval contains all of the values for which p \>
-.05.\
+\\(\alpha\\))% confidence interval contains all of the parameter values
+for which *p* \> \\(\alpha\\) for the current data and model. For
+example, a 95% confidence interval contains all of the values for which
+p \> .05.\
 \
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided
 clear evidence against a parameter value of 0 (same as with any other
 value in the interval), with the level of this evidence defined by the
-chosen \\\alpha\\ level (Rafi & Greenland, 2020; Schweder & Hjort, 2016;
-Xie & Singh, 2013). To infer no effect, additional judgments about what
-parameter values are "close enough" to 0 to be negligible are needed
-("equivalence testing"; Bauer & Kiesser, 1996).
+chosen \\(\alpha\\) level (Rafi & Greenland, 2020; Schweder & Hjort,
+2016; Xie & Singh, 2013). To infer no effect, additional judgments about
+what parameter values are "close enough" to 0 to be negligible are
+needed ("equivalence testing"; Bauer & Kiesser, 1996).
 
 ## Plotting with `see`
 

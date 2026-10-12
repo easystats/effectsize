@@ -3,16 +3,16 @@
 Compute effect size indices for standardized difference between two
 normal multivariate distributions or between one multivariate
 distribution and a defined point. This is the standardized effect size
-for Hotelling's \\T^2\\ test (e.g., `DescTools::HotellingsT2Test()`).
+for Hotelling's \\(T^2\\) test (e.g., `DescTools::HotellingsT2Test()`).
 *D* is computed as:\
 \
 \$\$D = \sqrt{(\bar{X}\_1-\bar{X}\_2-\mu)^T \Sigma_p^{-1}
 (\bar{X}\_1-\bar{X}\_2-\mu)}\$\$\
 \
-Where \\\bar{X}\_i\\ are the column means, \\\Sigma_p\\ is the *pooled*
-covariance matrix, and \\\mu\\ is a vector of the null differences for
-each variable. When there is only one variate, this formula reduces to
-Cohen's *d*.
+Where \\(\bar{X}\_i\\) are the column means, \\(\Sigma_p\\) is the
+*pooled* covariance matrix, and \\(\mu\\) is a vector of the null
+differences for each variable. When there is only one variate, this
+formula reduces to Cohen's *d*.
 
 ## Usage
 
@@ -90,8 +90,8 @@ To specify a `x` as a formula:
 Unless stated otherwise, confidence (compatibility) intervals (CIs) are
 estimated using the noncentrality parameter method (also called the
 "pivot method"). This method finds the noncentrality parameter ("*ncp*")
-of a noncentral *t*, *F*, or \\\chi^2\\ distribution that places the
-observed *t*, *F*, or \\\chi^2\\ test statistic at the desired
+of a noncentral *t*, *F*, or \\(\chi^2\\) distribution that places the
+observed *t*, *F*, or \\(\chi^2\\) test statistic at the desired
 probability point of the distribution. For example, if the observed *t*
 statistic is 2.0, with 50 degrees of freedom, for which cumulative
 noncentral *t* distribution is *t* = 2.0 the .025 quantile (answer: the
@@ -110,20 +110,20 @@ information in a hypothesis test, and more." (Steiger, 2004). Confidence
 (compatibility) intervals and p values are complementary summaries of
 parameter uncertainty given the observed data. A dichotomous hypothesis
 test could be performed with either a CI or a p value. The 100 (1 -
-\\\alpha\\)% confidence interval contains all of the parameter values
-for which *p* \> \\\alpha\\ for the current data and model. For example,
-a 95% confidence interval contains all of the values for which p \>
-.05.\
+\\(\alpha\\))% confidence interval contains all of the parameter values
+for which *p* \> \\(\alpha\\) for the current data and model. For
+example, a 95% confidence interval contains all of the values for which
+p \> .05.\
 \
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided
 clear evidence against a parameter value of 0 (same as with any other
 value in the interval), with the level of this evidence defined by the
-chosen \\\alpha\\ level (Rafi & Greenland, 2020; Schweder & Hjort, 2016;
-Xie & Singh, 2013). To infer no effect, additional judgments about what
-parameter values are "close enough" to 0 to be negligible are needed
-("equivalence testing"; Bauer & Kiesser, 1996).
+chosen \\(\alpha\\) level (Rafi & Greenland, 2020; Schweder & Hjort,
+2016; Xie & Singh, 2013). To infer no effect, additional judgments about
+what parameter values are "close enough" to 0 to be negligible are
+needed ("equivalence testing"; Bauer & Kiesser, 1996).
 
 ## Plotting with `see`
 

@@ -1,6 +1,6 @@
-# Interpret Coefficient of Determination (\\R^2\\)
+# Interpret Coefficient of Determination (\\(R^2\\))
 
-Interpret Coefficient of Determination (\\R^2\\)
+Interpret Coefficient of Determination (\\(R^2\\))
 
 ## Usage
 
@@ -12,7 +12,7 @@ interpret_r2(r2, rules = "cohen1988")
 
 - r2:
 
-  Value or vector of \\R^2\\ values.
+  Value or vector of \\(R^2\\) values.
 
 - rules:
 

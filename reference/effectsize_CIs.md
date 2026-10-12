@@ -8,8 +8,8 @@ they are computed in *effectsize*.
 Unless stated otherwise, confidence (compatibility) intervals (CIs) are
 estimated using the noncentrality parameter method (also called the
 "pivot method"). This method finds the noncentrality parameter ("*ncp*")
-of a noncentral *t*, *F*, or \\\chi^2\\ distribution that places the
-observed *t*, *F*, or \\\chi^2\\ test statistic at the desired
+of a noncentral *t*, *F*, or \\(\chi^2\\) distribution that places the
+observed *t*, *F*, or \\(\chi^2\\) test statistic at the desired
 probability point of the distribution. For example, if the observed *t*
 statistic is 2.0, with 50 degrees of freedom, for which cumulative
 noncentral *t* distribution is *t* = 2.0 the .025 quantile (answer: the
@@ -28,20 +28,20 @@ information in a hypothesis test, and more." (Steiger, 2004). Confidence
 (compatibility) intervals and p values are complementary summaries of
 parameter uncertainty given the observed data. A dichotomous hypothesis
 test could be performed with either a CI or a p value. The 100 (1 -
-\\\alpha\\)% confidence interval contains all of the parameter values
-for which *p* \> \\\alpha\\ for the current data and model. For example,
-a 95% confidence interval contains all of the values for which p \>
-.05.\
+\\(\alpha\\))% confidence interval contains all of the parameter values
+for which *p* \> \\(\alpha\\) for the current data and model. For
+example, a 95% confidence interval contains all of the values for which
+p \> .05.\
 \
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided
 clear evidence against a parameter value of 0 (same as with any other
 value in the interval), with the level of this evidence defined by the
-chosen \\\alpha\\ level (Rafi & Greenland, 2020; Schweder & Hjort, 2016;
-Xie & Singh, 2013). To infer no effect, additional judgments about what
-parameter values are "close enough" to 0 to be negligible are needed
-("equivalence testing"; Bauer & Kiesser, 1996).
+chosen \\(\alpha\\) level (Rafi & Greenland, 2020; Schweder & Hjort,
+2016; Xie & Singh, 2013). To infer no effect, additional judgments about
+what parameter values are "close enough" to 0 to be negligible are
+needed ("equivalence testing"; Bauer & Kiesser, 1996).
 
 ## Bootstrapped CIs
 
@@ -54,9 +54,9 @@ negative value. Same goes for
 [U2](https://easystats.github.io/effectsize/reference/p_superiority.md)
 and
 [Overlap](https://easystats.github.io/effectsize/reference/p_superiority.md):
-the null value of \\U_2\\ is 0.5, but it can never be smaller than 0.5;
-am *Overlap* of 1 means "full overlap" (no difference), but it cannot be
-larger than 1.\
+the null value of \\(U_2\\) is 0.5, but it can never be smaller than
+0.5; am *Overlap* of 1 means "full overlap" (no difference), but it
+cannot be larger than 1.\
 \
 When bootstrapping CIs for such effect sizes, the bounds of the CIs will
 never cross (and often will never cover) the null. Therefore, these CIs
@@ -79,10 +79,10 @@ Most effect sizes are not bounded by zero (e.g., *r*, *d*, *g*), and as
 such are generally tested using 2-tailed tests and 2-sided CIs.\
 \
 Some effect sizes are strictly positive–they do have a minimum value, of
-0. For example, \\R^2\\, \\\eta^2\\, \\sr^2\\, and other
+0. For example, \\(R^2\\), \\(\eta^2\\), \\(sr^2\\), and other
 variance-accounted-for effect sizes, as well as Cramer's *V* and
 multiple *R*, range from 0 to 1. These typically involve *F*- or
-\\\chi^2\\-statistics and are generally tested using *1-tailed* tests
+\\(\chi^2\\)-statistics and are generally tested using *1-tailed* tests
 which test whether the estimated effect size is *larger* than the
 hypothesized null value (e.g., 0). In order for a CI to yield the same
 significance decision it must then by a *1-sided* CI, estimating only a
@@ -92,15 +92,15 @@ effect sizes, where `alternative = "greater"` is set.\
 This lower bound interval indicates the smallest effect size that is not
 significantly different from the observed effect size. That is, it is
 the minimum effect size compatible with the observed data, background
-model assumptions, and \\\alpha\\ level. This type of interval does not
-indicate a maximum effect size value; anything up to the maximum
+model assumptions, and \\(\alpha\\) level. This type of interval does
+not indicate a maximum effect size value; anything up to the maximum
 possible value of the effect size (e.g., 1) is in the interval.\
 \
 One-sided CIs can also be used to test against a maximum effect size
-value (e.g., is \\R^2\\ significantly smaller than a perfect correlation
-of 1.0?) by setting `alternative = "less"`. This estimates a CI with
-only an *upper* bound; anything from the minimum possible value of the
-effect size (e.g., 0) up to this upper bound is in the interval.\
+value (e.g., is \\(R^2\\) significantly smaller than a perfect
+correlation of 1.0?) by setting `alternative = "less"`. This estimates a
+CI with only an *upper* bound; anything from the minimum possible value
+of the effect size (e.g., 0) up to this upper bound is in the interval.\
 \
 We can also obtain a 2-sided interval by setting
 `alternative = "two.sided"`. These intervals can be interpreted in the
@@ -110,13 +110,13 @@ same way as other 2-sided intervals, such as those for *r*, *d*, or
 An alternative approach to aligning significance tests using CIs and
 1-tailed *p* values that can often be found in the literature is to
 construct a 2-sided CI at a lower confidence level (e.g.,
-100(1-2\\\alpha\\)% = 100 - 2\*5% = 90%. This estimates the lower bound
-and upper bound for the above 1-sided intervals simultaneously. These
-intervals are commonly reported when conducting **equivalence tests**.
-For example, a 90% 2-sided interval gives the bounds for an equivalence
-test with \\\alpha\\ = .05. However, be aware that this interval does
-not give 95% coverage for the underlying effect size parameter value.
-For that, construct a 95% 2-sided CI.
+100(1-2\\(\alpha\\))% = 100 - 2\*5% = 90%. This estimates the lower
+bound and upper bound for the above 1-sided intervals simultaneously.
+These intervals are commonly reported when conducting **equivalence
+tests**. For example, a 90% 2-sided interval gives the bounds for an
+equivalence test with \\(\alpha\\) = .05. However, be aware that this
+interval does not give 95% coverage for the underlying effect size
+parameter value. For that, construct a 95% 2-sided CI.
 
     data("hardlyworking")
     fit <- lm(salary ~ n_comps, data = hardlyworking)

@@ -53,7 +53,7 @@ Effect sizes for categorical outcomes
   [`cohens_w()`](https://easystats.github.io/effectsize/reference/phi.md)
   [`fei()`](https://easystats.github.io/effectsize/reference/phi.md)
   [`pearsons_c()`](https://easystats.github.io/effectsize/reference/phi.md)
-  : \\\phi\\ and Other Contingency Tables Correlations
+  : \\(\phi\\) and Other Contingency Tables Correlations
 - [`oddsratio()`](https://easystats.github.io/effectsize/reference/oddsratio.md)
   [`riskratio()`](https://easystats.github.io/effectsize/reference/oddsratio.md)
   [`cohens_h()`](https://easystats.github.io/effectsize/reference/oddsratio.md)
@@ -74,7 +74,7 @@ Effect sizes for ANOVA
   [`cohens_f()`](https://easystats.github.io/effectsize/reference/eta_squared.md)
   [`cohens_f_squared()`](https://easystats.github.io/effectsize/reference/eta_squared.md)
   [`eta_squared_posterior()`](https://easystats.github.io/effectsize/reference/eta_squared.md)
-  : \\\eta^2\\ and Other Effect Size for ANOVA
+  : \\(\eta^2\\) and Other Effect Size for ANOVA
 - [`rank_epsilon_squared()`](https://easystats.github.io/effectsize/reference/rank_epsilon_squared.md)
   [`rank_eta_squared()`](https://easystats.github.io/effectsize/reference/rank_epsilon_squared.md)
   [`kendalls_w()`](https://easystats.github.io/effectsize/reference/rank_epsilon_squared.md)
@@ -95,7 +95,7 @@ perdictor dominance
 - [`dominance_analysis()`](https://easystats.github.io/parameters/reference/dominance_analysis.html)
   : Dominance Analysis (from parameters)
 - [`r2_semipartial()`](https://easystats.github.io/effectsize/reference/r2_semipartial.md)
-  : Semi-Partial (Part) Correlation Squared (\\\Delta R^2\\)
+  : Semi-Partial (Part) Correlation Squared (\\(\Delta R^2\\))
 
 ### Correlations
 
@@ -137,7 +137,7 @@ statistics
   [`t_to_f2()`](https://easystats.github.io/effectsize/reference/F_to_eta2.md)
   :
 
-  Convert *F* and *t* Statistics to **partial**-\\\eta^2\\ and Other
+  Convert *F* and *t* Statistics to **partial**-\\(\eta^2\\) and Other
   ANOVA Effect Sizes
 
 - [`chisq_to_phi()`](https://easystats.github.io/effectsize/reference/chisq_to_phi.md)
@@ -147,7 +147,7 @@ statistics
   [`chisq_to_fei()`](https://easystats.github.io/effectsize/reference/chisq_to_phi.md)
   [`chisq_to_pearsons_c()`](https://easystats.github.io/effectsize/reference/chisq_to_phi.md)
   [`phi_to_chisq()`](https://easystats.github.io/effectsize/reference/chisq_to_phi.md)
-  : Convert \\\chi^2\\ to \\\phi\\ and Other Correlation-like Effect
+  : Convert \\(\chi^2\\) to \\(\phi\\) and Other Correlation-like Effect
   Sizes
 
 ### Between Effect Sizes
@@ -308,7 +308,7 @@ sizes
   : Interpret Correlation Coefficient
 
 - [`interpret_r2()`](https://easystats.github.io/effectsize/reference/interpret_r2.md)
-  : Interpret Coefficient of Determination (\\R^2\\)
+  : Interpret Coefficient of Determination (\\(R^2\\))
 
 - [`interpret_rope()`](https://easystats.github.io/effectsize/reference/interpret_rope.md)
   : Interpret Bayesian Posterior Percentage in ROPE.

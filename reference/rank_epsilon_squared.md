@@ -1,7 +1,7 @@
 # Effect Size for Rank Based ANOVA
 
-Compute rank epsilon squared (\\E^2_R\\) or rank eta squared
-(\\\eta^2_H\\) (to accompany
+Compute rank epsilon squared (\\(E^2_R\\)) or rank eta squared
+(\\(\eta^2_H\\)) (to accompany
 [`stats::kruskal.test()`](https://rdrr.io/r/stats/kruskal.test.html)),
 and Kendall's *W* (to accompany
 [`stats::friedman.test()`](https://rdrr.io/r/stats/friedman.test.html))
@@ -131,8 +131,8 @@ differences between groups / higher agreement between raters.
 
 ## Confidence (Compatibility) Intervals (CIs)
 
-Confidence intervals for \\E^2_R\\, \\\eta^2_H\\, and Kendall's *W* are
-estimated using the bootstrap method (using the `{boot}` package).
+Confidence intervals for \\(E^2_R\\), \\(\eta^2_H\\), and Kendall's *W*
+are estimated using the bootstrap method (using the `{boot}` package).
 
 ## Ties
 
@@ -148,20 +148,20 @@ information in a hypothesis test, and more." (Steiger, 2004). Confidence
 (compatibility) intervals and p values are complementary summaries of
 parameter uncertainty given the observed data. A dichotomous hypothesis
 test could be performed with either a CI or a p value. The 100 (1 -
-\\\alpha\\)% confidence interval contains all of the parameter values
-for which *p* \> \\\alpha\\ for the current data and model. For example,
-a 95% confidence interval contains all of the values for which p \>
-.05.\
+\\(\alpha\\))% confidence interval contains all of the parameter values
+for which *p* \> \\(\alpha\\) for the current data and model. For
+example, a 95% confidence interval contains all of the values for which
+p \> .05.\
 \
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided
 clear evidence against a parameter value of 0 (same as with any other
 value in the interval), with the level of this evidence defined by the
-chosen \\\alpha\\ level (Rafi & Greenland, 2020; Schweder & Hjort, 2016;
-Xie & Singh, 2013). To infer no effect, additional judgments about what
-parameter values are "close enough" to 0 to be negligible are needed
-("equivalence testing"; Bauer & Kiesser, 1996).
+chosen \\(\alpha\\) level (Rafi & Greenland, 2020; Schweder & Hjort,
+2016; Xie & Singh, 2013). To infer no effect, additional judgments about
+what parameter values are "close enough" to 0 to be negligible are
+needed ("equivalence testing"; Bauer & Kiesser, 1996).
 
 ## Bootstrapped CIs
 
@@ -172,9 +172,9 @@ between groups, but it can never have a negative value. Same goes for
 [U2](https://easystats.github.io/effectsize/reference/p_superiority.md)
 and
 [Overlap](https://easystats.github.io/effectsize/reference/p_superiority.md):
-the null value of \\U_2\\ is 0.5, but it can never be smaller than 0.5;
-am *Overlap* of 1 means "full overlap" (no difference), but it cannot be
-larger than 1.\
+the null value of \\(U_2\\) is 0.5, but it can never be smaller than
+0.5; am *Overlap* of 1 means "full overlap" (no difference), but it
+cannot be larger than 1.\
 \
 When bootstrapping CIs for such effect sizes, the bounds of the CIs will
 never cross (and often will never cover) the null. Therefore, these CIs

@@ -1,8 +1,8 @@
-# Convert \\\chi^2\\ to \\\phi\\ and Other Correlation-like Effect Sizes
+# Convert \\(\chi^2\\) to \\(\phi\\) and Other Correlation-like Effect Sizes
 
-Convert between \\\chi^2\\ (chi-square), \\\phi\\ (phi), Cramer's \\V\\,
-Tschuprow's \\T\\, Cohen's \\w\\, פ (Fei) and Pearson's \\C\\ for
-contingency tables or goodness of fit.
+Convert between \\(\chi^2\\) (chi-square), \\(\phi\\) (phi), Cramer's
+\\(V\\), Tschuprow's \\(T\\), Cohen's \\(w\\), פ (Fei) and Pearson's
+\\(C\\) for contingency tables or goodness of fit.
 
 ## Usage
 
@@ -70,7 +70,7 @@ phi_to_chisq(phi, n, ...)
 
 - chisq:
 
-  The \\\chi^2\\ (chi-square) statistic.
+  The \\(\chi^2\\) (chi-square) statistic.
 
 - n:
 
@@ -108,7 +108,7 @@ phi_to_chisq(phi, n, ...)
 
 - phi:
 
-  The \\\phi\\ (phi) statistic.
+  The \\(\phi\\) (phi) statistic.
 
 ## Value
 
@@ -125,13 +125,13 @@ These functions use the following formulas:
 \$\$\textrm{Tschuprow's } T = \phi / \sqrt\[4\]{(\textit{nrow} - 1)
 \times (\textit{ncol} - 1)}\$\$
 
-\$\$פ = \phi / \sqrt{\[1 / \min(p_E)\] - 1}\$\$ Where \\p_E\\ are the
+\$\$פ = \phi / \sqrt{\[1 / \min(p_E)\] - 1}\$\$ Where \\(p_E\\) are the
 expected probabilities.
 
 \$\$\textrm{Pearson's } C = \sqrt{\chi^2 / (\chi^2 + n)}\$\$
 
-For versions adjusted for small-sample bias of \\\phi\\, \\V\\, and
-\\T\\, see [Bergsma,
+For versions adjusted for small-sample bias of \\(\phi\\), \\(V\\), and
+\\(T\\), see [Bergsma,
 2013](https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_V#Bias_correction).
 
 ## Confidence (Compatibility) Intervals (CIs)
@@ -139,8 +139,8 @@ For versions adjusted for small-sample bias of \\\phi\\, \\V\\, and
 Unless stated otherwise, confidence (compatibility) intervals (CIs) are
 estimated using the noncentrality parameter method (also called the
 "pivot method"). This method finds the noncentrality parameter ("*ncp*")
-of a noncentral *t*, *F*, or \\\chi^2\\ distribution that places the
-observed *t*, *F*, or \\\chi^2\\ test statistic at the desired
+of a noncentral *t*, *F*, or \\(\chi^2\\) distribution that places the
+observed *t*, *F*, or \\(\chi^2\\) test statistic at the desired
 probability point of the distribution. For example, if the observed *t*
 statistic is 2.0, with 50 degrees of freedom, for which cumulative
 noncentral *t* distribution is *t* = 2.0 the .025 quantile (answer: the
@@ -159,20 +159,20 @@ information in a hypothesis test, and more." (Steiger, 2004). Confidence
 (compatibility) intervals and p values are complementary summaries of
 parameter uncertainty given the observed data. A dichotomous hypothesis
 test could be performed with either a CI or a p value. The 100 (1 -
-\\\alpha\\)% confidence interval contains all of the parameter values
-for which *p* \> \\\alpha\\ for the current data and model. For example,
-a 95% confidence interval contains all of the values for which p \>
-.05.\
+\\(\alpha\\))% confidence interval contains all of the parameter values
+for which *p* \> \\(\alpha\\) for the current data and model. For
+example, a 95% confidence interval contains all of the values for which
+p \> .05.\
 \
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided
 clear evidence against a parameter value of 0 (same as with any other
 value in the interval), with the level of this evidence defined by the
-chosen \\\alpha\\ level (Rafi & Greenland, 2020; Schweder & Hjort, 2016;
-Xie & Singh, 2013). To infer no effect, additional judgments about what
-parameter values are "close enough" to 0 to be negligible are needed
-("equivalence testing"; Bauer & Kiesser, 1996).
+chosen \\(\alpha\\) level (Rafi & Greenland, 2020; Schweder & Hjort,
+2016; Xie & Singh, 2013). To infer no effect, additional judgments about
+what parameter values are "close enough" to 0 to be negligible are
+needed ("equivalence testing"; Bauer & Kiesser, 1996).
 
 ## Plotting with `see`
 

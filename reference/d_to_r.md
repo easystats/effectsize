@@ -63,17 +63,17 @@ Converted index.
 
 Conversions between *d* and *OR* is done through these formulae:
 
-- \\d = \frac{\log(OR)\times\sqrt{3}}{\pi}\\
+- \\(d = \frac{\log(OR)\times\sqrt{3}}{\pi}\\)
 
-- \\log(OR) = d \* \frac{\pi}{\sqrt(3)}\\
+- \\(log(OR) = d \* \frac{\pi}{\sqrt(3)}\\)
 
 Converting between *d* and *r* is done through these formulae:
 
-- \\d = \frac{\sqrt{h} \* r}{\sqrt{1 - r^2}}\\
+- \\(d = \frac{\sqrt{h} \* r}{\sqrt{1 - r^2}}\\)
 
-- \\r = \frac{d}{\sqrt{d^2 + h}}\\
+- \\(r = \frac{d}{\sqrt{d^2 + h}}\\)
 
-Where \\h = \frac{n_1 + n_2 - 2}{n_1} + \frac{n_1 + n_2 - 2}{n_2}\\.
+Where \\(h = \frac{n_1 + n_2 - 2}{n_1} + \frac{n_1 + n_2 - 2}{n_2}\\).
 When groups are of equal size, *h* reduces to approximately 4. The
 resulting *r* is also called the binomial effect size display (BESD;
 Rosenthal et al., 1982).

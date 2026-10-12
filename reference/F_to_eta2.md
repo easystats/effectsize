@@ -1,13 +1,14 @@
-# Convert *F* and *t* Statistics to **partial**-\\\eta^2\\ and Other ANOVA Effect Sizes
+# Convert *F* and *t* Statistics to **partial**-\\(\eta^2\\) and Other ANOVA Effect Sizes
 
 These functions are convenience functions to convert F and t test
-statistics to **partial** Eta- (\\\eta\\), Omega- (\\\omega\\) Epsilon-
-(\\\epsilon\\) squared (an alias for the adjusted Eta squared) and
-Cohen's f. These are useful in cases where the various Sum of Squares
-and Mean Squares are not easily available or their computation is not
-straightforward (e.g., in liner mixed models, contrasts, etc.). For test
-statistics derived from `lm` and `aov` models, these functions give
-exact results. For all other cases, they return close approximations.\
+statistics to **partial** Eta- (\\(\eta\\)), Omega- (\\(\omega\\))
+Epsilon- (\\(\epsilon\\)) squared (an alias for the adjusted Eta
+squared) and Cohen's f. These are useful in cases where the various Sum
+of Squares and Mean Squares are not easily available or their
+computation is not straightforward (e.g., in liner mixed models,
+contrasts, etc.). For test statistics derived from `lm` and `aov`
+models, these functions give exact results. For all other cases, they
+return close approximations.\
 See [Effect Size from Test Statistics
 vignette.](https://easystats.github.io/effectsize/articles/from_test_statistics.html)
 
@@ -103,8 +104,8 @@ df\_{den}}\$\$\
 df\_{den} + 1}\$\$\
 \$\$f_p = \sqrt{\frac{\eta_p^2}{1-\eta_p^2}}\$\$\
 \
-For *t*, the conversion is based on the equality of \\t^2 = F\\ when
-\\df\_{num}=1\\.
+For *t*, the conversion is based on the equality of \\(t^2 = F\\) when
+\\(df\_{num}=1\\).
 
 ### Choosing an Un-Biased Estimate
 
@@ -127,8 +128,8 @@ Epsilon-squared.
 Unless stated otherwise, confidence (compatibility) intervals (CIs) are
 estimated using the noncentrality parameter method (also called the
 "pivot method"). This method finds the noncentrality parameter ("*ncp*")
-of a noncentral *t*, *F*, or \\\chi^2\\ distribution that places the
-observed *t*, *F*, or \\\chi^2\\ test statistic at the desired
+of a noncentral *t*, *F*, or \\(\chi^2\\) distribution that places the
+observed *t*, *F*, or \\(\chi^2\\) test statistic at the desired
 probability point of the distribution. For example, if the observed *t*
 statistic is 2.0, with 50 degrees of freedom, for which cumulative
 noncentral *t* distribution is *t* = 2.0 the .025 quantile (answer: the
@@ -147,20 +148,20 @@ information in a hypothesis test, and more." (Steiger, 2004). Confidence
 (compatibility) intervals and p values are complementary summaries of
 parameter uncertainty given the observed data. A dichotomous hypothesis
 test could be performed with either a CI or a p value. The 100 (1 -
-\\\alpha\\)% confidence interval contains all of the parameter values
-for which *p* \> \\\alpha\\ for the current data and model. For example,
-a 95% confidence interval contains all of the values for which p \>
-.05.\
+\\(\alpha\\))% confidence interval contains all of the parameter values
+for which *p* \> \\(\alpha\\) for the current data and model. For
+example, a 95% confidence interval contains all of the values for which
+p \> .05.\
 \
 Note that a confidence interval including 0 *does not* indicate that the
 null (no effect) is true. Rather, it suggests that the observed data
 together with the model and its assumptions combined do not provided
 clear evidence against a parameter value of 0 (same as with any other
 value in the interval), with the level of this evidence defined by the
-chosen \\\alpha\\ level (Rafi & Greenland, 2020; Schweder & Hjort, 2016;
-Xie & Singh, 2013). To infer no effect, additional judgments about what
-parameter values are "close enough" to 0 to be negligible are needed
-("equivalence testing"; Bauer & Kiesser, 1996).
+chosen \\(\alpha\\) level (Rafi & Greenland, 2020; Schweder & Hjort,
+2016; Xie & Singh, 2013). To infer no effect, additional judgments about
+what parameter values are "close enough" to 0 to be negligible are
+needed ("equivalence testing"; Bauer & Kiesser, 1996).
 
 ## Plotting with `see`
 

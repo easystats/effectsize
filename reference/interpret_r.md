@@ -43,7 +43,7 @@ of the like instead.
 
 ## Note
 
-As \\\phi\\ can be larger than 1 - it is recommended to compute and
+As \\(\phi\\) can be larger than 1 - it is recommended to compute and
 interpret Cramer's *V* instead.
 
 ## Rules
