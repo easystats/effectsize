@@ -1,3 +1,10 @@
+# effectsize (dev)
+
+## Bug fixes
+
+- `rank_biserial(x, y, paired = TRUE)` gives the same CIs as `rank_biserial(x - y)` (#716)
+
+
 # effectsize 1.0.3
 
 ## Bug fixes
