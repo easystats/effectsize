@@ -357,7 +357,7 @@ Bollen, Kenneth A. 1989. *Structural Equations with Latent Variables*.
 John Wiley & Sons. <https://doi.org/10.1002/9781118619179>.
 
 Borenstein, Michael, Larry V Hedges, JPT Higgins, and Hannah R
-Rothstein. 2009. “Converting Among Effect Sizes.” *Introduction to
+Rothstein. 2009. “Converting among Effect Sizes.” *Introduction to
 Meta-Analysis*, 45–49.
 
 Buchanan, Erin M., Amber Gillenwaters, John E. Scofield, and K. D.
@@ -382,7 +382,7 @@ Relative Risks for Better Communication of Research Findings.” *Bmj*
 Hedges, L, and I Olkin. 1985. *Statistical Methods for Meta-Analysis*.
 Academic Press.
 
-Hoffman, Lesa. 2015. *Longitudinal Analysis: Modeling Within-Person
+Hoffman, Lesa. 2015. *Longitudinal Analysis: Modeling within-Person
 Fluctuation and Change*. Routledge.
 
 Kelley, Ken. 2020. *MBESS: The MBESS R Package*.

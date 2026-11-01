@@ -172,10 +172,10 @@ performance::check_collinearity(npk.aov)
 #> 
 #> Low Correlation
 #> 
-#>  Term VIF      VIF  CI adj. VIF Tolerance
-#>     N   1 [1.00, 1.00]        1         1
-#>     P   1 [1.00, 1.00]        1         1
-#>     K   1 [1.00, 1.00]        1         1
+#>  Term VIF   VIF 95% CI adj. VIF Tolerance Tolerance 95% CI
+#>     N   1 [1.00, 1.00]        1         1     [1.00, 1.00]
+#>     P   1 [1.00, 1.00]        1         1     [1.00, 1.00]
+#>     K   1 [1.00, 1.00]        1         1     [1.00, 1.00]
 
 eta_squared(npk.aov, partial = FALSE)
 #> # Effect Size for ANOVA (Type I)

@@ -236,7 +236,7 @@ seniors and non-senior’ salaries by only observing a dichotomize salary
 ## References
 
 Borenstein, Michael, Larry V Hedges, JPT Higgins, and Hannah R
-Rothstein. 2009. “Converting Among Effect Sizes.” *Introduction to
+Rothstein. 2009. “Converting among Effect Sizes.” *Introduction to
 Meta-Analysis*, 45–49.
 
 Sánchez-Meca, Julio, Fulgencio Marı́n-Martı́nez, and Salvador
