@@ -176,7 +176,7 @@ rank_biserial <- function(
 
     rank_f <- atanh(r_rbs)
     if (is_paired_or_onesample) {
-      nd <- sum((x - mu) != 0)
+      nd <- sum((x - y) - mu != 0)
       maxw <- (nd^2 + nd) / 2
 
       # From: https://en.wikipedia.org/wiki/Wilcoxon_signed-rank_test#Historical_T_statistic/

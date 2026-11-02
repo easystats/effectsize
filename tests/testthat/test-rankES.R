@@ -1,14 +1,14 @@
 test_that("rank_biserial", {
-  x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
-  y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
+  x <- c(5.1, 6.0, 7.2, 4.8, 6.5, 5.9, 7.0, 6.1, 5.5, 6.3)
+  y <- c(4.9, 6.0, 6.5, 4.8, 6.8, 5.3, 6.1, 6.1, 5.9, 5.0)
 
   rRB1 <- rank_biserial(x, y, paired = TRUE)
   rRB2 <- rank_biserial(x - y)
 
   expect_equal(rRB1, rRB2, ignore_attr = TRUE)
-  expect_equal(rRB1[[1]], 0.777, tolerance = 0.01)
-  expect_equal(rRB1$CI_low, 0.2953631, tolerance = 0.01)
-  expect_equal(rRB1$CI_high, 0.9441559, tolerance = 0.01)
+  expect_equal(rRB1[[1]], 0.6428571, tolerance = 0.01)
+  expect_equal(rRB1$CI_low, -0.06511553, tolerance = 0.01)
+  expect_equal(rRB1$CI_high, 0.9203429, tolerance = 0.01)
 
   A <- c(48, 48, 77, 86, 85, 85, 16)
   B <- c(14, 34, 34, 77)
