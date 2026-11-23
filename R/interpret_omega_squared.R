@@ -11,12 +11,19 @@
 #'   - **0.01 <= ES < 0.06** - Small
 #'   - **0.06 <= ES < 0.14** - Medium
 #'   - **ES >= 0.14 ** - Large
-#' - Cohen (1992) (`"cohen1992"`) applicable to one-way anova, or to *partial*
-#' eta / omega / epsilon squared in multi-way anova.
+#' - Cohen (1992) (`"cohen1992"`; multiple and multiple partial correlation)
 #'   - **ES < 0.02** - Very small
 #'   - **0.02 <= ES < 0.13** - Small
 #'   - **0.13 <= ES < 0.26** - Medium
 #'   - **ES >= 0.26** - Large
+#'
+#' The `"cohen1992"` cutoffs correspond to the rounded \eqn{R^2} values
+#' obtained from the \eqn{f^2} benchmarks 0.02, 0.15, and 0.35 in row 8 of
+#' Cohen's Table 1 using \eqn{R^2 = f^2 / (1 + f^2)}. Row 7 gives separate
+#' one-way ANOVA benchmarks of \eqn{f} = 0.10, 0.25, and 0.40. Squaring
+#' these values and applying the same conversion gives rounded eta-squared
+#' benchmarks of 0.01, 0.06, and 0.14. Applying either set of cutoffs to
+#' rank epsilon squared from a Kruskal-Wallis test is a descriptive heuristic.
 #'
 #' @examples
 #' interpret_eta_squared(.02)
@@ -28,7 +35,8 @@
 #' - Field, A (2013) Discovering statistics using IBM SPSS Statistics. Fourth
 #' Edition. Sage:London.
 #'
-#' - Cohen, J. (1992). A power primer. Psychological bulletin, 112(1), 155.
+#' - Cohen, J. (1992). [A power primer](https://doi.org/10.1037/0033-2909.112.1.155).
+#'   Psychological Bulletin, 112(1), 155-159.
 #'
 #' @keywords interpreters
 #' @export

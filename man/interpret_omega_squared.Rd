@@ -35,8 +35,7 @@ Interpret ANOVA Effect Sizes
 \item \strong{0.06 <= ES < 0.14} - Medium
 \item **ES >= 0.14 ** - Large
 }
-\item Cohen (1992) (\code{"cohen1992"}) applicable to one-way anova, or to \emph{partial}
-eta / omega / epsilon squared in multi-way anova.
+\item Cohen (1992) (\code{"cohen1992"}; multiple and multiple partial correlation)
 \itemize{
 \item \strong{ES < 0.02} - Very small
 \item \strong{0.02 <= ES < 0.13} - Small
@@ -44,6 +43,14 @@ eta / omega / epsilon squared in multi-way anova.
 \item \strong{ES >= 0.26} - Large
 }
 }
+
+The \code{"cohen1992"} cutoffs correspond to the rounded \eqn{R^2} values
+obtained from the \eqn{f^2} benchmarks 0.02, 0.15, and 0.35 in row 8 of
+Cohen's Table 1 using \eqn{R^2 = f^2 / (1 + f^2)}. Row 7 gives separate
+one-way ANOVA benchmarks of \eqn{f} = 0.10, 0.25, and 0.40. Squaring
+these values and applying the same conversion gives rounded eta-squared
+benchmarks of 0.01, 0.06, and 0.14. Applying either set of cutoffs to
+rank epsilon squared from a Kruskal-Wallis test is a descriptive heuristic.
 }
 
 \examples{
@@ -54,7 +61,8 @@ interpret_eta_squared(c(.5, .02), rules = "cohen1992")
 \itemize{
 \item Field, A (2013) Discovering statistics using IBM SPSS Statistics. Fourth
 Edition. Sage:London.
-\item Cohen, J. (1992). A power primer. Psychological bulletin, 112(1), 155.
+\item Cohen, J. (1992). \href{https://doi.org/10.1037/0033-2909.112.1.155}{A power primer}.
+Psychological Bulletin, 112(1), 155-159.
 }
 }
 \seealso{

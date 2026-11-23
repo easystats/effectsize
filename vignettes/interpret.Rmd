@@ -352,8 +352,7 @@ interpret_omega_squared(x, rules = "field2013")
 
 #### @cohen1992power
 
-These are applicable to one-way ANOVAs, or to *partial* Eta / Omega / Epsilon
-Squared in a multi-way ANOVA.
+Row 8 of Cohen's Table 1 gives $f^2$ benchmarks of 0.02, 0.15, and 0.35 for multiple and multiple partial correlations. Applying $R^2 = f^2 / (1 + f^2)$ gives the rounded `"cohen1992"` cutoffs below. Row 7 gives separate one-way ANOVA benchmarks of $f$ = 0.10, 0.25, and 0.40. Squaring these values and applying the same conversion gives rounded eta-squared benchmarks of 0.01, 0.06, and 0.14. Applying either set of cutoffs to rank epsilon squared from a Kruskal-Wallis test is a descriptive heuristic.
 
 ```r
 interpret_omega_squared(x, rules = "cohen1992")
