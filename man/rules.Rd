@@ -10,7 +10,7 @@ rules(values, labels = NULL, name = NULL, right = TRUE)
 
 is.rules(x)
 
-\method{transform}{rules}(`_data`, transform = "identity", new_name = NULL)
+\method{transform}{rules}(`_data`, transform = "identity", new_name = NULL, ...)
 }
 \arguments{
 \item{values}{Vector of reference values (edges defining categories or

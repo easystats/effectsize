@@ -89,7 +89,12 @@ is.rules <- function(x) inherits(x, "rules")
 #' @param new_name Name to give to the new rule. Defaults to `transform(old_name)`
 #' @param transform Transformation to apply to the rules' values.
 #' @export
-transform.rules <- function(`_data`, transform = "identity", new_name = NULL) {
+transform.rules <- function(
+  `_data`,
+  transform = "identity",
+  new_name = NULL,
+  ...
+) {
   if (is.null(new_name)) {
     f_name <- make.names(as.character(substitute(transform)))
     new_name <- sprintf("%s(%s)", f_name, attr(`_data`, "rule_name"))
