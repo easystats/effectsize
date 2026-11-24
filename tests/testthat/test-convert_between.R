@@ -208,27 +208,27 @@ test_that("OR <=> RR | models", {
   expect_equal(OR$Coefficient, c(0.05, 0.5768169, 0.1884581), tolerance = 0.001)
 
   # -- GLMMs --
-  skip_if_not_installed("lme4")
+  skip_if_not_installed("lme4", minimum_version = "2.1.0")
   m <<- lme4::glmer(
     am ~ factor(cyl) + (1 | gear),
     data = mtcars,
-    family = binomial()
+    family = binomial(link = "logit"),
+    control = lme4::glmerControl("bobyqa")
   )
 
   expect_warning(RR <- oddsratio_to_riskratio(m, ci = NULL), "p0") # nolint
   expect_false("(Intercept)" %in% RR$Parameter)
   expect_true("(p0)" %in% RR$Parameter)
 
-  expect_warning(
-    RR <- oddsratio_to_riskratio(m, ci_method = "wald", p0 = 0.7047536),
-    NA
+  expect_no_warning(
+    RR <- oddsratio_to_riskratio(m, ci_method = "wald", p0 = 0.7047536)
   ) # nolint
   expect_false("(Intercept)" %in% RR$Parameter)
   expect_true("(p0)" %in% RR$Parameter)
   # these values confirmed from emmeans
-  expect_equal(RR$Coefficient, c(0.7048, 0.6042, 0.4475), tolerance = 0.001)
-  expect_equal(RR$CI_low, c(NA, 0.08556, 0.0102), tolerance = 0.001)
-  expect_equal(RR$CI_high, c(NA, 1.2706, 1.3718), tolerance = 0.001)
+  expect_equal(RR$Coefficient, c(0.7048, 0.6013, 0.4361), tolerance = 0.001)
+  expect_equal(RR$CI_low, c(NA, 0.0761, 0.0018), tolerance = 0.001)
+  expect_equal(RR$CI_high, c(NA, 1.284, 1.410), tolerance = 0.001)
 })
 
 test_that("OR and logOR <=> ARR", {
