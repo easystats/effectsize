@@ -3,11 +3,14 @@
 \name{rules}
 \alias{rules}
 \alias{is.rules}
+\alias{transform.rules}
 \title{Create an Interpretation Grid}
 \usage{
 rules(values, labels = NULL, name = NULL, right = TRUE)
 
 is.rules(x)
+
+\method{transform}{rules}(`_data`, transform = "identity", new_name = NULL)
 }
 \arguments{
 \item{values}{Vector of reference values (edges defining categories or
@@ -24,14 +27,23 @@ themselves should be included in the interval to the right (lower values)
 or in the interval to the left (higher values).}
 
 \item{x}{An arbitrary R object.}
+
+\item{_data}{A set of \code{rules}.}
 }
 \description{
 Create a container for interpretation rules of thumb. Usually used in conjunction with \link{interpret}.
 }
 \examples{
-rules(c(0.05), c("significant", "not significant"), right = FALSE)
 rules(c(0.2, 0.5, 0.8), c("small", "medium", "large"))
 rules(c("small" = 0.2, "medium" = 0.5), name = "Cohen's Rules")
+
+(sig_rules <- rules(c(0.05), c("significant", "not significant"), right = FALSE))
+
+# Convert the rules for p-values to the rules for S-values
+p_to_S <- function(p) -log2(p)
+transform(sig_rules, p_to_S)
+
+
 }
 \seealso{
 \code{\link[=interpret]{interpret()}}
