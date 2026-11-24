@@ -1,6 +1,6 @@
 ---
 title: "Automated Interpretation of Indices of Effect Size"
-output: 
+output:
   rmarkdown::html_vignette:
     toc: true
     fig_width: 10.08
@@ -10,7 +10,7 @@ vignette: >
   \usepackage[utf8]{inputenc}
   %\VignetteIndexEntry{Automated Interpretation of Indices of Effect Size}
   %\VignetteEngine{knitr::rmarkdown}
-editor_options: 
+editor_options:
   chunk_output_type: console
 bibliography: bibliography.bib
 ---
@@ -329,7 +329,7 @@ interpret_r2(x, rules = "hair2011")
 
 - **R2 >= 0.75** - Substantial
 
-## Omega / Eta / Epsilon Squared
+## Omega / Eta / Epsilon Squared and Cohen's f Squared
 
 The Omega squared is a measure of effect size used in ANOVAs. It is an estimate
 of how much variance in the response variables are accounted for by the
@@ -352,7 +352,7 @@ interpret_omega_squared(x, rules = "field2013")
 
 #### @cohen1992power
 
-Row 8 of Cohen's Table 1 gives $f^2$ benchmarks of 0.02, 0.15, and 0.35 for multiple and multiple partial correlations. Applying $R^2 = f^2 / (1 + f^2)$ gives the rounded `"cohen1992"` cutoffs below. Row 7 gives separate one-way ANOVA benchmarks of $f$ = 0.10, 0.25, and 0.40. Squaring these values and applying the same conversion gives rounded eta-squared benchmarks of 0.01, 0.06, and 0.14. Applying either set of cutoffs to rank epsilon squared from a Kruskal-Wallis test is a descriptive heuristic.
+Row 8 of Cohen's Table 1 gives $f^2$ benchmarks of 0.02, 0.15, and 0.35 for multiple and multiple partial correlations. Applying $R^2 = f^2 / (1 + f^2)$ (`f2_to_eta2()`) gives the rounded `"cohen1992"` cutoffs below.
 
 ```r
 interpret_omega_squared(x, rules = "cohen1992")
@@ -366,6 +366,12 @@ interpret_omega_squared(x, rules = "cohen1992")
 
 - **ES >= 0.26** - Large
 
+
+Row 7 gives separate one-way ANOVA benchmarks of $f$ = 0.10, 0.25, and 0.40. Squaring these values and applying the same conversion gives rounded eta-squared benchmarks of 0.01, 0.06, and 0.14. Applying either set of cutoffs to rank epsilon squared from a Kruskal-Wallis test is a descriptive heuristic.
+
+```r
+interpret_cohens_f(x, rules = "cohen1992r7")
+```
 
 ##  Kendall's coefficient of concordance
 
