@@ -68,7 +68,7 @@ eta2_to_f2(c(small = 0.01, medium = 0.06, large = 0.14))
 }\if{html}{\out{</div>}}
 
 Cohen's rules are derived by applying the reverse transformation on Cohen's
-cut-offs for \eqn{f^2} (row 8) and \enq{f} (row 7):
+cut-offs for \eqn{f^2} (row 8) and \eqn{f} (row 7):
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{# Row 8
 f2_to_eta2(c(small = 0.02, medium = 0.15, large = 0.35))

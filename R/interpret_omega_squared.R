@@ -32,7 +32,7 @@
 #' ```
 #'
 #' Cohen's rules are derived by applying the reverse transformation on Cohen's
-#' cut-offs for \eqn{f^2} (row 8) and \enq{f} (row 7):
+#' cut-offs for \eqn{f^2} (row 8) and \eqn{f} (row 7):
 #'
 #' ```{r}
 #' # Row 8
