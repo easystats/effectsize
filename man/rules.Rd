@@ -29,6 +29,10 @@ or in the interval to the left (higher values).}
 \item{x}{An arbitrary R object.}
 
 \item{_data}{A set of \code{rules}.}
+
+\item{transform}{Transformation to apply to the rules' values.}
+
+\item{new_name}{Name to give to the new rule. Defaults to \code{transform(old_name)}}
 }
 \description{
 Create a container for interpretation rules of thumb. Usually used in conjunction with \link{interpret}.

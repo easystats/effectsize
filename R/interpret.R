@@ -86,6 +86,8 @@ is.rules <- function(x) inherits(x, "rules")
 
 #' @rdname rules
 #' @param `_data` A set of `rules`.
+#' @param new_name Name to give to the new rule. Defaults to `transform(old_name)`
+#' @param transform Transformation to apply to the rules' values.
 #' @export
 transform.rules <- function(`_data`, transform = "identity", new_name = NULL) {
   if (is.null(new_name)) {
