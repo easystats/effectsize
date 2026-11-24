@@ -1015,7 +1015,6 @@ cohens_f_squared <- function(
       include_intercept = include_intercept
     )
 
-  ## TODO: add back `effects = "fixed"` once the deprecation warning in parameters is removed
   attr(out, "anova_type") <- tryCatch(
     attr(
       parameters::model_parameters(
@@ -1060,7 +1059,6 @@ cohens_f_squared <- function(
 
   # TODO this should be in .anova_es.anvoa
   # TODO the aov method should convert to an anova table, then pass to anova
-  ## TODO: add back `effects = "fixed"` once the deprecation warning in parameters is removed
   params <- parameters::model_parameters(
     model,
     verbose = verbose,
@@ -1103,7 +1101,6 @@ cohens_f_squared <- function(
   include_intercept = FALSE,
   ...
 ) {
-  ## TODO: add back `effects = "fixed"` once the deprecation warning in parameters is removed
   params <- parameters::model_parameters(
     model,
     verbose = verbose,

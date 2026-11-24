@@ -320,7 +320,6 @@
   verbose = TRUE,
   ...
 ) {
-  ## TODO: add back `effects = "fixed"` once the deprecation warning in parameters is removed
   params <- parameters::model_parameters(
     model,
     verbose = verbose,
