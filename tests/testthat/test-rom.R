@@ -56,8 +56,8 @@ test_that("means_ratio - adjusted", {
   )
   expect_equal(colnames(x)[1], "Means_ratio_adjusted")
   expect_equal(x[[1]], 1 / 1.56, tolerance = 0.001)
-  expect_equal(x$CI_high, 1 / 1.320838, tolerance = 0.001)
-  expect_equal(x$CI_low, 1 / 1.844883, tolerance = 0.001)
+  expect_equal(x$CI_high, 1 / 1.320453, tolerance = 0.001)
+  expect_equal(x$CI_low, 1 / 1.845421, tolerance = 0.001)
 
   x2 <- means_ratio(
     x = subset(mtcars, am == 1)$wt,
@@ -67,8 +67,8 @@ test_that("means_ratio - adjusted", {
   )
 
   expect_equal(x2[[1]], log(1 / 1.561023), tolerance = 0.001)
-  expect_equal(x2$CI_high, log(1 / 1.320838), tolerance = 0.001)
-  expect_equal(x2$CI_low, log(1 / 1.844883), tolerance = 0.001)
+  expect_equal(x2$CI_high, log(1 / 1.320453), tolerance = 0.001)
+  expect_equal(x2$CI_low, log(1 / 1.845421), tolerance = 0.001)
 })
 
 test_that("means_ratio - not adjusted", {
@@ -101,8 +101,8 @@ test_that("means_ratio paired - adjusted", {
   )
   expect_equal(colnames(x)[1], "Means_ratio_adjusted")
   expect_equal(x[[1]], 0.752, tolerance = 0.001)
-  expect_equal(x$CI_low, 0.652, tolerance = 0.001)
-  expect_equal(x$CI_high, 0.867, tolerance = 0.001)
+  expect_equal(x$CI_low, 0.651, tolerance = 0.001)
+  expect_equal(x$CI_high, 0.868, tolerance = 0.001)
 })
 
 test_that("means_ratio paired - not adjusted", {
@@ -126,4 +126,32 @@ test_that("means_ratio paired - not adjusted", {
   expect_equal(x[[1]], 0.75, tolerance = 0.001)
   expect_equal(x$CI_low, .651, tolerance = 0.001)
   expect_equal(x$CI_high, 0.865, tolerance = 0.001)
+})
+
+test_that("means_ratio - adjusted variance is symmetric (Lajeunesse 2015 Eq. 5)", {
+  x <- c(1.83, 0.50, 1.62, 2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
+  y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
+
+  rom_xy <- means_ratio(x, y, adjust = TRUE)
+  rom_yx <- means_ratio(y, x, adjust = TRUE)
+
+  expect_equal(rom_xy[[1]], 1 / rom_yx[[1]], tolerance = 1e-12)
+  expect_equal(rom_xy$CI_low, 1 / rom_yx$CI_high, tolerance = 1e-12)
+  expect_equal(rom_xy$CI_high, 1 / rom_yx$CI_low, tolerance = 1e-12)
+
+  m1 <- mean(x)
+  sd1 <- sd(x)
+  n1 <- length(x)
+  m2 <- mean(y)
+  sd2 <- sd(y)
+  n2 <- length(y)
+  v_xy <- .logrom_calc(m1, sd1, n1, m2, sd2, n2, adjust = TRUE)$var_rom
+  v_yx <- .logrom_calc(m2, sd2, n2, m1, sd1, n1, adjust = TRUE)$var_rom
+  v_expected <- sd1^2 /
+    (n1 * m1^2) +
+    sd2^2 / (n2 * m2^2) +
+    0.5 * (sd1^4 / (n1^2 * m1^4) + sd2^4 / (n2^2 * m2^4))
+
+  expect_equal(v_xy, v_yx, tolerance = 1e-12)
+  expect_equal(v_xy, v_expected, tolerance = 1e-12)
 })

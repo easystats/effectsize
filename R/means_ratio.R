@@ -232,7 +232,7 @@ means_ratio <- function(
     J <- 0.5 * (sd1^2 / (n1 * m1^2) - sd2^2 / (n2 * m2^2))
     y_i <- y_i + J
 
-    Jvar <- 0.5 * (sd1^4 / (n1^2 * m1^4) - sd2^4 / (n2^2 * m2^4))
+    Jvar <- 0.5 * (sd1^4 / (n1^2 * m1^4) + sd2^4 / (n2^2 * m2^4))
     v_i <- v_i + Jvar
   }
 
