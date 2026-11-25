@@ -19,9 +19,16 @@
 #' @seealso [interpret()]
 #'
 #' @examples
-#' rules(c(0.05), c("significant", "not significant"), right = FALSE)
 #' rules(c(0.2, 0.5, 0.8), c("small", "medium", "large"))
 #' rules(c("small" = 0.2, "medium" = 0.5), name = "Cohen's Rules")
+#'
+#' (sig_rules <- rules(c(0.05), c("significant", "not significant"), right = FALSE))
+#'
+#' # Convert the rules for p-values to the rules for S-values
+#' p_to_S <- function(p) -log2(p)
+#' transform(sig_rules, p_to_S)
+#'
+#'
 #' @export
 rules <- function(values, labels = NULL, name = NULL, right = TRUE) {
   if (is.null(labels)) {
@@ -77,6 +84,28 @@ rules <- function(values, labels = NULL, name = NULL, right = TRUE) {
 #' @export
 is.rules <- function(x) inherits(x, "rules")
 
+#' @rdname rules
+#' @param `_data` A set of `rules`.
+#' @param ... Arguments passed to the `transform` function in `transform()`. Otherwise ignored.
+#' @param new_name Name to give to the new rule. Defaults to `transform(old_name)`
+#' @param transform Transformation to apply to the rules' values.
+#' @export
+transform.rules <- function(
+  `_data`,
+  transform = "identity",
+  new_name = NULL,
+  ...
+) {
+  if (is.null(new_name)) {
+    f_name <- make.names(as.character(substitute(transform)))
+    new_name <- sprintf("%s(%s)", f_name, attr(`_data`, "rule_name"))
+  }
+
+  transform <- match.fun(transform)
+  `_data`$values <- transform(`_data`$values, ...)
+  attr(`_data`, "rule_name") <- new_name
+  `_data`
+}
 
 # Interpret ---------------------------------------------------------------
 

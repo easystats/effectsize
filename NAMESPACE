@@ -61,6 +61,7 @@ S3method(riskratio_to_nnt,default)
 S3method(riskratio_to_nnt,numeric)
 S3method(riskratio_to_oddsratio,default)
 S3method(riskratio_to_oddsratio,numeric)
+S3method(transform,rules)
 export(.es_aov_simple)
 export(.es_aov_strata)
 export(.es_aov_table)
@@ -127,6 +128,8 @@ export(interpret_agfi)
 export(interpret_bf)
 export(interpret_cfi)
 export(interpret_cohens_d)
+export(interpret_cohens_f)
+export(interpret_cohens_f2)
 export(interpret_cohens_g)
 export(interpret_cramers_v)
 export(interpret_direction)
@@ -240,11 +243,17 @@ export(wmw_odds)
 export(z_to_d)
 export(z_to_r)
 importFrom(bayestestR,equivalence_test)
-importFrom(datawizard,standardise)
-importFrom(datawizard,standardize)
-importFrom(insight,display)
-importFrom(insight,print_html)
-importFrom(insight,print_md)
-importFrom(parameters,standardize_info)
-importFrom(parameters,standardize_parameters)
-importFrom(parameters,standardize_posteriors)
+importFrom(datawizard,
+  standardise,
+  standardize
+)
+importFrom(insight,
+  display,
+  print_html,
+  print_md
+)
+importFrom(parameters,
+  standardize_info,
+  standardize_parameters,
+  standardize_posteriors
+)

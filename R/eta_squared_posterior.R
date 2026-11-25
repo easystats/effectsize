@@ -1,6 +1,6 @@
 #' @param ss_function For Bayesian models, the function used to extract
-#'   sum-of-squares. Uses [`anova()`] by default, but can also be `car::Anova()`
-#'   for simple linear models.
+#'   sum-of-squares. Uses [`stats::anova()`] by default, but can also be
+#'   `car::Anova()` for simple linear models.
 #' @param draws For Bayesian models, an integer indicating the number of draws
 #'   from the posterior predictive distribution to return. Larger numbers take
 #'   longer to run, but provide estimates that are more stable.

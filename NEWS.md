@@ -1,5 +1,9 @@
 # effectsize (dev)
 
+## New features
+
+- New `transform()` method for rules, allowing to applied transformed rules.
+
 ## Bug fixes
 
 - `rank_biserial(x, y, paired = TRUE)` gives the same CIs as `rank_biserial(x - y)` (#716)
