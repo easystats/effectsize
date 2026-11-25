@@ -5,6 +5,8 @@
 \alias{interpret_eta_squared}
 \alias{interpret_epsilon_squared}
 \alias{interpret_r2_semipartial}
+\alias{interpret_cohens_f2}
+\alias{interpret_cohens_f}
 \title{Interpret ANOVA Effect Sizes}
 \usage{
 interpret_omega_squared(es, rules = "field2013", ...)
@@ -14,11 +16,17 @@ interpret_eta_squared(es, rules = "field2013", ...)
 interpret_epsilon_squared(es, rules = "field2013", ...)
 
 interpret_r2_semipartial(es, rules = "field2013", ...)
+
+interpret_cohens_f2(es, rules = "field2013", ...)
+
+interpret_cohens_f(es, rules = "field2013", ...)
 }
 \arguments{
-\item{es}{Value or vector of (partial) eta / omega / epsilon squared or semipartial r squared values.}
+\item{es}{Value or vector of (partial) eta / omega / epsilon squared or
+semipartial r squared values, or Cohen's f or f squared.}
 
-\item{rules}{Can be \code{"field2013"} (default), \code{"cohen1992"} or custom set of \code{\link[=rules]{rules()}}.}
+\item{rules}{Can be \code{"field2013"} (default for eta squared), \code{"cohen1992"}
+(default for f squared) or custom set of \code{\link[=rules]{rules()}}.}
 
 \item{...}{Not used for now.}
 }
@@ -35,26 +43,56 @@ Interpret ANOVA Effect Sizes
 \item \strong{0.06 <= ES < 0.14} - Medium
 \item **ES >= 0.14 ** - Large
 }
-\item Cohen (1992) (\code{"cohen1992"}) applicable to one-way anova, or to \emph{partial}
-eta / omega / epsilon squared in multi-way anova.
+\item Cohen (1992) table 1 row 8 (\code{"cohen1992r8"} or \code{"cohen1992"}; multiple and multiple partial correlation)
 \itemize{
 \item \strong{ES < 0.02} - Very small
 \item \strong{0.02 <= ES < 0.13} - Small
 \item \strong{0.13 <= ES < 0.26} - Medium
 \item \strong{ES >= 0.26} - Large
 }
+\item Cohen (1992) row 7 (\code{"cohen1992r7"}; one-way ANOVA)
+\itemize{
+\item \strong{ES < 0.01} - Very small
+\item \strong{0.01 <= ES < 0.06} - Small
+\item \strong{0.06 <= ES < 0.14} - Medium
+\item \strong{ES >= 0.14} - Large
 }
+}
+
+The same rules can be applied to Cohen's \eqn{f^2} (and \eqn{f}) by transforming those values:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# Field (2013)
+eta2_to_f2(c(small = 0.01, medium = 0.06, large = 0.14))
+#>      small     medium      large 
+#> 0.01010101 0.06382979 0.16279070
+}\if{html}{\out{</div>}}
+
+Cohen's rules are derived by applying the reverse transformation on Cohen's
+cut-offs for \eqn{f^2} (row 8) and \eqn{f} (row 7):
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# Row 8
+f2_to_eta2(c(small = 0.02, medium = 0.15, large = 0.35))
+#>      small     medium      large 
+#> 0.01960784 0.13043478 0.25925926
+
+# Row 7
+f_to_eta2(c(small = 0.1, medium = 0.25, large = 0.4))
+#>      small     medium      large 
+#> 0.00990099 0.05882353 0.13793103
+}\if{html}{\out{</div>}}
 }
 
 \examples{
 interpret_eta_squared(.02)
-interpret_eta_squared(c(.5, .02), rules = "cohen1992")
+interpret_eta_squared(c(.5, .02), rules = "cohen1992r8")
+
 }
 \references{
 \itemize{
 \item Field, A (2013) Discovering statistics using IBM SPSS Statistics. Fourth
 Edition. Sage:London.
-\item Cohen, J. (1992). A power primer. Psychological bulletin, 112(1), 155.
+\item Cohen, J. (1992). \href{https://doi.org/10.1037/0033-2909.112.1.155}{A power primer}.
+Psychological Bulletin, 112(1), 155-159.
 }
 }
 \seealso{
