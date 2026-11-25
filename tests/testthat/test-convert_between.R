@@ -99,6 +99,31 @@ test_that("OR and logOR <=> d, r", {
     r_to_logoddsratio(0.5),
     tolerance = 1e-4
   )
+
+  # n1 and n2 are forwarded to r_to_d()
+  expect_equal(
+    r_to_oddsratio(0.5, n1 = 10, n2 = 40),
+    d_to_oddsratio(r_to_d(0.5, n1 = 10, n2 = 40)),
+    tolerance = 1e-12
+  )
+  expect_equal(
+    r_to_logoddsratio(0.5, n1 = 10, n2 = 40),
+    d_to_logoddsratio(r_to_d(0.5, n1 = 10, n2 = 40)),
+    tolerance = 1e-12
+  )
+  expect_equal(
+    oddsratio_to_r(r_to_oddsratio(0.5, n1 = 10, n2 = 40), n1 = 10, n2 = 40),
+    0.5,
+    tolerance = 1e-12
+  )
+  expect_identical(
+    r_to_oddsratio(0.5, n1 = 10),
+    r_to_oddsratio(0.5, 10, 10)
+  )
+  expect_identical(
+    r_to_logoddsratio(0.5, n2 = 10),
+    r_to_logoddsratio(0.5, 10, 10)
+  )
 })
 
 # OR, RR, ARR, NNT -------------------------
