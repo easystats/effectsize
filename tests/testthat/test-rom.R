@@ -127,3 +127,43 @@ test_that("means_ratio paired - not adjusted", {
   expect_equal(x$CI_low, .651, tolerance = 0.001)
   expect_equal(x$CI_high, 0.865, tolerance = 0.001)
 })
+
+test_that("means_ratio - one-sided CI lower bound on ratio and log scales", {
+  r_less <- means_ratio(
+    iris$Sepal.Length,
+    iris$Sepal.Width,
+    alternative = "less"
+  )
+  expect_identical(r_less$CI_low, 0)
+
+  r_less_log <- means_ratio(
+    iris$Sepal.Length,
+    iris$Sepal.Width,
+    alternative = "less",
+    log = TRUE
+  )
+  expect_identical(r_less_log$CI_low, -Inf)
+
+  r_less_small <- means_ratio(
+    iris$Sepal.Width,
+    iris$Sepal.Length,
+    alternative = "less"
+  )
+  expect_identical(r_less_small$CI_low, 0)
+  expect_lt(r_less_small$CI_low, r_less_small$CI_high)
+
+  r_greater <- means_ratio(
+    iris$Sepal.Length,
+    iris$Sepal.Width,
+    alternative = "greater"
+  )
+  expect_identical(r_greater$CI_high, Inf)
+
+  r_greater_log <- means_ratio(
+    iris$Sepal.Length,
+    iris$Sepal.Width,
+    alternative = "greater",
+    log = TRUE
+  )
+  expect_identical(r_greater_log$CI_high, Inf)
+})
