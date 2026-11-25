@@ -250,6 +250,25 @@ test_that("Cohen's f - R2 change", {
   )
 })
 
+test_that("cohens_f() and cohens_f_squared() forward generalized", {
+  df <- mtcars
+  df$am_f <- factor(df$am)
+  df$cyl_f <- factor(df$cyl)
+  mod <- aov(mpg ~ am_f * cyl_f, data = df)
+
+  eta_gen <- eta_squared(mod, generalized = "cyl_f", ci = 0.95)
+  f_gen <- cohens_f(mod, generalized = "cyl_f", ci = 0.95)
+  f2_gen <- cohens_f_squared(mod, generalized = "cyl_f", ci = 0.95)
+
+  expect_equal(f_gen$Cohens_f, eta2_to_f(eta_gen$Eta2_generalized))
+  expect_equal(f_gen$CI_low, eta2_to_f(eta_gen$CI_low))
+  expect_equal(f_gen$CI_high, eta2_to_f(eta_gen$CI_high))
+
+  expect_equal(f2_gen$Cohens_f2, eta2_to_f2(eta_gen$Eta2_generalized))
+  expect_equal(f2_gen$CI_low, eta2_to_f2(eta_gen$CI_low))
+  expect_equal(f2_gen$CI_high, eta2_to_f2(eta_gen$CI_high))
+})
+
 # generalized Eta -------------------------------------------------------------
 test_that("generalized | between", {
   skip_if_not_installed("afex")
