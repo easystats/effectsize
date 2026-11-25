@@ -232,6 +232,40 @@ test_that("oddsratio & riskratio", {
   expect_equal(NNT[[1]], arr_to_nnt(arr(x, y)[[1]]))
 })
 
+test_that("nnt() one-sided CIs invert the finite ARR bound", {
+  # ARR > 0 (NNT > 0)
+  RCT_pos <- rbind(
+    c(100, 50),
+    c(30, 71)
+  )
+  nnt_pos_2s <- nnt(RCT_pos, ci = 0.90, alternative = "two.sided")
+  nnt_pos_gt <- nnt(RCT_pos, ci = 0.95, alternative = "greater")
+  nnt_pos_lt <- nnt(RCT_pos, ci = 0.95, alternative = "less")
+  arr_pos_lt <- arr(RCT_pos, ci = 0.95, alternative = "less")
+
+  expect_equal(nnt_pos_gt$CI_low, 1 / arr_pos_lt$CI_high, tolerance = 1e-12)
+  expect_equal(nnt_pos_gt$CI_low, nnt_pos_2s$CI_low, tolerance = 1e-12)
+  expect_identical(nnt_pos_gt$CI_high, Inf)
+  expect_identical(nnt_pos_lt$CI_low, -Inf)
+  expect_equal(nnt_pos_lt$CI_high, nnt_pos_2s$CI_high, tolerance = 1e-12)
+
+  # ARR < 0 (NNT < 0)
+  RCT_neg <- rbind(
+    c(30, 71),
+    c(100, 50)
+  )
+  nnt_neg_2s <- nnt(RCT_neg, ci = 0.90, alternative = "two.sided")
+  nnt_neg_lt <- nnt(RCT_neg, ci = 0.95, alternative = "less")
+  nnt_neg_gt <- nnt(RCT_neg, ci = 0.95, alternative = "greater")
+  arr_neg_gt <- arr(RCT_neg, ci = 0.95, alternative = "greater")
+
+  expect_identical(nnt_neg_lt$CI_low, -Inf)
+  expect_equal(nnt_neg_lt$CI_high, 1 / arr_neg_gt$CI_low, tolerance = 1e-12)
+  expect_equal(nnt_neg_lt$CI_high, nnt_neg_2s$CI_high, tolerance = 1e-12)
+  expect_equal(nnt_neg_gt$CI_low, nnt_neg_2s$CI_low, tolerance = 1e-12)
+  expect_identical(nnt_neg_gt$CI_high, Inf)
+})
+
 
 test_that("fei() for 1D tables", {
   data(Titanic)

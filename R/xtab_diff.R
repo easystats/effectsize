@@ -360,7 +360,7 @@ nnt <- function(x, y = NULL, ci = 0.95, alternative = "two.sided", ...) {
 
   if ("CI" %in% colnames(out)) {
     ci_sign <- unlist(sign(out[c("CI_low", "CI_high")]))
-    if (all(ci_sign == 1) || all(ci_sign == -1)) {
+    if (alternative != "two.sided" || all(ci_sign == 1) || all(ci_sign == -1)) {
       out[c("CI_low", "CI_high")] <- 1 / out[c("CI_high", "CI_low")]
     } else {
       out[c("CI_low", "CI_high")] <- 1 / out[c("CI_low", "CI_high")]
