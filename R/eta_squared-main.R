@@ -340,7 +340,6 @@ cohens_f <- function(
   f <- switch(
     method,
     eta = eta_squared,
-    generalized = generalized,
     omega = omega_squared,
     epsilon = epsilon_squared
   )
@@ -348,6 +347,7 @@ cohens_f <- function(
   res <- f(
     model,
     partial = partial,
+    generalized = generalized,
     ci = ci,
     alternative = alternative,
     verbose = verbose,
