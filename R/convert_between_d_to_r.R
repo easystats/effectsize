@@ -135,7 +135,7 @@ logoddsratio_to_r <- function(logOR, p0, n1, n2, log = TRUE, ...) {
 #' @rdname d_to_r
 #' @export
 r_to_oddsratio <- function(r, n1, n2, log = FALSE, ...) {
-  d_to_oddsratio(r_to_d(r), log = log, n1, n2)
+  d_to_oddsratio(r_to_d(r, n1, n2), log = log)
 }
 
 #' @rdname d_to_r
