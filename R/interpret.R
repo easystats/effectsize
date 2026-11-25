@@ -86,6 +86,7 @@ is.rules <- function(x) inherits(x, "rules")
 
 #' @rdname rules
 #' @param `_data` A set of `rules`.
+#' @param ... Arguments passed to the `transform` function in `transform()`. Otherwise ignored.
 #' @param new_name Name to give to the new rule. Defaults to `transform(old_name)`
 #' @param transform Transformation to apply to the rules' values.
 #' @export
@@ -101,7 +102,7 @@ transform.rules <- function(
   }
 
   transform <- match.fun(transform)
-  `_data`$values <- transform(`_data`$values)
+  `_data`$values <- transform(`_data`$values, ...)
   attr(`_data`, "rule_name") <- new_name
   `_data`
 }

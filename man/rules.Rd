@@ -33,6 +33,8 @@ or in the interval to the left (higher values).}
 \item{transform}{Transformation to apply to the rules' values.}
 
 \item{new_name}{Name to give to the new rule. Defaults to \code{transform(old_name)}}
+
+\item{...}{Arguments passed to the \code{transform} function in \code{transform()}. Otherwise ignored.}
 }
 \description{
 Create a container for interpretation rules of thumb. Usually used in conjunction with \link{interpret}.
