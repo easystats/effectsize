@@ -297,7 +297,7 @@ d = log(OR) \times \frac{\sqrt{3}}{\pi}
 
 - **R2 \>= 0.75** - Substantial
 
-### Omega / Eta / Epsilon Squared
+### Omega / Eta / Epsilon Squared and Cohen’s f Squared
 
 The Omega squared is a measure of effect size used in ANOVAs. It is an
 estimate of how much variance in the response variables are accounted
@@ -320,8 +320,11 @@ are small.
 
 ##### Cohen (1992)
 
-These are applicable to one-way ANOVAs, or to *partial* Eta / Omega /
-Epsilon Squared in a multi-way ANOVA.
+Row 8 of Cohen’s Table 1 gives f^2 benchmarks of 0.02, 0.15, and 0.35
+for multiple and multiple partial correlations. Applying R^2 = f^2 /
+(1 + f^2)
+([`f2_to_eta2()`](https://easystats.github.io/effectsize/reference/eta2_to_f2.md))
+gives the rounded `"cohen1992"` cutoffs below.
 
 \
 [`interpret_omega_squared`](https://easystats.github.io/effectsize/reference/interpret_omega_squared.md)`(``x``, rules ``=`` ``"cohen1992"``)`
@@ -333,6 +336,15 @@ Epsilon Squared in a multi-way ANOVA.
 - **0.13 \<= ES \< 0.26** - Medium
 
 - **ES \>= 0.26** - Large
+
+Row 7 gives separate one-way ANOVA benchmarks of f = 0.10, 0.25, and
+0.40. Squaring these values and applying the same conversion gives
+rounded eta-squared benchmarks of 0.01, 0.06, and 0.14. Applying either
+set of cutoffs to rank epsilon squared from a Kruskal-Wallis test is a
+descriptive heuristic.
+
+\
+[`interpret_cohens_f`](https://easystats.github.io/effectsize/reference/interpret_omega_squared.md)`(``x``, rules ``=`` ``"cohen1992r7"``)`
 
 ### Kendall’s coefficient of concordance
 

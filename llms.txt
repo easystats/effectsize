@@ -503,6 +503,7 @@ sizes
 
 - [`rules()`](https://easystats.github.io/effectsize/reference/rules.md)
   [`is.rules()`](https://easystats.github.io/effectsize/reference/rules.md)
+  [`transform(`*`<rules>`*`)`](https://easystats.github.io/effectsize/reference/rules.md)
   : Create an Interpretation Grid
 
 - [`interpret_bf()`](https://easystats.github.io/effectsize/reference/interpret_bf.md)
@@ -554,6 +555,8 @@ sizes
   [`interpret_eta_squared()`](https://easystats.github.io/effectsize/reference/interpret_omega_squared.md)
   [`interpret_epsilon_squared()`](https://easystats.github.io/effectsize/reference/interpret_omega_squared.md)
   [`interpret_r2_semipartial()`](https://easystats.github.io/effectsize/reference/interpret_omega_squared.md)
+  [`interpret_cohens_f2()`](https://easystats.github.io/effectsize/reference/interpret_omega_squared.md)
+  [`interpret_cohens_f()`](https://easystats.github.io/effectsize/reference/interpret_omega_squared.md)
   : Interpret ANOVA Effect Sizes
 
 - [`interpret_p()`](https://easystats.github.io/effectsize/reference/interpret_p.md)

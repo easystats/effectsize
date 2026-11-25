@@ -141,9 +141,9 @@ eta_squared_posterior(
 - ss_function:
 
   For Bayesian models, the function used to extract sum-of-squares. Uses
-  [`anova()`](https://rdrr.io/r/stats/anova.html) by default, but can
-  also be [`car::Anova()`](https://rdrr.io/pkg/car/man/Anova.html) for
-  simple linear models.
+  [`stats::anova()`](https://rdrr.io/r/stats/anova.html) by default, but
+  can also be [`car::Anova()`](https://rdrr.io/pkg/car/man/Anova.html)
+  for simple linear models.
 
 - draws:
 

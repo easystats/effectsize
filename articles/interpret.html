@@ -418,7 +418,7 @@ Sánchez-Meca et al. 2003)</span>:</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="omega-eta-epsilon-squared">Omega / Eta / Epsilon Squared<a class="anchor" aria-label="anchor" href="#omega-eta-epsilon-squared"></a>
+<h3 id="omega-eta-epsilon-squared-and-cohens-f-squared">Omega / Eta / Epsilon Squared and Cohen’s f Squared<a class="anchor" aria-label="anchor" href="#omega-eta-epsilon-squared-and-cohens-f-squared"></a>
 </h3>
 <p>The Omega squared is a measure of effect size used in ANOVAs. It is
 an estimate of how much variance in the response variables are accounted
@@ -442,8 +442,11 @@ are small.</p>
 <h5 id="cohen1992power">
 <span class="citation">Cohen (1992)</span><a class="anchor" aria-label="anchor" href="#cohen1992power"></a>
 </h5>
-<p>These are applicable to one-way ANOVAs, or to <em>partial</em> Eta /
-Omega / Epsilon Squared in a multi-way ANOVA.</p>
+<p>Row 8 of Cohen’s Table 1 gives <span class="math inline">f^2</span>
+benchmarks of 0.02, 0.15, and 0.35 for multiple and multiple partial
+correlations. Applying <span class="math inline">R^2 = f^2 / (1 +
+f^2)</span> (<code><a href="../reference/eta2_to_f2.html">f2_to_eta2()</a></code>) gives the rounded
+<code>"cohen1992"</code> cutoffs below.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/interpret_omega_squared.html">interpret_omega_squared</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"cohen1992"</span><span class="op">)</span></span></code></pre></div>
 <ul>
@@ -452,6 +455,13 @@ Omega / Epsilon Squared in a multi-way ANOVA.</p>
 <li><p><strong>0.13 &lt;= ES &lt; 0.26</strong> - Medium</p></li>
 <li><p><strong>ES &gt;= 0.26</strong> - Large</p></li>
 </ul>
+<p>Row 7 gives separate one-way ANOVA benchmarks of <span class="math inline">f</span> = 0.10, 0.25, and 0.40. Squaring these
+values and applying the same conversion gives rounded eta-squared
+benchmarks of 0.01, 0.06, and 0.14. Applying either set of cutoffs to
+rank epsilon squared from a Kruskal-Wallis test is a descriptive
+heuristic.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/interpret_omega_squared.html">interpret_cohens_f</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"cohen1992r7"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -465,7 +475,7 @@ multiple raters.</p>
 <h5 id="landis1977measurement">
 <span class="citation">Landis and Koch (1977)</span><a class="anchor" aria-label="anchor" href="#landis1977measurement"></a>
 </h5>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/interpret_omega_squared.html">interpret_omega_squared</a></span><span class="op">(</span><span class="va">w</span>, rules <span class="op">=</span> <span class="st">"landis1977"</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>
@@ -492,7 +502,7 @@ second response) different than 50%?</p>
 <h5 id="cohen1988statistical-4">
 <span class="citation">Cohen (1988)</span><a class="anchor" aria-label="anchor" href="#cohen1988statistical-4"></a>
 </h5>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/interpret_cohens_g.html">interpret_cohens_g</a></span><span class="op">(</span><span class="va">x</span>, rules <span class="op">=</span> <span class="st">"cohen1988"</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li><p><strong>d &lt; 0.05</strong> - Very small</p></li>

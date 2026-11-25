@@ -10,6 +10,9 @@ conjunction with
 rules(values, labels = NULL, name = NULL, right = TRUE)
 
 is.rules(x)
+
+# S3 method for class 'rules'
+transform(`_data`, transform = "identity", new_name = NULL, ...)
 ```
 
 ## Arguments
@@ -39,6 +42,24 @@ is.rules(x)
 
   An arbitrary R object.
 
+- \_data:
+
+  A set of `rules`.
+
+- transform:
+
+  Transformation to apply to the rules' values.
+
+- new_name:
+
+  Name to give to the new rule. Defaults to `transform(old_name)`
+
+- ...:
+
+  Arguments passed to the `transform` function in
+  [`transform()`](https://rdrr.io/r/base/transform.html). Otherwise
+  ignored.
+
 ## See also
 
 [`interpret()`](https://easystats.github.io/effectsize/reference/interpret.md)
@@ -46,13 +67,6 @@ is.rules(x)
 ## Examples
 
 ``` r
-rules(c(0.05), c("significant", "not significant"), right = FALSE)
-#> # Reference Thresholds (Custom rules)
-#> 
-#>              Label            
-#> ------------------------------
-#>           significant   < 0.05
-#> 0.05 <= not significant       
 rules(c(0.2, 0.5, 0.8), c("small", "medium", "large"))
 #> # Reference Values (Custom rules)
 #> 
@@ -68,4 +82,23 @@ rules(c("small" = 0.2, "medium" = 0.5), name = "Cohen's Rules")
 #> ---------------
 #>  small ~ 0.2   
 #> medium ~ 0.5   
+
+(sig_rules <- rules(c(0.05), c("significant", "not significant"), right = FALSE))
+#> # Reference Thresholds (Custom rules)
+#> 
+#>              Label            
+#> ------------------------------
+#>           significant   < 0.05
+#> 0.05 <= not significant       
+
+# Convert the rules for p-values to the rules for S-values
+p_to_S <- function(p) -log2(p)
+transform(sig_rules, p_to_S)
+#> # Reference Thresholds (p_to_S(Custom rules))
+#> 
+#>             Label           
+#> ----------------------------
+#>          significant   < 4.3
+#> 4.3 <= not significant      
+
 ```
