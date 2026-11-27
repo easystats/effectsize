@@ -172,7 +172,7 @@ means_ratio <- function(
 
     out[["CI_low"]] <- interval[1]
     out[["CI_high"]] <- interval[2]
-    out <- .limit_ci(out, alternative, 0, Inf)
+    out <- .limit_ci(out, alternative, -Inf, Inf)
   } else {
     ci_method <- alternative <- NULL
   }
